@@ -617,23 +617,23 @@ if not getgenv().UE_LOADED then
                 end)
             end
             fn62("REQUEST_AND_CACHE", function(arg1, arg2, arg3)
-                local v351
-                local v352 = arg1:split("/")
-                v351 = v352[#v352]
+                local v350
+                local v351 = arg1:split("/")
+                v350 = v351[#v351]
                 if largeIntegrityRef + 3170 ~= 12565 then
                     while true do
                     end
                 end
-                local str11 = (arg3 or "unnamed/rivals/" .. "cache/") .. (arg2 or 1) .. "_" .. v351
+                local str11 = (arg3 or "unnamed/rivals/" .. "cache/") .. (arg2 or 1) .. "_" .. v350
                 if not isfile_(str11) then
-                    local ok5, v353 = pcall(game.HttpGet, game, arg1, true)
-                    local v354 = v353
-                    if not ok5 or not v354 or v354 == "" then
-                        game:GetService("Players").LocalPlayer:Kick("file '" .. v351 .. "' failed to load! please rejoin,\n if this reoccurs ping a developer.' ")
+                    local ok5, v352 = pcall(game.HttpGet, game, arg1, true)
+                    local v353 = v352
+                    if not ok5 or not v353 or v353 == "" then
+                        game:GetService("Players").LocalPlayer:Kick("file '" .. v350 .. "' failed to load! please rejoin,\n if this reoccurs ping a developer.' ")
                         return task.wait(9000000000)
                     end
-                    writefile_(str11, v354)
-                    return v354
+                    writefile_(str11, v353)
+                    return v353
                 end
                 return readfile_(str11)
             end)
@@ -649,32 +649,24 @@ if not getgenv().UE_LOADED then
                     makefolder(arg1)
                 end
             end)
-            -- decompiler: for-in init {"unnamed", "unnamed/rivals", "unnamed/core"}, nil, nil
-            while true do
-                -- decompiler: for-in step
-                local v348 = --[[forvar2]]nil
-                if --[[forok]]true then
-                    local v349 = v348
-                    if 9275 ~= integrityModuloRef(9325) then
-                        break
-                    end
-                    v347(v349, true)
-                else
-                    for _, v350 in {"cache", "fonts", "chat", "images", "sounds", "lua", "lua/configs", "lua/scripts"} do
-                        v347(v350)
-                    end
-                    if largeIntegrityRef - 2481 == 6914 then
-                        if not enabledRef or obj.isfile("images/ue.png") then
-                            writefile_("unnamed/core/ue.png", base64_decode("iVBORw0KGgoAAAANSUhEUgAAAEYAAABGCAYAAABxLuKEAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAF+SURBVHhe7dhBasJgEEBh9Qi68DpuPYMrL+up1LTT8S+DvNrkNykU3sBH4ZHEZGy7yOpzBiGMgqCEURCUMAqCEkZBUMIoCEoYBUEJoyAoYRQEJYyCoIRREJQwCoISxm7r9frbZrPBY16p5/+Gzp8Rxm7X63W43+9f9vs9HkPiQW+32zBlDocDXmsmGLvV2e12eMyzWEossk1b7Jih680EY7c6UxZD0xb0yoJ/Uhi71eldDB3zk3+5mO12i8c8e2cxC8LYrY6LKeq4mKKOiynquJiiTu9ixg5da0YYu9VZejExdL2ZYOxWx8UUdfwfU9RxMUUdF1PUcTFFHRdT1HExxfl8fjze30zP69ORMHaLb/90Oj1ue9rEQ8bLpykT58Rn0r28CWO3uMlwPB4ft/77xLvedm78HPvu93K5LLWUgLFbW0xDx4wx5tz22/LO57yAURCUMAqCEkZBUMIoCEoYBUEJoyAoYRQEJYyCoIRREJQwCoISRkFQwigIWq2GDzgG9aSy9o0SAAAAAElFTkSuQmCC"))
-                            return obj
-                        end
-                        obj.writefile("images/ue.png", base64_decode("iVBORw0KGgoAAAANSUhEUgAAAEYAAABGCAYAAABxLuKEAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAF+SURBVHhe7dhBasJgEEBh9Qi68DpuPYMrL+up1LTT8S+DvNrkNykU3sBH4ZHEZGy7yOpzBiGMgqCEURCUMAqCEkZBUMIoCEoYBUEJoyAoYRQEJYyCoIRREJQwCoISxm7r9frbZrPBY16p5/+Gzp8Rxm7X63W43+9f9vs9HkPiQW+32zBlDocDXmsmGLvV2e12eMyzWEossk1b7Jih680EY7c6UxZD0xb0yoJ/Uhi71eldDB3zk3+5mO12i8c8e2cxC8LYrY6LKeq4mKKOiynquJiiTu9ixg5da0YYu9VZejExdL2ZYOxWx8UUdfwfU9RxMUUdF1PUcTFFHRdT1HExxfl8fjze30zP69ORMHaLb/90Oj1ue9rEQ8bLpykT58Rn0r28CWO3uMlwPB4ft/77xLvedm78HPvu93K5LLWUgLFbW0xDx4wx5tz22/LO57yAURCUMAqCEkZBUMIoCEoYBUEJoyAoYRQEJYyCoIRREJQwCoISRkFQwigIWq2GDzgG9aSy9o0SAAAAAElFTkSuQmCC"))
-                        writefile_("unnamed/core/ue.png", base64_decode("iVBORw0KGgoAAAANSUhEUgAAAEYAAABGCAYAAABxLuKEAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAF+SURBVHhe7dhBasJgEEBh9Qi68DpuPYMrL+up1LTT8S+DvNrkNykU3sBH4ZHEZGy7yOpzBiGMgqCEURCUMAqCEkZBUMIoCEoYBUEJoyAoYRQEJYyCoIRREJQwCoISxm7r9frbZrPBY16p5/+Gzp8Rxm7X63W43+9f9vs9HkPiQW+32zBlDocDXmsmGLvV2e12eMyzWEossk1b7Jih680EY7c6UxZD0xb0yoJ/Uhi71eldDB3zk3+5mO12i8c8e2cxC8LYrY6LKeq4mKKOiynquJiiTu9ixg5da0YYu9VZejExdL2ZYOxWx8UUdfwfU9RxMUUdF1PUcTFFHRdT1HExxfl8fjze30zP69ORMHaLb/90Oj1ue9rEQ8bLpykT58Rn0r28CWO3uMlwPB4ft/77xLvedm78HPvu93K5LLWUgLFbW0xDx4wx5tz22/LO57yAURCUMAqCEkZBUMIoCEoYBUEJoyAoYRQEJYyCoIRREJQwCoISRkFQwigIWq2GDzgG9aSy9o0SAAAAAElFTkSuQmCC"))
-                        return obj
-                    end
+            for _, v348 in {"unnamed", "unnamed/rivals", "unnamed/core"} do
+                if 9275 ~= integrityModuloRef(9325) then
                     while true do
                     end
                 end
+                v347(v348, true)
+            end
+            for _, v349 in {"cache", "fonts", "chat", "images", "sounds", "lua", "lua/configs", "lua/scripts"} do
+                v347(v349)
+            end
+            if largeIntegrityRef - 2481 == 6914 then
+                if not enabledRef or obj.isfile("images/ue.png") then
+                    writefile_("unnamed/core/ue.png", base64_decode("iVBORw0KGgoAAAANSUhEUgAAAEYAAABGCAYAAABxLuKEAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAF+SURBVHhe7dhBasJgEEBh9Qi68DpuPYMrL+up1LTT8S+DvNrkNykU3sBH4ZHEZGy7yOpzBiGMgqCEURCUMAqCEkZBUMIoCEoYBUEJoyAoYRQEJYyCoIRREJQwCoISxm7r9frbZrPBY16p5/+Gzp8Rxm7X63W43+9f9vs9HkPiQW+32zBlDocDXmsmGLvV2e12eMyzWEossk1b7Jih680EY7c6UxZD0xb0yoJ/Uhi71eldDB3zk3+5mO12i8c8e2cxC8LYrY6LKeq4mKKOiynquJiiTu9ixg5da0YYu9VZejExdL2ZYOxWx8UUdfwfU9RxMUUdF1PUcTFFHRdT1HExxfl8fjze30zP69ORMHaLb/90Oj1ue9rEQ8bLpykT58Rn0r28CWO3uMlwPB4ft/77xLvedm78HPvu93K5LLWUgLFbW0xDx4wx5tz22/LO57yAURCUMAqCEkZBUMIoCEoYBUEJoyAoYRQEJYyCoIRREJQwCoISRkFQwigIWq2GDzgG9aSy9o0SAAAAAElFTkSuQmCC"))
+                    return obj
+                end
+                obj.writefile("images/ue.png", base64_decode("iVBORw0KGgoAAAANSUhEUgAAAEYAAABGCAYAAABxLuKEAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAF+SURBVHhe7dhBasJgEEBh9Qi68DpuPYMrL+up1LTT8S+DvNrkNykU3sBH4ZHEZGy7yOpzBiGMgqCEURCUMAqCEkZBUMIoCEoYBUEJoyAoYRQEJYyCoIRREJQwCoISxm7r9frbZrPBY16p5/+Gzp8Rxm7X63W43+9f9vs9HkPiQW+32zBlDocDXmsmGLvV2e12eMyzWEossk1b7Jih680EY7c6UxZD0xb0yoJ/Uhi71eldDB3zk3+5mO12i8c8e2cxC8LYrY6LKeq4mKKOiynquJiiTu9ixg5da0YYu9VZejExdL2ZYOxWx8UUdfwfU9RxMUUdF1PUcTFFHRdT1HExxfl8fjze30zP69ORMHaLb/90Oj1ue9rEQ8bLpykT58Rn0r28CWO3uMlwPB4ft/77xLvedm78HPvu93K5LLWUgLFbW0xDx4wx5tz22/LO57yAURCUMAqCEkZBUMIoCEoYBUEJoyAoYRQEJYyCoIRREJQwCoISRkFQwigIWq2GDzgG9aSy9o0SAAAAAElFTkSuQmCC"))
+                writefile_("unnamed/core/ue.png", base64_decode("iVBORw0KGgoAAAANSUhEUgAAAEYAAABGCAYAAABxLuKEAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAF+SURBVHhe7dhBasJgEEBh9Qi68DpuPYMrL+up1LTT8S+DvNrkNykU3sBH4ZHEZGy7yOpzBiGMgqCEURCUMAqCEkZBUMIoCEoYBUEJoyAoYRQEJYyCoIRREJQwCoISxm7r9frbZrPBY16p5/+Gzp8Rxm7X63W43+9f9vs9HkPiQW+32zBlDocDXmsmGLvV2e12eMyzWEossk1b7Jih680EY7c6UxZD0xb0yoJ/Uhi71eldDB3zk3+5mO12i8c8e2cxC8LYrY6LKeq4mKKOiynquJiiTu9ixg5da0YYu9VZejExdL2ZYOxWx8UUdfwfU9RxMUUdF1PUcTFFHRdT1HExxfl8fjze30zP69ORMHaLb/90Oj1ue9rEQ8bLpykT58Rn0r28CWO3uMlwPB4ft/77xLvedm78HPvu93K5LLWUgLFbW0xDx4wx5tz22/LO57yAURCUMAqCEkZBUMIoCEoYBUEJoyAoYRQEJYyCoIRREJQwCoISRkFQwigIWq2GDzgG9aSy9o0SAAAAAElFTkSuQmCC"))
+                return obj
             end
             while true do
             end
@@ -14241,1151 +14233,91 @@ if not getgenv().UE_LOADED then
                                     local v377 = nil
                                     local v378 = nil
                                     local v379 = nil
+                                    local v380 = nil
                                     local tbl62 = {}
-                                    -- decompiler: for-in init items2, nil, nil
-                                    local v380, v381, v382, v383, v384, v385, v386, v387, v388, v389, v390, v391, v392, v393, v394, v395, v396, v397, v398, v399, v400, v401, v402, v403
-                                    while true do
-                                        -- decompiler: for-in step
-                                        local v404 = --[[forvar2]]nil
-                                        if not --[[forok]]true then
-                                            break
-                                        end
-                                        local v405 = v404
-                                        local type_2 = v405.Info.Type
+                                    for _, v381 in items2 do
+                                        local type_2 = v381.Info.Type
                                         if type_2 == "Gun" then
-                                            while true do
-                                                local exitLoop = false
-                                                insert2(tbl62, v405)
-                                                while true do
-                                                    -- decompiler: for-in step
-                                                    local v406 = --[[forvar2]]nil
-                                                    if not --[[forok]]true then
-                                                        break
-                                                    end
-                                                    v405 = v406
-                                                    local type_3 = v405.Info.Type
-                                                    if type_3 == "Gun" then
-                                                        exitLoop = true
-                                                        break
-                                                    end
-                                                    if flag16 and v405.Name == "Knife" then
-                                                        v377 = true
-                                                        v379 = v405
-                                                        break
-                                                    end
-                                                    if type_3 == "Melee" then
-                                                        v379 = v405
-                                                        if flag17 then
-                                                            v378 = true
-                                                            break
-                                                        end
-                                                    end
-                                                end
-                                                if exitLoop then
-                                                    continue
-                                                end
-                                                break
-                                            end
-                                            if not v377 then
-                                                if not v378 then
-                                                    v380 = v365
-                                                    v381 = tbl62
-                                                    v382 = nil
-                                                    v383 = nil
-                                                    v384 = nil
-                                                    v385 = nil
-                                                    v386 = nil
-                                                    v387 = nil
-                                                    if not v380 then
-                                                        v388 = "invalid weapons for ragebot"
-                                                        v389 = ""
-                                                        if not indicator_ragebot.Value then
-                                                            v390 = v190
-                                                            v391 = n6
-                                                            v392 = nil
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v393 = indicator_ragebot_style.Value
-                                                        v394 = ""
-                                                        if v393.text then
-                                                            v389 = v189("ragebot text", "ragebot")
-                                                            v394 = v189("ragebot text", ": ")
-                                                            if not v393.status then
-                                                                if v389 == "" then
-                                                                    v390 = v190
-                                                                    v391 = n6
-                                                                    v392 = v384
-                                                                    if v392 then
-                                                                        v392 = v384.character
-                                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                        return true
-                                                                    end
-                                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                    return true
-                                                                end
-                                                                v389 = v389 .. "\n"
-                                                                v390 = v190
-                                                                v391 = n6
-                                                                v392 = v384
-                                                                if v392 then
-                                                                    v392 = v384.character
-                                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                    return true
-                                                                end
-                                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                return true
-                                                            end
-                                                            v389 = v389 .. v394 .. v189("ragebot status", v388 or "?")
-                                                            if v389 == "" then
-                                                                v390 = v190
-                                                                v391 = n6
-                                                                v392 = v384
-                                                                if v392 then
-                                                                    v392 = v384.character
-                                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                    return true
-                                                                end
-                                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                return true
-                                                            end
-                                                            v389 = v389 .. "\n"
-                                                            v390 = v190
-                                                            v391 = n6
-                                                            v392 = v384
-                                                            if v392 then
-                                                                v392 = v384.character
-                                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                return true
-                                                            end
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        if not v393.status then
-                                                            v390 = v190
-                                                            v391 = n6
-                                                            v392 = nil
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v389 = v389 .. v394 .. v189("ragebot status", v388 or "?")
-                                                        if v389 == "" then
-                                                            v390 = v190
-                                                            v391 = n6
-                                                            v392 = v384
-                                                            if v392 then
-                                                                v392 = v384.character
-                                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                return true
-                                                            end
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v389 = v389 .. "\n"
-                                                        v390 = v190
-                                                        v391 = n6
-                                                        v392 = v384
-                                                        if v392 then
-                                                            v392 = v384.character
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v395 = duel_cache2.current
-                                                    v396 = v395 and v395.Data
-                                                    v397 = v396 and v396.Status
-                                                    if not v396 or v397 ~= "RoundStarted" then
-                                                        v388 = v380(v381, v382, v384, v385, arg1, v386, v383, v397)
-                                                        v389 = ""
-                                                        if not indicator_ragebot.Value then
-                                                            v390 = v190
-                                                            v391 = n6
-                                                            v392 = v384
-                                                            if v392 then
-                                                                v392 = v384.character
-                                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                return true
-                                                            end
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v393 = indicator_ragebot_style.Value
-                                                        v394 = ""
-                                                        if v393.text then
-                                                            v389 = v189("ragebot text", "ragebot")
-                                                            v394 = v189("ragebot text", ": ")
-                                                            if not v393.status then
-                                                                if v389 == "" then
-                                                                    v390 = v190
-                                                                    v391 = n6
-                                                                    v392 = v384
-                                                                    if v392 then
-                                                                        v392 = v384.character
-                                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                        return true
-                                                                    end
-                                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                    return true
-                                                                end
-                                                                v389 = v389 .. "\n"
-                                                                v390 = v190
-                                                                v391 = n6
-                                                                v392 = v384
-                                                                if v392 then
-                                                                    v392 = v384.character
-                                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                    return true
-                                                                end
-                                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                return true
-                                                            end
-                                                            v389 = v389 .. v394 .. v189("ragebot status", v388 or "?")
-                                                            if v389 == "" then
-                                                                v390 = v190
-                                                                v391 = n6
-                                                                v392 = v384
-                                                                if v392 then
-                                                                    v392 = v384.character
-                                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                    return true
-                                                                end
-                                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                return true
-                                                            end
-                                                            v389 = v389 .. "\n"
-                                                            v390 = v190
-                                                            v391 = n6
-                                                            v392 = v384
-                                                            if v392 then
-                                                                v392 = v384.character
-                                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                return true
-                                                            end
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        if not v393.status then
-                                                            v390 = v190
-                                                            v391 = n6
-                                                            v392 = v384
-                                                            if v392 then
-                                                                v392 = v384.character
-                                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                return true
-                                                            end
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v389 = v389 .. v394 .. v189("ragebot status", v388 or "?")
-                                                        if v389 == "" then
-                                                            v390 = v190
-                                                            v391 = n6
-                                                            v392 = v384
-                                                            if v392 then
-                                                                v392 = v384.character
-                                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                return true
-                                                            end
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v389 = v389 .. "\n"
-                                                        v390 = v190
-                                                        v391 = n6
-                                                        v392 = v384
-                                                        if v392 then
-                                                            v392 = v384.character
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v398, v399, v400, v401, v402, v403 = v366()
-                                                    v382 = v398
-                                                    v383 = v399
-                                                    v384 = v400
-                                                    v385 = v401
-                                                    v386 = v402
-                                                    v387 = v403
-                                                    v388 = v380(v381, v382, v384, v385, arg1, v386, v383, v397)
-                                                    v389 = ""
-                                                    if not indicator_ragebot.Value then
-                                                        v390 = v190
-                                                        v391 = n6
-                                                        v392 = v384
-                                                        if v392 then
-                                                            v392 = v384.character
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v393 = indicator_ragebot_style.Value
-                                                    v394 = ""
-                                                    if v393.text then
-                                                        v389 = v189("ragebot text", "ragebot")
-                                                        v394 = v189("ragebot text", ": ")
-                                                        if not v393.status then
-                                                            if v389 == "" then
-                                                                v390 = v190
-                                                                v391 = n6
-                                                                v392 = v384
-                                                                if v392 then
-                                                                    v392 = v384.character
-                                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                    return true
-                                                                end
-                                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                return true
-                                                            end
-                                                            v389 = v389 .. "\n"
-                                                            v390 = v190
-                                                            v391 = n6
-                                                            v392 = v384
-                                                            if v392 then
-                                                                v392 = v384.character
-                                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                return true
-                                                            end
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v389 = v389 .. v394 .. v189("ragebot status", v388 or "?")
-                                                        if v389 == "" then
-                                                            v390 = v190
-                                                            v391 = n6
-                                                            v392 = v384
-                                                            if v392 then
-                                                                v392 = v384.character
-                                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                return true
-                                                            end
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v389 = v389 .. "\n"
-                                                        v390 = v190
-                                                        v391 = n6
-                                                        v392 = v384
-                                                        if v392 then
-                                                            v392 = v384.character
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    if not v393.status then
-                                                        v390 = v190
-                                                        v391 = n6
-                                                        v392 = v384
-                                                        if v392 then
-                                                            v392 = v384.character
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v389 = v389 .. v394 .. v189("ragebot status", v388 or "?")
-                                                    if v389 == "" then
-                                                        v390 = v190
-                                                        v391 = n6
-                                                        v392 = v384
-                                                        if v392 then
-                                                            v392 = v384.character
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v389 = v389 .. "\n"
-                                                    v390 = v190
-                                                    v391 = n6
-                                                    v392 = v384
-                                                    if v392 then
-                                                        v392 = v384.character
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                    return true
-                                                end
-                                                v380 = v363
-                                                v381 = v379
-                                                v382 = nil
-                                                v383 = nil
-                                                v384 = nil
-                                                v385 = nil
-                                                v386 = nil
-                                                v387 = nil
-                                                if not v380 then
-                                                    v388 = "invalid weapons for ragebot"
-                                                    v389 = ""
-                                                    if not indicator_ragebot.Value then
-                                                        v390 = v190
-                                                        v391 = n6
-                                                        v392 = nil
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v393 = indicator_ragebot_style.Value
-                                                    v394 = ""
-                                                    if v393.text then
-                                                        v389 = v189("ragebot text", "ragebot")
-                                                        v394 = v189("ragebot text", ": ")
-                                                        if not v393.status then
-                                                            if v389 == "" then
-                                                                v390 = v190
-                                                                v391 = n6
-                                                                v392 = v384
-                                                                if v392 then
-                                                                    v392 = v384.character
-                                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                    return true
-                                                                end
-                                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                return true
-                                                            end
-                                                            v389 = v389 .. "\n"
-                                                            v390 = v190
-                                                            v391 = n6
-                                                            v392 = v384
-                                                            if v392 then
-                                                                v392 = v384.character
-                                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                return true
-                                                            end
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v389 = v389 .. v394 .. v189("ragebot status", v388 or "?")
-                                                        if v389 == "" then
-                                                            v390 = v190
-                                                            v391 = n6
-                                                            v392 = v384
-                                                            if v392 then
-                                                                v392 = v384.character
-                                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                return true
-                                                            end
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v389 = v389 .. "\n"
-                                                        v390 = v190
-                                                        v391 = n6
-                                                        v392 = v384
-                                                        if v392 then
-                                                            v392 = v384.character
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    if not v393.status then
-                                                        v390 = v190
-                                                        v391 = n6
-                                                        v392 = nil
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v389 = v389 .. v394 .. v189("ragebot status", v388 or "?")
-                                                    if v389 == "" then
-                                                        v390 = v190
-                                                        v391 = n6
-                                                        v392 = v384
-                                                        if v392 then
-                                                            v392 = v384.character
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v389 = v389 .. "\n"
-                                                    v390 = v190
-                                                    v391 = n6
-                                                    v392 = v384
-                                                    if v392 then
-                                                        v392 = v384.character
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                    return true
-                                                end
-                                                v395 = duel_cache2.current
-                                                v396 = v395 and v395.Data
-                                                v397 = v396 and v396.Status
-                                                if not v396 or v397 ~= "RoundStarted" then
-                                                    v388 = v380(v381, v382, v384, v385, arg1, v386, v383, v397)
-                                                    v389 = ""
-                                                    if not indicator_ragebot.Value then
-                                                        v390 = v190
-                                                        v391 = n6
-                                                        v392 = v384
-                                                        if v392 then
-                                                            v392 = v384.character
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v393 = indicator_ragebot_style.Value
-                                                    v394 = ""
-                                                    if v393.text then
-                                                        v389 = v189("ragebot text", "ragebot")
-                                                        v394 = v189("ragebot text", ": ")
-                                                        if not v393.status then
-                                                            if v389 == "" then
-                                                                v390 = v190
-                                                                v391 = n6
-                                                                v392 = v384
-                                                                if v392 then
-                                                                    v392 = v384.character
-                                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                    return true
-                                                                end
-                                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                return true
-                                                            end
-                                                            v389 = v389 .. "\n"
-                                                            v390 = v190
-                                                            v391 = n6
-                                                            v392 = v384
-                                                            if v392 then
-                                                                v392 = v384.character
-                                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                return true
-                                                            end
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v389 = v389 .. v394 .. v189("ragebot status", v388 or "?")
-                                                        if v389 == "" then
-                                                            v390 = v190
-                                                            v391 = n6
-                                                            v392 = v384
-                                                            if v392 then
-                                                                v392 = v384.character
-                                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                return true
-                                                            end
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v389 = v389 .. "\n"
-                                                        v390 = v190
-                                                        v391 = n6
-                                                        v392 = v384
-                                                        if v392 then
-                                                            v392 = v384.character
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    if not v393.status then
-                                                        v390 = v190
-                                                        v391 = n6
-                                                        v392 = v384
-                                                        if v392 then
-                                                            v392 = v384.character
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v389 = v389 .. v394 .. v189("ragebot status", v388 or "?")
-                                                    if v389 == "" then
-                                                        v390 = v190
-                                                        v391 = n6
-                                                        v392 = v384
-                                                        if v392 then
-                                                            v392 = v384.character
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v389 = v389 .. "\n"
-                                                    v390 = v190
-                                                    v391 = n6
-                                                    v392 = v384
-                                                    if v392 then
-                                                        v392 = v384.character
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                    return true
-                                                end
-                                                v398, v399, v400, v401, v402, v403 = v366()
-                                                v382 = v398
-                                                v383 = v399
-                                                v384 = v400
-                                                v385 = v401
-                                                v386 = v402
-                                                v387 = v403
-                                                v388 = v380(v381, v382, v384, v385, arg1, v386, v383, v397)
-                                                v389 = ""
-                                                if not indicator_ragebot.Value then
-                                                    v390 = v190
-                                                    v391 = n6
-                                                    v392 = v384
-                                                    if v392 then
-                                                        v392 = v384.character
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                    return true
-                                                end
-                                                v393 = indicator_ragebot_style.Value
-                                                v394 = ""
-                                                if v393.text then
-                                                    v389 = v189("ragebot text", "ragebot")
-                                                    v394 = v189("ragebot text", ": ")
-                                                    if not v393.status then
-                                                        if v389 == "" then
-                                                            v390 = v190
-                                                            v391 = n6
-                                                            v392 = v384
-                                                            if v392 then
-                                                                v392 = v384.character
-                                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                return true
-                                                            end
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v389 = v389 .. "\n"
-                                                        v390 = v190
-                                                        v391 = n6
-                                                        v392 = v384
-                                                        if v392 then
-                                                            v392 = v384.character
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v389 = v389 .. v394 .. v189("ragebot status", v388 or "?")
-                                                    if v389 == "" then
-                                                        v390 = v190
-                                                        v391 = n6
-                                                        v392 = v384
-                                                        if v392 then
-                                                            v392 = v384.character
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v389 = v389 .. "\n"
-                                                    v390 = v190
-                                                    v391 = n6
-                                                    v392 = v384
-                                                    if v392 then
-                                                        v392 = v384.character
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                    return true
-                                                end
-                                                if not v393.status then
-                                                    v390 = v190
-                                                    v391 = n6
-                                                    v392 = v384
-                                                    if v392 then
-                                                        v392 = v384.character
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                    return true
-                                                end
-                                                v389 = v389 .. v394 .. v189("ragebot status", v388 or "?")
-                                                if v389 == "" then
-                                                    v390 = v190
-                                                    v391 = n6
-                                                    v392 = v384
-                                                    if v392 then
-                                                        v392 = v384.character
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                    return true
-                                                end
-                                                v389 = v389 .. "\n"
-                                                v390 = v190
-                                                v391 = n6
-                                                v392 = v384
-                                                if v392 then
-                                                    v392 = v384.character
-                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                    return true
-                                                end
-                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                return true
-                                            end
-                                            v380 = v359
-                                            v381 = v379
-                                            v382 = nil
-                                            v383 = nil
-                                            v384 = nil
-                                            v385 = nil
-                                            v386 = nil
-                                            v387 = nil
-                                            if not v380 then
-                                                v388 = "invalid weapons for ragebot"
-                                                v389 = ""
-                                                if not indicator_ragebot.Value then
-                                                    v390 = v190
-                                                    v391 = n6
-                                                    v392 = nil
-                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                    return true
-                                                end
-                                                v393 = indicator_ragebot_style.Value
-                                                v394 = ""
-                                                if v393.text then
-                                                    v389 = v189("ragebot text", "ragebot")
-                                                    v394 = v189("ragebot text", ": ")
-                                                    if not v393.status then
-                                                        if v389 == "" then
-                                                            v390 = v190
-                                                            v391 = n6
-                                                            v392 = v384
-                                                            if v392 then
-                                                                v392 = v384.character
-                                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                return true
-                                                            end
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v389 = v389 .. "\n"
-                                                        v390 = v190
-                                                        v391 = n6
-                                                        v392 = v384
-                                                        if v392 then
-                                                            v392 = v384.character
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v389 = v389 .. v394 .. v189("ragebot status", v388 or "?")
-                                                    if v389 == "" then
-                                                        v390 = v190
-                                                        v391 = n6
-                                                        v392 = v384
-                                                        if v392 then
-                                                            v392 = v384.character
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v389 = v389 .. "\n"
-                                                    v390 = v190
-                                                    v391 = n6
-                                                    v392 = v384
-                                                    if v392 then
-                                                        v392 = v384.character
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                    return true
-                                                end
-                                                if not v393.status then
-                                                    v390 = v190
-                                                    v391 = n6
-                                                    v392 = nil
-                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                    return true
-                                                end
-                                                v389 = v389 .. v394 .. v189("ragebot status", v388 or "?")
-                                                if v389 == "" then
-                                                    v390 = v190
-                                                    v391 = n6
-                                                    v392 = v384
-                                                    if v392 then
-                                                        v392 = v384.character
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                    return true
-                                                end
-                                                v389 = v389 .. "\n"
-                                                v390 = v190
-                                                v391 = n6
-                                                v392 = v384
-                                                if v392 then
-                                                    v392 = v384.character
-                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                    return true
-                                                end
-                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                return true
-                                            end
-                                            v395 = duel_cache2.current
-                                            v396 = v395 and v395.Data
-                                            v397 = v396 and v396.Status
-                                            if not v396 or v397 ~= "RoundStarted" then
-                                                v388 = v380(v381, v382, v384, v385, arg1, v386, v383, v397)
-                                                v389 = ""
-                                                if not indicator_ragebot.Value then
-                                                    v390 = v190
-                                                    v391 = n6
-                                                    v392 = v384
-                                                    if v392 then
-                                                        v392 = v384.character
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                    return true
-                                                end
-                                                v393 = indicator_ragebot_style.Value
-                                                v394 = ""
-                                                if v393.text then
-                                                    v389 = v189("ragebot text", "ragebot")
-                                                    v394 = v189("ragebot text", ": ")
-                                                    if not v393.status then
-                                                        if v389 == "" then
-                                                            v390 = v190
-                                                            v391 = n6
-                                                            v392 = v384
-                                                            if v392 then
-                                                                v392 = v384.character
-                                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                                return true
-                                                            end
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v389 = v389 .. "\n"
-                                                        v390 = v190
-                                                        v391 = n6
-                                                        v392 = v384
-                                                        if v392 then
-                                                            v392 = v384.character
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v389 = v389 .. v394 .. v189("ragebot status", v388 or "?")
-                                                    if v389 == "" then
-                                                        v390 = v190
-                                                        v391 = n6
-                                                        v392 = v384
-                                                        if v392 then
-                                                            v392 = v384.character
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v389 = v389 .. "\n"
-                                                    v390 = v190
-                                                    v391 = n6
-                                                    v392 = v384
-                                                    if v392 then
-                                                        v392 = v384.character
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                    return true
-                                                end
-                                                if not v393.status then
-                                                    v390 = v190
-                                                    v391 = n6
-                                                    v392 = v384
-                                                    if v392 then
-                                                        v392 = v384.character
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                    return true
-                                                end
-                                                v389 = v389 .. v394 .. v189("ragebot status", v388 or "?")
-                                                if v389 == "" then
-                                                    v390 = v190
-                                                    v391 = n6
-                                                    v392 = v384
-                                                    if v392 then
-                                                        v392 = v384.character
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                    return true
-                                                end
-                                                v389 = v389 .. "\n"
-                                                v390 = v190
-                                                v391 = n6
-                                                v392 = v384
-                                                if v392 then
-                                                    v392 = v384.character
-                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                    return true
-                                                end
-                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                return true
-                                            end
-                                            v398, v399, v400, v401, v402, v403 = v366()
-                                            v382 = v398
-                                            v383 = v399
-                                            v384 = v400
-                                            v385 = v401
-                                            v386 = v402
-                                            v387 = v403
-                                            v388 = v380(v381, v382, v384, v385, arg1, v386, v383, v397)
-                                            v389 = ""
-                                            if not indicator_ragebot.Value then
-                                                v390 = v190
-                                                v391 = n6
-                                                v392 = v384
-                                                if v392 then
-                                                    v392 = v384.character
-                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                    return true
-                                                end
-                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                return true
-                                            end
-                                            v393 = indicator_ragebot_style.Value
-                                            v394 = ""
-                                            if v393.text then
-                                                v389 = v189("ragebot text", "ragebot")
-                                                v394 = v189("ragebot text", ": ")
-                                                if not v393.status then
-                                                    if v389 == "" then
-                                                        v390 = v190
-                                                        v391 = n6
-                                                        v392 = v384
-                                                        if v392 then
-                                                            v392 = v384.character
-                                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                            return true
-                                                        end
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v389 = v389 .. "\n"
-                                                    v390 = v190
-                                                    v391 = n6
-                                                    v392 = v384
-                                                    if v392 then
-                                                        v392 = v384.character
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                    return true
-                                                end
-                                                v389 = v389 .. v394 .. v189("ragebot status", v388 or "?")
-                                                if v389 == "" then
-                                                    v390 = v190
-                                                    v391 = n6
-                                                    v392 = v384
-                                                    if v392 then
-                                                        v392 = v384.character
-                                                        v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                        return true
-                                                    end
-                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                    return true
-                                                end
-                                                v389 = v389 .. "\n"
-                                                v390 = v190
-                                                v391 = n6
-                                                v392 = v384
-                                                if v392 then
-                                                    v392 = v384.character
-                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                    return true
-                                                end
-                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                return true
-                                            end
-                                            if not v393.status then
-                                                v390 = v190
-                                                v391 = n6
-                                                v392 = v384
-                                                if v392 then
-                                                    v392 = v384.character
-                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                    return true
-                                                end
-                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                return true
-                                            end
-                                            v389 = v389 .. v394 .. v189("ragebot status", v388 or "?")
-                                            if v389 == "" then
-                                                v390 = v190
-                                                v391 = n6
-                                                v392 = v384
-                                                if v392 then
-                                                    v392 = v384.character
-                                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                    return true
-                                                end
-                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                return true
-                                            end
-                                            v389 = v389 .. "\n"
-                                            v390 = v190
-                                            v391 = n6
-                                            v392 = v384
-                                            if v392 then
-                                                v392 = v384.character
-                                                v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                                return true
-                                            end
-                                            v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
-                                            return true
-                                        end
-                                        if flag16 and v405.Name == "Knife" then
+                                            insert2(tbl62, v381)
                                             v377 = true
-                                            v379 = v405
-                                            break
-                                        end
-                                        if type_2 == "Melee" then
-                                            v379 = v405
-                                            if flag17 then
+                                        else
+                                            if flag16 and v381.Name == "Knife" then
                                                 v378 = true
+                                                v380 = v381
                                                 break
                                             end
+                                            if type_2 == "Melee" then
+                                                v380 = v381
+                                                if flag17 then
+                                                    v379 = true
+                                                    break
+                                                end
+                                            end
                                         end
                                     end
-                                    v380 = nil
-                                    v381 = nil
-                                    if not v377 then
-                                        if v378 or v379 then
-                                            v380 = v363
-                                            v381 = v379
-                                        end
-                                    else
-                                        v380 = v359
-                                        v381 = v379
-                                    end
-                                    v382 = nil
-                                    v383 = nil
-                                    v384 = nil
-                                    v385 = nil
-                                    v386 = nil
-                                    v387 = nil
-                                    if not v380 then
-                                        v388 = "invalid weapons for ragebot"
-                                        v389 = ""
-                                        if not indicator_ragebot.Value then
-                                            v390 = v190
-                                            v391 = n6
-                                            v392 = nil
+                                    local v382 = nil
+                                    local v383 = nil
+                                    if not v378 then
+                                        if not v379 and (not v380 or v377) then
+                                            if v377 then
+                                                v382 = v365
+                                                v383 = tbl62
+                                            end
                                         else
-                                            v393 = indicator_ragebot_style.Value
-                                            v394 = ""
-                                            if v393.text then
-                                                v389 = v189("ragebot text", "ragebot")
-                                                v394 = v189("ragebot text", ": ")
-                                                if v393.status then
-                                                    v389 = v389 .. v394 .. v189("ragebot status", v388 or "?")
-                                                end
-                                                if v389 ~= "" then
-                                                    v389 = v389 .. "\n"
-                                                end
-                                                v390 = v190
-                                                v391 = n6
-                                                v392 = v384
-                                                if v392 then
-                                                    v392 = v384.character
-                                                end
-                                            elseif not v393.status then
-                                                v390 = v190
-                                                v391 = n6
-                                                v392 = nil
-                                            else
-                                                v389 = v389 .. v394 .. v189("ragebot status", v388 or "?")
-                                                if v389 ~= "" then
-                                                    v389 = v389 .. "\n"
-                                                end
-                                                v390 = v190
-                                                v391 = n6
-                                                v392 = v384
-                                                if v392 then
-                                                    v392 = v384.character
-                                                end
-                                            end
+                                            v382 = v363
+                                            v383 = v380
                                         end
                                     else
-                                        v395 = duel_cache2.current
-                                        v396 = v395 and v395.Data
-                                        v397 = v396 and v396.Status
-                                        if v396 and v397 == "RoundStarted" then
-                                            v398, v399, v400, v401, v402, v403 = v366()
-                                            v382 = v398
-                                            v383 = v399
-                                            v384 = v400
-                                            v385 = v401
-                                            v386 = v402
-                                            v387 = v403
+                                        v382 = v359
+                                        v383 = v380
+                                    end
+                                    local v384 = nil
+                                    local v385 = nil
+                                    local v386 = nil
+                                    local v387 = nil
+                                    local v388 = nil
+                                    local v389 = nil
+                                    local v390
+                                    if not v382 then
+                                        v390 = "invalid weapons for ragebot"
+                                    else
+                                        local v391
+                                        local current = duel_cache2.current
+                                        v391 = current and current.Data
+                                        local v392 = v391 and v391.Status
+                                        if v391 and v392 == "RoundStarted" then
+                                            local v393, v394, v395, v396, v397, v398 = v366()
+                                            v384 = v393
+                                            v385 = v394
+                                            v386 = v395
+                                            v387 = v396
+                                            v388 = v397
+                                            v389 = v398
                                         end
-                                        v388 = v380(v381, v382, v384, v385, arg1, v386, v383, v397)
-                                        v389 = ""
-                                        if indicator_ragebot.Value then
-                                            v393 = indicator_ragebot_style.Value
-                                            v394 = ""
-                                            if v393.text then
-                                                v389 = v189("ragebot text", "ragebot")
-                                                v394 = v189("ragebot text", ": ")
-                                                if v393.status then
-                                                    v389 = v389 .. v394 .. v189("ragebot status", v388 or "?")
-                                                end
-                                                if v389 ~= "" then
-                                                    v389 = v389 .. "\n"
-                                                end
-                                            elseif v393.status then
-                                                v389 = v389 .. v394 .. v189("ragebot status", v388 or "?")
-                                                if v389 ~= "" then
-                                                    v389 = v389 .. "\n"
-                                                end
-                                            end
+                                        v390 = v382(v383, v384, v386, v387, arg1, v388, v385, v392)
+                                    end
+                                    local str11 = ""
+                                    if indicator_ragebot.Value then
+                                        local value59 = indicator_ragebot_style.Value
+                                        local str12 = ""
+                                        if value59.text then
+                                            str11 = v189("ragebot text", "ragebot")
+                                            str12 = v189("ragebot text", ": ")
                                         end
-                                        v390 = v190
-                                        v391 = n6
-                                        v392 = v384
-                                        if v392 then
-                                            v392 = v384.character
+                                        if value59.status then
+                                            str11 = str11 .. str12 .. v189("ragebot status", v390 or "?")
+                                        end
+                                        if str11 ~= "" then
+                                            str11 = str11 .. "\n"
                                         end
                                     end
-                                    v390(v391, v392, v382, nil, false, v389, v385, v387, "ragebot")
+                                    local v399 = v190
+                                    local v400 = n6
+                                    local v401 = v386
+                                    if v401 then
+                                        v401 = v386.character
+                                    end
+                                    v399(v400, v401, v384, nil, false, str11, v387, v389, "ragebot")
                                     return true
                                 end
                             end

@@ -60,6 +60,13 @@ Luau's 200-local limit), `constfold.py` (encrypted constants),
   (710 references) and removed the deep `do` nesting (maximum indentation 496 -> 72 columns).
 * Numeric `for` loops whose body uses the counter directly are recognised (16 more loops).
 
+* Generic `for` loops whose iterator check reads `if ok then BODY else EXIT end`, or whose
+  exit spins forever (`while true do end`), are recognised; no `-- decompiler:` notes remain.
+* Specialised interpreter templates can keep program variables in interpreter locals. When
+  treating such locals as data removes at least 20% of the duplicated blocks, the lifter now
+  accepts it even though the locals become variables in the output: the ragebot weapon
+  selection (proto 4320) shrank from 1,160 tangled lines to 100.
+
 ## Verification (`oracle/`)
 
 The original script (with its Luraph VM) and the decompiled file are run under the same
@@ -106,5 +113,4 @@ Current result:
   Most are Luraph's decoy filler. A few hold loader code (Luarmor flags such as
   `is_from_loader`, executor checks such as `KRNL_LOADED`, a hardware-ID routine) that is
   not reachable in this build.
-* A handful of functions still contain a `-- decompiler:` note where a generic `for` loop
-  was not recovered, and a few loops use `exitLoop` flags for multi-level breaks.
+* One loop uses an `exitLoop` flag for a two-level break (Lua has no multi-level `break`).

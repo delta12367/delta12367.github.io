@@ -1532,7 +1532,10 @@ class Lifter:
                         scan(st)
                 if p[3][0] != "goto":
                     scan(p[3])
-        if leak:
+        if leak and len(r3["blocks"]) > 0.8 * len(res["blocks"]):
+            # in specialised templates interpreter locals can hold program variables (a flag set
+            # inside a loop): then the generalised local is a real variable, and the retry pays off
+            # by removing the unrolled copies. Small gains are not worth the extra variables.
             if verbose:
                 print("  data retry rejected: generalised locals leak", leak[:3], flush=True)
             return res

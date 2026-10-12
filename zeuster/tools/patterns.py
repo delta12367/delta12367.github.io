@@ -310,11 +310,16 @@ def match_fornum_dyn(block, i, cnt):
     return sorted(drop), var, start, limit, step, rest
 
 
+def is_spin(s):
+    """`while true do ... end` without a break of its own: never falls through"""
+    return s[0] == "while" and s[1] == ("k", True) and not has_loop_jump(s[2], ("break",))
+
+
 def ends_jump(stmts):
     if not stmts:
         return False
     k = stmts[-1][0]
-    if k in ("return", "error", "break", "continue", "goto"):
+    if k in ("return", "error", "break", "continue", "goto") or is_spin(stmts[-1]):
         return True
     if k == "if":
         return bool(stmts[-1][3]) and ends_jump(stmts[-1][2]) and ends_jump(stmts[-1][3])
@@ -326,7 +331,7 @@ def ends_exit(stmts):
     if not stmts:
         return False
     k = stmts[-1][0]
-    if k in ("return", "error"):
+    if k in ("return", "error") or is_spin(stmts[-1]):
         return True
     if k == "if":
         return bool(stmts[-1][3]) and ends_exit(stmts[-1][2]) and ends_exit(stmts[-1][3])
@@ -396,6 +401,11 @@ def match_forin(block, i, cnt):
             vars_[sj[1][2][2]] = sj[1][1][1]
             j += 1
             continue
+        if saw_next and not saw_check and sj[0] == "if" and sj[3] and sj[1] == ("fgok", fid) and \
+                j == len(body) - 1 and ends_jump(sj[3]):
+            # `if ok then BODY else EXIT end` == `if not ok then EXIT end; BODY`
+            body = body[:j] + [("if", notok, list(sj[3]), [])] + list(sj[2])
+            continue
         if saw_next and not saw_check and sj[0] == "if" and not sj[3] and sj[1] == notok:
             if sj[2] == [("break",)]:
                 saw_check = True
@@ -403,6 +413,8 @@ def match_forin(block, i, cnt):
                 continue
             if ends_jump(sj[2]) and not has_loop_jump(sj[2][:-1]):
                 last = sj[2][-1][0]
+                if is_spin(sj[2][-1]):
+                    last = "error"
                 if last in ("return", "error") and not has_loop_jump(sj[2]):
                     exit_stmts = ("exit", sj[2])
                 elif last == "break":
