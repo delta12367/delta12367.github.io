@@ -5450,7 +5450,476 @@ if not getgenv().UE_LOADED then
                         end)()
                         return slider
                     end
-                    tbl9.AddDropdown = function(...) --[[decompile failed for proto 404]] end
+                    tbl9.AddDropdown = function(arg1, arg2, arg3)
+                        if arg3.SpecialType == "Player" then
+                            arg3.Values = v39()
+                            arg3.AllowNull = true
+                        elseif arg3.SpecialType == "Team" then
+                            arg3.Values = v40()
+                            arg3.AllowNull = true
+                        end
+                        assert(arg3.Values, "AddDropdown: Missing dropdown value list.")
+                        assert(arg3.AllowNull or arg3.Default, "AddDropdown: Missing default value. Pass `AllowNull` as true if this was intentional.")
+                        if not arg3.Text then
+                            arg3.Compact = true
+                        end
+                        local tbl58 = {}
+                        local dropdown = {
+                            Illegal = arg3.Illegal,
+                            Values = arg3.Values,
+                            Value = arg3.Multi and {},
+                            Multi = arg3.Multi,
+                            Type = "Dropdown",
+                            SpecialType = arg3.SpecialType,
+                            Callback = arg3.Callback or function(arg12) end,
+                            Idx = arg2,
+                        }
+                        local v216 = arg1
+                        local container = v216.Container
+                        local num7 = 0
+                        if not arg3.Compact then
+                            table.insert(tbl58, uiLibrary:CreateLabel({
+                                Size = UDim2.new(1, 0, 0, 10),
+                                TextSize = 14,
+                                Text = arg3.Text,
+                                TextXAlignment = Enum.TextXAlignment.Left,
+                                TextYAlignment = Enum.TextYAlignment.Bottom,
+                                ZIndex = 5,
+                                ClipsDescendants = false,
+                                Parent = container,
+                            }))
+                            table.insert(tbl58, v216:AddBlank(3))
+                        end
+                        local next_2 = next
+                        local v217, v218 = container:GetChildren()
+                        for _, v219 in next_2, v217, v218 do
+                            if not v219:IsA("UIListLayout") then
+                                num7 = num7 + v219.Size.Y.Offset
+                            end
+                        end
+                        local obj = uiLibrary:Create(frameClassRef, {
+                            BackgroundColor3 = Color3.new(0, 0, 0),
+                            BorderColor3 = Color3.new(0, 0, 0),
+                            Size = UDim2.new(1, -4, 0, 20),
+                            ZIndex = 5,
+                            Parent = container,
+                        })
+                        uiLibrary:AddToRegistry(obj, {BorderColor3 = "Black"})
+                        local obj2 = uiLibrary:Create(frameClassRef, {
+                            BackgroundColor3 = uiLibrary.MainColor,
+                            BorderColor3 = uiLibrary.OutlineColor,
+                            BorderMode = Enum.BorderMode.Inset,
+                            Size = UDim2.new(1, 0, 1, 0),
+                            ZIndex = 6,
+                            Parent = obj,
+                        })
+                        uiLibrary:AddToRegistry(obj2, {BackgroundColor3 = "MainColor", BorderColor3 = outlineColorNameRef})
+                        local v220 = uiLibrary
+                        local create2 = v220.Create
+                        local tbl59 = {}
+                        local new10 = ColorSequence.new
+                        local tbl60 = {
+                            ColorSequenceKeypoint.new(0, Color3.new(1, 1, 1)),
+                            ColorSequenceKeypoint.new(1, Color3.fromRGB(212, 212, 212)),
+                        }
+                        tbl59.Color = new10(tbl60)
+                        tbl59.Rotation = 90
+                        tbl59.Parent = obj2
+                        create2(v220, "UIGradient", tbl59)
+                        local v221 = uiLibrary:CreateLabel({
+                            AnchorPoint = Vector2.new(0, 0.5),
+                            Position = UDim2.new(1, -16, 0.5, 0),
+                            Size = UDim2.new(0, 12, 0, 12),
+                            BackgroundTransparency = 1,
+                            TextXAlignment = Enum.TextXAlignment.Center,
+                            ZIndex = 7,
+                            TextSize = 13,
+                            Text = ">",
+                            Parent = obj2,
+                        })
+                        local v223 = uiLibrary:CreateLabel({
+                            Position = UDim2.new(0, 5, 0, -1),
+                            Size = UDim2.new(1, -5, 1, 0),
+                            TextSize = 14,
+                            Text = "...",
+                            TextXAlignment = Enum.TextXAlignment.Left,
+                            TextWrapped = true,
+                            ZIndex = 7,
+                            Parent = obj2,
+                        })
+                        uiLibrary:OnHighlight(obj, obj, {BorderColor3 = outlineColorNameRef}, {BorderColor3 = "Black"})
+                        if typeof(arg3.Tooltip) == "string" then
+                            uiLibrary:AddToolTip(arg3.Tooltip, obj)
+                        end
+                        local obj3 = uiLibrary:Create(frameClassRef, {
+                            BackgroundColor3 = Color3.new(0, 0, 0),
+                            BorderColor3 = Color3.new(0, 0, 0),
+                            ZIndex = 20,
+                            Visible = false,
+                            Parent = screenGui3,
+                        });
+                        (function()
+                            local function value018()
+                                obj3.Position = UDim2.fromOffset(obj.AbsolutePosition.X, obj.AbsolutePosition.Y + obj.Size.Y.Offset + 1)
+                            end
+                            local function value019(value020)
+                                local value021 = value020 or math.clamp(#dropdown.Values * 20, 0, (8) * 20) + 1
+
+                                obj3.Size = UDim2.fromOffset(obj.AbsoluteSize.X + 0.5, value021)
+                            end
+
+                            value018()
+                            value019()
+                            obj:GetPropertyChangedSignal('AbsolutePosition'):Connect(value018)
+
+                            local value022 = uiLibrary:Create(frameClassRef, {
+                                BackgroundColor3 = uiLibrary.MainColor,
+                                BorderColor3 = uiLibrary.OutlineColor,
+                                BorderMode = Enum.BorderMode.Inset,
+                                BorderSizePixel = 0,
+                                Size = UDim2.new(1, 0, 1, 0),
+                                ZIndex = 21,
+                                Parent = obj3,
+                            })
+
+                            uiLibrary:AddToRegistry(value022, {
+                                BackgroundColor3 = 'MainColor',
+                                BorderColor3 = outlineColorNameRef,
+                            })
+
+                            local scrollingFrame = uiLibrary:Create('ScrollingFrame', {
+                                BackgroundTransparency = 1,
+                                BorderSizePixel = 0,
+                                CanvasSize = UDim2.new(0, 0, 0, 0),
+                                Size = UDim2.new(1, 0, 1, 0),
+                                ZIndex = 21,
+                                Parent = value022,
+                                TopImage = 'rbxasset://textures/ui/Scroll/scroll-middle.png',
+                                BottomImage = 'rbxasset://textures/ui/Scroll/scroll-middle.png',
+                                ScrollingDirection = Enum.ScrollingDirection.Y,
+                                ScrollBarThickness = uiLibrary.IsMobile and 15 or 3,
+                                ScrollBarImageColor3 = uiLibrary.AccentColor,
+                            })
+
+                            uiLibrary:AddToRegistry(scrollingFrame, {
+                                ScrollBarImageColor3 = 'AccentColor',
+                            })
+                            uiLibrary:Create('UIListLayout', {
+                                Padding = UDim.new(0, 0),
+                                FillDirection = Enum.FillDirection.Vertical,
+                                SortOrder = Enum.SortOrder.LayoutOrder,
+                                Parent = scrollingFrame,
+                            })
+
+                            function dropdown:Display()
+                                local values = dropdown.Values
+                                local value026 = ''
+
+                                if arg3.Multi then
+                                    for key, value in next, values do
+
+                                        if dropdown.Value[value] then
+                                            value026 = value026 .. value .. ', '
+                                        end
+                                    end
+
+                                    value026 = value026:sub(1, #value026 - 2)
+                                else
+                                    value026 = dropdown.Value or ''
+                                end
+
+                                v223.Text = value026 == '' and '...' or value026
+                            end
+                            function dropdown:GetActiveValues()
+                                if arg3.Multi then
+                                    local value030 = {}
+
+                                    for key2, value2 in next, dropdown.Value do
+                                        table.insert(value030, key2)
+                                    end
+
+                                    return value030
+                                else
+                                    return dropdown.Value and 1 or 0
+                                end
+                            end
+                            function dropdown:BuildDropdownList()
+                                local values2 = dropdown.Values
+                                local value035 = {}
+
+                                for key3, value3 in next, scrollingFrame:GetChildren()do
+
+                                    if not value3:IsA('UIListLayout') then
+                                        value3:Destroy()
+                                    end
+                                end
+
+                                local value038 = 0
+
+                                for key4, value4 in next, values2 do
+
+                                    local value041 = {}
+
+                                    value038 = value038 + 1
+
+                                    local imageButton = uiLibrary:Create('ImageButton', {
+                                        BackgroundColor3 = uiLibrary.MainColor,
+                                        BorderColor3 = uiLibrary.OutlineColor,
+                                        BorderMode = Enum.BorderMode.Middle,
+                                        Size = UDim2.new(1, -1, 0, 20),
+                                        ZIndex = 23,
+                                        Active = true,
+                                        Parent = scrollingFrame,
+                                        Image = '',
+                                        Active = false,
+                                        AutoButtonColor = false,
+                                    })
+
+                                    uiLibrary:AddToRegistry(imageButton, {
+                                        BackgroundColor3 = 'MainColor',
+                                        BorderColor3 = outlineColorNameRef,
+                                    })
+
+                                    local value043 = uiLibrary:CreateLabel({
+                                        Active = false,
+                                        Size = UDim2.new(1, -6, 1, 0),
+                                        Position = UDim2.new(0, 6, 0, 0),
+                                        TextSize = 14,
+                                        Text = value4,
+                                        TextXAlignment = Enum.TextXAlignment.Left,
+                                        ZIndex = 25,
+                                        Parent = imageButton,
+                                    })
+
+                                    uiLibrary:OnHighlight(imageButton, imageButton, {
+                                        BorderColor3 = outlineColorNameRef,
+                                        ZIndex = 24,
+                                    }, {
+                                        BorderColor3 = outlineColorNameRef,
+                                        ZIndex = 23,
+                                    })
+
+                                    local value044
+
+                                    if arg3.Multi then
+                                        value044 = dropdown.Value[value4]
+                                    else
+                                        value044 = dropdown.Value == value4
+                                    end
+
+                                    function value041:UpdateButton()
+                                        if arg3.Multi then
+                                            value044 = dropdown.Value[value4]
+                                        else
+                                            value044 = dropdown.Value == value4
+                                        end
+
+                                        value043.TextColor3 = value044 and uiLibrary.AccentColor or uiLibrary.FontColor
+                                        uiLibrary.RegistryMap[value043].Properties.TextColor3 = value044 and 'AccentColor' or 'FontColor'
+                                    end
+
+                                    value043.InputBegan:Connect(function(input)
+                                        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                                            local value047 = not value044
+
+                                            if dropdown:GetActiveValues() == 1 and not value047 and not arg3.AllowNull then
+                                            else
+                                                if arg3.Multi then
+                                                    value044 = value047
+
+                                                    if value044 then
+                                                        dropdown.Value[value4] = true
+                                                    else
+                                                        dropdown.Value[value4] = nil
+                                                    end
+                                                else
+                                                    value044 = value047
+
+                                                    if value044 then
+                                                        dropdown.Value = value4
+                                                    else
+                                                        dropdown.Value = nil
+                                                    end
+
+                                                    for key5, value5 in next, value035 do
+                                                        value5:UpdateButton()
+                                                    end
+                                                end
+
+                                                value041:UpdateButton()
+                                                dropdown:Display()
+                                                uiLibrary:UpdateDependencyBoxes()
+                                                uiLibrary:SafeCallback(dropdown.Callback, dropdown.Value)
+                                                uiLibrary:SafeCallback(dropdown.Changed, dropdown.Value)
+                                                uiLibrary:AttemptSave()
+                                            end
+                                        end
+                                    end)
+                                    value041:UpdateButton()
+
+                                    value035[imageButton] = value041
+                                end
+
+                                dropdown:Display()
+
+                                scrollingFrame.CanvasSize = UDim2.fromOffset(0, value038 * 20 + 1)
+                                scrollingFrame.Visible = false
+                                scrollingFrame.Visible = true
+
+                                local value050 = math.clamp(value038 * 20, 0, (8) * 20) + 1
+
+                                value019(value050)
+                            end
+                            function dropdown:SetValues(values3)
+                                if values3 then
+                                    dropdown.Values = values3
+                                end
+
+                                dropdown:BuildDropdownList()
+                            end
+                            function dropdown:OpenDropdown()
+                                if uiLibrary.IsMobile then
+                                    uiLibrary.CanDrag = false
+                                end
+
+                                obj3.Visible = true
+                                uiLibrary.OpenedFrames[obj3] = true
+                                v221.Rotation = 90
+
+                                value019()
+                            end
+                            function dropdown:CloseDropdown()
+                                if uiLibrary.IsMobile then
+                                    uiLibrary.CanDrag = true
+                                end
+
+                                obj3.Visible = false
+                                uiLibrary.OpenedFrames[obj3] = nil
+                                v221.Rotation = 0
+                            end
+                            function dropdown:OnChanged(callback)
+                                dropdown.Changed = callback
+
+                                callback(dropdown.Value)
+                            end
+                            function dropdown:SetValue(newValue)
+                                if dropdown.Multi then
+                                    local value059 = {}
+
+                                    for key6, value6 in next, newValue do
+
+                                        if dropdown.Illegal or table.find(dropdown.Values, key6) then
+                                            value059[key6] = true
+                                        end
+                                    end
+
+                                    dropdown.Value = value059
+                                elseif not newValue then
+                                    dropdown.Value = nil
+                                elseif dropdown.Illegal or table.find(dropdown.Values, newValue) then
+                                    dropdown.Value = newValue
+                                end
+
+                                dropdown:BuildDropdownList()
+                                uiLibrary:SafeCallback(dropdown.Callback, dropdown.Value)
+                                uiLibrary:SafeCallback(dropdown.Changed, dropdown.Value)
+                            end
+                            function dropdown:Remove()
+                                for key7, value7 in tbl58 do
+                                    value7:Destroy()
+                                end
+
+                                options[arg2] = nil
+
+                                obj:Destroy()
+                                table.clear(dropdown)
+                            end
+
+                            obj.InputBegan:Connect(function(input2)
+                                if uiLibrary.IsDragging then
+                                    return
+                                end
+                                if input2.UserInputType == Enum.UserInputType.MouseButton1 and not uiLibrary:MouseIsOverOpenedFrame() or input2.UserInputType == Enum.UserInputType.Touch then
+                                    if obj3.Visible then
+                                        dropdown:CloseDropdown()
+                                    else
+                                        dropdown:OpenDropdown()
+                                    end
+                                end
+                            end)
+                            userInputService.InputBegan:Connect(function(input3)
+                                if uiLibrary.IsDragging then
+                                    return
+                                end
+                                if input3.UserInputType == Enum.UserInputType.MouseButton1 or input3.UserInputType == Enum.UserInputType.Touch then
+                                    local absolutePosition, absoluteSize = obj3.AbsolutePosition, obj3.AbsoluteSize
+
+                                    if v35.X < absolutePosition.X or v35.X > absolutePosition.X + absoluteSize.X or v35.Y < absolutePosition.Y - 20 - 1 or v35.Y > absolutePosition.Y + absoluteSize.Y then
+                                        dropdown:CloseDropdown()
+                                    end
+                                end
+                            end)
+
+                            if uiLibrary.FlagCopying then
+                                local value069 = uiLibrary:AddContextMenu(obj)
+
+                                value069:AddOption('Copy Flag', function()
+                                    pcall(setclipboard, dropdown.Idx)
+                                    task.wait()
+                                    uiLibrary:Notify('Copied flag to clipboard!', 2)
+                                    value069:Hide()
+                                end)
+                            end
+
+                            dropdown:BuildDropdownList()
+                            dropdown:Display()
+
+                            local value070 = {}
+
+                            if typeof(arg3.Default) == 'string' then
+                                local matchStart = table.find(dropdown.Values, arg3.Default)
+
+                                if matchStart then
+                                    table.insert(value070, matchStart)
+                                end
+                            elseif typeof(arg3.Default) == 'table' then
+                                for key8, value8 in next, arg3.Default do
+
+                                    local matchStart2 = table.find(dropdown.Values, value8)
+
+                                    if matchStart2 then
+                                        table.insert(value070, matchStart2)
+                                    end
+                                end
+                            elseif typeof(arg3.Default) == 'number' and dropdown.Values[arg3.Default] ~= nil then
+                                table.insert(value070, arg3.Default)
+                            end
+                            if next(value070) then
+                                for index = 1, #value070 do
+
+                                    local value076 = value070[index]
+
+                                    if arg3.Multi then
+                                        dropdown.Value[dropdown.Values[value076] ] = true
+                                    else
+                                        dropdown.Value = dropdown.Values[value076]
+                                    end
+                                    if not arg3.Multi then
+                                        break
+                                    end
+                                end
+
+                                dropdown:BuildDropdownList()
+                                dropdown:Display()
+                            end
+
+                            table.insert(tbl58, v216:AddBlank(arg3.BlankSize or 5))
+                            v216:Resize()
+
+                            options[arg2] = dropdown
+                        end)()
+                        return dropdown
+                    end
                     tbl9.AddDependencyBox = function(arg1)
                         local tbl58 = {Dependencies = {}}
                         local v216 = arg1
@@ -22429,35 +22898,20 @@ if not getgenv().UE_LOADED then
                                                                                                                     end
                                                                                                                     scope.v266 = function(...)
                                                                                                                         local tbl58 = {...}
-                                                                                                                        local v309, v310, v311 = getgc(true)
-                                                                                                                        -- decompiler: for-in init v309, v310, v311
-                                                                                                                        while true do
-                                                                                                                            local exitLoop = false
-                                                                                                                            -- decompiler: for-in step
-                                                                                                                            local v312 = --[[forvar2]]nil
-                                                                                                                            if not --[[forok]]true then
-                                                                                                                                break
-                                                                                                                            end
-                                                                                                                            local v313 = v312
-                                                                                                                            if type(v313) ~= "table" then
-                                                                                                                                error("err: b'attempt to perform arithmetic (/) on nil and number' @line 25070") -- decompiler: unresolved path
-                                                                                                                            end
-                                                                                                                            local flag11 = false
-                                                                                                                            for _, v314 in tbl58 do
-                                                                                                                                if not rawget(v313, v314) then
-                                                                                                                                    flag11 = true
-                                                                                                                                    if flag11 then
-                                                                                                                                        exitLoop = true
+                                                                                                                        local v309
+                                                                                                                        for _, v310 in getgc(true) do
+                                                                                                                            if type(v310) == "table" then
+                                                                                                                                local flag11 = false
+                                                                                                                                for _, v311 in tbl58 do
+                                                                                                                                    v309 = v309(v310, v311)
+                                                                                                                                    if not v309 then
+                                                                                                                                        flag11 = true
                                                                                                                                         break
                                                                                                                                     end
-                                                                                                                                    return v313
                                                                                                                                 end
-                                                                                                                            end
-                                                                                                                            if exitLoop then
-                                                                                                                                continue
-                                                                                                                            end
-                                                                                                                            if not flag11 then
-                                                                                                                                return v313
+                                                                                                                                if not flag11 then
+                                                                                                                                    return v310
+                                                                                                                                end
                                                                                                                             end
                                                                                                                         end
                                                                                                                     end
@@ -28736,13 +29190,17 @@ if not getgenv().UE_LOADED then
                                                                                                                                                                                                                                                                                                                                                                                                                             if itemNameText then
                                                                                                                                                                                                                                                                                                                                                                                                                                 if scope.v481 then
                                                                                                                                                                                                                                                                                                                                                                                                                                     scope.v314(itemNameText)
-                                                                                                                                                                                                                                                                                                                                                                                                                                    error("lifterr: call of known non-function None @line 27093") -- decompiler: unresolved path
-                                                                                                                                                                                                                                                                                                                                                                                                                                end
-                                                                                                                                                                                                                                                                                                                                                                                                                                if scope.v480[itemNameText] then
-                                                                                                                                                                                                                                                                                                                                                                                                                                    scope.v314(itemNameText)
-                                                                                                                                                                                                                                                                                                                                                                                                                                    scope.v480[itemNameText] = nil
-                                                                                                                                                                                                                                                                                                                                                                                                                                    scope.v483:ApplyItemStatusToText(itemNameText, v484.ClientItem.Info.Status)
+                                                                                                                                                                                                                                                                                                                                                                                                                                    scope.v480[itemNameText] = true
+                                                                                                                                                                                                                                                                                                                                                                                                                                    scope.v483:ApplyItemStatusToText(itemNameText, scope.v482)
                                                                                                                                                                                                                                                                                                                                                                                                                                     v5(8)
+                                                                                                                                                                                                                                                                                                                                                                                                                                elseif scope.v480[itemNameText] then
+                                                                                                                                                                                                                                                                                                                                                                                                                                    scope.v314(itemNameText)
+                                                                                                                                                                                                                                                                                                                                                                                                                                    local flag11 = 88 >= (string.byte)("mpZ\147\218", 5, nil)
+                                                                                                                                                                                                                                                                                                                                                                                                                                    if not flag11 then
+                                                                                                                                                                                                                                                                                                                                                                                                                                        error("tamper detected") -- original: script wipes its own bytecode here (anti-tamper)
+                                                                                                                                                                                                                                                                                                                                                                                                                                    end
+                                                                                                                                                                                                                                                                                                                                                                                                                                    flag11 = 430
+                                                                                                                                                                                                                                                                                                                                                                                                                                    error("tamper detected") -- original: script wipes its own bytecode here (anti-tamper)
                                                                                                                                                                                                                                                                                                                                                                                                                                 end
                                                                                                                                                                                                                                                                                                                                                                                                                             end
                                                                                                                                                                                                                                                                                                                                                                                                                         end

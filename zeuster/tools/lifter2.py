@@ -1218,11 +1218,20 @@ def sig2(v, _seen=None):
     return ("o", id(v))
 
 
+LENIENT = {"fg_nil": False, "purge": False}
+
+
 def compatible(a, b):
     if a == b:
         return True
     tn = (("T",), ("c", None))
-    return a in tn and b in tn
+    if a in tn and b in tn:
+        return True
+    if LENIENT["fg_nil"]:
+        # a generic-for iterator slot that is still nil on a path where the loop was not entered
+        if (a[0] == "FG" and b == ("c", None)) or (b[0] == "FG" and a == ("c", None)):
+            return True
+    return False
 
 
 def snapshot(vars_):
@@ -1285,6 +1294,12 @@ def meet_states(A, B, pc, prefer=frozenset()):
         if a is None and isinstance(b, ITable):
             changed[0] = True
             return b
+        if LENIENT["fg_nil"]:
+            if isinstance(a, GenForIter) and b is None:
+                return a
+            if a is None and isinstance(b, GenForIter):
+                changed[0] = True
+                return b
         if isinstance(a, ITable) and isinstance(b, ITable):
             if id(a) in memo:
                 return memo[id(a)]
@@ -1422,15 +1437,56 @@ class Lifter:
         return not found
 
     def lift(self, pid, verbose=False, max_retries=16):
+        try:
+            return self._lift(pid, verbose, max_retries, set())
+        except LiftError as e:
+            if "could not stabilise" not in str(e):
+                raise
+        # fallback 1: drop patch overlays that only survive through merges of edges that disappeared
+        if verbose:
+            print("  fallback: purging stale patch overlays", flush=True)
+        LENIENT["purge"] = True
+        try:
+            try:
+                return self._lift(pid, verbose, max_retries, set())
+            except LiftError as e:
+                if "could not stabilise" not in str(e) or not self._conflict_names:
+                    raise
+            # fallback 2: interpreter locals that keep conflicting (e.g. a loop counter that is concrete on
+            # the first iteration only, or an iterator slot that is still nil) merge like data values
+            names = set(self._conflict_names)
+            if verbose:
+                print("  fallback: treating as data", sorted(names), flush=True)
+            LENIENT["fg_nil"] = True
+            try:
+                return self._lift(pid, verbose, max_retries, names)
+            finally:
+                LENIENT["fg_nil"] = False
+        finally:
+            LENIENT["purge"] = False
+
+    def lift_purged(self, pid, verbose=False, max_retries=16):
+        """lift with stale patch-overlay purging enabled (used when the normal lift has error paths)"""
+        LENIENT["purge"] = True
+        try:
+            return self._lift(pid, verbose, max_retries, set())
+        finally:
+            LENIENT["purge"] = False
+
+    def _lift(self, pid, verbose, max_retries, datakeys):
         extra = collections.defaultdict(set)
         extra["__global__"] = set()
         extra["__dontcare__"] = set()
+        extra["__data__"] = set(datakeys)
+        self._conflict_names = set()
         self.I.static_writes = []
         for attempt in range(max_retries):
             res = lift_once(self, pid, extra, verbose)
             if not res["conflicts"]:
                 return res
             for pc, v in res["conflicts"]:
+                if isinstance(v, str):
+                    self._conflict_names.add(v)
                 if isinstance(v, tuple) and v and v[0] == "mem":
                     if self.is_resolver_slot(res, v):
                         extra["__dontcare__"].add(v)
@@ -1473,6 +1529,7 @@ def find_main_loop(body):
 
 def lift_once(L, pid, extra, verbose=False):
     I = L.I
+    datakeys = extra.get("__data__", set())
     proto = L.tables[pid]
     I.protoid = pid
     I.blockid = 0
@@ -1601,6 +1658,10 @@ def lift_once(L, pid, extra, verbose=False):
             writes = set(sc.vars.writes)
             if outcome[0] == "head":
                 pc = dict.get(sc.vars, "pc")
+                for dk in datakeys:
+                    dv = dict.get(sc.vars, dk)
+                    if isinstance(dv, float):
+                        dict.__setitem__(sc.vars, dk, KVal(dv))
                 spill(sc.vars, pc)
                 outcome = ("head", dict(sc.vars))
             elif outcome[0] == "ret":
@@ -1706,27 +1767,61 @@ def lift_once(L, pid, extra, verbose=False):
 
     blocks[0] = {"pc": None, "state": None, "paths": None, "reads": set()}
     schedule(0)
-    while queue:
-        bid = queue.pop()
-        queued.discard(bid)
-        process(bid)
-        nproc[0] += 1
-        if verbose and nproc[0] % 2000 == 0:
-            print("  processed", nproc[0], "blocks", len(blocks), "queue", len(queue), "static writes", len(I.static_writes), flush=True)
-        if nproc[0] > 200000:
-            raise LiftError("no convergence")
+
+    def reachable():
+        reach = set()
+        stack = [0]
+        while stack:
+            b = stack.pop()
+            if b in reach:
+                continue
+            reach.add(b)
+            for p in blocks[b]["paths"]:
+                if p[3][0] == "goto":
+                    stack.append(p[3][1])
+        return reach
+    for purge_round in range(6):
+        while queue:
+            bid = queue.pop()
+            queued.discard(bid)
+            process(bid)
+            nproc[0] += 1
+            if verbose and nproc[0] % 2000 == 0:
+                print("  processed", nproc[0], "blocks", len(blocks), "queue", len(queue), "static writes", len(I.static_writes), flush=True)
+            if nproc[0] > 200000:
+                raise LiftError("no convergence")
+        reach = reachable()
+        # patch overlays (path-local writes into the program's own tables) that survive in merged block
+        # states although no reachable path writes them are stale: they came from edges that disappeared
+        # while the worklist re-lifted blocks. Drop them and re-lift until stable.
+        written = set()
+        for b in reach:
+            for p in blocks[b]["paths"]:
+                if len(p) > 4:
+                    for w in p[4]:
+                        if isinstance(w, tuple) and w and w[0] == "mem":
+                            written.add(w)
+        stale = set()
+        for b in reach:
+            st = blocks[b]["state"]
+            if st:
+                for k in st:
+                    if isinstance(k, tuple) and k and k[0] == "mem" and k not in written:
+                        stale.add(k)
+        if not stale or not LENIENT["purge"]:
+            break
+        if verbose:
+            print("  purging %d stale patch overlays" % len(stale), flush=True)
+        for b, blk in blocks.items():
+            st = blk["state"]
+            if st:
+                for k in stale:
+                    st.pop(k, None)
+        for b in reach:
+            if b != 0:
+                schedule(b)
+        schedule(0)
     I.on_static_write = None
-    # reachability
-    reach = set()
-    stack = [0]
-    while stack:
-        b = stack.pop()
-        if b in reach:
-            continue
-        reach.add(b)
-        for p in blocks[b]["paths"]:
-            if p[3][0] == "goto":
-                stack.append(p[3][1])
     # liveness of control locals (worklist)
     live = {b: set(blocks[b]["reads"]) for b in reach}
     preds = collections.defaultdict(set)

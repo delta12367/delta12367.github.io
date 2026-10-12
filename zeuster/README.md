@@ -34,6 +34,10 @@ interpretation of the Luraph interpreter closures -> IR), `opt.py`/`ssaspill.py`
   `for` loops with a non-constant step are recognised.
 * If/else merge points are found when one branch returns early (previously everything after
   the anti-hook check was emitted twice).
+* Every function now lifts without error paths. The lifter falls back to dropping stale
+  patch overlays (jump-slot writes that only survived through merges of edges that later
+  disappeared) when a function would otherwise fail; this recovered LinoriaLib's
+  `AddDropdown` (proto 404) and three partially lifted functions.
 * Output is valid Luau: statements starting with `(`, string-constant method calls,
   arguments read straight from `...`, and the 200-local limit (extra locals of a crowded
   block are stored in a `scope` table).
@@ -46,5 +50,5 @@ interpretation of the Luraph interpreter closures -> IR), `opt.py`/`ssaspill.py`
   Most are Luraph's decoy filler. A few hold loader code (Luarmor flags such as
   `is_from_loader`, executor checks such as `KRNL_LOADED`, a hardware-ID routine) that is
   not reachable in this build.
-* Proto 404 could not be lifted (it shows as `decompile failed`), and a handful of
-  functions still contain a `-- decompiler:` note where a loop or path was not recovered.
+* A handful of functions still contain a `-- decompiler:` note where a generic `for` loop
+  was not recovered, and a few loops use `exitLoop` flags for multi-level breaks.

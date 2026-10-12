@@ -32,9 +32,25 @@ def main():
     t_all = time.time()
     for i, n in enumerate(todo):
         t0 = time.time()
+        def count_err(blocks):
+            c = 0
+            for b in blocks.values():
+                for p in b["paths"]:
+                    if p[3][0] in ("err", "lifterr"):
+                        c += 1
+            return c
         try:
             res = L.lift(n)
             blocks = res["blocks"]
+            if count_err(blocks):
+                # retry with stale patch-overlay purging; keep it only if it removes error paths
+                try:
+                    res2 = L.lift_purged(n)
+                    if count_err(res2["blocks"]) < count_err(blocks):
+                        blocks = res2["blocks"]
+                        stats["purge-improved"] += 1
+                except Exception:
+                    pass
             nerr = 0
             for b in blocks.values():
                 for p in b["paths"]:
