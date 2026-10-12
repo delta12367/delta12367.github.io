@@ -7,7 +7,7 @@ def main():
     from batch_lift import strip_state
     L = Lifter()
     t0 = time.time()
-    res = L.lift(1, verbose=True)
+    res = L.lift_best(1, verbose=True)
     blocks = res["blocks"]
     print("lifted", len(blocks), "blocks in", time.time() - t0, "processed", res["nproc"], flush=True)
     print(L.I.warnings)

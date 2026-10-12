@@ -203,7 +203,7 @@ class Optimizer:
         total = sum(c for _, c in uses)
         if total == 2 and len(uses) == 1 and not live_after and self.self_pattern(b, uses[0][0], var):
             pos = uses[0][0]
-            if self.safe_move(b, i, pos, E):
+            if self.safe_move(b, i, pos, E, var):
                 self.replace_self(b, pos, var, E)
                 del stmts[i]
                 return True
@@ -225,7 +225,7 @@ class Optimizer:
             return False
         if total == 1:
             pos = uses[0][0]
-            if self.safe_move(b, i, pos, E):
+            if self.safe_move(b, i, pos, E, var):
                 self.replace_use(b, pos, var, E)
                 del stmts[i]
                 return True
@@ -310,6 +310,10 @@ class Optimizer:
                         vals = sj[3]
                         if any(count_occ(v, X) for v in vals):
                             break
+                        if hs and (any(has_effects(v) or reads_mem(v) for v in vals)
+                                   or any(has_effects(v) for kk, v in hs)):
+                            # positional items are emitted before hash items: folding would reorder calls
+                            break
                         if hs:
                             # keep constructor order: positional items after hash ones is fine in Lua
                             pass
@@ -338,7 +342,7 @@ class Optimizer:
                             return True
         return False
 
-    def safe_move(self, b, i, pos, E):
+    def safe_move(self, b, i, pos, E, var=None):
         stmts = b.stmts
         end = pos if pos != "term" else len(stmts)
         evars = vars_read(E)
@@ -356,6 +360,16 @@ class Optimizer:
                 for e in stmt_exprs_any(sk):
                     if reads_mem(e):
                         return False
+        if var is not None and (mem or eff):
+            # evaluation order inside the using statement: nothing that is evaluated before the
+            # use may call (or, when E has side effects, read memory)
+            exprs = term_exprs(b.term) if pos == "term" else eval_order_exprs(stmts[pos])
+            before = effects_before(exprs, var)
+            if before is None:
+                return False
+            calls, reads = before
+            if calls or (eff and reads):
+                return False
         return True
 
     def replace_use(self, b, pos, var, E):
@@ -405,3 +419,69 @@ class Optimizer:
                 st[i] = ("mset", tuple(targets), s[2])
             b.stmts = [x for x in st if x is not None]
         return changed
+
+
+# ----------------------------------------------------------------------------- evaluation order
+def eval_order_exprs(s):
+    """expressions of a statement in the order Lua evaluates them"""
+    k = s[0]
+    if k == "set":
+        t = s[1]
+        if t[0] == "idx":
+            return [t[1], t[2], s[2]]
+        if t[0] == "g":
+            return [t[1], s[2]]
+        return [s[2]]
+    return list(stmt_exprs_any(s))
+
+
+def effects_before(exprs, var):
+    """(calls, reads) evaluated before the first occurrence of var, or None if var does not occur"""
+    state = {"calls": 0, "reads": 0, "found": False}
+
+    def visit(e):
+        if state["found"]:
+            return
+        if e == var:
+            state["found"] = True
+            return
+        k = e[0]
+        if k in ("callx", "callmx"):
+            visit(e[1])
+            for a in e[2]:
+                visit(a)
+            if not state["found"]:
+                state["calls"] += 1
+            return
+        if k in ("mcallx", "mcallmx"):
+            visit(e[1])
+            for a in e[3]:
+                visit(a)
+            if not state["found"]:
+                state["calls"] += 1
+            return
+        if k == "idx":
+            visit(e[1])
+            visit(e[2])
+            if not state["found"]:
+                state["reads"] += 1
+            return
+        if k == "g":
+            visit(e[1])
+            if not state["found"]:
+                state["reads"] += 1
+            return
+        if k == "newtable":
+            for a in e[1]:
+                visit(a)
+            for a, b in e[2]:
+                visit(a)
+                visit(b)
+            return
+        for c in children(e):
+            visit(c)
+    for e in exprs:
+        visit(e)
+        if state["found"]:
+            return state["calls"], state["reads"]
+    return None

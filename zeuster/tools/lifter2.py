@@ -1465,6 +1465,82 @@ class Lifter:
         finally:
             LENIENT["purge"] = False
 
+    def lift_best(self, pid, verbose=False):
+        """lift with all fallbacks; returns the result with the fewest error paths, then the fewest
+        duplicated pc variants. Duplicates come from interpreter scratch locals (e.g. the VM's top-of-stack
+        index) that hold different numbers on different paths; re-lifting with those locals treated as
+        data merges the copies. That result is only accepted when it introduces no error path and the
+        generalised locals do not leak into the emitted code (they must be value-irrelevant)."""
+        import bisim
+        res = self.lift(pid, verbose)
+
+        def n_err(r):
+            return sum(1 for b in r["blocks"].values() for p in b["paths"] if p[3][0] in ("err", "lifterr"))
+        if n_err(res):
+            try:
+                r2 = self.lift_purged(pid, verbose)
+                if n_err(r2) < n_err(res):
+                    res = r2
+            except LiftError:
+                pass
+        by = collections.defaultdict(list)
+        for bid, b in res["blocks"].items():
+            by[b["pc"]].append(bid)
+        keys = set()
+        for pc, bids in by.items():
+            if len(bids) < 2:
+                continue
+            states = [res["blocks"][b]["state"] or {} for b in bids]
+            names = set()
+            for st in states:
+                names |= {k for k in st if isinstance(k, str)}
+            for k in names:
+                sigs = [sig2(st.get(k)) for st in states]
+                if any(not compatible(sigs[0], x) for x in sigs[1:]):
+                    keys.add(k)
+        if not keys:
+            return res
+        try:
+            r3 = self._lift(pid, verbose, 16, keys)
+        except LiftError:
+            return res
+        if n_err(r3) > n_err(res) or len(r3["blocks"]) >= len(res["blocks"]):
+            return res
+        # the generalised locals must not be read by real code (only by dead spill copies)
+        stripped = {bid: {"pc": b["pc"], "paths": [(p[0], p[1], p[2], p[3]) for p in b["paths"]]}
+                    for bid, b in r3["blocks"].items()}
+        merged, _ = bisim.merge_variants(stripped)
+        leak = []
+
+        def scan(x):
+            if isinstance(x, tuple):
+                if len(x) == 3 and x[0] == "v" and x[2] in keys:
+                    leak.append(x)
+                    return
+                for y in x:
+                    scan(y)
+            elif isinstance(x, list):
+                for y in x:
+                    scan(y)
+        for b in merged.values():
+            for p in b["paths"]:
+                scan(p[1])
+                for d, st in p[2]:
+                    if st[0] == "set" and isinstance(st[1], tuple) and st[1][0] == "v":
+                        scan(st[2])
+                    else:
+                        scan(st)
+                if p[3][0] != "goto":
+                    scan(p[3])
+        if leak:
+            if verbose:
+                print("  data retry rejected: generalised locals leak", leak[:3], flush=True)
+            return res
+        if verbose:
+            print("  data retry accepted for", sorted(keys), len(res["blocks"]), "->", len(r3["blocks"]), "blocks", flush=True)
+        r3["data_keys"] = sorted(keys)
+        return r3
+
     def lift_purged(self, pid, verbose=False, max_retries=16):
         """lift with stale patch-overlay purging enabled (used when the normal lift has error paths)"""
         LENIENT["purge"] = True

@@ -10,12 +10,13 @@ class LuaError(Exception):
 
 
 class LuaTable:
-    __slots__ = ("h", "meta", "name", "__weakref__")
+    __slots__ = ("h", "meta", "name", "dead", "__weakref__")
 
     def __init__(self, h=None, name=None):
         self.h = h if h is not None else {}
         self.meta = None
         self.name = name
+        self.dead = None
 
     def get(self, k):
         if isinstance(k, float) and k.is_integer():
@@ -855,18 +856,47 @@ class Interp:
         if k is None:
             raise LuaError(b"table index is nil")
         if v is None:
-            t.h.pop(k, None)
+            if k in t.h:
+                # Lua keeps a removed key usable as a `next` cursor during traversal: remember its successor
+                succ = None
+                found = False
+                for kk in t.h:
+                    if found:
+                        succ = kk
+                        break
+                    if kk == k and type(kk) == type(k):
+                        found = True
+                if t.dead is None:
+                    t.dead = {}
+                t.dead[(type(k), k)] = (succ,)
+                del t.h[k]
         else:
             t.h[k] = v
 
     def lua_next(self, t, k):
         h = t.h
-        keys = getattr(self, "_next_cache", None)
         if k is None:
             it = iter(h.items())
             for kk, vv in it:
                 return [kk, vv]
             return [None]
+        if k not in h and t.dead is not None:
+            # cursor key was removed during traversal: continue from its successor
+            seen = set()
+            cur = k
+            while True:
+                ent = t.dead.get((type(cur), cur))
+                if ent is None:
+                    break
+                nxt = ent[0]
+                if nxt is None:
+                    return [None]
+                if nxt in h:
+                    return [nxt, h[nxt]]
+                if (type(nxt), nxt) in seen:
+                    return [None]
+                seen.add((type(nxt), nxt))
+                cur = nxt
         # slow path: find k then next
         found = False
         for kk, vv in list(h.items()):

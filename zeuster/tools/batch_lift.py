@@ -40,17 +40,10 @@ def main():
                         c += 1
             return c
         try:
-            res = L.lift(n)
+            res = L.lift_best(n)
             blocks = res["blocks"]
-            if count_err(blocks):
-                # retry with stale patch-overlay purging; keep it only if it removes error paths
-                try:
-                    res2 = L.lift_purged(n)
-                    if count_err(res2["blocks"]) < count_err(blocks):
-                        blocks = res2["blocks"]
-                        stats["purge-improved"] += 1
-                except Exception:
-                    pass
+            if res.get("data_keys"):
+                stats["dedup"] += 1
             nerr = 0
             for b in blocks.values():
                 for p in b["paths"]:

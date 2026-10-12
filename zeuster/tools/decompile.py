@@ -71,9 +71,13 @@ def fold_param_copies(F, webinfo):
 
 
 def analyse(pid, blocks, nregs):
+    import bisim
+    blocks, nmerged = bisim.merge_variants(blocks)
     F = build_func(blocks)
     nparams = detect_params(F)
     log = []
+    if nmerged:
+        log.append("merged %d duplicate block variants" % nmerged)
     O = Optimizer(F, nregs, log)
     O.prepare()
     vararg = False
@@ -510,7 +514,9 @@ class FuncPrinter:
             else:
                 out.append(indent + "-- setlist ?")
         elif k == "close":
-            pass
+            import os as _os
+            if _os.environ.get("DEBUG_CLOSE"):
+                out.append(indent + "-- [close r%d]" % s[1])
         elif k == "fginit":
             txt = ", ".join(em.expr(x, 0, indent) for x in s[2:5])
             out.append(indent + "-- decompiler: for-in init " + " ".join(txt.split()))
