@@ -618,22 +618,22 @@ if not getgenv().UE_LOADED then
                     end)
                 end
                 fn45("REQUEST_AND_CACHE", function(arg1, arg2, arg3)
-                    local v221 = arg1:split("/")
-                    local v223 = v221[#v221]
+                    local v223 = arg1:split("/")
+                    local v224 = v223[#v223]
                     if largeIntegrityRef + 3170 ~= 12565 then
                         while true do
                         end
                     end
-                    local str7 = (arg3 or "unnamed/rivals/" .. "cache/") .. (arg2 or 1) .. "_" .. v223
+                    local str7 = (arg3 or "unnamed/rivals/" .. "cache/") .. (arg2 or 1) .. "_" .. v224
                     if not isfile_(str7) then
-                        local ok4, v224 = pcall(game.HttpGet, game, arg1, true)
-                        local v225 = v224
-                        if not ok4 or not v225 or v225 == "" then
-                            game:GetService("Players").LocalPlayer:Kick("file '" .. v223 .. "' failed to load! please rejoin,\n if this reoccurs ping a developer.' ")
+                        local ok4, v225 = pcall(game.HttpGet, game, arg1, true)
+                        local v226 = v225
+                        if not ok4 or not v226 or v226 == "" then
+                            game:GetService("Players").LocalPlayer:Kick("file '" .. v224 .. "' failed to load! please rejoin,\n if this reoccurs ping a developer.' ")
                             return task.wait(9000000000)
                         end
-                        writefile_(str7, v225)
-                        return v225
+                        writefile_(str7, v226)
+                        return v226
                     end
                     return readfile_(str7)
                 end)
@@ -650,26 +650,35 @@ if not getgenv().UE_LOADED then
                     end
                     makefolder(arg1)
                 end)
-                for _, v219 in {"unnamed", "unnamed/rivals", "unnamed/core"} do
-                    if 9275 == integrityModuloRef(9325) then
-                        v218(v219, true)
+                -- decompiler: for-in init {"unnamed", "unnamed/rivals", "unnamed/core"}, nil, nil
+                while true do
+                    -- decompiler: for-in step
+                    local v219 = --[[forvar2]]nil
+                    if --[[forok]]true then
+                        local v220 = v219
+                        if 9275 ~= integrityModuloRef(9325) then
+                            break
+                        end
+                        v218(v220, true)
                     else
+                        for _, v221 in {"cache", "fonts", "chat", "images", "sounds", "lua", "lua/configs", "lua/scripts"} do
+                            v218(v221)
+                        end
+                        if largeIntegrityRef - 2481 == 6914 then
+                            if not enabledRef or obj.isfile("images/ue.png") then
+                                writefile_("unnamed/core/ue.png", base64_decode("iVBORw0KGgoAAAANSUhEUgAAAEYAAABGCAYAAABxLuKEAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAF+SURBVHhe7dhBasJgEEBh9Qi68DpuPYMrL+up1LTT8S+DvNrkNykU3sBH4ZHEZGy7yOpzBiGMgqCEURCUMAqCEkZBUMIoCEoYBUEJoyAoYRQEJYyCoIRREJQwCoISxm7r9frbZrPBY16p5/+Gzp8Rxm7X63W43+9f9vs9HkPiQW+32zBlDocDXmsmGLvV2e12eMyzWEossk1b7Jih680EY7c6UxZD0xb0yoJ/Uhi71eldDB3zk3+5mO12i8c8e2cxC8LYrY6LKeq4mKKOiynquJiiTu9ixg5da0YYu9VZejExdL2ZYOxWx8UUdfwfU9RxMUUdF1PUcTFFHRdT1HExxfl8fjze30zP69ORMHaLb/90Oj1ue9rEQ8bLpykT58Rn0r28CWO3uMlwPB4ft/77xLvedm78HPvu93K5LLWUgLFbW0xDx4wx5tz22/LO57yAURCUMAqCEkZBUMIoCEoYBUEJoyAoYRQEJYyCoIRREJQwCoISRkFQwigIWq2GDzgG9aSy9o0SAAAAAElFTkSuQmCC"))
+                                return obj
+                            end
+                            obj.writefile("images/ue.png", base64_decode("iVBORw0KGgoAAAANSUhEUgAAAEYAAABGCAYAAABxLuKEAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAF+SURBVHhe7dhBasJgEEBh9Qi68DpuPYMrL+up1LTT8S+DvNrkNykU3sBH4ZHEZGy7yOpzBiGMgqCEURCUMAqCEkZBUMIoCEoYBUEJoyAoYRQEJYyCoIRREJQwCoISxm7r9frbZrPBY16p5/+Gzp8Rxm7X63W43+9f9vs9HkPiQW+32zBlDocDXmsmGLvV2e12eMyzWEossk1b7Jih680EY7c6UxZD0xb0yoJ/Uhi71eldDB3zk3+5mO12i8c8e2cxC8LYrY6LKeq4mKKOiynquJiiTu9ixg5da0YYu9VZejExdL2ZYOxWx8UUdfwfU9RxMUUdF1PUcTFFHRdT1HExxfl8fjze30zP69ORMHaLb/90Oj1ue9rEQ8bLpykT58Rn0r28CWO3uMlwPB4ft/77xLvedm78HPvu93K5LLWUgLFbW0xDx4wx5tz22/LO57yAURCUMAqCEkZBUMIoCEoYBUEJoyAoYRQEJYyCoIRREJQwCoISRkFQwigIWq2GDzgG9aSy9o0SAAAAAElFTkSuQmCC"))
+                            writefile_("unnamed/core/ue.png", base64_decode("iVBORw0KGgoAAAANSUhEUgAAAEYAAABGCAYAAABxLuKEAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAF+SURBVHhe7dhBasJgEEBh9Qi68DpuPYMrL+up1LTT8S+DvNrkNykU3sBH4ZHEZGy7yOpzBiGMgqCEURCUMAqCEkZBUMIoCEoYBUEJoyAoYRQEJYyCoIRREJQwCoISxm7r9frbZrPBY16p5/+Gzp8Rxm7X63W43+9f9vs9HkPiQW+32zBlDocDXmsmGLvV2e12eMyzWEossk1b7Jih680EY7c6UxZD0xb0yoJ/Uhi71eldDB3zk3+5mO12i8c8e2cxC8LYrY6LKeq4mKKOiynquJiiTu9ixg5da0YYu9VZejExdL2ZYOxWx8UUdfwfU9RxMUUdF1PUcTFFHRdT1HExxfl8fjze30zP69ORMHaLb/90Oj1ue9rEQ8bLpykT58Rn0r28CWO3uMlwPB4ft/77xLvedm78HPvu93K5LLWUgLFbW0xDx4wx5tz22/LO57yAURCUMAqCEkZBUMIoCEoYBUEJoyAoYRQEJYyCoIRREJQwCoISRkFQwigIWq2GDzgG9aSy9o0SAAAAAElFTkSuQmCC"))
+                            return obj
+                        end
                         while true do
                         end
                     end
                 end
-                for _, v220 in {"cache", "fonts", "chat", "images", "sounds", "lua", "lua/configs", "lua/scripts"} do
-                    v218(v220)
+                while true do
                 end
-                if largeIntegrityRef - 2481 ~= 6914 then
-                    while true do
-                    end
-                end
-                if enabledRef and not obj.isfile("images/ue.png") then
-                    obj.writefile("images/ue.png", base64_decode("iVBORw0KGgoAAAANSUhEUgAAAEYAAABGCAYAAABxLuKEAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAF+SURBVHhe7dhBasJgEEBh9Qi68DpuPYMrL+up1LTT8S+DvNrkNykU3sBH4ZHEZGy7yOpzBiGMgqCEURCUMAqCEkZBUMIoCEoYBUEJoyAoYRQEJYyCoIRREJQwCoISxm7r9frbZrPBY16p5/+Gzp8Rxm7X63W43+9f9vs9HkPiQW+32zBlDocDXmsmGLvV2e12eMyzWEossk1b7Jih680EY7c6UxZD0xb0yoJ/Uhi71eldDB3zk3+5mO12i8c8e2cxC8LYrY6LKeq4mKKOiynquJiiTu9ixg5da0YYu9VZejExdL2ZYOxWx8UUdfwfU9RxMUUdF1PUcTFFHRdT1HExxfl8fjze30zP69ORMHaLb/90Oj1ue9rEQ8bLpykT58Rn0r28CWO3uMlwPB4ft/77xLvedm78HPvu93K5LLWUgLFbW0xDx4wx5tz22/LO57yAURCUMAqCEkZBUMIoCEoYBUEJoyAoYRQEJYyCoIRREJQwCoISRkFQwigIWq2GDzgG9aSy9o0SAAAAAElFTkSuQmCC"))
-                end
-                writefile_("unnamed/core/ue.png", base64_decode("iVBORw0KGgoAAAANSUhEUgAAAEYAAABGCAYAAABxLuKEAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAF+SURBVHhe7dhBasJgEEBh9Qi68DpuPYMrL+up1LTT8S+DvNrkNykU3sBH4ZHEZGy7yOpzBiGMgqCEURCUMAqCEkZBUMIoCEoYBUEJoyAoYRQEJYyCoIRREJQwCoISxm7r9frbZrPBY16p5/+Gzp8Rxm7X63W43+9f9vs9HkPiQW+32zBlDocDXmsmGLvV2e12eMyzWEossk1b7Jih680EY7c6UxZD0xb0yoJ/Uhi71eldDB3zk3+5mO12i8c8e2cxC8LYrY6LKeq4mKKOiynquJiiTu9ixg5da0YYu9VZejExdL2ZYOxWx8UUdfwfU9RxMUUdF1PUcTFFHRdT1HExxfl8fjze30zP69ORMHaLb/90Oj1ue9rEQ8bLpykT58Rn0r28CWO3uMlwPB4ft/77xLvedm78HPvu93K5LLWUgLFbW0xDx4wx5tz22/LO57yAURCUMAqCEkZBUMIoCEoYBUEJoyAoYRQEJYyCoIRREJQwCoISRkFQwigIWq2GDzgG9aSy9o0SAAAAAElFTkSuQmCC"))
-                return obj
             end)()
             real_drawing = Drawing
             if smallIntegrityRef - 776 ~= 188 then
@@ -11323,24 +11332,20 @@ if not getgenv().UE_LOADED then
                                                     local v219 = to_cache[className2]
                                                     if v219 and instance(arg12, className2) then
                                                         local tbl61 = {}
-                                                        -- decompiler: for-in init v219, nil, nil
-                                                        -- decompiler: for-in step
-                                                        local v220 = --[[forvar2]]nil
-                                                        if --[[forok]]true then
-                                                            local v221 = v220
+                                                        for _, v220 in v219 do
                                                             local fn46 = function()
-                                                                local v226, v227 = changed(arg12, v221, className2)
-                                                                local v228 = v227
-                                                                if not v226 then
-                                                                    if v228 then
-                                                                        tbl61[v221] = v228
+                                                                local v223, v224 = changed(arg12, v220, className2)
+                                                                local v225 = v224
+                                                                if not v223 then
+                                                                    if v225 then
+                                                                        tbl61[v220] = v225
                                                                     end
                                                                 else
-                                                                    tbl61[v221] = arg12[v221]
+                                                                    tbl61[v220] = arg12[v220]
                                                                 end
                                                             end
                                                             if arg1.property_update then
-                                                                arg12:GetPropertyChangedSignal(v221):Connect(function()
+                                                                arg12:GetPropertyChangedSignal(v220):Connect(function()
                                                                     if tbl60.changing then
                                                                         return
                                                                     end
@@ -11353,47 +11358,14 @@ if not getgenv().UE_LOADED then
                                                                     end)
                                                                 end)
                                                             end
-                                                            while true do
-                                                                fn46()
-                                                                -- decompiler: for-in step
-                                                                local v223 = --[[forvar2]]nil
-                                                                if not --[[forok]]true then
-                                                                    break
-                                                                end
-                                                                local v224 = v223
-                                                                fn46 = function()
-                                                                    local v226, v227 = changed(arg12, v224, className2)
-                                                                    local v228 = v227
-                                                                    if not v226 then
-                                                                        if v228 then
-                                                                            tbl61[v224] = v228
-                                                                        end
-                                                                    else
-                                                                        tbl61[v224] = arg12[v224]
-                                                                    end
-                                                                end
-                                                                if arg1.property_update then
-                                                                    arg12:GetPropertyChangedSignal(v224):Connect(function()
-                                                                        if tbl60.changing then
-                                                                            return
-                                                                        end
-                                                                        fn46()
-                                                                        pcall(task.cancel, v217)
-                                                                        v217 = task.delay(0, function()
-                                                                            if not tbl60._destroyed then
-                                                                                arg1:change(arg2)
-                                                                            end
-                                                                        end)
-                                                                    end)
-                                                                end
-                                                            end
+                                                            fn46()
                                                         end
                                                         local instances = tbl60.instances
-                                                        local v225 = tbl60.instances[className2]
-                                                        if not v225 then
-                                                            v225 = {}
+                                                        local v221 = tbl60.instances[className2]
+                                                        if not v221 then
+                                                            v221 = {}
                                                         end
-                                                        instances[className2] = v225
+                                                        instances[className2] = v221
                                                         tbl60.instances[className2][arg12] = tbl61
                                                         arg12.Destroying:Connect(function()
                                                             tbl60.instances[className2][arg12] = nil
@@ -11881,53 +11853,33 @@ if not getgenv().UE_LOADED then
                                                                                 TweenService:Create(uiScale, tweenInfo2, {Scale = 1}):Play()
                                                                                 task.wait(0.7 + random() * 0.5)
                                                                                 local len = #tbl65
-                                                                                -- decompiler: for-in init tbl65, nil, nil
-                                                                                -- decompiler: for-in step
-                                                                                local v231 = --[[forvar2]]nil
-                                                                                local v232 = --[[forvar1]]nil
-                                                                                if --[[forok]]true then
-                                                                                    local v233 = v232
-                                                                                    local v234 = v231
-                                                                                    while true do
-                                                                                        local flag11 = v233 / len > 0.5
-                                                                                        if flag11 then
-                                                                                            flag11 = 1
-                                                                                        end
-                                                                                        if not flag11 then
-                                                                                            flag11 = -1
-                                                                                        end
-                                                                                        local position3 = v234.Position
-                                                                                        local v235 = new3
-                                                                                        v235 = v235(position3.X.Offset, position3.Y.Offset)
-                                                                                        local num9 = 0
-                                                                                        local v236 = new3
-                                                                                        local n15 = flag11 * 75
-                                                                                        v236 = v236(n15, 0)
-                                                                                        n15 = nil
-                                                                                        n15 = RunService_.RenderStepped:Connect(function(dt)
-                                                                                            if 1 < num9 then
-                                                                                                return n15:Disconnect()
-                                                                                            end
-                                                                                            v236 = new3(v236.X - v236.X * 0.93 * dt, v236.Y + 130 * dt)
-                                                                                            v235 = v235 + v236 * dt
-                                                                                            v234.Position = UDim2.new(0.5, v235.X, 0.5, v235.Y)
-                                                                                            v234.TextTransparency = num9
-                                                                                            v234.Rotation = flag11 * 360 * math.exp(num9)
-                                                                                            num9 = num9 + dt
-                                                                                        end)
-                                                                                        -- decompiler: for-in step
-                                                                                        local v237 = --[[forvar2]]nil
-                                                                                        local v238 = --[[forvar1]]nil
-                                                                                        if not --[[forok]]true then
-                                                                                            break
-                                                                                        end
-                                                                                        v233 = v238
-                                                                                        v234 = v237
+                                                                                for k27, v231 in tbl65 do
+                                                                                    local flag11 = k27 / len > 0.5
+                                                                                    if flag11 then
+                                                                                        flag11 = 1
                                                                                     end
-                                                                                    task.wait(1)
-                                                                                    v224:Destroy()
-                                                                                    tbl58[parent2] = nil
-                                                                                    return
+                                                                                    if not flag11 then
+                                                                                        flag11 = -1
+                                                                                    end
+                                                                                    local position3 = v231.Position
+                                                                                    local v232 = new3
+                                                                                    v232 = v232(position3.X.Offset, position3.Y.Offset)
+                                                                                    local num9 = 0
+                                                                                    local v233 = new3
+                                                                                    local n15 = flag11 * 75
+                                                                                    v233 = v233(n15, 0)
+                                                                                    n15 = nil
+                                                                                    n15 = RunService_.RenderStepped:Connect(function(dt)
+                                                                                        if 1 < num9 then
+                                                                                            return n15:Disconnect()
+                                                                                        end
+                                                                                        v233 = new3(v233.X - v233.X * 0.93 * dt, v233.Y + 130 * dt)
+                                                                                        v232 = v232 + v233 * dt
+                                                                                        v231.Position = UDim2.new(0.5, v232.X, 0.5, v232.Y)
+                                                                                        v231.TextTransparency = num9
+                                                                                        v231.Rotation = flag11 * 360 * math.exp(num9)
+                                                                                        num9 = num9 + dt
+                                                                                    end)
                                                                                 end
                                                                                 task.wait(1)
                                                                                 v224:Destroy()
@@ -11993,53 +11945,33 @@ if not getgenv().UE_LOADED then
                                                                         TweenService:Create(uiScale, tweenInfo2, {Scale = 1}):Play()
                                                                         task.wait(0.7 + random() * 0.5)
                                                                         local len = #tbl65
-                                                                        -- decompiler: for-in init tbl65, nil, nil
-                                                                        -- decompiler: for-in step
-                                                                        local v231 = --[[forvar2]]nil
-                                                                        local v232 = --[[forvar1]]nil
-                                                                        if --[[forok]]true then
-                                                                            local v233 = v232
-                                                                            local v234 = v231
-                                                                            while true do
-                                                                                local flag11 = v233 / len > 0.5
-                                                                                if flag11 then
-                                                                                    flag11 = 1
-                                                                                end
-                                                                                if not flag11 then
-                                                                                    flag11 = -1
-                                                                                end
-                                                                                local position3 = v234.Position
-                                                                                local v235 = new3
-                                                                                v235 = v235(position3.X.Offset, position3.Y.Offset)
-                                                                                local num9 = 0
-                                                                                local v236 = new3
-                                                                                local n15 = flag11 * 75
-                                                                                v236 = v236(n15, 0)
-                                                                                n15 = nil
-                                                                                n15 = RunService_.RenderStepped:Connect(function(dt)
-                                                                                    if 1 < num9 then
-                                                                                        return n15:Disconnect()
-                                                                                    end
-                                                                                    v236 = new3(v236.X - v236.X * 0.93 * dt, v236.Y + 130 * dt)
-                                                                                    v235 = v235 + v236 * dt
-                                                                                    v234.Position = UDim2.new(0.5, v235.X, 0.5, v235.Y)
-                                                                                    v234.TextTransparency = num9
-                                                                                    v234.Rotation = flag11 * 360 * math.exp(num9)
-                                                                                    num9 = num9 + dt
-                                                                                end)
-                                                                                -- decompiler: for-in step
-                                                                                local v237 = --[[forvar2]]nil
-                                                                                local v238 = --[[forvar1]]nil
-                                                                                if not --[[forok]]true then
-                                                                                    break
-                                                                                end
-                                                                                v233 = v238
-                                                                                v234 = v237
+                                                                        for k27, v231 in tbl65 do
+                                                                            local flag11 = k27 / len > 0.5
+                                                                            if flag11 then
+                                                                                flag11 = 1
                                                                             end
-                                                                            task.wait(1)
-                                                                            v224:Destroy()
-                                                                            tbl58[parent2] = nil
-                                                                            return
+                                                                            if not flag11 then
+                                                                                flag11 = -1
+                                                                            end
+                                                                            local position3 = v231.Position
+                                                                            local v232 = new3
+                                                                            v232 = v232(position3.X.Offset, position3.Y.Offset)
+                                                                            local num9 = 0
+                                                                            local v233 = new3
+                                                                            local n15 = flag11 * 75
+                                                                            v233 = v233(n15, 0)
+                                                                            n15 = nil
+                                                                            n15 = RunService_.RenderStepped:Connect(function(dt)
+                                                                                if 1 < num9 then
+                                                                                    return n15:Disconnect()
+                                                                                end
+                                                                                v233 = new3(v233.X - v233.X * 0.93 * dt, v233.Y + 130 * dt)
+                                                                                v232 = v232 + v233 * dt
+                                                                                v231.Position = UDim2.new(0.5, v232.X, 0.5, v232.Y)
+                                                                                v231.TextTransparency = num9
+                                                                                v231.Rotation = flag11 * 360 * math.exp(num9)
+                                                                                num9 = num9 + dt
+                                                                            end)
                                                                         end
                                                                         task.wait(1)
                                                                         v224:Destroy()
@@ -13185,7 +13117,7 @@ if not getgenv().UE_LOADED then
                                             equippedItem2 = v15.EquippedItem.Name
                                         end
                                         equippedItem2 = equippedItem2 or "?"
-                                        local v232, v233, v234, v235
+                                        local v232
                                         if target_hit_notify.Value then
                                             local flag11 = #tbl3.notify.hit ~= 0
                                             if not flag11 then
@@ -13198,11 +13130,11 @@ if not getgenv().UE_LOADED then
                                                     flag11 = "Hit {NAME} for {DMG} in the {PART}"
                                                 end
                                             end
-                                            local v236 = arg3
-                                            if v236 then
-                                                v236 = "Head"
+                                            local v233 = arg3
+                                            if v233 then
+                                                v233 = "Head"
                                             end
-                                            tbl3.library:Notify(flag11:gsub("{NAME}", name3):gsub("{DMG}", arg2):gsub("{PART}", v236 or "Body"):gsub("{WEAPON}", equippedItem2), target_hit_notify_duration.Value)
+                                            tbl3.library:Notify(flag11:gsub("{NAME}", name3):gsub("{DMG}", arg2):gsub("{PART}", v233 or "Body"):gsub("{WEAPON}", equippedItem2), target_hit_notify_duration.Value)
                                             if hit_sounds_enabled.Value then
                                                 v232 = Instance.new("Sound", game:GetService("SoundService"))
                                                 v232.SoundId = tbl3.sounds.hit[hit_sounds_selected.Value]
@@ -13212,37 +13144,13 @@ if not getgenv().UE_LOADED then
                                                     v232:Destroy()
                                                 end)
                                                 if hit_effects_enabled.Value then
-                                                    -- decompiler: for-in init hit_effects_selected.Value, nil, nil
-                                                    -- decompiler: for-in step
-                                                    v233 = --[[forvar1]]nil
-                                                    if --[[forok]]true then
-                                                        v234 = v233
-                                                        while true do
-                                                            task.spawn(pcall, hit_effects[v234], arg1, arg2, name3, equippedItem2)
-                                                            -- decompiler: for-in step
-                                                            v235 = --[[forvar1]]nil
-                                                            if not --[[forok]]true then
-                                                                break
-                                                            end
-                                                            v234 = v235
-                                                        end
+                                                    for k26 in hit_effects_selected.Value do
+                                                        task.spawn(pcall, hit_effects[k26], arg1, arg2, name3, equippedItem2)
                                                     end
                                                 end
                                             elseif hit_effects_enabled.Value then
-                                                -- decompiler: for-in init hit_effects_selected.Value, nil, nil
-                                                -- decompiler: for-in step
-                                                v233 = --[[forvar1]]nil
-                                                if --[[forok]]true then
-                                                    v234 = v233
-                                                    while true do
-                                                        task.spawn(pcall, hit_effects[v234], arg1, arg2, name3, equippedItem2)
-                                                        -- decompiler: for-in step
-                                                        v235 = --[[forvar1]]nil
-                                                        if not --[[forok]]true then
-                                                            break
-                                                        end
-                                                        v234 = v235
-                                                    end
+                                                for k26 in hit_effects_selected.Value do
+                                                    task.spawn(pcall, hit_effects[k26], arg1, arg2, name3, equippedItem2)
                                                 end
                                             end
                                         elseif hit_sounds_enabled.Value then
@@ -13254,37 +13162,13 @@ if not getgenv().UE_LOADED then
                                                 v232:Destroy()
                                             end)
                                             if hit_effects_enabled.Value then
-                                                -- decompiler: for-in init hit_effects_selected.Value, nil, nil
-                                                -- decompiler: for-in step
-                                                v233 = --[[forvar1]]nil
-                                                if --[[forok]]true then
-                                                    v234 = v233
-                                                    while true do
-                                                        task.spawn(pcall, hit_effects[v234], arg1, arg2, name3, equippedItem2)
-                                                        -- decompiler: for-in step
-                                                        v235 = --[[forvar1]]nil
-                                                        if not --[[forok]]true then
-                                                            break
-                                                        end
-                                                        v234 = v235
-                                                    end
+                                                for k26 in hit_effects_selected.Value do
+                                                    task.spawn(pcall, hit_effects[k26], arg1, arg2, name3, equippedItem2)
                                                 end
                                             end
                                         elseif hit_effects_enabled.Value then
-                                            -- decompiler: for-in init hit_effects_selected.Value, nil, nil
-                                            -- decompiler: for-in step
-                                            v233 = --[[forvar1]]nil
-                                            if --[[forok]]true then
-                                                v234 = v233
-                                                while true do
-                                                    task.spawn(pcall, hit_effects[v234], arg1, arg2, name3, equippedItem2)
-                                                    -- decompiler: for-in step
-                                                    v235 = --[[forvar1]]nil
-                                                    if not --[[forok]]true then
-                                                        break
-                                                    end
-                                                    v234 = v235
-                                                end
+                                            for k26 in hit_effects_selected.Value do
+                                                task.spawn(pcall, hit_effects[k26], arg1, arg2, name3, equippedItem2)
                                             end
                                         end
                                     end
@@ -27610,83 +27494,51 @@ if not getgenv().UE_LOADED then
                                                                                                                                                                                                                                                                                                                                 end
                                                                                                                                                                                                                                                                                                                                 v394:RemoveUnused()
                                                                                                                                                                                                                                                                                                                                 local tbl63 = {}
-                                                                                                                                                                                                                                                                                                                                -- decompiler: for-in init tbl61, nil, nil
-                                                                                                                                                                                                                                                                                                                                while true do
-                                                                                                                                                                                                                                                                                                                                    local exitLoop = false
-                                                                                                                                                                                                                                                                                                                                    -- decompiler: for-in step
-                                                                                                                                                                                                                                                                                                                                    local v398 = --[[forvar2]]nil
-                                                                                                                                                                                                                                                                                                                                    if --[[forok]]true then
-                                                                                                                                                                                                                                                                                                                                        local v399 = v398
-                                                                                                                                                                                                                                                                                                                                        local len2 = #v399.verts
-                                                                                                                                                                                                                                                                                                                                        local n16 = v399.normal * 0.001
-                                                                                                                                                                                                                                                                                                                                        local num8 = 0
-                                                                                                                                                                                                                                                                                                                                        local v400 = len2
-                                                                                                                                                                                                                                                                                                                                        while true do
-                                                                                                                                                                                                                                                                                                                                            local exitLoop2 = false
-                                                                                                                                                                                                                                                                                                                                            local n17 = num8 + 1
-                                                                                                                                                                                                                                                                                                                                            if not (n17 <= v400) then
-                                                                                                                                                                                                                                                                                                                                                exitLoop = true
-                                                                                                                                                                                                                                                                                                                                                break
-                                                                                                                                                                                                                                                                                                                                            end
-                                                                                                                                                                                                                                                                                                                                            local v401 = n17
-                                                                                                                                                                                                                                                                                                                                            num8 = n17
-                                                                                                                                                                                                                                                                                                                                            local n18 = v401 % len2 + 1
-                                                                                                                                                                                                                                                                                                                                            local v402 = v399.verts[v401]
-                                                                                                                                                                                                                                                                                                                                            local v403 = v399.verts[n18]
-                                                                                                                                                                                                                                                                                                                                            local flag11 = v402 > v403
-                                                                                                                                                                                                                                                                                                                                            if flag11 then
-                                                                                                                                                                                                                                                                                                                                                flag11 = v403 * 1000000 + v402
-                                                                                                                                                                                                                                                                                                                                            end
-                                                                                                                                                                                                                                                                                                                                            if not flag11 then
-                                                                                                                                                                                                                                                                                                                                                flag11 = v402 * 1000000 + v403
-                                                                                                                                                                                                                                                                                                                                            end
-                                                                                                                                                                                                                                                                                                                                            if not tbl63[flag11] then
-                                                                                                                                                                                                                                                                                                                                                tbl63[flag11] = true
-                                                                                                                                                                                                                                                                                                                                                local v404 = v399.positions[v401]
-                                                                                                                                                                                                                                                                                                                                                local v405 = v399.positions[n18]
-                                                                                                                                                                                                                                                                                                                                                local n19 = v405 - v404
-                                                                                                                                                                                                                                                                                                                                                if not (n19.Magnitude < 1e-06) then
-                                                                                                                                                                                                                                                                                                                                                    local cross2 = v399.normal:Cross(n19.Unit)
-                                                                                                                                                                                                                                                                                                                                                    if not (cross2.Magnitude < 1e-06) then
-                                                                                                                                                                                                                                                                                                                                                        local unit2 = cross2.Unit
-                                                                                                                                                                                                                                                                                                                                                        local v406 = v394:AddVertex(v404 - unit2 * 0.00125 + n16)
-                                                                                                                                                                                                                                                                                                                                                        local v407 = v394:AddVertex(v404 + unit2 * 0.00125 + n16)
-                                                                                                                                                                                                                                                                                                                                                        local v408 = v394:AddVertex(v405 + unit2 * 0.00125 + n16)
-                                                                                                                                                                                                                                                                                                                                                        local v409 = v394:AddVertex(v405 - unit2 * 0.00125 + n16)
-                                                                                                                                                                                                                                                                                                                                                        for _ = 1, 4 do
-                                                                                                                                                                                                                                                                                                                                                            v394:AddColor(Color3.new(1, 1, 1), 1)
+                                                                                                                                                                                                                                                                                                                                for _, v398 in tbl61 do
+                                                                                                                                                                                                                                                                                                                                    local len2 = #v398.verts
+                                                                                                                                                                                                                                                                                                                                    local n16 = v398.normal * 0.001
+                                                                                                                                                                                                                                                                                                                                    local v399 = len2
+                                                                                                                                                                                                                                                                                                                                    for i5 = 1, v399 do
+                                                                                                                                                                                                                                                                                                                                        local n17 = i5 % len2 + 1
+                                                                                                                                                                                                                                                                                                                                        local v400 = v398.verts[i5]
+                                                                                                                                                                                                                                                                                                                                        local v401 = v398.verts[n17]
+                                                                                                                                                                                                                                                                                                                                        local flag11 = v400 > v401
+                                                                                                                                                                                                                                                                                                                                        if flag11 then
+                                                                                                                                                                                                                                                                                                                                            flag11 = v401 * 1000000 + v400
+                                                                                                                                                                                                                                                                                                                                        end
+                                                                                                                                                                                                                                                                                                                                        if not flag11 then
+                                                                                                                                                                                                                                                                                                                                            flag11 = v400 * 1000000 + v401
+                                                                                                                                                                                                                                                                                                                                        end
+                                                                                                                                                                                                                                                                                                                                        if not tbl63[flag11] then
+                                                                                                                                                                                                                                                                                                                                            tbl63[flag11] = true
+                                                                                                                                                                                                                                                                                                                                            local v402 = v398.positions[i5]
+                                                                                                                                                                                                                                                                                                                                            local v403 = v398.positions[n17]
+                                                                                                                                                                                                                                                                                                                                            local n18 = v403 - v402
+                                                                                                                                                                                                                                                                                                                                            if not (n18.Magnitude < 1e-06) then
+                                                                                                                                                                                                                                                                                                                                                local cross2 = v398.normal:Cross(n18.Unit)
+                                                                                                                                                                                                                                                                                                                                                if not (cross2.Magnitude < 1e-06) then
+                                                                                                                                                                                                                                                                                                                                                    local unit2 = cross2.Unit
+                                                                                                                                                                                                                                                                                                                                                    local v404 = v394:AddVertex(v402 - unit2 * 0.00125 + n16)
+                                                                                                                                                                                                                                                                                                                                                    local v405 = v394:AddVertex(v402 + unit2 * 0.00125 + n16)
+                                                                                                                                                                                                                                                                                                                                                    local v406 = v394:AddVertex(v403 + unit2 * 0.00125 + n16)
+                                                                                                                                                                                                                                                                                                                                                    local v407 = v394:AddVertex(v403 - unit2 * 0.00125 + n16)
+                                                                                                                                                                                                                                                                                                                                                    for _ = 1, 4 do
+                                                                                                                                                                                                                                                                                                                                                        v394:AddColor(Color3.new(1, 1, 1), 1)
+                                                                                                                                                                                                                                                                                                                                                    end
+                                                                                                                                                                                                                                                                                                                                                    for _, v408 in {{v404, v405, v406}, {v404, v406, v407}} do
+                                                                                                                                                                                                                                                                                                                                                        if not pcall(v394.AddTriangle, v394, unpack(v408)) then
+                                                                                                                                                                                                                                                                                                                                                            tbl60[arg1] = arg2.MeshContent
+                                                                                                                                                                                                                                                                                                                                                            return tbl60[arg1]
                                                                                                                                                                                                                                                                                                                                                         end
-                                                                                                                                                                                                                                                                                                                                                        -- decompiler: for-in init {{v406, v407, v408}, {v406, v408, v409}}, nil, nil
-                                                                                                                                                                                                                                                                                                                                                        while true do
-                                                                                                                                                                                                                                                                                                                                                            -- decompiler: for-in step
-                                                                                                                                                                                                                                                                                                                                                            local v410 = --[[forvar2]]nil
-                                                                                                                                                                                                                                                                                                                                                            if not --[[forok]]true then
-                                                                                                                                                                                                                                                                                                                                                                exitLoop2 = true
-                                                                                                                                                                                                                                                                                                                                                                break
-                                                                                                                                                                                                                                                                                                                                                            end
-                                                                                                                                                                                                                                                                                                                                                            if not pcall(v394.AddTriangle, v394, unpack(v410)) then
-                                                                                                                                                                                                                                                                                                                                                                break
-                                                                                                                                                                                                                                                                                                                                                            end
-                                                                                                                                                                                                                                                                                                                                                        end
-                                                                                                                                                                                                                                                                                                                                                        if exitLoop2 then
-                                                                                                                                                                                                                                                                                                                                                            continue
-                                                                                                                                                                                                                                                                                                                                                        end
-                                                                                                                                                                                                                                                                                                                                                        break
                                                                                                                                                                                                                                                                                                                                                     end
                                                                                                                                                                                                                                                                                                                                                 end
                                                                                                                                                                                                                                                                                                                                             end
                                                                                                                                                                                                                                                                                                                                         end
-                                                                                                                                                                                                                                                                                                                                        if exitLoop then
-                                                                                                                                                                                                                                                                                                                                            continue
-                                                                                                                                                                                                                                                                                                                                        end
-                                                                                                                                                                                                                                                                                                                                        tbl60[arg1] = arg2.MeshContent
-                                                                                                                                                                                                                                                                                                                                        return tbl60[arg1]
                                                                                                                                                                                                                                                                                                                                     end
-                                                                                                                                                                                                                                                                                                                                    break
                                                                                                                                                                                                                                                                                                                                 end
-                                                                                                                                                                                                                                                                                                                                local v411 = Content.fromObject(v394)
-                                                                                                                                                                                                                                                                                                                                tbl60[arg1] = v411
-                                                                                                                                                                                                                                                                                                                                return v411
+                                                                                                                                                                                                                                                                                                                                local v409 = Content.fromObject(v394)
+                                                                                                                                                                                                                                                                                                                                tbl60[arg1] = v409
+                                                                                                                                                                                                                                                                                                                                return v409
                                                                                                                                                                                                                                                                                                                             end
                                                                                                                                                                                                                                                                                                                             tbl60[arg1] = arg2.MeshContent
                                                                                                                                                                                                                                                                                                                             return tbl60[arg1]

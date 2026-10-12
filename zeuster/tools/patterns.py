@@ -463,6 +463,26 @@ def sink_common_tails(block):
 
 
 # ---------------------------------------------------------------------------- rotated generic for
+def strip_close(block):
+    out = []
+    for st in block:
+        if st[0] == "ir" and st[1][0] == "close":
+            continue
+        k = st[0]
+        if k == "if":
+            st = ("if", st[1], strip_close(st[2]), strip_close(st[3]))
+        elif k == "while":
+            st = ("while", st[1], strip_close(st[2]))
+        elif k == "repeat":
+            st = ("repeat", strip_close(st[1]), st[2])
+        elif k in ("fornum", "forin"):
+            st = st[:5] + (strip_close(st[5]),)
+        elif k == "do":
+            st = ("do", strip_close(st[1]))
+        out.append(st)
+    return out
+
+
 def _defined_ws(block):
     out = set()
     for st in walk_stmts(block):
@@ -477,10 +497,10 @@ def _defined_ws(block):
     return out
 
 
-def alpha_equal(A, B):
+def alpha_equal(A, B, extra_a=(), extra_b=()):
     """structural equality of two statement lists up to a consistent renaming of variables that are
-    defined inside them. Returns the renaming {a: b} or None."""
-    da, db = _defined_ws(A), _defined_ws(B)
+    defined inside them (or listed in extra_a/extra_b). Returns the renaming {a: b} or None."""
+    da, db = _defined_ws(A) | set(extra_a), _defined_ws(B) | set(extra_b)
     m = {}
     used_b = {}
 
@@ -585,6 +605,7 @@ def _rotated_at(block, i, ctx, webinfo, cnt, out):
     if not (s[0] == "ir" and s[1][0] == "fginit"):
         return None
     fid = s[1][1]
+    D = max(1, getattr(ctx, "fid_dups", {}).get(fid, 1))
     st = _match_step(block, i + 1, fid)
     if st is None:
         return None
@@ -601,21 +622,31 @@ def _rotated_at(block, i, ctx, webinfo, cnt, out):
         tb, fb = ifs[3], ifs[2]
     else:
         return None
-    c_end, P = _match_copies(tb, 0, avars)
-    if c_end >= len(tb) or tb[c_end][0] != "while" or tb[c_end][1] != ("k", True):
+    c_end, PA = _match_copies(tb, 0, avars)
+    widx = None
+    for idx in range(c_end, len(tb)):
+        if tb[idx][0] == "while" and tb[idx][1] == ("k", True):
+            widx = idx
+            break
+    if widx is None:
         return None
-    LB = list(tb[c_end][2])
-    T1 = list(tb[c_end + 1:])
+    prefixA = list(tb[c_end:widx])
+    LB = list(tb[widx][2])
+    T1 = list(tb[widx + 1:])
     T2 = list(fb)
-    ren = None
+    consumed_after = 0
     if T1 or T2:
-        ren = alpha_equal(T1, T2)
+        if not T2 and ends_exit(T1):
+            # post-loop code duplicated: once inside the if (after the loop), once after the if
+            T2 = list(block[j + 1:])
+            consumed_after = len(T2)
+        ren = alpha_equal(strip_close(T1), strip_close(T2))
         if ren is None:
             return None
         for a, b in ren.items():
-            if a != b and (cnt.get(a, 0) != _count_in(T1, a) or cnt.get(b, 0) != _count_in(T2, b)):
+            if a != b and (cnt.get(a, 0) != D * _count_in(T1, a) or cnt.get(b, 0) != D * _count_in(T2, b)):
                 return None
-    # loop latch: ... BODY ; step ; if not ok then break end ; P = b
+    # loop latch: SUFFIX ; step ; if not ok then break end ; copies ; PREFIX (peeled copy)
     k = None
     for idx in range(len(LB) - 1, -1, -1):
         x = LB[idx]
@@ -637,27 +668,38 @@ def _rotated_at(block, i, ctx, webinfo, cnt, out):
         c2 = c2[2][2]
     if c2 != ("un", "not", ("fgok", fid)):
         return None
-    c2_end, P2 = _match_copies(LB, j2 + 1, bvars)
-    if c2_end != len(LB) or P2 != P or set(P) != set(avars):
+    c2_end, PB = _match_copies(LB, j2 + 1, bvars)
+    prefixB = list(LB[c2_end:])
+    if set(PA) != set(PB) or set(PA) != set(avars):
         return None
-    BODY = LB[:k]
-    # the step outputs are only used by the copies; P only assigned by the copies
-    for kk, w in avars.items():
-        if cnt.get(w, 0) != 2:
+    headA = list(tb[:c_end]) + prefixA
+    headB = list(LB[j2 + 1:c2_end]) + prefixB
+    ren2 = alpha_equal(headA, headB, avars.values(), bvars.values())
+    if ren2 is None:
+        return None
+    for kk in avars:
+        if ren2.get(avars[kk]) != bvars[kk]:
             return None
-    for kk, w in bvars.items():
-        if cnt.get(w, 0) != 2:
+    SUFFIX = LB[:k]
+    # renamed variables (other than the shared ones) must be private to the two copies
+    for a, b in ren2.items():
+        if a == b:
+            continue
+        if cnt.get(b, 0) != D * (_count_in(headB, b) + (1 if b in bvars.values() else 0)):
             return None
-    for w in P.values():
-        if assigned_in(BODY, w):
+        if cnt.get(a, 0) != D * (_count_in(headA, a) + (1 if a in avars.values() else 0)):
             return None
-    for x in walk_block(BODY):
+    for x in walk_block(SUFFIX + prefixA):
         if x[0] in ("fgok", "fgv") and x[1] == fid:
+            return None
+    BODY = prefixA + SUFFIX
+    for w in PA.values():
+        if assigned_in(BODY, w):
             return None
     names = []
     for kk in range(1, (nvars or 2) + 1):
-        if kk in P:
-            names.append(P[kk])
+        if kk in PA:
+            names.append(PA[kk])
         else:
             names.append(ctx.next_dummy)
             webinfo[ctx.next_dummy] = {"dummy": True}
@@ -669,13 +711,14 @@ def _rotated_at(block, i, ctx, webinfo, cnt, out):
     if ex and ex[0][0] in ("callx", "callmx") and ex[0][1] == ("g", ("k", b"ipairs")):
         hint = "ipairs"
     loop = ("forin", names, ex, None, hint, BODY)
-    return [loop] + T1, (j - i) + 1
+    return [loop] + T1, (j - i) + 1 + consumed_after
 
 
 def apply(body, webinfo):
     body = sink_common_tails(body)
     cnt = count_refs(body)
     ctx = Ctx()
+    ctx.fid_dups = collections.Counter(st[1][1] for st in walk_stmts(body) if st[0] == "ir" and st[1][0] == "fginit")
     body = rotate_forin(body, ctx, webinfo, cnt)
     cnt = count_refs(body)
     return transform(body, cnt, ctx, webinfo)

@@ -136,7 +136,13 @@ class Structurer:
         if len(exits) == 1:
             return exits[0]
         # candidate reachable from the most other exits (the merge point after the loop)
-        reach = {e: self.reach(e) for e in exits}
+        reach = {}
+        for e in exits:
+            if e in self.loops and h in self.loops[e] and e != h:
+                # header of an enclosing loop: reaching it means "next iteration", not forward flow
+                reach[e] = {e}
+            else:
+                reach[e] = self.reach(e)
         best = None
         best_score = None
         for e in exits:
@@ -164,6 +170,8 @@ class Structurer:
 
     def dead_end(self, e):
         """true if every path from e ends in return/error without joining the rest of the function"""
+        if e in self.loops:
+            return False
         for x in self.reach(e):
             b = self.F.bbs[x]
             for p in b.preds:
