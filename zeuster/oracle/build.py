@@ -2,6 +2,9 @@
 import sys
 pre = open("harness_pre.luau", encoding="utf-8").read()
 pre = open("asset_tree.luau", encoding="utf-8").read() + pre
+# the instrumentation hooks are upvalues: the script changes function and thread environments
+# with setfenv, which must not hide them
+HOOKS = "local __COV, __STEP, __ITER = __H.COV, __H.STEP, __H.ITER\n"
 
 
 def lua_patch_table(path):
@@ -29,6 +32,10 @@ def lua_patch_table(path):
 
 def build_orig(src_path, out_path, patches=None):
     src = open(src_path, encoding="utf-8").read()
+    # the loader wrapper around the VM (not part of the script) reads the clock once at start;
+    # the mock clock is shared state, so keep it out of the comparison
+    assert src.count("    started = os.clock(),\n") == 1
+    src = src.replace("    started = os.clock(),\n", "    started = 0,\n")
     old_step = "local function __step(id)\n"
     assert src.count(old_step) == 1
     src = src.replace(old_step, "local function __step(id)\n    __STEP()\n    do return end\n")
@@ -111,7 +118,7 @@ do
 end
 """
     head = (lua_patch_table(patches) + "local __PATCHES_REF = __PATCHES\n") if patches else "local __PATCHES_REF = nil\n"
-    open(out_path, "w", encoding="utf-8").write(pre + "\n" + head + src)
+    open(out_path, "w", encoding="utf-8").write(pre + "\n" + HOOKS + head + src)
     print("orig instrumented dispatch sites", n)
 
 
@@ -157,7 +164,7 @@ def iter_rewrite(src):
 
 def build_dec(src_path, out_path):
     src = add_steps(iter_rewrite(open(src_path, encoding="utf-8").read()))
-    out = pre + "\nlocal function __MAIN(...)\n" + src + "\nend\n__H.run(__MAIN)\n"
+    out = pre + "\n" + HOOKS + "local function __MAIN(...)\n" + src + "\nend\n__H.run(__MAIN)\n"
     open(out_path, "w", encoding="utf-8").write(out)
 
 

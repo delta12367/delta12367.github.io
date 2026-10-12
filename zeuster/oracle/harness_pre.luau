@@ -140,7 +140,7 @@ do
     local CONNS = {}
     local function connect(sig, fn, once)
         local c = P(fresh(pinfo[sig].path .. ":conn"))
-        local rec = {sig = pinfo[sig].path, fn = fn, alive = true, once = once}
+        local rec = {sig = pinfo[sig].path, fn = fn, alive = true, once = once, id = #CONNS + 1}
         CONNS[#CONNS + 1] = rec
         pinfo[c].props.Connected = true
         pinfo[c].conn = rec
@@ -281,7 +281,7 @@ do
         rec(self)
         return out
     end)
-    for _, n in _ipairs({"GetPlayers", "GetTouchingParts", "GetConnectedParts",
+    for _, n in _ipairs({"GetTouchingParts", "GetConnectedParts",
         "GetPartsInPart", "GetPartBoundsInBox", "GetPartBoundsInRadius", "GetTags", "GetAttributes",
         "GetPlayingAnimationTracks", "GetJoints", "GetAccessories"}) do
         method(n, function(self, ...)
@@ -305,6 +305,63 @@ do
         return cls == "Instance" and false
     end
     ISA = isa
+    -- players: the local player plus two others, each with a character
+    local function child(o, k)
+        local info = pinfo[o]
+        local c = info.children[k]
+        if c == nil then
+            c = P(info.path .. "." .. k)
+            info.children[k] = c
+        end
+        return c
+    end
+    local OTHERS = nil
+    method("GetPlayers", function(self)
+        ev(pinfo[self].path .. ":GetPlayers()")
+        local players = services.Players or METHODS.GetService(self, "Players")
+        if OTHERS == nil then
+            OTHERS = {}
+            for i = 1, 2 do
+                local pl = P("player" .. i, "Player")
+                local pr = pinfo[pl].props
+                pr.Name = "Player" .. i
+                pr.DisplayName = "Player" .. i
+                pr.UserId = 1000 + i
+                pr.ClassName = "Player"
+                local ch = P("player" .. i .. ".Character", "Model")
+                pinfo[ch].props.Name = "Player" .. i
+                pr.Character = ch
+                local hum = P("player" .. i .. ".Character/Humanoid", "Humanoid")
+                pinfo[hum].props.Name = "Humanoid"
+                pinfo[hum].props.Health = 100
+                pinfo[hum].props.MaxHealth = 100
+                pinfo[hum].props.Parent = ch
+                local root = P("player" .. i .. ".Character/HumanoidRootPart", "Part")
+                pinfo[root].props.Name = "HumanoidRootPart"
+                pinfo[root].props.Parent = ch
+                local head = P("player" .. i .. ".Character/Head", "Part")
+                pinfo[head].props.Name = "Head"
+                pinfo[head].props.Parent = ch
+                pinfo[ch].kids = {hum, root, head}
+                pinfo[hum].props.RootPart = root
+                OTHERS[i] = pl
+            end
+        end
+        return {child(players, "LocalPlayer"), OTHERS[1], OTHERS[2]}
+    end)
+    method("BindToRenderStep", function(self, name, prio, fn)
+        ev(pinfo[self].path .. ":BindToRenderStep(" .. descargs(name, prio) .. ")")
+        local rec = {sig = "RenderStep:" .. _tostring(name), fn = fn, alive = true, once = false}
+        CONNS[#CONNS + 1] = rec
+    end)
+    method("UnbindFromRenderStep", function(self, name)
+        ev(pinfo[self].path .. ":UnbindFromRenderStep(" .. desc(name) .. ")")
+        for _, c in _ipairs(CONNS) do
+            if c.sig == "RenderStep:" .. _tostring(name) then
+                c.alive = false
+            end
+        end
+    end)
     method("IsA", function(self, cls)
         local info = pinfo[self]
         local r = info.class ~= nil and isa(info.class, cls)
@@ -612,6 +669,9 @@ do
         local ok, err = _co.resume(co, ...)
         if not ok then
             ev("thread error " .. _tostring(err))
+            if __H.lastcov then
+                _print("COVDBG thread error at proto " .. _tostring(__H.lastcov()))
+            end
         end
     end
     __H.resume = resume
@@ -697,6 +757,27 @@ do
         end
     end
 
+    -- frames: only per-frame signals (RenderStepped, Heartbeat, Stepped, render-step bindings)
+    function __H.frames(n)
+        for r = 1, n do
+            local snapshot = {}
+            for i, c in _ipairs(CONNS) do
+                snapshot[i] = c
+            end
+            for _, c in _ipairs(snapshot) do
+                if STOP then
+                    return
+                end
+                if c.alive and _type(c.fn) == "function" and (c.sig:find("Heartbeat") or c.sig:find("RenderStep")
+                    or c.sig:find("Stepped") or c.sig:find("PreRender") or c.sig:find("PostSimulation")
+                    or c.sig:find("PreSimulation")) then
+                    ev("frame " .. c.sig .. " " .. _tostring(c.id))
+                    resume(_co.create(c.fn), 1 / 60, 1 / 60)
+                end
+            end
+            __H.runqueue(200)
+        end
+    end
     function __H.fire(rounds)
         for r = 1, rounds do
             local snapshot = {}
@@ -713,7 +794,7 @@ do
                         c.alive = false
                     end
                     local co = _co.create(c.fn)
-                    if c.sig:find("Heartbeat") or c.sig:find("RenderStepped") or c.sig:find("Stepped") or c.sig:find("PreRender") or c.sig:find("PostSimulation") or c.sig:find("PreSimulation") then
+                    if c.sig:find("Heartbeat") or c.sig:find("RenderStep") or c.sig:find("Stepped") or c.sig:find("PreRender") or c.sig:find("PostSimulation") or c.sig:find("PreSimulation") then
                         resume(co, 1 / 60, 1 / 60)
                     else
                         resume(co, P(fresh("arg:" .. c.sig)), P(fresh("arg2:" .. c.sig)))
@@ -1355,7 +1436,12 @@ do
     local COVE = {}
     local LASTPC = {}
     __H.cove = COVE
+    local LASTOPS, LASTCOVPC = nil, nil
+    function __H.lastcov()
+        return (__H.protos and __H.protos[LASTOPS] or "?") .. " pc " .. _tostring(LASTCOVPC)
+    end
     function __COV(ops, pc, act)
+        LASTOPS, LASTCOVPC = ops, pc
         if covon then
             local t = COV[ops]
             if t == nil then
@@ -1442,8 +1528,10 @@ do
         return f, s, c, ...
     end
     _rawset(env, "__ITER", __ITER)
+    __H.COV, __H.STEP, __H.ITER = __COV, __STEP, __ITER
 
     function __H.run(fn, protos)
+        __H.protos = protos
         covon = true
         ON = true
         local ok, err = _pcall(fn)
@@ -1511,6 +1599,33 @@ do
         end
         __H.newphase()
         __H.fire(2)
+        __H.runqueue(2000)
+        -- everything on: enable every toggle, then run frames
+        __H.newphase()
+        if _type(Toggles) == "table" then
+            local keys = {}
+            for k in _pairs(Toggles) do
+                if _type(k) == "string" then
+                    keys[#keys + 1] = k
+                end
+            end
+            _table.sort(keys)
+            for _, k in _ipairs(keys) do
+                local o = Toggles[k]
+                if STOP then
+                    break
+                end
+                if _type(o) == "table" and _type(_rawget(o, "SetValue")) == "function" then
+                    ev("ui on Toggles." .. k)
+                    resume(_co.create(function()
+                        o:SetValue(true)
+                    end))
+                    __H.runqueue(20)
+                end
+            end
+        end
+        __H.newphase()
+        __H.frames(5)
         __H.runqueue(2000)
         ON = false
         covon = false

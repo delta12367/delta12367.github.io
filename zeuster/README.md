@@ -66,22 +66,24 @@ python3 segdiff.py o.tr d.tr                       # reads between matching even
 python3 gapcheck.py orig.txt root.pkl noroot.pkl    # executed VM code missing from the lift
 ```
 
-The run executes the main chunk to the end, the queued threads and signal handlers, and
-then flips every registered UI toggle and option (129 toggles, 329 options). The embedded
+The run executes the main chunk to the end, the queued threads and signal handlers, then
+flips every registered UI toggle and option (129 toggles, 329 options), and finally turns
+every toggle on and runs five frames of RenderStepped/Heartbeat/render-step bindings with
+two other players in the game. The embedded
 asset bundle is decoded by the script itself; `rbxm.py`/`gen_asset.py` read its instance
 tree (943 instances) so `DeserializeInstancesAsync` returns the real hierarchy.
 
 Current result:
 
-* 3,387,005 trace events on both sides; all 2,256,968 events other than plain property
+* 3,842,299 trace events on both sides; all 2,402,623 events other than plain property
   reads are identical and in the same order.
-* The reads are identical as a multiset; in 28 places two reads are swapped. Luraph's VM
+* The reads are identical as a multiset; in 16 places two reads are swapped. Luraph's VM
   looks a method up before evaluating the arguments (`SELF`); Luau's `obj:m(args)` looks
   it up after them. Reading a method of an Instance has no side effects.
 * Both runs iterate tables in a canonical key order (`__ITER` in the harness). Lua leaves
   `next`/`pairs` order unspecified and it depends on how a table was filled: the VM fills
   tables key by key, the decompiled code uses table constructors.
-* 313 of the 854 functions run, covering 43% of the lifted VM instructions. `gapcheck.py`
+* 328 of the 854 functions run, covering 44% of the lifted VM instructions (`covstat.py`). `gapcheck.py`
   confirms that every executed instruction is in the lifted code, except Luraph's
   first-run jump resolvers (which only patch operand slots) and the encrypted-constant
   closure that is folded away.
