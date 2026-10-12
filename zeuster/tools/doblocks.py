@@ -53,6 +53,8 @@ def decl_of(s):
         return 1
     if k == "ir" and s[1][0] == "setlist" and s[1][1][0] == "newtable":
         return 1   # emitted as `local _ = {...}`
+    if k == "ir" and s[1][0] == "callstat" and s[1][1][0] not in ("callx", "callmx", "mcallx", "mcallmx"):
+        return 1   # unused read, emitted as `local _ = e`
     return 0
 
 

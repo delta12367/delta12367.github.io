@@ -61,12 +61,16 @@ def all_exprs(F):
             yield e
 
 
+KEEP_READS = True
+
+
 class Optimizer:
     def __init__(self, F, nregs, log=None):
         self.F = F
         self.nregs = nregs
         self.cap = captured_regs(F)
         self.log = log if log is not None else []
+        self.kept_reads = 0
 
     def run(self):
         self.prepare()
@@ -215,6 +219,12 @@ class Optimizer:
                     stmts[i] = ("callstat", E)
                     return True
                 return False
+            if KEEP_READS and any(x[0] == "idx" for x in walk(E)) and not any(
+                    x[0] in ("static", "regfile", "hostfn") for x in walk(E)):
+                # an unused field read can still run __index (or fail on nil): keep it as `local _ = e`
+                stmts[i] = ("callstat", E)
+                self.kept_reads += 1
+                return True
             del stmts[i]
             return True
         if live_after:

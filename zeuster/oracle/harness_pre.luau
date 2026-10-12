@@ -23,7 +23,7 @@ do
 
     local TRACE = {}
     local NT = 0
-    local MAXT = 3000000
+    local MAXT = 10000000
     local ON = false
     local STOP = false
     local MAIN = _co.running()
@@ -61,6 +61,7 @@ do
         end
     end
     __H.ev = ev
+    __H.rawprint = _print
 
     local NUMKEYS = {}
     for _, k in _ipairs({"X", "Y", "Z", "W", "Offset", "Scale", "Magnitude", "Width", "Height", "R", "G", "B",
@@ -68,6 +69,7 @@ do
         "ZIndex", "LayoutOrder", "Health", "MaxHealth", "WalkSpeed", "JumpPower", "JumpHeight", "FieldOfView",
         "TimeLength", "Volume", "Brightness", "ClockTime", "FogEnd", "FogStart", "Density", "Speed", "Length",
         "TimePosition", "Distance", "Thickness", "Radius", "NumSides", "TextBounds_X", "Mass", "PlaybackSpeed",
+        "CursorPosition", "SelectionStart",
         "UserId", "AccountAge", "Ping", "Delta", "Position_X", "HipHeight", "Gravity", "Elapsed", "Bottom", "Top",
         "Left", "Right", "Min", "Max", "Hue", "Saturation", "MinValue", "MaxValue", "Value_n", "Intensity", "Spread",
         "Exposure", "Contrast", "Range", "Angle", "Decay", "Diffuse", "Haze", "Glare", "Offset2", "Cover",
@@ -163,6 +165,7 @@ do
         return s
     end)
     method("FindService", METHODS.GetService)
+    local ISA
     local function kids(self)
         local info = pinfo[self]
         local out = {}
@@ -227,7 +230,9 @@ do
         return lookupres(self, "FindFirstChildOfClass", cls, nil, find(self, byclass(cls), false))
     end)
     method("FindFirstChildWhichIsA", function(self, cls, rec)
-        return lookupres(self, "FindFirstChildWhichIsA", cls, rec, find(self, byclass(cls), rec))
+        return lookupres(self, "FindFirstChildWhichIsA", cls, rec, find(self, function(k)
+            return pinfo[k].class ~= nil and ISA(pinfo[k].class, cls)
+        end, rec))
     end)
     method("FindFirstDescendant", function(self, name)
         return lookupres(self, "FindFirstDescendant", name, nil, find(self, byname(name), true))
@@ -284,9 +289,25 @@ do
             return {}
         end)
     end
+    local SUPER = {Part = "BasePart", MeshPart = "BasePart", UnionOperation = "BasePart", WedgePart = "BasePart",
+        TrussPart = "BasePart", CornerWedgePart = "BasePart", SpawnLocation = "Part", Seat = "Part",
+        BasePart = "PVInstance", Model = "PVInstance", PVInstance = "Instance", PointLight = "Light",
+        SpotLight = "Light", SurfaceLight = "Light", Light = "Instance", ParticleEmitter = "Instance",
+        Attachment = "Instance", Beam = "Instance", Trail = "Instance", Folder = "Instance", Sky = "Instance",
+        Decal = "FaceInstance", Texture = "Decal", FaceInstance = "Instance"}
+    local function isa(class, cls)
+        while class ~= nil do
+            if class == cls then
+                return true
+            end
+            class = SUPER[class]
+        end
+        return cls == "Instance" and false
+    end
+    ISA = isa
     method("IsA", function(self, cls)
         local info = pinfo[self]
-        local r = info.class ~= nil and info.class == cls
+        local r = info.class ~= nil and isa(info.class, cls)
         ev(info.path .. ":IsA(" .. desc(cls) .. ") -> " .. _tostring(r))
         return r
     end)
@@ -304,6 +325,25 @@ do
             return connect(self, fn, false)
         end)
     end
+    method("Fire", function(self, ...)
+        -- BindableEvent: run the handlers connected to .Event with the fired arguments
+        ev(pinfo[self].path .. ":Fire(" .. descargs(...) .. ")")
+        local sig = pinfo[self].path .. ".Event"
+        local snapshot = {}
+        for i, c in _ipairs(CONNS) do
+            if c.sig == sig and c.alive then
+                snapshot[#snapshot + 1] = c
+            end
+        end
+        for _, c in _ipairs(snapshot) do
+            if c.once then
+                c.alive = false
+            end
+            if _type(c.fn) == "function" then
+                __H.resume(_co.create(c.fn), ...)
+            end
+        end
+    end)
     method("Once", function(self, fn)
         ev(pinfo[self].path .. ":Once(" .. desc(fn) .. ")")
         return connect(self, fn, true)
@@ -370,7 +410,35 @@ do
             end
             _error("Unable to cast " .. tn .. " to buffer", 0)
         end
-        return {P("asset:main", "Folder")}
+        -- the bundle's instance tree, read from the decoded RBXM (asset_tree.luau)
+        local roots = {}
+        local function build(spec, path, par)
+            local o = P(path, spec[1])
+            local info = pinfo[o]
+            info.created = true
+            info.props.ClassName = spec[1]
+            info.props.Name = spec[2]
+            if par ~= nil then
+                info.props.Parent = par
+                local pi = pinfo[par]
+                pi.kids = pi.kids or {}
+                pi.kids[#pi.kids + 1] = o
+            end
+            local used = {}
+            for _, c in _ipairs(spec[3]) do
+                local cp = path .. "/" .. c[2]
+                used[cp] = (used[cp] or 0) + 1
+                if used[cp] > 1 then
+                    cp = cp .. "#" .. used[cp]
+                end
+                build(c, cp, o)
+            end
+            return o
+        end
+        for i, spec in _ipairs(ASSET_TREE) do
+            roots[i] = build(spec, "asset" .. i, nil)
+        end
+        return roots
     end)
     method("HttpGet", function(self, url)
         ev("HttpGet " .. desc(url))
@@ -490,23 +558,30 @@ do
         local items = info.iteritems
         if items == nil then
             items = {}
+            local keys = {}
+            -- tables keyed by players (`_duelers_by_player`) get player objects as keys
+            local bykey = _string.find(_string.lower(info.path), "player", 1, true) ~= nil
             for i = 1, 2 do
                 local key = "k" .. i
-                local c = P(info.path .. "[" .. key .. "]")
+                if bykey then
+                    key = P(info.path .. "{key" .. i .. "}", "Player")
+                    pinfo[key].props.Name = "Player" .. i
+                    pinfo[key].props.ClassName = "Player"
+                end
+                local c = P(info.path .. "[k" .. i .. "]")
                 pinfo[c].props.Name = info.path:match("([%w_]+)$") .. i
-                items[key] = c
+                items[i] = {key, c}
             end
             info.iteritems = items
         end
-        local keys = {"k1", "k2"}
         local i = 0
         return function()
             i += 1
-            local k = keys[i]
-            if k == nil then
+            local it = items[i]
+            if it == nil then
                 return nil
             end
-            return k, items[k]
+            return it[1], it[2]
         end
     end
 
@@ -536,9 +611,10 @@ do
         end
         local ok, err = _co.resume(co, ...)
         if not ok then
-            ev("thread error")
+            ev("thread error " .. _tostring(err))
         end
     end
+    __H.resume = resume
     function __H.newphase()
         resumes = 0
         TRES = {}
@@ -987,6 +1063,12 @@ do
         return r
     end
     G.setfenv = function(f, e)
+        if pinfo[f] then
+            -- a game function (mocked as an object): remember the environment
+            ev("setfenv " .. desc(f))
+            pinfo[f].fenv = e
+            return f
+        end
         if _type(f) == "function" and CFN[f] then
             _error("'setfenv' cannot change environment of given object", 2)
         end
@@ -1101,12 +1183,24 @@ do
     end
     G.getrawmetatable = function(o)
         ev("getrawmetatable " .. desc(o))
+        local info = pinfo[o]
+        if info and _string.sub(info.path, 1, 7) == "module:" then
+            -- objects from game modules are Lua tables whose metatable __index is their class table
+            if info.rawmt == nil then
+                info.rawmt = {__index = P(info.path .. "<mt>.__index")}
+            end
+            return info.rawmt
+        end
         return {__index = function() end, __namecall = function() end, __newindex = function() end}
     end
     G.setrawmetatable = function(t, mt)
         ev("setrawmetatable " .. desc(t))
         if pinfo[t] then
             pinfo[t].rawmt = mt
+            return t
+        end
+        if _type(t) ~= "table" then
+            -- executors set the shared metatable of a primitive type here; plain Luau cannot
             return t
         end
         return _setmetatable(t, mt)

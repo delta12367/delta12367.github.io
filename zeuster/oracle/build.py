@@ -1,9 +1,33 @@
 """Build the oracle runs: original (Luraph VM, instrumented for coverage) and decompiled, both inside the mock."""
 import sys
 pre = open("harness_pre.luau", encoding="utf-8").read()
+pre = open("asset_tree.luau", encoding="utf-8").read() + pre
 
 
-def build_orig(src_path, out_path):
+def lua_patch_table(path):
+    """PATCH lines of a previous run -> Lua table literal"""
+    def dec(tok):
+        k, _, v = tok.partition(":")
+        if tok == "nil":
+            return "nil"
+        if k == "n":
+            return v if v not in ("inf", "-inf", "nan", "-nan") else "(0/0)"
+        if k == "s":
+            return '"' + "".join("\\%d" % b for b in bytes.fromhex(v)) + '"'
+        if k == "b":
+            return "true" if v == "1" else "false"
+        raise ValueError(tok)
+    rows = []
+    for ln in open(path, encoding="utf-8", errors="replace"):
+        if ln.startswith("PATCH "):
+            _, pid, slot, key, val = ln.split()
+            if val.startswith("?:"):
+                continue
+            rows.append("{%s, %s, %s, %s}" % (pid, slot, dec(key), dec(val)))
+    return "local __PATCHES = {" + ",\n".join(rows) + "}\n"
+
+
+def build_orig(src_path, out_path, patches=None):
     src = open(src_path, encoding="utf-8").read()
     old_step = "local function __step(id)\n"
     assert src.count(old_step) == 1
@@ -30,11 +54,64 @@ do
             __protos[rawget(t, 3)] = i
         end
     end
+    -- operand-table patches: snapshot now, print the differences after the run; with PATCHES
+    -- set, apply a previous run's final patches first (steady state, no first-run resolvers)
+    local __slots = {3, 4, 5, 7, 8, 9, 10}
+    local __snap = {}
+    for i, t in pairs(__data) do
+        if type(t) == "table" and type(rawget(t, 1)) == "number" and type(rawget(t, 3)) == "table" then
+            for _, s in ipairs(__slots) do
+                local tt = rawget(t, s)
+                if type(tt) == "table" then
+                    local c = {}
+                    local k = next(tt)
+                    while k ~= nil do
+                        c[k] = rawget(tt, k)
+                        k = next(tt, k)
+                    end
+                    __snap[#__snap + 1] = {i, s, tt, c}
+                end
+            end
+        end
+    end
+    local __P = __PATCHES_REF
+    if __P then
+        for _, p in ipairs(__P) do
+            rawset(rawget(__data[p[1]], p[2]), p[3], p[4])
+        end
+    end
     local __entry = __state[56](__data[1], __state[2])
     __H.run(__entry, __protos)
+    local function __enc(v)
+        local tv = type(v)
+        if tv == "number" then return string.format("n:%.17g", v) end
+        if tv == "string" then return "s:" .. (v:gsub(".", function(c) return string.format("%02x", string.byte(c)) end)) end
+        if tv == "boolean" then return v and "b:1" or "b:0" end
+        if tv == "nil" then return "nil" end
+        return "?:" .. tv
+    end
+    for _, e in ipairs(__snap) do
+        local tt, c = e[3], e[4]
+        local seen = {}
+        local k = next(tt)
+        while k ~= nil do
+            seen[k] = true
+            local v = rawget(tt, k)
+            if c[k] ~= v then
+                __H.rawprint("PATCH " .. e[1] .. " " .. e[2] .. " " .. __enc(k) .. " " .. __enc(v))
+            end
+            k = next(tt, k)
+        end
+        for k2 in pairs(c) do
+            if not seen[k2] then
+                __H.rawprint("PATCH " .. e[1] .. " " .. e[2] .. " " .. __enc(k2) .. " nil")
+            end
+        end
+    end
 end
 """
-    open(out_path, "w", encoding="utf-8").write(pre + "\n" + src)
+    head = (lua_patch_table(patches) + "local __PATCHES_REF = __PATCHES\n") if patches else "local __PATCHES_REF = nil\n"
+    open(out_path, "w", encoding="utf-8").write(pre + "\n" + head + src)
     print("orig instrumented dispatch sites", n)
 
 
@@ -53,12 +130,27 @@ def iter_rewrite(src):
     import re
     out = []
     n = 0
+    pending = None     # indentation of a for-in header still waiting for its `do`
     for ln in src.split("\n"):
+        if pending is not None:
+            ind = len(ln) - len(ln.lstrip())
+            if re.search(r"[\s})\]]do$", ln) and ind <= pending + 4 and ln.lstrip().startswith(("}", ")", "]")):
+                ln = ln[:-2].rstrip() + ") do"
+                pending = None
+            out.append(ln)
+            continue
         m = re.match(r"^(\s*)for (.+?) in (.+) do$", ln)
         if m and not m.group(3).startswith("__ITER("):
             ln = "%sfor %s in __ITER(%s) do" % (m.group(1), m.group(2), m.group(3))
             n += 1
+        else:
+            m = re.match(r"^(\s*)for ([\w, ]+?) in (.+)$", ln)
+            if m and not re.search(r"\bdo$", ln) and m.group(3).rstrip().endswith(("{", "(")):
+                ln = "%sfor %s in __ITER(%s" % (m.group(1), m.group(2), m.group(3))
+                pending = len(m.group(1))
+                n += 1
         out.append(ln)
+    assert pending is None
     print("dec generic-for sites", n)
     return "\n".join(out)
 
@@ -70,5 +162,7 @@ def build_dec(src_path, out_path):
 
 
 if __name__ == "__main__":
+    if len(sys.argv) > 3:
+        build_orig(sys.argv[1], "run_orig2.luau", sys.argv[3])
     build_orig(sys.argv[1], "run_orig.luau")
     build_dec(sys.argv[2], "run_dec.luau")

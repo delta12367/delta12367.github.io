@@ -117,6 +117,8 @@ def analyse(pid, blocks, nregs):
     import constfold
     if constfold.fold_func(F, log):
         O.inline_loop()
+    if O.kept_reads:
+        log.append("kept unused reads")
     import tailmerge
     nm = tailmerge.run(F)
     if nm:
@@ -496,6 +498,8 @@ class FuncPrinter:
             out.append(indent + text)
         if k == "set":
             put(em.expr(s[1], 0, indent) + " = " + em.expr(s[2], 0, indent))
+        elif k == "callstat" and s[1][0] not in ("callx", "callmx", "mcallx", "mcallmx"):
+            out.append(indent + "local _ = " + em.expr(s[1], 0, indent))
         elif k == "callstat":
             put(em.expr(s[1], 0, indent))
         elif k == "mset":
