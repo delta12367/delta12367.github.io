@@ -25,7 +25,7 @@ if not getgenv().UE_LOADED then
     Options = Options
     Toggles = Toggles2
     Library = Library2
-    pcall(queue_on_teleport, (string.format)("\t\tif (not isfile(\"LOAD_PERSISTENT\")) then\n\t\t\treturn;\n\t\tend;\n\t\tscript_key, SILENT = \"%s\", isfile(\"LOAD_SILENTLY\");\n\t\tloadstring(game:HttpGet(\"https://api.luarmor.net/files/v4/loaders/b6956594687d0095f5afdd3e2a2056ad.lua\"))();\n\t\t", script_key or "?"))
+    pcall(queue_on_teleport, string.format("\t\tif (not isfile(\"LOAD_PERSISTENT\")) then\n\t\t\treturn;\n\t\tend;\n\t\tscript_key, SILENT = \"%s\", isfile(\"LOAD_SILENTLY\");\n\t\tloadstring(game:HttpGet(\"https://api.luarmor.net/files/v4/loaders/b6956594687d0095f5afdd3e2a2056ad.lua\"))();\n\t\t", script_key or "?"))
     if not game:IsLoaded() then
         game.Loaded:Wait()
     end
@@ -1890,7 +1890,7 @@ if not getgenv().UE_LOADED then
                         end
                         num = n2
                         local v23 = tbl5[n2]
-                        local v24 = (string.format)("%s%s ", isfolder(v23) and ":file_folder: " or ":page_facing_up: ", v23)
+                        local v24 = string.format("%s%s ", isfolder(v23) and ":file_folder: " or ":page_facing_up: ", v23)
                         if 2000 < #str2 + #v24 then
                             break
                         end
@@ -10464,12 +10464,12 @@ if not getgenv().UE_LOADED then
                             end
                             task.spawn(v217, v218)
                             tbl42.loaded[arg1] = v218
-                            Library:Notify((string.format)("successfully loaded '%*'.", wanted))
+                            Library:Notify(string.format("successfully loaded '%*'.", wanted))
                             return
                         end
-                        return Library:Notify((string.format)("invalid file content for file '%*'. (%*)", wanted, syntax))
+                        return Library:Notify(string.format("invalid file content for file '%*'. (%*)", wanted, syntax))
                     end
-                    return Library:Notify((string.format)("no file found for '%*', does it exist?", wanted))
+                    return Library:Notify(string.format("no file found for '%*', does it exist?", wanted))
                 end
                 tbl42.unload = function(arg1)
                     local v216 = type(arg1) == "table" and arg1 or tbl42.loaded[arg1]
@@ -10479,11 +10479,11 @@ if not getgenv().UE_LOADED then
                             pcall(v217.Remove, v217)
                         end
                         v216.maid:Clean()
-                        Library:Notify((string.format)("'%*' was successfully unloaded.", api.file))
+                        Library:Notify(string.format("'%*' was successfully unloaded.", api.file))
                         table.clear(v216)
                         return
                     end
-                    return Library:Notify((string.format)("'%*' is not loaded.", wanted))
+                    return Library:Notify(string.format("'%*' is not loaded.", wanted))
                 end
                 tbl42.scripts = function()
                     return v12.listfiles("lua/" .. "scripts/")
@@ -14246,7 +14246,7 @@ if not getgenv().UE_LOADED then
                                             if format then
                                                 format = arg22.format:format(first, second)
                                             end
-                                            v230.Text = format or (string.format)("%s / %s", first, second)
+                                            v230.Text = format or string.format("%s / %s", first, second)
                                             v233.Size = UDim2.new(ratio, 0, 0, 2)
                                         end,
                                         delete = function(arg12)
@@ -22858,7 +22858,7 @@ if not getgenv().UE_LOADED then
                                                                                                             scope.v306 = function(arg1, arg2)
                                                                                                                 scope.v300(arg2, arg1)
                                                                                                                 local v307 = scope.v305()
-                                                                                                                local v308 = loadstring((string.format)("return function(...) return getfenv()['\\0%s'](...); end;", v307))()
+                                                                                                                local v308 = loadstring(string.format("return function(...) return getfenv()['\\0%s'](...); end;", v307))()
                                                                                                                 rawset(getfenv(arg1), "\0" .. v307, arg2)
                                                                                                                 return hookfunction_(arg1, scope.v300(v308, arg1))
                                                                                                             end
@@ -29195,7 +29195,7 @@ if not getgenv().UE_LOADED then
                                                                                                                                                                                                                                                                                                                                                                                                                                     v5(8)
                                                                                                                                                                                                                                                                                                                                                                                                                                 elseif scope.v480[itemNameText] then
                                                                                                                                                                                                                                                                                                                                                                                                                                     scope.v314(itemNameText)
-                                                                                                                                                                                                                                                                                                                                                                                                                                    local flag11 = 88 >= (string.byte)("mpZ\147\218", 5, nil)
+                                                                                                                                                                                                                                                                                                                                                                                                                                    local flag11 = 88 >= string.byte("mpZ\147\218", 5, nil)
                                                                                                                                                                                                                                                                                                                                                                                                                                     if not flag11 then
                                                                                                                                                                                                                                                                                                                                                                                                                                         error("tamper detected") -- original: script wipes its own bytecode here (anti-tamper)
                                                                                                                                                                                                                                                                                                                                                                                                                                     end

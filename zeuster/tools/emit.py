@@ -210,6 +210,8 @@ class Emitter:
         s = self.expr(e, 0, indent)
         if e[0] in PREFIX_KINDS and not (e[0] == "g" and s.startswith("getfenv")):
             return s
+        if IDENT_S.match(s):
+            return s
         if e[0] == "g":
             return s
         if e[0] == "u" or e[0] == "p":
