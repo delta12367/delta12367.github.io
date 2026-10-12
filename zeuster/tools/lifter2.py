@@ -629,6 +629,10 @@ class SymInterp(BootInterp):
                 self.emit(("call", cid, fe, self.args_exprs(args)))
                 return [MultiSym(("call", cid))]
             raise LiftError("call of known non-function %r" % (inner,))
+        if isinstance(f, SE):
+            r = self.fold_lib_call(f.e, args)
+            if r is not None:
+                return r
         if isinstance(f, Sym):
             if isinstance(f, GenForIter):
                 if len(args) >= 3:
@@ -654,6 +658,34 @@ class SymInterp(BootInterp):
                 self.emit(("call", cid, ("builtin", f.name), self.args_exprs(args)))
                 return [MultiSym(("call", cid))]
         return super().call(f, args)
+
+    def fold_lib_call(self, fe, args):
+        """`string.byte("...", 5)` read from the script's environment with constant arguments: Roblox's
+        library tables are read-only, so evaluate it now (Luraph's opaque arithmetic uses these)"""
+        if not (fe[0] == "idx" and fe[1][0] == "g" and fe[1][1][0] == "k" and fe[2][0] == "k"):
+            return None
+        lib, fn = fe[1][1][1], fe[2][1]
+        if not (isinstance(lib, bytes) and isinstance(fn, bytes)):
+            return None
+        name = lib.decode() + "." + fn.decode("latin-1")
+        if name in ("math.random", "math.randomseed", "math.noise") or not (
+                name.startswith(PURE_PREFIX) or name in PURE_NAMES):
+            return None
+        vals = []
+        for a in args:
+            v = uw(a)
+            if isinstance(v, Sym) or not (v is None or isinstance(v, (bool, float, bytes))):
+                return None
+            vals.append(v)
+        t = self.I.G.h.get(lib)
+        b = t.h.get(fn) if isinstance(t, LuaTable) else None
+        if not isinstance(b, Builtin):
+            return None
+        try:
+            r = super().call(b, vals)
+        except (LuaError, ValueError, TypeError, struct_error, OverflowError, IndexError):
+            return None
+        return [self.kwrap(x) for x in r]
 
     def call_lua(self, f, args):
         args = [self.mat(a) for a in args]
@@ -1483,6 +1515,19 @@ class Lifter:
                     res = r2
             except LiftError:
                 pass
+
+        def n_bad(r):
+            return sum(1 for b in r["blocks"].values() for p in b["paths"] if p[3][0] in ("err", "lifterr", "tamper"))
+        if n_bad(res):
+            # last resort: split block states on the patch slots that the failing blocks read
+            try:
+                r4 = self._lift(pid, verbose, 16, set(), split_on_error=True)
+                if n_bad(r4) < n_bad(res):
+                    if verbose:
+                        print("  split-on-error lift accepted", n_bad(res), "->", n_bad(r4), flush=True)
+                    res = r4
+            except LiftError:
+                pass
         by = collections.defaultdict(list)
         for bid, b in res["blocks"].items():
             by[b["pc"]].append(bid)
@@ -1532,7 +1577,7 @@ class Lifter:
                         scan(st)
                 if p[3][0] != "goto":
                     scan(p[3])
-        if leak and len(r3["blocks"]) > 0.8 * len(res["blocks"]):
+        if leak and (len(r3["blocks"]) > 0.8 * len(res["blocks"]) or len(res["blocks"]) - len(r3["blocks"]) < 10):
             # in specialised templates interpreter locals can hold program variables (a flag set
             # inside a loop): then the generalised local is a real variable, and the retry pays off
             # by removing the unrolled copies. Small gains are not worth the extra variables.
@@ -1552,7 +1597,7 @@ class Lifter:
         finally:
             LENIENT["purge"] = False
 
-    def _lift(self, pid, verbose, max_retries, datakeys):
+    def _lift(self, pid, verbose, max_retries, datakeys, split_on_error=False):
         extra = collections.defaultdict(set)
         extra["__global__"] = set()
         extra["__dontcare__"] = set()
@@ -1562,6 +1607,21 @@ class Lifter:
         for attempt in range(max_retries):
             res = lift_once(self, pid, extra, verbose)
             if not res["conflicts"]:
+                # an error path that reads patch slots: block states that differ in those slots were
+                # merged upstream (where the slot is not read yet), combining a skipped resolver with an
+                # unpatched instruction. Split on them everywhere and lift again.
+                promote = set()
+                for b in (res["blocks"].values() if split_on_error else ()):
+                    if any(p[3][0] in ("lifterr", "err", "tamper") for p in b["paths"]):
+                        for k in b.get("reads") or ():
+                            if isinstance(k, tuple) and k and k[0] == "mem" and k not in extra["__global__"]:
+                                promote.add(k)
+                if promote and attempt < max_retries - 1:
+                    extra["__dontcare__"] -= promote
+                    extra["__global__"] |= promote
+                    if verbose:
+                        print("  error path reads patch slots, splitting on", len(promote), flush=True)
+                    continue
                 return res
             for pc, v in res["conflicts"]:
                 if isinstance(v, str):
@@ -1604,6 +1664,71 @@ def find_main_loop(body):
         if s.k in ("While", "Repeat"):
             return s
     return None
+
+
+NARROW = {"on": False, "rounds": 60}
+
+
+def _narrow_data(old, contribs):
+    """more precise copy of block state `old` given the states currently arriving, or None.
+    Only data is narrowed: registers whose value every arrival agrees on become known again, and
+    spilled values every arrival agrees on become constants. Control keys keep their representative."""
+    if not old or not contribs:
+        return None
+    new = None
+    for k, v in dict.items(old):
+        if isinstance(v, Registers):
+            cs = [dict.get(c, k) for c in contribs]
+            if not all(isinstance(x, Registers) for x in cs):
+                continue
+            captured = set(v.captured)
+            for x in cs:
+                captured |= x.captured
+            agreed = {}
+            for i, val in cs[0].known.items():
+                if i in captured:
+                    continue
+                if all(i in x.known and same(x.known[i], val) for x in cs[1:]):
+                    agreed[i] = val
+            if set(agreed) - set(v.known):
+                if new is None:
+                    new = snapshot(old)
+                r = dict.get(new, k)
+                for i, val in agreed.items():
+                    r.known[i] = val
+        elif isinstance(v, SE) and v.e[0] == "v":
+            cs = [dict.get(c, k) for c in contribs]
+            vals = [x.v if isinstance(x, KVal) else x for x in cs]
+            if all(x is not None and not isinstance(x, Sym) and isinstance(x, (float, bytes, bool)) for x in vals) and \
+                    all(same(x, vals[0]) for x in vals[1:]):
+                if new is None:
+                    new = snapshot(old)
+                dict.__setitem__(new, k, KVal(vals[0]))
+    return new
+
+
+def _skey(v, memo=None):
+    """structural key of a lifter state value (for change detection)"""
+    if memo is None:
+        memo = {}
+    if isinstance(v, dict):
+        return tuple(sorted(((repr(k), _skey(x, memo)) for k, x in dict.items(v)), key=lambda t: t[0]))
+    if isinstance(v, Registers):
+        return ("R", tuple(sorted((i, repr(x)) for i, x in v.known.items())), tuple(sorted(v.captured)), repr(v.multi))
+    if isinstance(v, ITable):
+        if id(v) in memo:
+            return ("T*",)
+        memo[id(v)] = True
+        return ("T", tuple(sorted(((repr(k), _skey(x, memo)) for k, x in v.h.items()), key=lambda t: t[0])))
+    if isinstance(v, SE):
+        return ("SE", repr(v.e))
+    if isinstance(v, KVal):
+        return ("K", repr(v.v))
+    if isinstance(v, Special):
+        return ("S", repr(v.sig()))
+    if isinstance(v, (float, bytes, bool)) or v is None:
+        return ("c", repr(v))
+    return ("o", id(v))
 
 
 def lift_once(L, pid, extra, verbose=False):
@@ -1900,6 +2025,53 @@ def lift_once(L, pid, extra, verbose=False):
             if b != 0:
                 schedule(b)
         schedule(0)
+    if NARROW["on"]:
+        # narrowing: a block's entry state is the meet of everything that ever arrived there, including
+        # paths that later disappeared (for example a pass through an instruction before the resolver that
+        # patches it was known). Recompute entry states from the current incoming paths only and re-lift
+        # the blocks that became more precise.
+        for _round in range(NARROW["rounds"]):
+            reach = reachable()
+            # demand-driven: only blocks from which an error path (tamper / lifter error) is reachable
+            bad = {b for b in reach if any(p[3][0] in ("tamper", "err", "lifterr") for p in blocks[b]["paths"])}
+            if not bad:
+                break
+            rpred = collections.defaultdict(set)
+            for b in reach:
+                for p in blocks[b]["paths"]:
+                    if p[3][0] == "goto":
+                        rpred[p[3][1]].add(b)
+            focus = set()
+            stack = list(bad)
+            while stack:
+                x = stack.pop()
+                if x in focus:
+                    continue
+                focus.add(x)
+                stack.extend(rpred[x])
+            changed_blocks = []
+            for b in sorted(reach):
+                if b == 0 or b not in focus:
+                    continue
+                contribs = [st for (pb, pi), st in inc[b].items() if pb in reach]
+                if not contribs:
+                    continue
+                new = _narrow_data(blocks[b]["state"], contribs)
+                if new is not None:
+                    blocks[b]["state"] = new
+                    changed_blocks.append(b)
+            if not changed_blocks:
+                break
+            for b in changed_blocks:
+                schedule(b)
+            while queue:
+                bid = queue.pop()
+                queued.discard(bid)
+                process(bid)
+                nproc[0] += 1
+                if nproc[0] > 200000:
+                    raise LiftError("no convergence")
+        reach = reachable()
     I.on_static_write = None
     # liveness of control locals (worklist)
     live = {b: set(blocks[b]["reads"]) for b in reach}

@@ -467,29 +467,27 @@ if not getgenv().UE_LOADED then
                     local byte = string.byte
                     local text = string.rep(" ", 8)
                     local fn62 = function(arg1, arg2)
-                        local v348 = arg1
-                        local v349 = arg2
                         local num9 = 1
                         local num10 = 0
-                        while 0 < v348 and 0 < v349 do
-                            local n16 = v348 % 2
-                            local n17 = v349 % 2
+                        while 0 < arg1 and 0 < arg2 do
+                            local n16 = arg1 % 2
+                            local n17 = arg2 % 2
                             if n16 ~= n17 then
                                 num10 = num10 + num9
                             end
-                            v348 = (v348 - n16) / 2
-                            v349 = (v349 - n17) / 2
+                            arg1 = (arg1 - n16) / 2
+                            arg2 = (arg2 - n17) / 2
                             num9 = num9 * 2
                         end
-                        if v348 < v349 then
-                            v348 = v349
+                        if arg1 < arg2 then
+                            arg1 = arg2
                         end
-                        while 0 < v348 do
-                            local n18 = v348 % 2
+                        while 0 < arg1 do
+                            local n18 = arg1 % 2
                             if 0 < n18 then
                                 num10 = num10 + num9
                             end
-                            v348 = (v348 - n18) / 2
+                            arg1 = (arg1 - n18) / 2
                             num9 = num9 * 2
                         end
                         return num10
@@ -18444,8 +18442,9 @@ if not getgenv().UE_LOADED then
                                                 v7(8)
                                             elseif list[itemNameText] then
                                                 fn57(itemNameText)
-                                                local n16 = 31632 + ((88 >= string.byte("mpZ\147\218", 5, nil) and 430 or 119) + 43) + -31789
-                                                error("tamper detected") -- original: script wipes its own bytecode here (anti-tamper)
+                                                list[itemNameText] = nil
+                                                module33:ApplyItemStatusToText(itemNameText, equipped_display.ClientItem.Info.Status)
+                                                v7(8)
                                             end
                                         end
                                     end

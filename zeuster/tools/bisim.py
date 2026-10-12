@@ -58,6 +58,183 @@ def drop_dead_spills(blocks):
     return removed
 
 
+def _regs_in(x, out):
+    stack = [x]
+    while stack:
+        y = stack.pop()
+        if isinstance(y, tuple):
+            if len(y) == 2 and y[0] == "r" and isinstance(y[1], int):
+                out.add(y[1])
+                continue
+            if len(y) == 2 and y[0] == "rref" and isinstance(y[1], int):
+                out.add(y[1])
+                continue
+            stack.extend(y)
+        elif isinstance(y, list):
+            stack.extend(y)
+
+
+def _has_any(x, kinds):
+    stack = [x]
+    while stack:
+        y = stack.pop()
+        if isinstance(y, tuple):
+            if y and y[0] in kinds:
+                return True
+            stack.extend(y)
+        elif isinstance(y, list):
+            stack.extend(y)
+    return False
+
+
+_IMPURE = ("call", "callx", "callmx", "mcallx", "mcallmx", "idx", "g", "p", "va", "multi", "count")  # index reads can run __index; parameter copies fix the arity
+
+
+def drop_dead_regs(blocks):
+    """remove register assignments with a side-effect-free value that no later code reads
+    (scratch registers of Luraph's first-run resolvers)"""
+    allregs = set()
+    captured = set()
+    for b in blocks.values():
+        for p in b["paths"]:
+            for d, st in p[2]:
+                if _has_any(st, ("regfile", "rL", "multicopy", "mcopy")):
+                    return 0
+                _regs_in(st, allregs)
+                stack = [st]
+                while stack:
+                    y = stack.pop()
+                    if isinstance(y, tuple):
+                        if len(y) == 2 and y[0] == "rref":
+                            captured.add(y[1])
+                        elif y and y[0] == "close":
+                            return 0
+                        else:
+                            stack.extend(y)
+                    elif isinstance(y, list):
+                        stack.extend(y)
+            _regs_in(p[1], allregs)
+            if p[3][0] != "goto":
+                _regs_in(p[3], allregs)
+
+    def path_uses(p):
+        """registers read on the path before being written, and registers written. Condition j of the
+        path is evaluated after the IR entries recorded with fewer than j+1 decisions."""
+        used, defd = set(), set()
+        conds = p[1]
+        nxt = 0
+        for d, st in p[2]:
+            while nxt < len(conds) and nxt < d:
+                r = set()
+                _regs_in(conds[nxt], r)
+                used |= r - defd
+                nxt += 1
+            r = set()
+            if st[0] == "set" and isinstance(st[1], tuple) and st[1][0] == "r":
+                _regs_in(st[2], r)
+                used |= r - defd
+                defd.add(st[1][1])
+            else:
+                _regs_in(st, r)
+                used |= r - defd
+        while nxt < len(conds):
+            r = set()
+            _regs_in(conds[nxt], r)
+            used |= r - defd
+            nxt += 1
+        if p[3][0] != "goto":
+            r = set()
+            _regs_in(p[3], r)
+            used |= r - defd
+        return used, defd
+    info = {bid: [path_uses(p) for p in b["paths"]] for bid, b in blocks.items()}
+    live_in = {bid: set() for bid in blocks}
+    changed = True
+    while changed:
+        changed = False
+        for bid, b in blocks.items():
+            acc = set()
+            for p, (used, defd) in zip(b["paths"], info[bid]):
+                out = set(live_in.get(p[3][1], ())) if p[3][0] == "goto" else (set(allregs) if p[3][0] != "ret" else set())
+                acc |= used | (out - defd)
+            if not acc <= live_in[bid]:
+                live_in[bid] |= acc
+                changed = True
+    removed = 0
+    for bid, b in blocks.items():
+        # paths of one block share the IR emitted before their first differing decision: a statement is
+        # identified by (decisions taken before it, position among those) and only dropped when it is dead
+        # on every path that executes it
+        dead_votes = collections.defaultdict(list)
+        keyed = []
+        for p in b["paths"]:
+            keys = []
+            seen = collections.Counter()
+            for d, st in p[2]:
+                pref = tuple(p[0][:d])
+                seen[(pref, d)] += 1
+                keys.append((pref, d, seen[(pref, d)]))
+            keyed.append(keys)
+        for p, keys in zip(b["paths"], keyed):
+            live = set(live_in.get(p[3][1], ())) if p[3][0] == "goto" else (set(allregs) if p[3][0] != "ret" else set())
+            if p[3][0] != "goto":
+                _regs_in(p[3], live)
+            conds = p[1]
+            pending = len(conds) - 1
+            for (d, st), key in zip(reversed(p[2]), reversed(keys)):
+                while pending >= 0 and pending >= d:
+                    _regs_in(conds[pending], live)
+                    pending -= 1
+                if st[0] == "set" and isinstance(st[1], tuple) and st[1][0] == "r":
+                    i = st[1][1]
+                    dead = i not in live and i not in captured and not _has_any(st[2], _IMPURE)
+                    dead_votes[key].append(dead)
+                    # a removed statement neither defines nor reads anything; keep the analysis as if it
+                    # stays when another path may still need it
+                    if not dead:
+                        live.discard(i)
+                        _regs_in(st[2], live)
+                else:
+                    _regs_in(st, live)
+        drop = {k for k, v in dead_votes.items() if v and all(v)}
+        if not drop:
+            continue
+        for p, keys in zip(b["paths"], keyed):
+            keep = [(d, st) for (d, st), key in zip(p[2], keys) if key not in drop]
+            if len(keep) != len(p[2]):
+                removed += len(p[2]) - len(keep)
+                p[2][:] = keep
+    return removed
+
+
+def bypass_trampolines(blocks):
+    """a block that does nothing (one path, no condition, no IR) and jumps on: point its predecessors at
+    the target. Luraph's first-run resolvers leave such blocks behind once their slot writes are folded;
+    variants that only differ by passing through one become identical."""
+    def is_tramp(bid):
+        b = blocks.get(bid)
+        if b is None or bid == 0 or len(b["paths"]) != 1:
+            return False
+        p = b["paths"][0]
+        return not p[0] and not p[1] and not p[2] and p[3][0] == "goto" and p[3][1] != bid
+
+    def final(bid):
+        seen = set()
+        while is_tramp(bid) and bid not in seen:
+            seen.add(bid)
+            bid = blocks[bid]["paths"][0][3][1]
+        return bid
+    n = 0
+    for bid, b in blocks.items():
+        for p in b["paths"]:
+            if p[3][0] == "goto":
+                t = final(p[3][1])
+                if t != p[3][1]:
+                    p[3] = ("goto", t)
+                    n += 1
+    return n
+
+
 def _norm(x, bid):
     """rename this block's temporaries / call ids to a block-independent form"""
     if isinstance(x, tuple):
@@ -77,6 +254,9 @@ def merge_variants(blocks):
     blocks = {bid: {"pc": b["pc"], "paths": [[list(p[0]), list(p[1]), list(p[2]), p[3]] for p in b["paths"]]}
               for bid, b in blocks.items()}
     drop_dead_spills(blocks)
+    drop_dead_regs(blocks)
+    drop_dead_spills(blocks)
+    bypass_trampolines(blocks)
     by_pc = collections.Counter(b["pc"] for b in blocks.values())
     if all(c == 1 for c in by_pc.values()):
         return blocks, 0

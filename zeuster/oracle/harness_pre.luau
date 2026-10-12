@@ -1099,7 +1099,16 @@ do
         return _rawset(t, k, v)
     end
     G.getmetatable = function(t)
-        if pinfo[t] then
+        local info = pinfo[t]
+        if info then
+            if _string.sub(info.path, 1, 7) == "module:" then
+                -- objects from game modules are plain Lua tables with a class metatable
+                ev("getmetatable " .. desc(t))
+                if info.rawmt == nil then
+                    info.rawmt = {__index = P(info.path .. "<mt>.__index")}
+                end
+                return info.rawmt
+            end
             return "The metatable is locked"
         end
         return _getmetatable(t)

@@ -78,6 +78,15 @@ Luau's 200-local limit), `constfold.py` (encrypted constants),
   no global of that name is referenced inside the local's scope. 1,326 locals get names this
   way, for example the script's central state table is now `state`.
 
+* A function whose error path reads patch slots that were merged away upstream is lifted
+  once more with block states split on those slots (last-resort fallback, accepted only when
+  it leaves fewer error/tamper paths). This recovered the "item status off" branch, which
+  had been emitted as a tamper path although it is ordinary code
+  (`list[name] = nil; WeaponStatusHandler:ApplyItemStatusToText(name, item.ClientItem.Info.Status)`).
+* Block variants that only differ by passing through a first-run resolver are merged: dead
+  scratch-register writes are dropped (never field reads, parameter copies or calls) and the
+  resulting empty pass-through blocks are bypassed.
+
 ## Verification (`oracle/`)
 
 The original script (with its Luraph VM) and the decompiled file are run under the same
@@ -102,22 +111,23 @@ tree (943 instances) so `DeserializeInstancesAsync` returns the real hierarchy.
 
 Current result:
 
-* 3,842,299 trace events on both sides; all 2,402,623 events other than plain property
+* 3,881,734 trace events on both sides; all 2,421,284 events other than plain property
   reads are identical and in the same order.
-* The reads are identical as a multiset; in 16 places two reads are swapped. Luraph's VM
+* The reads are identical as a multiset; in 24 places a method lookup is moved past its
+  arguments. Luraph's VM
   looks a method up before evaluating the arguments (`SELF`); Luau's `obj:m(args)` looks
   it up after them. Reading a method of an Instance has no side effects.
 * Both runs iterate tables in a canonical key order (`__ITER` in the harness). Lua leaves
   `next`/`pairs` order unspecified and it depends on how a table was filled: the VM fills
   tables key by key, the decompiled code uses table constructors.
-* 328 of the 854 functions run, covering 44% of the lifted VM instructions (`covstat.py`). `gapcheck.py`
+* 385 of the 854 functions run, covering 52% of the lifted VM instructions (`covstat.py`). `gapcheck.py`
   confirms that every executed instruction is in the lifted code, except Luraph's
   first-run jump resolvers (which only patch operand slots) and the encrypted-constant
   closure that is folded away.
 
 ## Known limitations
 
-* Anti-tamper paths are kept and marked `error("tamper detected")` (8 places). In the real
+* Anti-tamper paths are kept and marked `error("tamper detected")` (7 places). In the real
   script these overwrite the bytecode (`for i = 1, 20428 do opcodes[i] = {} end`) or spin
   forever. None of them is reached in the oracle run.
 * About 4,100 of the 20,413 main-chunk instructions are never reached by the lifter.
