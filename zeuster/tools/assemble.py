@@ -106,6 +106,11 @@ def main():
     with open(out_path, "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(out) + "\n")
     print("wrote", out_path, len(out), "lines")
+    import rename
+    if os.path.exists(rename.LUAU_AST):
+        rename.run(out_path, out_path)     # use-based names for the remaining generic locals
+    else:
+        print("luau-ast not found, names left as generated:", rename.LUAU_AST)
     logs = collections.Counter()
     for pid, info in D.cache.items():
         if info is None:

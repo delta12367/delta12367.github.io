@@ -12,7 +12,7 @@ elements, options, services and globals come straight from the program's constan
 python prepare.py ZeusterrEnhancements.txt     # writes head.lua + progdata.pkl
 python batch_lift.py noroot                     # lifts all functions except the main chunk -> noroot.pkl
 python runroot.py                               # lifts the main chunk (about 4 minutes) -> root.pkl
-python assemble.py out.lua root.pkl noroot.pkl  # decompiles everything into one Lua file
+python assemble.py out.lua root.pkl noroot.pkl  # decompiles everything into one Lua file (then rename.py)
 luau-compile --null out.lua                     # syntax and compile check
 ```
 
@@ -66,6 +66,17 @@ Luau's 200-local limit), `constfold.py` (encrypted constants),
   treating such locals as data removes at least 20% of the duplicated blocks, the lifter now
   accepts it even though the locals become variables in the output: the ragebot weapon
   selection (proto 4320) shrank from 1,160 tangled lines to 100.
+
+* `rename.py` renames generic locals (`v12`, `tbl3`, `value030`, `arg1`, ...) from how they
+  are used, on the final source parsed with `luau-ast`: what they are initialised or later
+  assigned with (`GetService`, `FindFirstChild`, `Instance.new`, `Create("Frame", ...)`,
+  `GetX()` calls, wrapped functions), the field they are stored under, the fields and methods
+  used on them (`.Character` -> `player`, `.Humanoid` -> `character`, `:Disconnect` ->
+  `connection`, ...), what a loop iterates (`:GetChildren()` -> `child`), callback positions
+  (`InputBegan` -> `input, gameProcessed`, `OnChanged` -> `value`), metamethod parameters and
+  `self`. A name is only used when no other binding with that name has an overlapping scope and
+  no global of that name is referenced inside the local's scope. 1,326 locals get names this
+  way, for example the script's central state table is now `state`.
 
 ## Verification (`oracle/`)
 
