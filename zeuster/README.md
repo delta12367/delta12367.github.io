@@ -42,10 +42,47 @@ interpretation of the Luraph interpreter closures -> IR), `opt.py`/`ssaspill.py`
   arguments read straight from `...`, and the 200-local limit (extra locals of a crowded
   block are stored in a `scope` table).
 
+* Luraph's encrypted string constants are decrypted. Ten small closures are called inline
+  with an encrypted argument; they check the VM's own register table
+  (`for k, v in next, registers`), which only works inside the VM, so the decompiled copies
+  looped forever (the asset loader hung). `constfold.py` runs each such call with the
+  original VM in Luau and replaces it by the result, for example
+  `U1(decoded, "ender and re- rem on top.")` (the asset XOR key) and the kick messages
+  `"buffer.fromstring hooked"`, `"__iter m table"`, ... Results are cached in
+  `constfold_cache.json`.
+
+## Verification (`oracle/`)
+
+The original script (with its Luraph VM) and the decompiled file are run under the same
+deterministic mock of Roblox and the executor API in the real `luau` CLI. Every interaction
+with the mocked world (service and property reads/writes, `Instance.new`, method calls,
+signal connections, `task` scheduling, file and HTTP calls, ...) is written to a trace.
+
+```
+cd oracle
+./run.sh ../ZeusterEnhancements.deobfuscated.lua   # needs ../bin/luau and ../data/z.lua
+```
+
+The run executes the main script, the queued threads and signal handlers, and then flips
+every registered UI toggle and option (129 toggles, 329 options). Current result:
+
+* 2,631,033 trace events on both sides; all 1,610,557 events other than plain reads are
+  identical and in the same order.
+* The 1,020,476 reads are identical as a multiset; 16 are swapped in order. Luraph's VM
+  looks a method up before evaluating the arguments (`SELF`), Luau's `obj:m(args)` looks it
+  up after them. Reading a method of an Instance has no side effects.
+* Both runs iterate tables in a canonical key order (`__ITER` in the harness). Lua leaves
+  `next`/`pairs` order unspecified and it depends on how a table was filled: the VM fills
+  tables key by key, the decompiled code uses table constructors.
+* The mock does not provide the contents of the downloaded asset bundle, so both runs stop
+  the main chunk at the same point (`asset.main.particles`), after which the remaining
+  phases (threads, signals, UI) still run.
+
 ## Known limitations
 
-* Anti-tamper paths are kept and marked `error("tamper detected")`. In the real script these
-  overwrite the bytecode (`for i = 1, 20428 do opcodes[i] = {} end`) or spin forever.
+* Anti-tamper paths are kept and marked `error("tamper detected")` (8 places). In the real
+  script these overwrite the bytecode (`for i = 1, 20428 do opcodes[i] = {} end`) or spin
+  forever. None of them is reached in the oracle run.
 * About 4,100 of the 20,413 main-chunk instructions are never reached by the lifter.
   Most are Luraph's decoy filler. A few hold loader code (Luarmor flags such as
   `is_from_loader`, executor checks such as `KRNL_LOADED`, a hardware-ID routine) that is

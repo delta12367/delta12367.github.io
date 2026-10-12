@@ -60,6 +60,9 @@ def main():
     srcs = sys.argv[2:] if len(sys.argv) > 2 else ["root.pkl", "noroot.pkl"]
     results = load_results([os.path.join(HERE, p) for p in srcs])
     print("protos", len(results))
+    import constfold
+    constfold.ELIGIBLE = constfold.find_eligible(results)
+    print("encrypted-constant closures", sorted(constfold.ELIGIBLE))
     C, count, F, metas = pickle.load(open(os.path.join(HERE, "progdata.pkl"), "rb"))
     globs = collect_globals(results)
     native_idents = set()

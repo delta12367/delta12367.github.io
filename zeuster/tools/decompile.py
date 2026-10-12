@@ -114,6 +114,9 @@ def analyse(pid, blocks, nregs):
         va_locals = maxp
     webinfo = compute_webs(F, nparams)
     O.inline_loop()
+    import constfold
+    if constfold.fold_func(F, log):
+        O.inline_loop()
     import tailmerge
     nm = tailmerge.run(F)
     if nm:

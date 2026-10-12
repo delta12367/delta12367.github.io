@@ -8,6 +8,14 @@ def main():
     data = pickle.load(open(sys.argv[1], "rb"))
     results = data["results"]
     C, count, F, metas = pickle.load(open("progdata.pkl", "rb"))
+    import constfold
+    allres = dict(results)
+    for extra in ("root.pkl", "noroot.pkl"):
+        try:
+            allres.update({k: v for k, v in pickle.load(open(extra, "rb"))["results"].items() if v})
+        except OSError:
+            pass
+    constfold.ELIGIBLE = constfold.find_eligible(allres)
 
     def nregs_of(pid):
         return int(F[pid][6])

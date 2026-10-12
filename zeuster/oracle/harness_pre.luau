@@ -69,7 +69,10 @@ do
         "TimeLength", "Volume", "Brightness", "ClockTime", "FogEnd", "FogStart", "Density", "Speed", "Length",
         "TimePosition", "Distance", "Thickness", "Radius", "NumSides", "TextBounds_X", "Mass", "PlaybackSpeed",
         "UserId", "AccountAge", "Ping", "Delta", "Position_X", "HipHeight", "Gravity", "Elapsed", "Bottom", "Top",
-        "Left", "Right", "Min", "Max", "Hue", "Saturation", "MinValue", "MaxValue", "Value_n"}) do
+        "Left", "Right", "Min", "Max", "Hue", "Saturation", "MinValue", "MaxValue", "Value_n", "Intensity", "Spread",
+        "Exposure", "Contrast", "Range", "Angle", "Decay", "Diffuse", "Haze", "Glare", "Offset2", "Cover",
+        "ExposureCompensation", "EnvironmentDiffuseScale", "EnvironmentSpecularScale", "GeographicLatitude",
+        "MaxDistance", "Threshold", "BloomIntensity", "TextBoundsX", "Duration", "Weight", "Frequency"}) do
         NUMKEYS[k] = true
     end
     local pinfo = _setmetatable({}, {__mode = "k"})
@@ -201,8 +204,24 @@ do
         ev(pinfo[self].path .. ":" .. n .. "(" .. descargs(a, b) .. ") -> " .. desc(r))
         return r
     end
+    local ABSENT = {LoadingScreen = true}
+    local function gamechild(self, name)
+        -- objects the game provides (not created by the script) are assumed to have the children asked for
+        local info = pinfo[self]
+        if info.created or ABSENT[name] or _type(name) ~= "string" then
+            return nil
+        end
+        local key = "@" .. name
+        local c = info.children[key]
+        if not c then
+            c = P(info.path .. "/" .. name)
+            pinfo[c].props.Name = name
+            info.children[key] = c
+        end
+        return c
+    end
     method("FindFirstChild", function(self, name, rec)
-        return lookupres(self, "FindFirstChild", name, rec, find(self, byname(name), rec))
+        return lookupres(self, "FindFirstChild", name, rec, find(self, byname(name), rec) or gamechild(self, name))
     end)
     method("FindFirstChildOfClass", function(self, cls)
         return lookupres(self, "FindFirstChildOfClass", cls, nil, find(self, byclass(cls), false))
@@ -307,6 +326,7 @@ do
         ev(pinfo[self].path .. ":Clone()")
         local function clone(o, path)
             local c = P(path, pinfo[o].class)
+            pinfo[c].created = pinfo[o].created
             for k, v in _pairs(pinfo[o].props) do
                 if k ~= "Parent" then
                     pinfo[c].props[k] = v
@@ -340,6 +360,17 @@ do
             pinfo[self].children[key] = c
         end
         return c
+    end)
+    method("DeserializeInstancesAsync", function(self, b)
+        ev("DeserializeInstancesAsync " .. desc(b))
+        if _typeof(b) ~= "buffer" then
+            local tn = "table"
+            if pinfo[b] then
+                tn = _string.match(pinfo[b].path, "^([%w_]+)") or "Instance"
+            end
+            _error("Unable to cast " .. tn .. " to buffer", 0)
+        end
+        return {P("asset:main", "Folder")}
     end)
     method("HttpGet", function(self, url)
         ev("HttpGet " .. desc(url))
@@ -455,7 +486,28 @@ do
     end
     Proxy.__iter = function(a)
         ev("iter " .. desc(a))
-        return next, {}
+        local info = pinfo[a]
+        local items = info.iteritems
+        if items == nil then
+            items = {}
+            for i = 1, 2 do
+                local key = "k" .. i
+                local c = P(info.path .. "[" .. key .. "]")
+                pinfo[c].props.Name = info.path:match("([%w_]+)$") .. i
+                items[key] = c
+            end
+            info.iteritems = items
+        end
+        local keys = {"k1", "k2"}
+        local i = 0
+        return function()
+            i += 1
+            local k = keys[i]
+            if k == nil then
+                return nil
+            end
+            return k, items[k]
+        end
     end
 
     -- scheduler ---------------------------------------------------------------------------------
@@ -463,16 +515,33 @@ do
     local clock = 1000
     local mainwaits = 0
     local resumes = 0
+    local RESMAX = 200000
+    local TRES = {}
+    local TCAP = 300
+    local SEQ = 0
+    local function push(co, args, dt)
+        SEQ += 1
+        QUEUE[#QUEUE + 1] = {co, args, clock + (dt or 0), SEQ}
+    end
     local function resume(co, ...)
         resumes += 1
-        if resumes > 200000 then
+        if resumes > RESMAX then
             STOP = true
+            return
+        end
+        local n = (TRES[co] or 0) + 1
+        TRES[co] = n
+        if n > TCAP then
             return
         end
         local ok, err = _co.resume(co, ...)
         if not ok then
             ev("thread error")
         end
+    end
+    function __H.newphase()
+        resumes = 0
+        TRES = {}
     end
     local task = {}
     task.spawn = function(f, ...)
@@ -484,22 +553,26 @@ do
     task.defer = function(f, ...)
         ev("task.defer " .. desc(f))
         local co = _type(f) == "thread" and f or _co.create(f)
-        QUEUE[#QUEUE + 1] = {co, _table.pack(...)}
+        push(co, _table.pack(...), 0)
         return co
     end
     task.delay = function(t, f, ...)
         ev("task.delay " .. desc(t) .. " " .. desc(f))
         local co = _type(f) == "thread" and f or _co.create(f)
-        QUEUE[#QUEUE + 1] = {co, _table.pack(...)}
+        push(co, _table.pack(...), _type(t) == "number" and t or 0)
         return co
     end
-    function __H.yield()
-        clock += 1 / 60
+    function __H.yield(t)
+        local dt = 1 / 60
+        if _type(t) == "number" and t > dt then
+            dt = t
+        end
         local cur = _co.running()
         if cur ~= MAIN and _co.isyieldable() then
-            QUEUE[#QUEUE + 1] = {cur, _table.pack(1 / 60)}
+            push(cur, _table.pack(dt), dt)
             return _co.yield()
         end
+        clock += 1 / 60
         mainwaits += 1
         if mainwaits > 3000 then
             _error("HARNESS_MAIN_WAIT_BUDGET", 0)
@@ -508,7 +581,7 @@ do
     end
     task.wait = function(t)
         ev("task.wait " .. desc(t))
-        return __H.yield()
+        return __H.yield(t)
     end
     task.cancel = function(co)
         ev("task.cancel")
@@ -522,14 +595,28 @@ do
     task.desynchronize = function() end
     __H.task = task
 
+    -- run queued threads in wake-time order; threads sleeping past the horizon stay queued
     function __H.runqueue(limit)
         local n = 0
+        local horizon = clock + 600
         while #QUEUE > 0 and n < limit and not STOP do
+            local bi, best = nil, nil
+            for i, it in _ipairs(QUEUE) do
+                if best == nil or it[3] < best[3] or (it[3] == best[3] and it[4] < best[4]) then
+                    bi, best = i, it
+                end
+            end
+            if best[3] > horizon then
+                break
+            end
             n += 1
-            local item = _table.remove(QUEUE, 1)
-            local co = item[1]
+            _table.remove(QUEUE, bi)
+            if best[3] > clock then
+                clock = best[3]
+            end
+            local co = best[1]
             if _co.status(co) == "suspended" then
-                resume(co, _table.unpack(item[2], 1, item[2].n))
+                resume(co, _table.unpack(best[2], 1, best[2].n))
             end
         end
     end
@@ -612,6 +699,48 @@ do
     end
     mathmock.randomseed = function() end
     G.math = mathmock
+    local function num(v)
+        if pinfo[v] then
+            return 0
+        end
+        return v
+    end
+    for k, f in _pairs(_math) do
+        if _type(f) == "function" and k ~= "random" and k ~= "randomseed" then
+            mathmock[k] = function(...)
+                local n = _select("#", ...)
+                local args = {...}
+                for i = 1, n do
+                    args[i] = num(args[i])
+                end
+                return f(_table.unpack(args, 1, n))
+            end
+        end
+    end
+    local stringmock = {}
+    for k, v in _pairs(_string) do
+        stringmock[k] = v
+    end
+    stringmock.format = function(fmt, ...)
+        local n = _select("#", ...)
+        local args = {...}
+        local i = 0
+        for spec in _string.gmatch(fmt, "%%[-+ #0]*%d*%.?%d*([%a%%])") do
+            if spec ~= "%" then
+                i += 1
+                local v = args[i]
+                if pinfo[v] then
+                    if spec == "s" or spec == "q" then
+                        args[i] = pinfo[v].path
+                    else
+                        args[i] = 0
+                    end
+                end
+            end
+        end
+        return _string.format(fmt, _table.unpack(args, 1, n))
+    end
+    G.string = stringmock
     G.typeof = function(v)
         if pinfo[v] then
             return pinfo[v].class and "Instance" or "Instance"
@@ -640,6 +769,7 @@ do
         end
         ev("Instance.new " .. desc(class))
         local o = P(fresh("new:" .. _tostring(class)), class)
+        pinfo[o].created = true
         pinfo[o].props.ClassName = class
         pinfo[o].props.Name = class
         if parent ~= nil then
@@ -703,6 +833,45 @@ do
         return _realinfo(a, b, ...)
     end
     G.debug = debugmock
+    local comock = {}
+    for k, v in _pairs(_co) do
+        comock[k] = v
+    end
+    local function callable(f)
+        if pinfo[f] then
+            return function(...)
+                return f(...)
+            end
+        end
+        return f
+    end
+    comock.wrap = function(f)
+        return _co.wrap(callable(f))
+    end
+    comock.create = function(f)
+        return _co.create(callable(f))
+    end
+    G.coroutine = comock
+    local _realgetfenv = realget("getfenv")
+    local fenvs = _setmetatable({}, {__mode = "k"})
+    G.getfenv = function(f)
+        if pinfo[f] or (_type(f) == "function" and CFN[f]) then
+            local e = fenvs[f]
+            if e == nil then
+                e = {script = G.script}
+                fenvs[f] = e
+            end
+            ev("getfenv " .. desc(f))
+            return e
+        end
+        if f == nil then
+            return _realgetfenv(2)
+        end
+        if _type(f) == "number" then
+            return _realgetfenv(f + 1)
+        end
+        return _realgetfenv(f)
+    end
     local B64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
     local function b64enc(data)
         data = _tostring(data)
@@ -778,7 +947,28 @@ do
         end
         return _getmetatable(t)
     end
+    local MODULE_DATA
     local modules = {}
+    local WEAPONS = {"Assault Rifle", "Handgun", "Knife", "Grenade"}
+    local CLASSES = {["Assault Rifle"] = "Primary", Handgun = "Secondary", Knife = "Melee", Grenade = "Utility"}
+    MODULE_DATA = {
+        ItemLibrary = function()
+            local items = {}
+            for _, w in _ipairs(WEAPONS) do
+                items[w] = {Class = CLASSES[w], Name = w}
+            end
+            return {Items = items}
+        end,
+        ShopLibrary = function()
+            return {GetReleasedOwnableWeapons = function()
+                ev("ShopLibrary.GetReleasedOwnableWeapons")
+                return {_table.unpack(WEAPONS)}
+            end}
+        end,
+        CONSTANTS = function()
+            return {DEFAULT_WEAPONS = {_table.unpack(WEAPONS)}, WEAPON_EARLY_ACCESS_TIME_OFFSET = 0}
+        end,
+    }
     G.require = function(m)
         local key = pinfo[m] and pinfo[m].path or _tostring(m)
         ev("require " .. key)
@@ -786,6 +976,13 @@ do
         if r == nil then
             r = P("module:" .. key)
             modules[key] = r
+            local name = _string.match(key, "([%w_]+)$") or ""
+            local seed = MODULE_DATA[name]
+            if seed then
+                for k, v in _pairs(seed()) do
+                    pinfo[r].props[k] = v
+                end
+            end
         end
         return r
     end
@@ -905,6 +1102,63 @@ do
     G.getrawmetatable = function(o)
         ev("getrawmetatable " .. desc(o))
         return {__index = function() end, __namecall = function() end, __newindex = function() end}
+    end
+    G.setrawmetatable = function(t, mt)
+        ev("setrawmetatable " .. desc(t))
+        if pinfo[t] then
+            pinfo[t].rawmt = mt
+            return t
+        end
+        return _setmetatable(t, mt)
+    end
+    G.gethiddenproperty = function(o, n)
+        ev("gethiddenproperty " .. desc(o) .. " " .. desc(n))
+        return nil, true
+    end
+    G.isrbxactive = function()
+        return true
+    end
+    G.isnetworkowner = function()
+        return true
+    end
+    G.protectinstance = function(i)
+        ev("protectinstance")
+    end
+    G.replicatesignal = function(...)
+        ev("replicatesignal")
+    end
+    G.getcallbackvalue = function()
+        return nil
+    end
+    for _, n in _ipairs({"setupvalue", "setfflag", "setconstant", "setstack", "setproto"}) do
+        G[n] = function(...)
+            ev(n .. "(" .. descargs(...) .. ")")
+        end
+    end
+    for _, n in _ipairs({"getupvalues", "getconstants", "getprotos", "getstack", "getinfo"}) do
+        G[n] = function(...)
+            ev(n .. "()")
+            return {}
+        end
+    end
+    G.getupvalue = function(...)
+        ev("getupvalue")
+        return nil
+    end
+    G.getconstant = function(...)
+        ev("getconstant")
+        return nil
+    end
+    G.getproto = function(f, i, active)
+        ev("getproto")
+        if active then
+            return {}
+        end
+        return function() end
+    end
+    G.getfflag = function(n)
+        ev("getfflag " .. desc(n))
+        return "false"
     end
     G.setreadonly = function() end
     G.make_writeable = function() end
@@ -1030,6 +1284,70 @@ do
     end
     _rawset(env, "__COV", __COV)
     _rawset(env, "__STEP", __STEP)
+    -- canonical table iteration: Lua leaves the order of next/pairs unspecified, and it depends on how
+    -- a table was filled (key by key in the VM, preallocated by a constructor in the decompiled code).
+    -- Both runs route their generic for loops through __ITER, which visits number/string/boolean keys
+    -- in sorted order (other keys follow in native order).
+    local _next = realget("next")
+    local RANK = {boolean = 1, number = 2, string = 3, table = 4}
+    local function keyless(a, b)
+        local ta, tb = _type(a), _type(b)
+        if ta ~= tb then
+            return RANK[ta] < RANK[tb]
+        end
+        if ta == "boolean" then
+            return (not a) and b
+        end
+        if ta == "table" then
+            return pinfo[a].path < pinfo[b].path
+        end
+        return a < b
+    end
+    local function canon(t)
+        local keys, others = {}, {}
+        local k = _next(t)
+        while k ~= nil do
+            local tk = _type(k)
+            if (RANK[tk] and k == k) or (tk == "table" and pinfo[k] ~= nil) then
+                keys[#keys + 1] = k
+            else
+                others[#others + 1] = k
+            end
+            k = _next(t, k)
+        end
+        _table.sort(keys, keyless)
+        for _, o in _ipairs(others) do
+            keys[#keys + 1] = o
+        end
+        local i = 0
+        return function()
+            while true do
+                i += 1
+                local kk = keys[i]
+                if kk == nil then
+                    return nil
+                end
+                local v = _rawget(t, kk)
+                if v ~= nil then
+                    return kk, v
+                end
+            end
+        end
+    end
+    function __ITER(f, s, c, ...)
+        if _type(f) == "table" and _select("#", ...) == 0 and s == nil and c == nil then
+            local ok, mt = _pcall(_getmetatable, f)
+            if ok and mt == nil then
+                return canon(f)
+            end
+            return f, s, c
+        end
+        if f == _next and _type(s) == "table" and c == nil then
+            return canon(s)
+        end
+        return f, s, c, ...
+    end
+    _rawset(env, "__ITER", __ITER)
 
     function __H.run(fn, protos)
         covon = true
@@ -1041,8 +1359,15 @@ do
         end
         __H.runqueue(2000)
         __H.fire(2)
+        __H.newphase()
         -- exercise the UI: flip every toggle and option the script registered
         local Toggles, Options = genv.Toggles or _rawget(env, "Toggles"), genv.Options or _rawget(env, "Options")
+        do
+            local nt, no = 0, 0
+            if _type(Toggles) == "table" then for _ in _pairs(Toggles) do nt += 1 end end
+            if _type(Options) == "table" then for _ in _pairs(Options) do no += 1 end end
+            _print("HARNESS ui tables: toggles=" .. _tostring(nt) .. " options=" .. _tostring(no) .. " STOP=" .. _tostring(STOP))
+        end
         for _, pair in _ipairs({{"Toggles", Toggles}, {"Options", Options}}) do
             local tbl = pair[2]
             if _type(tbl) == "table" then
@@ -1090,6 +1415,7 @@ do
                 end
             end
         end
+        __H.newphase()
         __H.fire(2)
         __H.runqueue(2000)
         ON = false

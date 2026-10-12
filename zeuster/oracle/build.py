@@ -10,6 +10,10 @@ def build_orig(src_path, out_path):
     src = src.replace(old_step, "local function __step(id)\n    __STEP()\n    do return end\n")
     import re as _re
     src = _re.sub(r"(?m)^(\s*)a = function\(\.\.\.\)$", lambda m: m.group(0) + "\n" + m.group(1) + "    local __act = {}", src)
+    n_it = len(_re.findall(r"\bin \.\.\.\s*do\b", src))
+    src = _re.sub(r"\bin \.\.\.\s*do\b", "in __ITER(...) do", src)
+    print("orig generic-for sites", n_it)
+    src = iter_rewrite(src)
     n = src.count("local opcode = opcodes[pc]")
     src = src.replace("local opcode = opcodes[pc]", "local opcode = opcodes[pc]; __COV(opcodes, pc, __act)")
     tail = "return runApplication()"
@@ -45,8 +49,22 @@ def add_steps(src):
     return "\n".join(out)
 
 
+def iter_rewrite(src):
+    import re
+    out = []
+    n = 0
+    for ln in src.split("\n"):
+        m = re.match(r"^(\s*)for (.+?) in (.+) do$", ln)
+        if m and not m.group(3).startswith("__ITER("):
+            ln = "%sfor %s in __ITER(%s) do" % (m.group(1), m.group(2), m.group(3))
+            n += 1
+        out.append(ln)
+    print("dec generic-for sites", n)
+    return "\n".join(out)
+
+
 def build_dec(src_path, out_path):
-    src = add_steps(open(src_path, encoding="utf-8").read())
+    src = add_steps(iter_rewrite(open(src_path, encoding="utf-8").read()))
     out = pre + "\nlocal function __MAIN(...)\n" + src + "\nend\n__H.run(__MAIN)\n"
     open(out_path, "w", encoding="utf-8").write(out)
 
