@@ -136,6 +136,10 @@ def analyse(pid, blocks, nregs):
     body = patterns.apply(body, webinfo)
     body = place_locals(body, webinfo)
     body = patterns.post(body)
+    import regscope
+    body, nscopes = regscope.apply(body, webinfo)
+    if nscopes:
+        log.append("register scopes")
     import doblocks
     body = doblocks.apply(body, max(nparams, va_locals))
     info = ProtoInfo(pid, nregs, F, body, nparams, vararg, log, webinfo)

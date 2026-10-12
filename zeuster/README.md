@@ -19,7 +19,8 @@ luau-compile --null out.lua                     # syntax and compile check
 Main stages: `interp.py` (Lua interpreter used to boot the VM), `lifter2.py` (abstract
 interpretation of the Luraph interpreter closures -> IR), `opt.py`/`ssaspill.py`/`webs.py`
 (IR clean-up, variables), `structure.py` (control flow), `patterns.py`/`loops.py`
-(`for` loops), `scope.py`/`doblocks.py` (local placement, Luau's 200-local limit),
+(`for` loops), `scope.py`/`regscope.py`/`doblocks.py` (local placement, scopes,
+Luau's 200-local limit), `constfold.py` (encrypted constants),
 `emit.py`/`decompile.py` (Lua output).
 
 ## Fixes in this round
@@ -50,6 +51,14 @@ interpretation of the Luraph interpreter closures -> IR), `opt.py`/`ssaspill.py`
   `U1(decoded, "ender and re- rem on top.")` (the asset XOR key) and the kick messages
   `"buffer.fromstring hooked"`, `"__iter m table"`, ... Results are cached in
   `constfold_cache.json`.
+
+* Scopes are rebuilt from the VM's register allocation (`regscope.py`). Luraph's compiler
+  gives each local the next free register and frees them when a block ends, so a register
+  that is reused marks where the original `do ... end` block closed; a local declared in a
+  lower register than the locals just before it was declared earlier and assigned at the end
+  of that block. This replaced the old fallback that stored extra locals in `scope` tables
+  (710 references) and removed the deep `do` nesting (maximum indentation 496 -> 72 columns).
+* Numeric `for` loops whose body uses the counter directly are recognised (16 more loops).
 
 ## Verification (`oracle/`)
 

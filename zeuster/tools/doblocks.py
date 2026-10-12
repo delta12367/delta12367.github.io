@@ -95,7 +95,8 @@ def chunk(block):
             if maxlast >= n - 1 and j - i > 400:
                 break
             j += 1
-        if best is not None and best > i and not (i == 0 and best == n - 1):
+        # a do-block that reaches the end of the block frees no slot for later locals: never create it
+        if best is not None and best > i and best < n - 1:
             out.append(("do", block[i:best + 1]))
             i = best + 1
         else:

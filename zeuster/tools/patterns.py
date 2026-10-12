@@ -161,13 +161,23 @@ def match_fornum(block, i, cnt):
     if init_idx is None:
         return None
     init = block[init_idx][1][2]
-    # K, N must only be used by the loop machinery
-    expected_K = 1 + 1 + 1   # init def, increment read, update def
+    # K, N must only be used by the loop machinery - or, inside the body, as the loop variable
+    # (after `K = N` both hold the current value)
+    k_rest = _count_in(rest, K[1])
+    n_rest = _count_in(rest, N[1])
+    expected_K = 1 + 1 + 1 + k_rest   # init def, increment read, update def
     if cnt[K[1]] != expected_K:
         return None
-    n_uses = 1 + 1 + 1 + (1 if V is not None else 0)  # def, cond, k update, var copy
+    n_uses = 1 + 1 + 1 + (1 if V is not None else 0) + n_rest  # def, cond, k update, var copy
     if cnt[N[1]] != n_uses:
         return None
+    if k_rest or n_rest:
+        if assigned_in(rest, K[1]) or assigned_in(rest, N[1]) or _captured_by_ref(rest, K[1]):
+            return None
+        if V is None:
+            V = N
+        fn = lambda e: V if e[0] == "w" and e[1] in (K[1], N[1]) and e != V else None
+        rest = subst_block(rest, fn)
     # limit/step loop invariant
     for ex in (limit, step):
         for x in walk(ex):
@@ -184,6 +194,15 @@ def match_fornum(block, i, cnt):
         start = ("bin", "+", init, step)
     var = V[1] if V is not None else None
     return init_idx, var, start, strip_plus0(limit), step, rest
+
+
+def _captured_by_ref(block, w):
+    for x in walk_block(block):
+        if x[0] in ("closure", "native"):
+            for r in x[2]:
+                if (r[0] == "rref" and r[1] == w) or (r[0] == "rrefv" and r[1] == ("w", w)):
+                    return True
+    return False
 
 
 def _dyn_cond(c, N):
