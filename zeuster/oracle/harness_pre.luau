@@ -31,13 +31,14 @@ do
 
     local STREAM = true
     local FUZZEV = nil
+    local FUZZEVMAX = 20000
     local function ev(s)
         if not ON or STOP then
             return
         end
         if FUZZEV ~= nil then
             FUZZEV += 1
-            if FUZZEV > 20000 then
+            if FUZZEV > FUZZEVMAX then
                 FUZZEV = nil
                 _error("FUZZ_EVENT_BUDGET", 0)
             end
@@ -96,6 +97,25 @@ do
     local pinfo = _setmetatable({}, {__mode = "k"})
     local Proxy = {}
 
+    -- stable names for plain tables and functions used as keys (addresses differ between runs)
+    local KEYIDS = _setmetatable({}, {__mode = "k"})
+    local nkeyid = 0
+    local function keyname(k)
+        local t = _type(k)
+        if t == "table" or t == "function" or t == "thread" or t == "userdata" then
+            if pinfo[k] then
+                return "<" .. pinfo[k].path .. ">"
+            end
+            local id = KEYIDS[k]
+            if id == nil then
+                nkeyid += 1
+                id = t .. "#" .. nkeyid
+                KEYIDS[k] = id
+            end
+            return "{" .. id .. "}"
+        end
+        return _tostring(k)
+    end
     local function desc(v, depth)
         local t = _type(v)
         if t == "nil" or t == "boolean" then
@@ -173,7 +193,7 @@ do
         ev("GetService " .. desc(name))
         local s = services[name]
         if not s then
-            s = P("svc:" .. _tostring(name), name)
+            s = P("svc:" .. keyname(name), name)
             pinfo[s].props.Name = name
             pinfo[s].props.ClassName = name
             services[name] = s
@@ -273,11 +293,11 @@ do
         if found then
             return found
         end
-        local c = info.children["@" .. _tostring(name)]
+        local c = info.children["@" .. keyname(name)]
         if not c then
             c = P(info.path .. "/" .. _tostring(name))
             pinfo[c].props.Name = name
-            info.children["@" .. _tostring(name)] = c
+            info.children["@" .. keyname(name)] = c
         end
         return c
     end)
@@ -367,13 +387,13 @@ do
     end)
     method("BindToRenderStep", function(self, name, prio, fn)
         ev(pinfo[self].path .. ":BindToRenderStep(" .. descargs(name, prio) .. ")")
-        local rec = {sig = "RenderStep:" .. _tostring(name), fn = fn, alive = true, once = false}
+        local rec = {sig = "RenderStep:" .. keyname(name), fn = fn, alive = true, once = false}
         CONNS[#CONNS + 1] = rec
     end)
     method("UnbindFromRenderStep", function(self, name)
         ev(pinfo[self].path .. ":UnbindFromRenderStep(" .. desc(name) .. ")")
         for _, c in _ipairs(CONNS) do
-            if c.sig == "RenderStep:" .. _tostring(name) then
+            if c.sig == "RenderStep:" .. keyname(name) then
                 c.alive = false
             end
         end
@@ -456,17 +476,17 @@ do
         return clone(self, fresh(pinfo[self].path .. ":Clone"))
     end)
     method("GetAttribute", function(self, n)
-        local v = pinfo[self].props["@attr:" .. _tostring(n)]
+        local v = pinfo[self].props["@attr:" .. keyname(n)]
         ev(pinfo[self].path .. ":GetAttribute(" .. desc(n) .. ") -> " .. desc(v))
         return v
     end)
     method("SetAttribute", function(self, n, v)
         ev(pinfo[self].path .. ":SetAttribute(" .. desc(n) .. ", " .. desc(v) .. ")")
-        pinfo[self].props["@attr:" .. _tostring(n)] = v
+        pinfo[self].props["@attr:" .. keyname(n)] = v
     end)
     method("GetPropertyChangedSignal", function(self, n)
         ev(pinfo[self].path .. ":GetPropertyChangedSignal(" .. desc(n) .. ")")
-        local key = "@sig:" .. _tostring(n)
+        local key = "@sig:" .. keyname(n)
         local c = pinfo[self].children[key]
         if not c then
             c = P(pinfo[self].path .. ".Changed[" .. _tostring(n) .. "]")
@@ -530,7 +550,7 @@ do
         local info = pinfo[self]
         local v = info.props[k]
         if v ~= nil then
-            ev("get " .. info.path .. "." .. _tostring(k) .. " -> " .. desc(v))
+            ev("get " .. info.path .. "." .. keyname(k) .. " -> " .. desc(v))
             return v
         end
         local m = METHODS[k]
@@ -542,7 +562,7 @@ do
                 or _string.match(info.path, "%.Position$") or _string.match(info.path, "%.Size$")
                 or _string.match(info.path, "%.CanvasSize$") or info.class == "UDim2")
             if not udim then
-                ev("get " .. info.path .. "." .. _tostring(k) .. " -> 0")
+                ev("get " .. info.path .. "." .. keyname(k) .. " -> 0")
                 return 0
             end
         end
@@ -557,10 +577,10 @@ do
         end
         local c = info.children[k]
         if c == nil then
-            c = P(info.path .. "." .. _tostring(k))
+            c = P(info.path .. "." .. keyname(k))
             info.children[k] = c
         end
-        ev("get " .. info.path .. "." .. _tostring(k))
+        ev("get " .. info.path .. "." .. keyname(k))
         return c
     end
     Proxy.__newindex = function(self, k, v)
@@ -571,7 +591,7 @@ do
             pi.kids = pi.kids or {}
             pi.kids[#pi.kids + 1] = self
         end
-        ev("set " .. info.path .. "." .. _tostring(k) .. " = " .. desc(v))
+        ev("set " .. info.path .. "." .. keyname(k) .. " = " .. desc(v))
     end
     Proxy.__call = function(self, ...)
         local info = pinfo[self]
@@ -941,7 +961,7 @@ do
             class, parent = self_or_cls, cls
         end
         ev("Instance.new " .. desc(class))
-        local o = P(fresh("new:" .. _tostring(class)), class)
+        local o = P(fresh("new:" .. keyname(class)), class)
         pinfo[o].created = true
         pinfo[o].props.ClassName = class
         pinfo[o].props.Name = class
@@ -1046,8 +1066,18 @@ do
         return _realgetfenv(f)
     end
     local B64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+    local function b64arg(data)
+        local t = _type(data)
+        if t == "number" then
+            return _tostring(data)
+        end
+        if t ~= "string" then
+            _error("invalid argument #1 (string expected, got " .. t .. ")", 2)
+        end
+        return data
+    end
     local function b64enc(data)
-        data = _tostring(data)
+        data = b64arg(data)
         local out = {}
         for i = 1, #data, 3 do
             local a, b, c = _string.byte(data, i, i + 2)
@@ -1062,7 +1092,7 @@ do
         return _table.concat(out)
     end
     local function b64dec(data)
-        data = _string.gsub(_tostring(data), "[^%w%+/=]", "")
+        data = _string.gsub(b64arg(data), "[^%w%+/=]", "")
         local out = {}
         for i = 1, #data, 4 do
             local n, pad = 0, 0
@@ -1096,11 +1126,11 @@ do
             if v == nil then
                 v = info.children[k]
                 if v == nil then
-                    v = P(info.path .. "." .. _tostring(k))
+                    v = P(info.path .. "." .. keyname(k))
                     info.children[k] = v
                 end
             end
-            ev("rawget " .. info.path .. "." .. _tostring(k))
+            ev("rawget " .. info.path .. "." .. keyname(k))
             return v
         end
         return _rawget(t, k)
@@ -1109,7 +1139,7 @@ do
         local info = pinfo[t]
         if info then
             info.props[k] = v
-            ev("rawset " .. info.path .. "." .. _tostring(k) .. " = " .. desc(v))
+            ev("rawset " .. info.path .. "." .. keyname(k) .. " = " .. desc(v))
             return t
         end
         return _rawset(t, k, v)
@@ -1379,7 +1409,7 @@ do
     end
     G.http_request = G.request
     G.getcustomasset = function(p)
-        return "rbxasset://" .. _tostring(p)
+        return "rbxasset://" .. keyname(p)
     end
     G.getscriptclosure = function()
         return function() end
@@ -1411,6 +1441,25 @@ do
     end
     G.setidentity = G.setthreadidentity
     G.getidentity = G.getthreadidentity
+    -- tostring of plain tables/functions/threads embeds an address, which differs between runs
+    local ADDR = _setmetatable({}, {__mode = "k"})
+    local naddr = 0
+    G.tostring = function(v)
+        local t = _type(v)
+        if (t == "table" or t == "function" or t == "thread" or t == "userdata") and not pinfo[v] then
+            local mt = t == "table" and _getmetatable(v) or nil
+            if not (_type(mt) == "table" and _rawget(mt, "__tostring") ~= nil) and mt == nil then
+                local a = ADDR[v]
+                if a == nil then
+                    naddr += 1
+                    a = _string.format("0x%016x", 0x10000 + naddr * 16)
+                    ADDR[v] = a
+                end
+                return t .. ": " .. a
+            end
+        end
+        return _tostring(v)
+    end
     G.print = function(...)
         ev("print(" .. descargs(...) .. ")")
     end
@@ -1570,6 +1619,36 @@ do
     end
     __H.COV, __H.STEP, __H.ITER, __H.REG = __COV, __STEP, __ITER, __REG
     -- fuzz phase: call registered closures of functions the normal run never executed
+    -- broad round: every registered function (first instance) with several argument profiles
+    function __H.fuzzall(pids)
+        local profiles = {
+            function(b) return P(b .. ":a1"), P(b .. ":a2"), P(b .. ":a3") end,
+            function(b) return 1, 2, 3 end,
+            function(b) return "a", "b", "c" end,
+            function(b) return true, false, true end,
+            function(b) return nil, nil, nil end,
+            function(b) return {}, {}, {} end,
+        }
+        for _, pid in _ipairs(pids) do
+            local list = REGS[pid]
+            local f = list and list[1]
+            if f then
+                for pi, prof in _ipairs(profiles) do
+                    if STOP then
+                        return
+                    end
+                    __H.newphase()
+                    ev("fuzzall " .. _tostring(pid) .. "/" .. pi)
+                    FUZZSTEPS = 0
+                    FUZZEV = 0
+                    resume(_co.create(f), prof("fa:" .. _tostring(pid) .. ":" .. pi))
+                    __H.runqueue(10)
+                    FUZZSTEPS = nil
+                    FUZZEV = nil
+                end
+            end
+        end
+    end
     function __H.fuzz(pids)
         for _, pid in _ipairs(pids) do
             local list = REGS[pid]
@@ -1702,7 +1781,16 @@ do
         end
         dumpreg(0)
         for r, pids in _ipairs(FUZZ_ROUNDS or {}) do
-            __H.fuzz(pids)
+            if pids[1] == -1 then
+                -- marker round: every function both runs registered equally often
+                local all = {}
+                for i = 2, #pids do
+                    all[#all + 1] = pids[i]
+                end
+                __H.fuzzall(all)
+            else
+                __H.fuzz(pids)
+            end
             dumpreg(r)
         end
         ON = false

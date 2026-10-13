@@ -28,9 +28,10 @@ local enabledRef = true
 if not getgenv().UE_LOADED then
     getgenv().UE_LOADED = true
     do
+        local Options2 = Options
         local Toggles2 = Toggles
         local Library2 = Library
-        Options = Options
+        Options = Options2
         Toggles = Toggles2
         Library = Library2
         pcall(queue_on_teleport, string.format("\t\tif (not isfile(\"LOAD_PERSISTENT\")) then\n\t\t\treturn;\n\t\tend;\n\t\tscript_key, SILENT = \"%s\", isfile(\"LOAD_SILENTLY\");\n\t\tloadstring(game:HttpGet(\"https://api.luarmor.net/files/v4/loaders/b6956594687d0095f5afdd3e2a2056ad.lua\"))();\n\t\t", script_key or "?"))
@@ -59,6 +60,7 @@ if not getgenv().UE_LOADED then
     local cloneFunctionRef = clonefunction
     local isourclosure2 = isourclosure
     local isfunctionhooked2 = isfunctionhooked
+    local wrap = coroutine.wrap
     local v4
     do
         local pcall_ = pcall
@@ -69,9 +71,9 @@ if not getgenv().UE_LOADED then
                     while true do
                     end
                 end
-                local v345 = cloneFunctionRef(arg1)
-                if arg1 ~= v345 and info(v345, "s") == "[C]" and not pcall_(setfenv, v345, {}) then
-                    return hookfunction_(v345, function() end)
+                local v347 = cloneFunctionRef(arg1)
+                if arg1 ~= v347 and info(v347, "s") == "[C]" and not pcall_(setfenv, v347, {}) then
+                    return hookfunction_(v347, function() end)
                 end
             end;
             (function()
@@ -81,57 +83,57 @@ if not getgenv().UE_LOADED then
                     local num9 = 1
                     local num10 = 0
                     while 0 < arg12 and 0 < arg22 do
-                        local n16 = arg12 % 2
-                        local n17 = arg22 % 2
-                        if n16 ~= n17 then
+                        local n17 = arg12 % 2
+                        local n18 = arg22 % 2
+                        if n17 ~= n18 then
                             num10 = num10 + num9
                         end
-                        arg12 = (arg12 - n16) / 2
-                        arg22 = (arg22 - n17) / 2
+                        arg12 = (arg12 - n17) / 2
+                        arg22 = (arg22 - n18) / 2
                         num9 = num9 * 2
                     end
                     if arg12 < arg22 then
                         arg12 = arg22
                     end
                     while 0 < arg12 do
-                        local n18 = arg12 % 2
-                        if 0 < n18 then
+                        local n19 = arg12 % 2
+                        if 0 < n19 then
                             num10 = num10 + num9
                         end
-                        arg12 = (arg12 - n18) / 2
+                        arg12 = (arg12 - n19) / 2
                         num9 = num9 * 2
                     end
                     return num10
                 end
                 local fn63 = function(arg12, arg22, arg3)
                     if not arg3 then
-                        local n16 = 2 ^ (arg22 - 1)
-                        return arg12 % (n16 + n16) >= n16 and 1 or 0
+                        local n17 = 2 ^ (arg22 - 1)
+                        return arg12 % (n17 + n17) >= n17 and 1 or 0
                     end
-                    local n17 = arg12 / 2 ^ (arg22 - 1) % 2 ^ (arg3 - 1 - (arg22 - 1) + 1)
-                    return n17 - n17 % 1
+                    local n18 = arg12 / 2 ^ (arg22 - 1) % 2 ^ (arg3 - 1 - (arg22 - 1) + 1)
+                    return n18 - n18 % 1
                 end
                 local fn64 = function()
-                    local v347, v348, v349, v350 = byte(text, 1, 4)
-                    return fn62(v350, 64) * 16777216 + fn62(v349, 32) * 65536 + fn62(v348, 16) * 256 + fn62(v347, 8)
+                    local v349, v350, v351, v352 = byte(text, 1, 4)
+                    return fn62(v352, 64) * 16777216 + fn62(v351, 32) * 65536 + fn62(v350, 16) * 256 + fn62(v349, 8)
                 end
                 local fn65 = function()
-                    local v347 = fn64()
-                    local v348 = fn64()
+                    local v349 = fn64()
+                    local v350 = fn64()
                     local num9 = 1
-                    local n16 = fn63(v348, 1, 20) * 4294967296 + v347
-                    local v349 = fn63(v348, 21, 31)
-                    local v350 = -1 ^ fn63(v348, 32)
-                    if v349 == 0 then
-                        if n16 == 0 then
-                            return v350 * 0
+                    local n17 = fn63(v350, 1, 20) * 4294967296 + v349
+                    local v351 = fn63(v350, 21, 31)
+                    local v352 = -1 ^ fn63(v350, 32)
+                    if v351 == 0 then
+                        if n17 == 0 then
+                            return v352 * 0
                         end
-                        v349 = 1
+                        v351 = 1
                         num9 = 0
-                    elseif v349 == 2047 then
-                        return n16 == 0 and v350 * 1 / 0 or v350 * 0 / 0
+                    elseif v351 == 2047 then
+                        return n17 == 0 and v352 * 1 / 0 or v352 * 0 / 0
                     end
-                    return v350 * 2 ^ (v349 - 1023) * (num9 + n16 / 4503599627370496)
+                    return v352 * 2 ^ (v351 - 1023) * (num9 + n17 / 4503599627370496)
                 end
                 local fn66 = function()
                     if 1 <= fn64() + 0 then
@@ -141,31 +143,31 @@ if not getgenv().UE_LOADED then
                                 list[fn62(fn64(), fn64())] = fn62(fn64(), fn64())
                                 list[fn62(fn64(), fn64())] = fn62(fn64(), fn64())
                             end
-                            local n16 = fn64() + 0
-                            for _ = 1, n16 do
+                            local n17 = fn64() + 0
+                            for _ = 1, n17 do
                                 for _ = 0, 255 do
                                     do
-                                        local v347 = fn65()
-                                        if v347 then
-                                            v347 = fn64()
+                                        local v349 = fn65()
+                                        if v349 then
+                                            v349 = fn64()
                                         end
-                                        local v348 = list[fn65()]
-                                        if not v348 then
-                                            v348 = fn62(fn65(), fn65())
-                                        end
-                                        list[v347] = v348
-                                    end
-                                    do
-                                        local v349 = fn64()
-                                        local v350 = fn65()
-                                        if v350 then
-                                            v350 = fn65()
+                                        local v350 = list[fn65()]
+                                        if not v350 then
+                                            v350 = fn62(fn65(), fn65())
                                         end
                                         list[v349] = v350
                                     end
-                                    local v351 = fn63(fn65(), fn64())
+                                    do
+                                        local v351 = fn64()
+                                        local v352 = fn65()
+                                        if v352 then
+                                            v352 = fn65()
+                                        end
+                                        list[v351] = v352
+                                    end
+                                    local v353 = fn63(fn65(), fn64())
                                     local tbl59 = {fn65(), fn64()}
-                                    list[v351] = tbl59
+                                    list[v353] = tbl59
                                 end
                             end
                         end
@@ -178,7 +180,7 @@ if not getgenv().UE_LOADED then
             end)()
             error("tamper detected") -- original: script wipes its own bytecode here (anti-tamper)
         end
-        v4(coroutine.wrap)
+        v4(wrap)
         cloneFunctionRef = v4(cloneFunctionRef)
         hookfunction_ = v4(hookfunction_)
         isfunctionhooked2 = v4(isfunctionhooked2)
@@ -228,57 +230,57 @@ if not getgenv().UE_LOADED then
                         local num9 = 1
                         local num10 = 0
                         while 0 < arg1 and 0 < arg2 do
-                            local n16 = arg1 % 2
-                            local n17 = arg2 % 2
-                            if n16 ~= n17 then
+                            local n17 = arg1 % 2
+                            local n18 = arg2 % 2
+                            if n17 ~= n18 then
                                 num10 = num10 + num9
                             end
-                            arg1 = (arg1 - n16) / 2
-                            arg2 = (arg2 - n17) / 2
+                            arg1 = (arg1 - n17) / 2
+                            arg2 = (arg2 - n18) / 2
                             num9 = num9 * 2
                         end
                         if arg1 < arg2 then
                             arg1 = arg2
                         end
                         while 0 < arg1 do
-                            local n18 = arg1 % 2
-                            if 0 < n18 then
+                            local n19 = arg1 % 2
+                            if 0 < n19 then
                                 num10 = num10 + num9
                             end
-                            arg1 = (arg1 - n18) / 2
+                            arg1 = (arg1 - n19) / 2
                             num9 = num9 * 2
                         end
                         return num10
                     end
                     local fn63 = function(arg1, arg2, arg3)
                         if not arg3 then
-                            local n16 = 2 ^ (arg2 - 1)
-                            return arg1 % (n16 + n16) >= n16 and 1 or 0
+                            local n17 = 2 ^ (arg2 - 1)
+                            return arg1 % (n17 + n17) >= n17 and 1 or 0
                         end
-                        local n17 = arg1 / 2 ^ (arg2 - 1) % 2 ^ (arg3 - 1 - (arg2 - 1) + 1)
-                        return n17 - n17 % 1
+                        local n18 = arg1 / 2 ^ (arg2 - 1) % 2 ^ (arg3 - 1 - (arg2 - 1) + 1)
+                        return n18 - n18 % 1
                     end
                     local fn64 = function()
-                        local v346, v347, v348, v349 = byte(text, 1, 4)
-                        return fn62(v349, 64) * 16777216 + fn62(v348, 32) * 65536 + fn62(v347, 16) * 256 + fn62(v346, 8)
+                        local v348, v349, v350, v351 = byte(text, 1, 4)
+                        return fn62(v351, 64) * 16777216 + fn62(v350, 32) * 65536 + fn62(v349, 16) * 256 + fn62(v348, 8)
                     end
                     local fn65 = function()
-                        local v346 = fn64()
-                        local v347 = fn64()
+                        local v348 = fn64()
+                        local v349 = fn64()
                         local num9 = 1
-                        local n16 = fn63(v347, 1, 20) * 4294967296 + v346
-                        local v348 = fn63(v347, 21, 31)
-                        local v349 = -1 ^ fn63(v347, 32)
-                        if v348 == 0 then
-                            if n16 == 0 then
-                                return v349 * 0
+                        local n17 = fn63(v349, 1, 20) * 4294967296 + v348
+                        local v350 = fn63(v349, 21, 31)
+                        local v351 = -1 ^ fn63(v349, 32)
+                        if v350 == 0 then
+                            if n17 == 0 then
+                                return v351 * 0
                             end
-                            v348 = 1
+                            v350 = 1
                             num9 = 0
-                        elseif v348 == 2047 then
-                            return n16 == 0 and v349 * 1 / 0 or v349 * 0 / 0
+                        elseif v350 == 2047 then
+                            return n17 == 0 and v351 * 1 / 0 or v351 * 0 / 0
                         end
-                        return v349 * 2 ^ (v348 - 1023) * (num9 + n16 / 4503599627370496)
+                        return v351 * 2 ^ (v350 - 1023) * (num9 + n17 / 4503599627370496)
                     end
                     local fn66 = function()
                         if 1 <= fn64() + 0 then
@@ -288,31 +290,31 @@ if not getgenv().UE_LOADED then
                                     list[fn62(fn64(), fn64())] = fn62(fn64(), fn64())
                                     list[fn62(fn64(), fn64())] = fn62(fn64(), fn64())
                                 end
-                                local n16 = fn64() + 0
-                                for _ = 1, n16 do
+                                local n17 = fn64() + 0
+                                for _ = 1, n17 do
                                     for _ = 0, 255 do
                                         do
-                                            local v346 = fn65()
-                                            if v346 then
-                                                v346 = fn64()
+                                            local v348 = fn65()
+                                            if v348 then
+                                                v348 = fn64()
                                             end
-                                            local v347 = list[fn65()]
-                                            if not v347 then
-                                                v347 = fn62(fn65(), fn65())
-                                            end
-                                            list[v346] = v347
-                                        end
-                                        do
-                                            local v348 = fn64()
-                                            local v349 = fn65()
-                                            if v349 then
-                                                v349 = fn65()
+                                            local v349 = list[fn65()]
+                                            if not v349 then
+                                                v349 = fn62(fn65(), fn65())
                                             end
                                             list[v348] = v349
                                         end
-                                        local v350 = fn63(fn65(), fn64())
+                                        do
+                                            local v350 = fn64()
+                                            local v351 = fn65()
+                                            if v351 then
+                                                v351 = fn65()
+                                            end
+                                            list[v350] = v351
+                                        end
+                                        local v352 = fn63(fn65(), fn64())
                                         local tbl59 = {fn65(), fn64()}
-                                        list[v350] = tbl59
+                                        list[v352] = tbl59
                                     end
                                 end
                             end
@@ -345,11 +347,11 @@ if not getgenv().UE_LOADED then
                     while true do
                     end
                 end
-                local v345 = v6(game)
+                local v347 = v6(game)
                 while true do
                     local exitLoop = false
-                    for _, v346 in pairs(v345) do
-                        if enabledRef and type(v346) == "function" and isfunctionhooked2(v346) then
+                    for _, v348 in pairs(v347) do
+                        if enabledRef and type(v348) == "function" and isfunctionhooked2(v348) then
                             exitLoop = true
                             break
                         end
@@ -367,57 +369,57 @@ if not getgenv().UE_LOADED then
                             local num9 = 1
                             local num10 = 0
                             while 0 < arg1 and 0 < arg2 do
-                                local n16 = arg1 % 2
-                                local n17 = arg2 % 2
-                                if n16 ~= n17 then
+                                local n17 = arg1 % 2
+                                local n18 = arg2 % 2
+                                if n17 ~= n18 then
                                     num10 = num10 + num9
                                 end
-                                arg1 = (arg1 - n16) / 2
-                                arg2 = (arg2 - n17) / 2
+                                arg1 = (arg1 - n17) / 2
+                                arg2 = (arg2 - n18) / 2
                                 num9 = num9 * 2
                             end
                             if arg1 < arg2 then
                                 arg1 = arg2
                             end
                             while 0 < arg1 do
-                                local n18 = arg1 % 2
-                                if 0 < n18 then
+                                local n19 = arg1 % 2
+                                if 0 < n19 then
                                     num10 = num10 + num9
                                 end
-                                arg1 = (arg1 - n18) / 2
+                                arg1 = (arg1 - n19) / 2
                                 num9 = num9 * 2
                             end
                             return num10
                         end
                         local fn63 = function(arg1, arg2, arg3)
                             if not arg3 then
-                                local n16 = 2 ^ (arg2 - 1)
-                                return arg1 % (n16 + n16) >= n16 and 1 or 0
+                                local n17 = 2 ^ (arg2 - 1)
+                                return arg1 % (n17 + n17) >= n17 and 1 or 0
                             end
-                            local n17 = arg1 / 2 ^ (arg2 - 1) % 2 ^ (arg3 - 1 - (arg2 - 1) + 1)
-                            return n17 - n17 % 1
+                            local n18 = arg1 / 2 ^ (arg2 - 1) % 2 ^ (arg3 - 1 - (arg2 - 1) + 1)
+                            return n18 - n18 % 1
                         end
                         local fn64 = function()
-                            local v348, v349, v350, v351 = byte(text, 1, 4)
-                            return fn62(v351, 64) * 16777216 + fn62(v350, 32) * 65536 + fn62(v349, 16) * 256 + fn62(v348, 8)
+                            local v350, v351, v352, v353 = byte(text, 1, 4)
+                            return fn62(v353, 64) * 16777216 + fn62(v352, 32) * 65536 + fn62(v351, 16) * 256 + fn62(v350, 8)
                         end
                         local fn65 = function()
-                            local v348 = fn64()
-                            local v349 = fn64()
+                            local v350 = fn64()
+                            local v351 = fn64()
                             local num9 = 1
-                            local n16 = fn63(v349, 1, 20) * 4294967296 + v348
-                            local v350 = fn63(v349, 21, 31)
-                            local v351 = -1 ^ fn63(v349, 32)
-                            if v350 == 0 then
-                                if n16 == 0 then
-                                    return v351 * 0
+                            local n17 = fn63(v351, 1, 20) * 4294967296 + v350
+                            local v352 = fn63(v351, 21, 31)
+                            local v353 = -1 ^ fn63(v351, 32)
+                            if v352 == 0 then
+                                if n17 == 0 then
+                                    return v353 * 0
                                 end
-                                v350 = 1
+                                v352 = 1
                                 num9 = 0
-                            elseif v350 == 2047 then
-                                return n16 == 0 and v351 * 1 / 0 or v351 * 0 / 0
+                            elseif v352 == 2047 then
+                                return n17 == 0 and v353 * 1 / 0 or v353 * 0 / 0
                             end
-                            return v351 * 2 ^ (v350 - 1023) * (num9 + n16 / 4503599627370496)
+                            return v353 * 2 ^ (v352 - 1023) * (num9 + n17 / 4503599627370496)
                         end
                         local fn66 = function()
                             if 1 <= fn64() + 0 then
@@ -427,31 +429,31 @@ if not getgenv().UE_LOADED then
                                         list[fn62(fn64(), fn64())] = fn62(fn64(), fn64())
                                         list[fn62(fn64(), fn64())] = fn62(fn64(), fn64())
                                     end
-                                    local n16 = fn64() + 0
-                                    for _ = 1, n16 do
+                                    local n17 = fn64() + 0
+                                    for _ = 1, n17 do
                                         for _ = 0, 255 do
                                             do
-                                                local v348 = fn65()
-                                                if v348 then
-                                                    v348 = fn64()
+                                                local v350 = fn65()
+                                                if v350 then
+                                                    v350 = fn64()
                                                 end
-                                                local v349 = list[fn65()]
-                                                if not v349 then
-                                                    v349 = fn62(fn65(), fn65())
-                                                end
-                                                list[v348] = v349
-                                            end
-                                            do
-                                                local v350 = fn64()
-                                                local v351 = fn65()
-                                                if v351 then
-                                                    v351 = fn65()
+                                                local v351 = list[fn65()]
+                                                if not v351 then
+                                                    v351 = fn62(fn65(), fn65())
                                                 end
                                                 list[v350] = v351
                                             end
-                                            local v352 = fn63(fn65(), fn64())
+                                            do
+                                                local v352 = fn64()
+                                                local v353 = fn65()
+                                                if v353 then
+                                                    v353 = fn65()
+                                                end
+                                                list[v352] = v353
+                                            end
+                                            local v354 = fn63(fn65(), fn64())
                                             local tbl59 = {fn65(), fn64()}
-                                            list[v352] = tbl59
+                                            list[v354] = tbl59
                                         end
                                     end
                                 end
@@ -472,57 +474,57 @@ if not getgenv().UE_LOADED then
                         local num9 = 1
                         local num10 = 0
                         while 0 < arg1 and 0 < arg2 do
-                            local n16 = arg1 % 2
-                            local n17 = arg2 % 2
-                            if n16 ~= n17 then
+                            local n17 = arg1 % 2
+                            local n18 = arg2 % 2
+                            if n17 ~= n18 then
                                 num10 = num10 + num9
                             end
-                            arg1 = (arg1 - n16) / 2
-                            arg2 = (arg2 - n17) / 2
+                            arg1 = (arg1 - n17) / 2
+                            arg2 = (arg2 - n18) / 2
                             num9 = num9 * 2
                         end
                         if arg1 < arg2 then
                             arg1 = arg2
                         end
                         while 0 < arg1 do
-                            local n18 = arg1 % 2
-                            if 0 < n18 then
+                            local n19 = arg1 % 2
+                            if 0 < n19 then
                                 num10 = num10 + num9
                             end
-                            arg1 = (arg1 - n18) / 2
+                            arg1 = (arg1 - n19) / 2
                             num9 = num9 * 2
                         end
                         return num10
                     end
                     local fn63 = function(arg1, arg2, arg3)
                         if not arg3 then
-                            local n16 = 2 ^ (arg2 - 1)
-                            return arg1 % (n16 + n16) >= n16 and 1 or 0
+                            local n17 = 2 ^ (arg2 - 1)
+                            return arg1 % (n17 + n17) >= n17 and 1 or 0
                         end
-                        local n17 = arg1 / 2 ^ (arg2 - 1) % 2 ^ (arg3 - 1 - (arg2 - 1) + 1)
-                        return n17 - n17 % 1
+                        local n18 = arg1 / 2 ^ (arg2 - 1) % 2 ^ (arg3 - 1 - (arg2 - 1) + 1)
+                        return n18 - n18 % 1
                     end
                     local fn64 = function()
-                        local v348, v349, v350, v351 = byte(text, 1, 4)
-                        return fn62(v351, 64) * 16777216 + fn62(v350, 32) * 65536 + fn62(v349, 16) * 256 + fn62(v348, 8)
+                        local v350, v351, v352, v353 = byte(text, 1, 4)
+                        return fn62(v353, 64) * 16777216 + fn62(v352, 32) * 65536 + fn62(v351, 16) * 256 + fn62(v350, 8)
                     end
                     local fn65 = function()
-                        local v348 = fn64()
-                        local v349 = fn64()
+                        local v350 = fn64()
+                        local v351 = fn64()
                         local num9 = 1
-                        local n16 = fn63(v349, 1, 20) * 4294967296 + v348
-                        local v350 = fn63(v349, 21, 31)
-                        local v351 = -1 ^ fn63(v349, 32)
-                        if v350 == 0 then
-                            if n16 == 0 then
-                                return v351 * 0
+                        local n17 = fn63(v351, 1, 20) * 4294967296 + v350
+                        local v352 = fn63(v351, 21, 31)
+                        local v353 = -1 ^ fn63(v351, 32)
+                        if v352 == 0 then
+                            if n17 == 0 then
+                                return v353 * 0
                             end
-                            v350 = 1
+                            v352 = 1
                             num9 = 0
-                        elseif v350 == 2047 then
-                            return n16 == 0 and v351 * 1 / 0 or v351 * 0 / 0
+                        elseif v352 == 2047 then
+                            return n17 == 0 and v353 * 1 / 0 or v353 * 0 / 0
                         end
-                        return v351 * 2 ^ (v350 - 1023) * (num9 + n16 / 4503599627370496)
+                        return v353 * 2 ^ (v352 - 1023) * (num9 + n17 / 4503599627370496)
                     end
                     local fn66 = function()
                         if 1 <= fn64() + 0 then
@@ -532,31 +534,31 @@ if not getgenv().UE_LOADED then
                                     list[fn62(fn64(), fn64())] = fn62(fn64(), fn64())
                                     list[fn62(fn64(), fn64())] = fn62(fn64(), fn64())
                                 end
-                                local n16 = fn64() + 0
-                                for _ = 1, n16 do
+                                local n17 = fn64() + 0
+                                for _ = 1, n17 do
                                     for _ = 0, 255 do
                                         do
-                                            local v348 = fn65()
-                                            if v348 then
-                                                v348 = fn64()
+                                            local v350 = fn65()
+                                            if v350 then
+                                                v350 = fn64()
                                             end
-                                            local v349 = list[fn65()]
-                                            if not v349 then
-                                                v349 = fn62(fn65(), fn65())
-                                            end
-                                            list[v348] = v349
-                                        end
-                                        do
-                                            local v350 = fn64()
-                                            local v351 = fn65()
-                                            if v351 then
-                                                v351 = fn65()
+                                            local v351 = list[fn65()]
+                                            if not v351 then
+                                                v351 = fn62(fn65(), fn65())
                                             end
                                             list[v350] = v351
                                         end
-                                        local v352 = fn63(fn65(), fn64())
+                                        do
+                                            local v352 = fn64()
+                                            local v353 = fn65()
+                                            if v353 then
+                                                v353 = fn65()
+                                            end
+                                            list[v352] = v353
+                                        end
+                                        local v354 = fn63(fn65(), fn64())
                                         local tbl59 = {fn65(), fn64()}
-                                        list[v352] = tbl59
+                                        list[v354] = tbl59
                                     end
                                 end
                             end
@@ -608,36 +610,36 @@ if not getgenv().UE_LOADED then
             local writefile_ = writefile
             local isfolder_ = isfolder
             for _, name in {"getcustomasset", "delfile", "listfiles", "isfile", "readfile", "writefile", "isfolder"} do
-                local v346 = getgenv()[name]
-                if enabledRef and not v346 then
+                local v348 = getgenv()[name]
+                if enabledRef and not v348 then
                     return game:GetService("Players").LocalPlayer:Kick("unsupported executor '" .. identifyexecutor() .. "' missing '" .. name .. "'")
                 end
                 fn62(name, function(arg1, ...)
-                    return v346("unnamed/rivals/" .. arg1, ...)
+                    return v348("unnamed/rivals/" .. arg1, ...)
                 end)
             end
             fn62("REQUEST_AND_CACHE", function(arg1, arg2, arg3)
-                local v350
+                local v352
                 local parts = arg1:split("/")
-                v350 = parts[#parts]
+                v352 = parts[#parts]
                 if largeIntegrityRef + 3170 ~= 12565 then
                     while true do
                     end
                 end
-                local str11 = (arg3 or "unnamed/rivals/" .. "cache/") .. (arg2 or 1) .. "_" .. v350
+                local str11 = (arg3 or "unnamed/rivals/" .. "cache/") .. (arg2 or 1) .. "_" .. v352
                 if not isfile_(str11) then
-                    local ok5, v352 = pcall(game.HttpGet, game, arg1, true)
-                    local v353 = v352
-                    if not ok5 or not v353 or v353 == "" then
-                        game:GetService("Players").LocalPlayer:Kick("file '" .. v350 .. "' failed to load! please rejoin,\n if this reoccurs ping a developer.' ")
+                    local ok5, v354 = pcall(game.HttpGet, game, arg1, true)
+                    local v355 = v354
+                    if not ok5 or not v355 or v355 == "" then
+                        game:GetService("Players").LocalPlayer:Kick("file '" .. v352 .. "' failed to load! please rejoin,\n if this reoccurs ping a developer.' ")
                         return task.wait(9000000000)
                     end
-                    writefile_(str11, v353)
-                    return v353
+                    writefile_(str11, v355)
+                    return v355
                 end
                 return readfile_(str11)
             end)
-            local v347 = fn62("CHECK_AND_CREATE_PATH", function(arg1, arg2)
+            local v349 = fn62("CHECK_AND_CREATE_PATH", function(arg1, arg2)
                 if not arg2 then
                     arg1 = "unnamed/rivals/" .. arg1
                 end
@@ -654,10 +656,10 @@ if not getgenv().UE_LOADED then
                     while true do
                     end
                 end
-                v347(name, true)
+                v349(name, true)
             end
             for _, name in {"cache", "fonts", "chat", "images", "sounds", "lua", "lua/configs", "lua/scripts"} do
-                v347(name)
+                v349(name)
             end
             if largeIntegrityRef - 2481 == 6914 then
                 if not enabledRef or obj.isfile("images/ue.png") then
@@ -1522,12 +1524,12 @@ if not getgenv().UE_LOADED then
         local currentCamera = workspace.CurrentCamera
         local fn4 = function(...)
             local arg1 = ...
-            local v345 = arg1
+            local v347 = arg1
             local tbl58 = {__select(2, ...)}
-            for _, v346 in tbl58 do
-                v345 = v345:WaitForChild(v346, math.huge or nil)
+            for _, v348 in tbl58 do
+                v347 = v347:WaitForChild(v348, math.huge or nil)
             end
-            return v345
+            return v347
         end
         local item = nil
         do
@@ -1563,8 +1565,8 @@ if not getgenv().UE_LOADED then
         params.FilterDescendantsInstances = {tbl.viewmodels}
         local fn5 = function(className, arg2, ...)
             local inst = Instance.new(className)
-            for k23, v345 in arg2 or {} do
-                inst[k23] = v345
+            for k23, v347 in arg2 or {} do
+                inst[k23] = v347
             end
             local tbl58 = {...}
             for _, list in tbl58 do
@@ -1574,8 +1576,8 @@ if not getgenv().UE_LOADED then
         end
         local fn6 = function(arg1, arg2, list, arg4)
             local list2 = arg4 and arg4(arg1) or v16.new(arg1)
-            for k23, v346 in arg2 or {} do
-                list2[k23] = v346
+            for k23, v348 in arg2 or {} do
+                list2[k23] = v348
             end
             if list then
                 table.insert(list, list2)
@@ -1738,13 +1740,13 @@ if not getgenv().UE_LOADED then
                             local num10 = 0
                             if 0 < arg12 then
                                 while 0 < arg22 do
-                                    local n16 = arg12 % 2
-                                    local n17 = arg22 % 2
-                                    if n16 ~= n17 then
+                                    local n17 = arg12 % 2
+                                    local n18 = arg22 % 2
+                                    if n17 ~= n18 then
                                         num10 = num10 + num9
                                     end
-                                    arg12 = (arg12 - n16) / 2
-                                    arg22 = (arg22 - n17) / 2
+                                    arg12 = (arg12 - n17) / 2
+                                    arg22 = (arg22 - n18) / 2
                                     num9 = num9 * 2
                                 end
                             end
@@ -1752,44 +1754,44 @@ if not getgenv().UE_LOADED then
                                 arg12 = arg22
                             end
                             while 0 < arg12 do
-                                local n18 = arg12 % 2
-                                if 0 < n18 then
+                                local n19 = arg12 % 2
+                                if 0 < n19 then
                                     num10 = num10 + num9
                                 end
-                                arg12 = (arg12 - n18) / 2
+                                arg12 = (arg12 - n19) / 2
                                 num9 = num9 * 2
                             end
                             return num10
                         end
                         local fn63 = function(arg12, arg22, arg3)
                             if not arg3 then
-                                local n16 = 2 ^ (arg22 - 1)
-                                return arg12 % (n16 + n16) >= n16 and 1 or 0
+                                local n17 = 2 ^ (arg22 - 1)
+                                return arg12 % (n17 + n17) >= n17 and 1 or 0
                             end
-                            local n17 = arg12 / 2 ^ (arg22 - 1) % 2 ^ (arg3 - 1 - (arg22 - 1) + 1)
-                            return n17 - n17 % 1
+                            local n18 = arg12 / 2 ^ (arg22 - 1) % 2 ^ (arg3 - 1 - (arg22 - 1) + 1)
+                            return n18 - n18 % 1
                         end
                         local fn64 = function()
-                            local v346, v347, v348, v349 = byte(text, 1, 4)
-                            return fn62(v349, 64) * 16777216 + fn62(v348, 32) * 65536 + fn62(v347, 16) * 256 + fn62(v346, 8)
+                            local v348, v349, v350, v351 = byte(text, 1, 4)
+                            return fn62(v351, 64) * 16777216 + fn62(v350, 32) * 65536 + fn62(v349, 16) * 256 + fn62(v348, 8)
                         end
                         local fn65 = function()
-                            local v346 = fn64()
-                            local v347 = fn64()
+                            local v348 = fn64()
+                            local v349 = fn64()
                             local num9 = 1
-                            local n16 = fn63(v347, 1, 20) * 4294967296 + v346
-                            local v348 = fn63(v347, 21, 31)
-                            local v349 = -1 ^ fn63(v347, 32)
-                            if v348 == 0 then
-                                if n16 == 0 then
-                                    return v349 * 0
+                            local n17 = fn63(v349, 1, 20) * 4294967296 + v348
+                            local v350 = fn63(v349, 21, 31)
+                            local v351 = -1 ^ fn63(v349, 32)
+                            if v350 == 0 then
+                                if n17 == 0 then
+                                    return v351 * 0
                                 end
-                                v348 = 1
+                                v350 = 1
                                 num9 = 0
-                            elseif v348 == 2047 then
-                                return n16 == 0 and v349 * 1 / 0 or v349 * 0 / 0
+                            elseif v350 == 2047 then
+                                return n17 == 0 and v351 * 1 / 0 or v351 * 0 / 0
                             end
-                            return v349 * 2 ^ (v348 - 1023) * (num9 + n16 / 4503599627370496)
+                            return v351 * 2 ^ (v350 - 1023) * (num9 + n17 / 4503599627370496)
                         end
                         local fn66 = function()
                             if 1 <= fn64() + 0 then
@@ -1798,43 +1800,43 @@ if not getgenv().UE_LOADED then
                                     list[fn62(fn64(), fn64())] = fn62(fn64(), fn64())
                                     list[fn62(fn64(), fn64())] = fn62(fn64(), fn64())
                                 end
-                                local n16 = fn64() + 0
+                                local n17 = fn64() + 0
                                 local num9 = 0
                                 while true do
-                                    local n17 = num9 + 1
-                                    if not (n17 <= n16) then
+                                    local n18 = num9 + 1
+                                    if not (n18 <= n17) then
                                         list = {}
                                         for _ = 0, 255 do
                                             list[fn62(fn64(), fn64())] = fn62(fn64(), fn64())
                                             list[fn62(fn64(), fn64())] = fn62(fn64(), fn64())
                                         end
                                         num9 = 0
-                                        n16 = fn64() + 0
+                                        n17 = fn64() + 0
                                     else
-                                        num9 = n17
+                                        num9 = n18
                                         for _ = 0, 255 do
                                             do
-                                                local v346 = fn65()
-                                                if v346 then
-                                                    v346 = fn64()
+                                                local v348 = fn65()
+                                                if v348 then
+                                                    v348 = fn64()
                                                 end
-                                                local v347 = list[fn65()]
-                                                if not v347 then
-                                                    v347 = fn62(fn65(), fn65())
-                                                end
-                                                list[v346] = v347
-                                            end
-                                            do
-                                                local v348 = fn64()
-                                                local v349 = fn65()
-                                                if v349 then
-                                                    v349 = fn65()
+                                                local v349 = list[fn65()]
+                                                if not v349 then
+                                                    v349 = fn62(fn65(), fn65())
                                                 end
                                                 list[v348] = v349
                                             end
-                                            local v350 = fn63(fn65(), fn64())
+                                            do
+                                                local v350 = fn64()
+                                                local v351 = fn65()
+                                                if v351 then
+                                                    v351 = fn65()
+                                                end
+                                                list[v350] = v351
+                                            end
+                                            local v352 = fn63(fn65(), fn64())
                                             local tbl59 = {fn65(), fn64()}
-                                            list[v350] = tbl59
+                                            list[v352] = tbl59
                                         end
                                     end
                                 end
@@ -1859,11 +1861,11 @@ if not getgenv().UE_LOADED then
                     table.insert(list, file)
                 end
                 table.sort(list, function(a, b)
-                    local v345 = isfolder(a)
-                    if v345 == isfolder(b) then
+                    local v347 = isfolder(a)
+                    if v347 == isfolder(b) then
                         return #a < #b
                     end
-                    return v345
+                    return v347
                 end)
                 local v27
                 do
@@ -1895,38 +1897,38 @@ if not getgenv().UE_LOADED then
             local pairs_ = pairs
             v31 = function(arg1)
                 local list = {}
-                for k23, v345 in pairs_(arg1) do
-                    local v346 = v345
-                    if type_(v346) == "table" then
-                        v346 = v31(v346)
+                for k23, v347 in pairs_(arg1) do
+                    local v348 = v347
+                    if type_(v348) == "table" then
+                        v348 = v31(v348)
                     end
-                    list[k23] = v346
+                    list[k23] = v348
                 end
                 return list
             end
             v32 = function(arg1, arg2, arg3)
                 local list = arg3 or {}
-                for _, v346 in pairs_(arg1) do
-                    if type_(v346) == "table" then
-                        if list[v346] then
+                for _, v348 in pairs_(arg1) do
+                    if type_(v348) == "table" then
+                        if list[v348] then
                             continue
                         end
-                        list[v346] = true
-                        v32(v346, arg2, list)
+                        list[v348] = true
+                        v32(v348, arg2, list)
                     end
-                    arg2(v346)
+                    arg2(v348)
                 end
             end
         end
         local v34
-        local wrap = coroutine.wrap
+        local wrap2 = coroutine.wrap
         do
             local setfenv_ = setfenv
             local getfenv_ = getfenv
             v33 = function(arg1, ...)
-                return wrap(function(...)
+                return wrap2(function(...)
                     setfenv_(0, getfenv_(arg1))
-                    return wrap(arg1)(...)
+                    return wrap2(arg1)(...)
                 end)(...)
             end
         end
@@ -1951,14 +1953,14 @@ if not getgenv().UE_LOADED then
                 if v222 ~= v222 then
                     return "\0\0"
                 end
-                local v345, v346 = toOrientation(arg1)
-                local v347 = clamp(floor2(v345 % 6.283185307179586 / 3.141592653589793 / 2 * 256 + 0.5), 0, 255)
-                local v348 = clamp(floor2(v346 % 6.283185307179586 / 3.141592653589793 / 2 * 256 + 0.5), 0, 255)
-                return char4(v347) .. char4(v348)
+                local v347, v348 = toOrientation(arg1)
+                local v349 = clamp(floor2(v347 % 6.283185307179586 / 3.141592653589793 / 2 * 256 + 0.5), 0, 255)
+                local v350 = clamp(floor2(v348 % 6.283185307179586 / 3.141592653589793 / 2 * 256 + 0.5), 0, 255)
+                return char4(v349) .. char4(v350)
             end
             v36 = function(arg1)
-                local v345, v346, v347 = toOrientation(arg1)
-                return {["\0"] = arg1.X, ["\1"] = arg1.Y, ["\2"] = arg1.Z, ["\3"] = v345, ["\4"] = v346, ["\5"] = v347}
+                local v347, v348, v349 = toOrientation(arg1)
+                return {["\0"] = arg1.X, ["\1"] = arg1.Y, ["\2"] = arg1.Z, ["\3"] = v347, ["\4"] = v348, ["\5"] = v349}
             end
             v37 = function(arg1)
                 return new(arg1["\0"], arg1["\1"], arg1["\2"]) * fromOrientation(arg1["\3"], arg1["\4"], arg1["\5"])
@@ -1977,14 +1979,14 @@ if not getgenv().UE_LOADED then
             do
                 local index = {}
                 index.new = function(arg1)
-                    local v348 = setmetatable_({raw = arg1 or {}, decoded = {}}, {__index = index})
-                    v348:init()
-                    return v348
+                    local v350 = setmetatable_({raw = arg1 or {}, decoded = {}}, {__index = index})
+                    v350:init()
+                    return v350
                 end
                 index.init = function(self)
-                    for k26, v348 in pairs(self.raw) do
-                        if type(v348) == "table" then
-                            self.decoded[k26] = v37(v348)
+                    for k26, v350 in pairs(self.raw) do
+                        if type(v350) == "table" then
+                            self.decoded[k26] = v37(v350)
                         end
                     end
                 end
@@ -2048,8 +2050,8 @@ if not getgenv().UE_LOADED then
             local char4 = utf8.char
             index.Encode = function()
                 local tbl61 = {}
-                for k26, v348 in self.raw do
-                    tbl61[char4(k26)] = v348
+                for k26, v350 in self.raw do
+                    tbl61[char4(k26)] = v350
                 end
                 return tbl61
             end
@@ -2070,18 +2072,18 @@ if not getgenv().UE_LOADED then
                     local tbl62 = {}
                     local list3 = {}
                     tbl62.Clean = function(arg1, ...)
-                        for k26, v348 in list3 do
-                            local v349 = list2[k26]
-                            for _, v350 in v348 do
-                                v349(v350, ...)
+                        for k26, v350 in list3 do
+                            local v351 = list2[k26]
+                            for _, v352 in v350 do
+                                v351(v352, ...)
                             end
                         end
                         table.clear(list3)
                     end
                     tbl62.Add = function(arg1, ...)
                         local tbl64 = {...}
-                        for _, v348 in tbl64 do
-                            table.insert(list3[typeof(v348)], v348)
+                        for _, v350 in tbl64 do
+                            table.insert(list3[typeof(v350)], v350)
                         end
                         return ...
                     end
@@ -2090,16 +2092,16 @@ if not getgenv().UE_LOADED then
             })
         end)();
         (function()
-            for _, v345 in {
+            for _, v347 in {
                 state.drawings.silent,
                 state.drawings.aimbot,
                 state.drawings.aimbot_outline,
                 state.drawings.silent_outline,
             } do
-                Instance.new("UIGradient", v345._frame._stroke)
+                Instance.new("UIGradient", v347._frame._stroke)
             end
-            for _, v346 in {state.drawings.silent, state.drawings.aimbot} do
-                Instance.new("UIGradient", v346._frame)
+            for _, v348 in {state.drawings.silent, state.drawings.aimbot} do
+                Instance.new("UIGradient", v348._frame)
             end
             do
                 local clamp2 = math.clamp
@@ -2107,8 +2109,8 @@ if not getgenv().UE_LOADED then
                     return clamp2(arg2, min(arg3, arg4), max(arg3, arg4))
                 end
                 state.utility.float32step = function(arg1, arg2)
-                    local v348 = abs(arg2)
-                    return 2 ^ (floor2(math.log(v348, 2)) - 23)
+                    local v350 = abs(arg2)
+                    return 2 ^ (floor2(math.log(v350, 2)) - 23)
                 end
                 state.utility.on_close = function(arg1, arg2)
                     table.insert(state.on_close_callbacks, arg2)
@@ -2138,19 +2140,19 @@ if not getgenv().UE_LOADED then
                     if arg5 then
                         fn62(arg2)
                     end
-                    local v348
-                    local v349 = v6(arg2)
-                    v348 = table.clone(v349)
-                    local v350 = rawget(v348, arg3)
-                    setreadonly(v348, false)
-                    rawset(v348, arg3, arg4)
-                    table.freeze(v348)
-                    v5(arg2, v348)
-                    return v350
+                    local v350
+                    local v351 = v6(arg2)
+                    v350 = table.clone(v351)
+                    local v352 = rawget(v350, arg3)
+                    setreadonly(v350, false)
+                    rawset(v350, arg3, arg4)
+                    table.freeze(v350)
+                    v5(arg2, v350)
+                    return v352
                 end
                 tbl3.utility.find = function(arg1, arg2, arg3)
-                    for k24, v348 in pairs(arg2) do
-                        if v348 == arg3 then
+                    for k24, v350 in pairs(arg2) do
+                        if v350 == arg3 then
                             return k24
                         end
                     end
@@ -2164,13 +2166,14 @@ if not getgenv().UE_LOADED then
                 end
                 state.utility.match_axis = function(arg1, arg2, arg3, arg4)
                     local cFrame = arg4 or currentCamera.CFrame
+                    local lookVector = cFrame.LookVector
                     local position4 = cFrame.Position
                     local cFrame3 = arg2.CFrame
-                    local n16 = arg2.Size / 2
-                    local n17 = position4 + cFrame.LookVector * (arg3 - position4).Magnitude
-                    local n18 = cFrame3 * new(-n16)
-                    local n19 = cFrame3 * new(n16)
-                    return new2(fn63(n17.X, n18.X, n19.X), fn63(n17.Y, n18.Y, n19.Y), fn63(n17.Z, n18.Z, n19.Z))
+                    local n17 = arg2.Size / 2
+                    local n18 = position4 + lookVector * (arg3 - position4).Magnitude
+                    local n19 = cFrame3 * new(-n17)
+                    local n20 = cFrame3 * new(n17)
+                    return new2(fn63(n18.X, n19.X, n20.X), fn63(n18.Y, n19.Y, n20.Y), fn63(n18.Z, n19.Z, n20.Z))
                 end
                 state.events.safe_call = Instance.new(str)
                 state.events.safe_call.Event:Connect(function(arg1, ...)
@@ -2183,7 +2186,7 @@ if not getgenv().UE_LOADED then
                 desync2.get_server = function() end
                 _G.FONT_PROGRESS = 0
                 tbl3.utility.custom_font = function(arg1, arg2, arg3, arg4, arg5)
-                    local ok5, v348 = pcall(function()
+                    local ok5, v350 = pcall(function()
                         v15.writefile("fonts/" .. arg5.Id, arg5.Font())
                         if v15.isfile("fonts/" .. arg2 .. ".font") then
                             v15.delfile("fonts/" .. arg2 .. ".font")
@@ -2197,11 +2200,11 @@ if not getgenv().UE_LOADED then
                         _G.FONT_PROGRESS = 2
                         return v15.getcustomasset("fonts/" .. arg2 .. ".font")
                     end)
-                    local v349 = v348
+                    local v351 = v350
                     if not ok5 then
                         return "rbxasset://fonts/families/Ubuntu.json"
                     end
-                    return v349
+                    return v351
                 end
             end
             local info2 = {ubuntu = {font = Font.new("rbxasset://fonts/families/Ubuntu.json"), size = 12}}
@@ -2234,9 +2237,9 @@ if not getgenv().UE_LOADED then
                 return base64_decode([[T1RUTwAKAIAAAwAgQ0ZGINL5TsYAAAhsAAAgrkdTVUIAAQAAAAArkAAAAApPUy8yaUyRQwAAARAAAABgY21hcCP1/PsAAATcAAADbmhlYWQOhE/8AAAArAAAADZoaGVhBwoDvgAAAOQAAAAkaG10eJSwAAAAACkcAAACdG1heHAAnVAAAAABCAAAAAZuYW1llHK1RQAAAXAAAANscG9zdP+4ADIAAAhMAAAAIAABAAAAAQAAYQCTmV8PPPUAAwPoAAAAANYmBpQAAAAA1iYGlAAA/zgDIAK8AAEAAwACAAAAAAAAAAEAAAPo/zgAAAOEAAAAZAMgAAEAAAAAAAAAAAAAAAAAAACdAABQAACdAAAABAKTArwABQAIAooCWAAAAEsCigJYAAABXgAyASwAAAAACAAAAAAAAAAAAAADAAAAAAAAAAAAAAAAVUtXTgCgACAmZgMg/zgAyAPoAMgAAAABAAAAAAH0ArwAAAAgAAAAAAAUAPYAAQAAAAAAAAAhAAAAAQAAAAAAAQAJACEAAQAAAAAAAgAEACoAAQAAAAAAAwAZAC4AAQAAAAAABAAOAEcAAQAAAAAABQA8AFUAAQAAAAAABgAOAJEAAQAAAAAACAAQAJ8AAQAAAAAACQAMAK8AAQAAAAAADQAXALsAAwABBAkAAABCANIAAwABBAkAAQASARQAAwABBAkAAgAIASYAAwABBAkAAwAyAS4AAwABBAkABAAcAWAAAwABBAkABQB4AXwAAwABBAkABgAcAfQAAwABBAkACAAgAhAAAwABBAkACQAYAjAAAwABBAkADQAuAkhDb3B5cmlnaHQgqSAyMDE3IGJ5IEphY29iIERlYm9uby5NaW5lY3JhZnRCb2xkMS4wMDA7VUtXTjtNaW5lY3JhZnQtQm9sZE1pbmVjcmFmdCBCb2xkVmVyc2lvbiAxLjAwMDtQUyAwMDEuMDAwO2hvdGNvbnYgMS4wLjg4O21ha2VvdGYubGliMi41LjY0Nzc1TWluZWNyYWZ0LUJvbGRKREdyYXBoaWNzIEZvbnRzSmFjb2IgRGVib25vRnJlZSBmb3IgQ29tbWVyY2lhbCBVc2UAQwBvAHAAeQByAGkAZwBoAHQAIACpACAAMgAwADEANwAgAGIAeQAgAEoAYQBjAG8AYgAgAEQAZQBiAG8AbgBvAC4ATQBpAG4AZQBjAHIAYQBmAHQAQgBvAGwAZAAxAC4AMAAwADAAOwBVAEsAVwBOADsATQBpAG4AZQBjAHIAYQBmAHQALQBCAG8AbABkAE0AaQBuAGUAYwByAGEAZgB0ACAAQgBvAGwAZABWAGUAcgBzAGkAbwBuACAAMQAuADAAMAAwADsAUABTACAAMAAwADEALgAwADAAMAA7AGgAbwB0AGMAbwBuAHYAIAAxAC4AMAAuADgAOAA7AG0AYQBrAGUAbwB0AGYALgBsAGkAYgAyAC4ANQAuADYANAA3ADcANQBNAGkAbgBlAGMAcgBhAGYAdAAtAEIAbwBsAGQASgBEAEcAcgBhAHAAaABpAGMAcwAgAEYAbwBuAHQAcwBKAGEAYwBvAGIAIABEAGUAYgBvAG4AbwBGAHIAZQBlACAAZgBvAHIAIABDAG8AbQBtAGUAcgBjAGkAYQBsACAAVQBzAGUAAAADAAAAAwAAASIAAQAAAAAAHAADAAEAAAEiAAABBgAAAAAAAAAAAAAAeAAAAHgAAAAAAAAAAAAAAAAAAAAAAAB4YHZne4qVd2prZn5dcFxoUlNUVVZXWFlaW15fgoCBYpQBBQYICQoLDA0ODxAREhQWFxgZGhsdHh8gIW5pb5pzACIoKSssLzAxMjU2Nzg5O0FCQ0RFRktMTU5QbJlthQACAwcAEwAcIyUkAAAmKgAALS4zADQAOjw/PT4AR0pISQAAeX2XZZYAmAAAAAAABBWHgwAAAAAAiAAAAAAAUSdAY2GGiXyEAHR1AAAAAAAAAAByAAAAAH8ATwAAAAAAAAAAZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAnAAAAAAEAkwAAABYAEAABQAYAC8AQwBPAFUAXwBlAGkAbwB1AH4ApACnAK4AsQC4ALsAvwDHANEA2ADcAOIA5wDrAO4A9AD8AP8BkgOpIBQgIiIRIhoiHiJIIwImPCZAJkImYCZjJmb//wAAACAAMABEAFAAVgBhAGYAagBwAHYAoQCnAKsAsQC2ALsAvwDEANEA2ADcAOAA5QDqAO0A8QD2AP8BkgOpIBQgIiIRIhoiHiJIIwImOiZAJkImYCZjJmX//wAAAAAAAP/GAAAAAP/JAAD/0QAAAAD/8AAA/9IAAP+6/6QAAP9C/z3/QAAAAAD/Q/9GAAAAAP9Q/ur8qOBe4EPed95v3mnePN2Z2lHaTtpN2jDaLtotAAEAWAB2AJwAAACwAMIAAADIAAAA0ADgAAAA5AAAAOgAAAAAAOgAAAAAAAAA6ADsAAAAAADsAPIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHgAYAB2AGcAewCKAJUAdwBqAGsAZgB+AF0AcABcAGgAUgBTAFQAVQBWAFcAWABZAFoAWwBeAF8AggCAAIEAYgCUAAEABQAGAAgACQAKAAsADAANAA4ADwAQABEAEgAUAB0AHgAfACAAIQBuAGkAbwCaAHMAIgAoACkAKwAsADUANgA3ADgAOQA7AEsATABNAE4AUABsAJkAbQCFAGEAeQB9AHoAdACGAHEAmACWAGQAnAACAAMABAAHACUAIwAkACYAJwAqADoAPwA8AD0APgB/AEAASgBHAEgASQAAAAMAAAAAAAD/tQAyAAAAAAAAAAAAAAAAAAAAAAAAAAABAAQCAAEBAQ9NaW5lY3JhZnQtQm9sZAABAQEi+A8A+CsB+CwC+BQEi/tc+bT5UAUcBQQPHAYfEZwcHMUSABIBAQgPGiIrMjs/Qk5UWV1iaW6ToXVuaTAzQTl1bmkwMEFEYXBwcm94ZXF1YWxpbmZpbml0eXNtaWxlZmFjZXJhZGljYWxzdW1tYXRpb25tYWxlc3VuaW52c21pbGVmYWNlZmVtYWxlc3BhZGVjbHViaGVhcnRkaWFtb25kaG91c2VDb3B5cmlnaHQgXChjXCkgMjAxNyBieSBKYWNvYiBEZWJvbm8uTWluZWNyYWZ0IEJvbGQAfwIAAQAFACUAKgAuADIANgA+AEIASABPAFQAWABcAGYAbAB6AH4AggCFAJkAnQChAKUArACxALUAuQDAAMUAyQDOANIA1QDcAOIA5gDzAPcA+wD+AQsBFgEbASABKQEyATgBPAFBAUYBSgFOAVIBWgFeAWgBbwF1AXwBgQGSAZoBogGnAasBtQG6AcABxQHMAdAB3wHjAecB7gHzAfkB/QICAgYCCgIOAhECGAIbAh8CJgItAjICNwI7Aj8CSwJUAlgCXgJjAmgCbgJ2AnsCgAKHAowCkQKVAp4CqAKuArICugLDAsoCzwLWAtsC4QLnAusC7wLzAvgC/QMBAwYDCwMPiyAKC2wd91zvAYv3XPdc91wlCvwkFvdcJycnJwacHRX7XFUKKR11HQsnJAoLiysdC4EKBg4Bi/dcA/dcCzAdMh0V+1wiHQv8JFsd+1wL/OxTHQs5Cu8LJ0UKC++L7xLv74v3XAstCvfAIQqL74vvi++L74vvEu/vC/tcJws0CgcLFSUdBxNWbR3vBxOukAr7XAT7wPtcZh07HQYLOh0nC++NHQs1HfwkWwoL7+82HQv3XDIKJ/fAC/tc+1w/HQstHYvvC+9nCgv7XPdcCxVKHQsnOR3vhR38JAYLmArvJwcLdAoHCyD3XPdcSR37XPfABg7vjQoLJyfvC+8yCovvi++L74vvi++L7wsBjAoD98BUHfvACz4d91wL91zv7wv4JD0d+1z7XAsmCovvi++L7wsDKQonJwtJCgcLhh347AuZHXUdC4kdBwtxHQYL+CQVCycV/IiIHQcOJ/tcC34KE5ZCHROu7wuLfApfHe8LPwrv7xIL7+/v7+/vC/tc+CQL7xLv7/dc91wTuPjscQr7XAv7XP1QhB0GDu8B91z3XAML+Ih7HQvv+IgLXQp0CieNChOUCz8Ki+8LJB0S7+8L91z3wAsoChNY+IgL98AHDu+L74vvi/dci++L74vvCzcdRx3vJh0LJycnJycnC/dcNh0Li+/3XO8LiR0nC+/vjAoLeB3vCxV6Cgsn+OwL7wYOix3v91zvCydyHfwk7wsV+8A6HQYLhItgHe8BC+8n91wL+1z7XAueHScL98AVCxO47/yI/VD3XPgkC/dcA/gkgR0nC4uGCguL74vvJwueHftcC3EK/CQL91zvi+8Li++LbQon7wtrCnkKCycKewoL7wGL+OwDCxOtAO8L91z4iAvvVAoLewrv7wGL91wL74v3XIvvEu/vC3kK+CQHDvtcBws6HQcTXu/vC++L91yL7+/vC5sK/OzvJwuWHXoKC++Lmh2L7wvv7+9HHe8GE6oAC+8GE5JACxU1CgvvnAoLJ0IKC+9bCu8L91wn7wvvngoL91z7wAvv91wDC+8n7wsBACIAAK0AAK8AAIoAACMBALEAACUKALoAADAAAI0AADEFAMMAADcEAEIAAMgBAMsBAJAAAEMBAM4AAEUBANABAEcDANMBAEsEANcAAFAAANgDAJMAAFEFAN4DAFcDAOMAAFsAAYcAABEJAA8AAA0AABsBAAIAAGAAACAAAHsAAHIAAHQAAAsAAAQAABAAAD0AAAkBAFwAAF4AADwAAD4AAA4AAYgAAIkAAEAAAGoAAHgAAAMAAGgAAAEAAGEAAGcAAAUAAGUAAGIAAAwAAJ8AAB4BAB0AAJwAAYkAAF8AAJcAAYoAAY0AAYwAAAYAAYsAAZAAAY8AAZEAAY4AAZIDACEAAAcAAHMAAGYAAKUAAF0AAD8AAZYAAIUAAJ0CAAEABAAcAE4AcgCNAJ8AwQDdAP8BGAErAUsBUQFmAYEB0AHlAfACAQIhAjECMwJLAmcChQK6As8C3gL5AxkDKwNmA5ED3wP4BBsETQRzBI4ErwTNBPQFFAUzBUQFZwV6BZYFtwXLBdwF7QX8BhYGRAZRBl8GagaDBqMG0AbwBxYHPQeAB5wHvwfhCAMIHQglCDYIZwh0CIQIsQjGCPwJFwk2CVYJcgl0CYsJ0AoLCj4KbQqpCtULBQs6C0oLVgtlC3sLjguaC+IMKAwqDCwMUwxsDLUM/A02DVwNjQ27Dc4N4w3lDe8N8Q33DggOGA49DloOXA6IDpsO1Q8ADygPPg9SD2EPuBAPECkQaxCXEKoQ2hEJESsRmBHpEjoSyhMKE0QTbBOQE8IT4RQGFD0UZxSVFPEVBRUpFUwVaPwrDvgk7+/vAYv3XPdc91xOHfzshB347AcnHffA7+/vi+8SIB0TuPjsWQoHE9gnjR0TuDQKJyf8iPdc98CcHYgdJ+8HVh1wHRPYRR0OUQrv7xKL91yOChPo+CRPHRP0bwoVVgonJ/wkIAo+HfgkBycdi1QK7++GHfgkJwr3XJYK/Oz47O/7XPfAmx0OYh2L7xKL91xXHfyI/VD4iDMdi++LVAo6ChOsWAoTnFYKJyf8iO9EChNcOB0TnFYdmgoHDvtc7+/v+CQ6ChPsWAoT3FYKJyf8iO9XCpoKBw6LYB3vAYv3XPdc7wMiCu/8iP1Q+IhsCvtc/IgV+1z4iCEKi1QK7+/vgwr4JO/87P1Q+OxWCp0K73oKDoodA/jscQr87JEK7/tc7/gkBg6LVArv7+8B7+92Cu8ViAqWCvyI7yd7Cu/4JPvAJ0MdDkwdPh1dHXcdnR33wO8V+Ijv7/wkJ5YK+CQyCovvRgoTsPjscQr7XPzsegoTcDEdE7An+CRHHYwKi++L74vvi+8Si0sdi+8TABMV+IhmChMtOB0TFScHExYnBhMuggoTFfdc+1z9UI0KEy57CgcTTicHE03vBhOt+8BkHScHE03vBxNWdB2L7wGL91wD+OzvFfwkmwr9UPjsBg5TCmcK+1xWHe9dHUwdJ4Ad/VD3XPgk7yd0CiEK91xUCj0d/OxxHQYwHRUwHYAd/Ij3XPdc7yfvJ4gdBw5ACu8lCvtc/IgV+1z4iCEKIR17CovvZR347BV8HffABxNY7+/vBxO4Jx1ACu9OHfyImR0n7+/4JAf7wPwkFScnmgr8JAcOewqL7ygKE1hCHXwd91z8JI0KE1j4JCfvBxO4kAoOfx33wIvvi++L7xLv7/dc7xOXaAr8iAYTiyoKE5c6HfvAjR0TVzEdE5dEChMnbR0HE5dDHQ747F4d+OxxCvzsJ/dc/Oz3XPjsIQqLPR37XPzs+1yQHXsKch2LYB3vNwr3XE8d+OzvFTAd91xcCnsK7/gkBw7v91wS7++L91yL7xPQ+Oz5UCgdegoToEoKE9Dv91xyHe/3XGcK+1wpHf1Q91zvbQoGDowKi+/vPB0TABNq+IhmChNaOB0TaieNHRNaMR0TaicHE2SeChNaJwYTmiwdjQoTWp0KBxOa+8BkHXIK+Ig8HRNQ+OxxChNIegoTqCeNHRNgMR0ToCcHE5Dv/IiIHQYTiO8GE0hHHYvv7+9OCovvi+8T3QD47HEK/OwnBhPcgPgkJwYT3QBpCicHE6oAJwYT2gAnBxPdAJgd+OzvdR0GE9oAlB3vB4cdBhPdAO8HE9yA7+9yHYvvYx33XPdcE7yIChXvTwoHE1wqChO8LgpzCu/3wD4dEwATvn0KE70nJxVPCgYTXSoKE71fCicHRQoyHYvvi++L7+/vizoKE6tCHRO3PQoTqyoKE7c1HfvABxNXKgoTq18KJ+8HE7eQCvyIBCUdjwrv7xKL98CBCvdcEwATvWIK+Ij7wBXvBxO7TwoGE1sqChO7LgpzCo4KE7r4JE8dE71vChXvTwoHE10qChO9LgpBChL3XPdcEwATqJoKFW4KE1iXHScnKgoTqFsK7/tcMgqL74v3wEsK+8D3XPtc/VD4iAcTWFIdE7gtClEKBg5/HffAJzoKE5b4JPfAWgoTjj0KEyYjChOORAoTTjgdE45WHZ0KBw77XO9uHSc6ChPW+CT3wFoKE849ChOmIwoTzlcKnQoHDovvi/fAi1wdNQoGE1gjChO4WwoH+1zvFftc98DvdB2L7+/v7+8B7+/3XO8DiAoxCovv7+/v74s6ChPWQh0T7j0KE9YrCjYKJ+8HE+6QCvvABCUdi+9aHQHv7/dc7wNBHfgk+8AxCuh7Cu/vAZ0d98AnCvdcdAonJysK/CRrCu96Cg4n7+/vi/dcRgoT3JgK/IgGE6w4ChPcNx3v7wc+HT8dBg5HCogKFXQK91z7XP1QZB3v7++MHftj+OxpHXEKMB33XAb7XFUdIPjs7wGL91wD98BjCvvAVR2E+OzvAe99HfgkBvvAVR0n74tgHVwdJ14K/IiNHRN4MR0TuCf4JGwKDuhBChKLSx0TABOs+CR7HROcOB0TrCcnbwr9UI0KE1zv7wcTnCf3XO8nBxNsZQogi2kd7xWQHfdc7wcOZB1MCvdc91w+HfgkBw74JO9MCvgk91yMHfgk7+89HfzscR0GJycV/Ij8iIQd+CQnBg6L74v3wDAKE1iIChUTuD0KE1gjChO4RAoTWFIdE7guHVkd7+/vbwrvEwATvH0KE7onJxX8JAYTWiMKE7pEChNabR0HE7onFvvA+1xmHYvvi/fAi++L74vvEu/vVx38JAcTVisKIwoTrif4JDMdWR3v7/dc7xO8QR0TXPgk+8AVE7w9ChNcIwoTvEQKE1xSHRO8Lh1ZHYv3wPtc734KE1piCviI+8AVE7Y9ChNWIwoTtkQKE1ZSHRO2Lh2L74tvCu/v7xLv74v3XIvvEwATSogKFRO6PQoTSiMKE7onBxO0SgoTuu8GE0pSHRO6+8AWRh0HE7R0ChXvBxO6ngoO7++L91xLCvyI/Oz3XGQdBxNYUgoTuJkK+1xVCu/vi/dcRgoTuJgK/IgGE1g4ChO4J/fAPh0H+1x7HT4d73Qd98DvKAoTsIgKFRNw7/yI/IiNChOw98DvBxNw7+8HE7BAHS8d91zvE673XFQdewr8iAYTlioKE643HQcTTm4KE65DHQ6Ei1QK7wGdHffA7xX3wO/vJ4UKJyd0Cu9AHYvvOwr4iCwKi2AdPR37wDodXAr4iPiIBw6L74wK7+9GChMAE6wiChOcPQoTrCMdE5xFHROsJ/dc7weZCvvAjR0TXFAKE5xfCgcOQAr3XANBHfiI+1wsCotgHe87CgT3wHQKBpsKLApuHRLv74v3XIvvEwATaJgK+1wGE6j7wI0dE2hQChOoJwcTkEoKE6jvBhNoRx2MCjsK+IgV+1z7XD4d+1x1HVsKBg6L74vv7zwdEwATql8dE5o4HROqJ40dE5oxHROqJwcTZJ4KE1onBhOaIx0TWkUdE5on91zvcgon724dEu/v91z3XBPY+Oz4iJEdE7hQChPYaB0n724d7+8S7+/3XPdcE9xBHfiI+1yRHRO8UAoT3Ggdi+/v7++JChPoUwoV7+/v7+/87DUdBxPwah347HQKch1ACu9OHXUdJydxHZ4d7/gkB/tc/CQV+1z4JCEKIR2L7/gkXh347O8V+1ybCisK/CT7XFMdDovv7++Lkh0S7++L7++GChOSgCIKE6aAPQoTqoAjHROmgO/3XI0dE6WAegoTxYAnBxPGgGEKE8WA7wYTpYBFHROSgFIKDn8d91yLkh0S7+/3XIYKE4mAIgoTk4A9ChOVgCMdE5OA74UKJ3cKE1OAMR0Tk4BEChMpgO/v91wnUgoOUQqL7xLvOQr3XBO0+OxxChOs+8AnJwYTzCcHE9SYHfgk+1w8Cnsd+1zvBhPM7wYTrEcdfx33wIvv7+8Si/dc91zvE55oCvzs+8D4JPvAegoTXjEdE55EChMubR0HE55DHQ6Ljx2L7xKL91yL7+/vEwATTV8dE7V0Cu8HE7PvBhOr7/dcQx0TsycHE7UnJyd1HSf4JAYTTVIKE600HQ6MCmwdEotLHYvvEwATdIsK91zv91x6ChN4JwYTuCwdjQoTePfABxN07+9yHSYK91zvEwATliIKE649ChNWQgrvOAoTrkQKE1bv7/dcJ1IKE640HfvABPtcPh0HDovvi+/vix3v74v3XBOtKQoHE5U4ChNtNR0HE24nBhOuJ/tcOh0HE27vBxNt7+/v+CQGNB0O+2OL91wmHfdcFftc+1whCvtjOh0mHfdclh0hCvtjIB1ICvtc91wGOx0HDvtjJ50K91xICvtc91wGmQr7wPdcZh37Y4tpHXEK+1z8iPdcBvtcJ5MK+2P4iO9ICideCowdi+/v74vvi/dcJy0dJ4QKE9JAIgoTxkA9ChPKQCMdE6ZA7/dcjR0TpoAnBhPGgCMdE6aA7wcTpkDvBhPSQFIKE8UA/CT8iJMKfx33XE4KJ/dcfh0TTID4JE8d+CT8JBUTTkB6ChOWQCc+HQcTlUDvBhONQDgdE5VAJwcTlkAnBhMuQDgKE45ARAoTTkBHHUQdRB3ogh2L7xLv7+/vE7iIChU2HRNYggoTuDQKIx0TWO/vBxO4J/dcZQr3XO/vUB1UHXgd/CSACisK+1z4JPdc72UKTR0TrQD47HEKE6yAegoTlIAnBxOVAGkKjR0TqgAnBhNKACcHE00AaQr7XCQKE00A7wcTSgCUHY0Khx0GE5UA7weVCgYTrIA5HU0dEwAAE6yA+IjvFRNMgI0KE00AaQrvBxOqACcGE5IAjQoTlQBpCjEdE5UAjR0TkgCUHScHhx0GE00AjR0TTIDvBhOsgEAd6IvvYh0S7++L7xMAE1T3XPdcFffABxOS7wYTiu/3XEMdE5InXQojChNMJwcTSu8GE4o6HTYdE0oyCuiL72IdEoIdE6r4JGYKE5LvYR0nBxNSdAoGE0wnBhOsJ2AKUh0O6CYKi+8TABOS98BUHROq91z3XEMdE5InXQqACgcTTI0dE0qHCjodNh0TSo0KE1R0HeiL74v3XIvvi/dci4kKE6r4JFQdE5L3XGEdjR0TUp4KE0wnBhOs+1xgCvdcRx2Ei+/4iGkd7xWaClYK/VD4JDIKhIvv+IjvAfdcfR33XPyIMB34JAYOTQog98DvSR06HQYOTQonUB0WkgpYHe9WCicnJyd/Cvgk7ydlClgdJ+/8JH8KJycnJ/gkkx3oewqL91wSi/iI/CT3wBMAE2D4iHEKE1D8JAYTkDAdRAoTUEcdIHsKi/dcEu/vEwATYPfA+VBwHROg+1wkChNgRx0gDujv74stHROwZB0VE6j3wIAdJwYTsCcGE1AqChOwJwcTqO8nUQoGE7D7wAYOhFEKAZ0d+CRUHZcdJycn+CRlCu/vi++L74s8HROtiB0V+CSHCvtcZAoGE60nBhOVKgoTrTUd/CQnBxOqbQrvBhOt7wYTTW4KE61DHQ5aHRLv91wnbQoTABPk+IhPHRPoJ4AKJwYT8DAdSgoT6JcKJ+8GE+T3XHIdi+9RCovvEpcKEwAT7FgKE9xDHRPsJyeACvtcJ3EddAr3XGsdE9w5HffAXh347FQd+1yFCjAd91z7XCAKBg7vfAr4JGYKZAoH+CQnPgr8JCeTCu/v91xQHfiIPgr7XASSCkMKE5JA+CRUHROKQO8HE4qAJwaVCgcTlQCUCjEdE5UAJweVCgYTioAnBxOqQJ4KE6KAJwYTUoAnBxNTAJQKIx0TUwDvBxNSgO8GE6KA7wcTokCVHe9HHUMKE4qA98BUHZUKBxOUQJUdOB0TlEAnBxOUgCcGE4qAJwcTiwCUCioKE6MAJwcTooDvBhNSgCcHE1JAlR0n91zvJwcTUkDvBxNSgCcGE6KA7wcTqwB0HYtUCu8Bdgr4JD8d7+8nhQowHQf47PvAFZIK97nvKx2L7xJaHRNe+VD47HAdE26CChNeQx0TbiMdE17v7wcTbo4dB5kKE56CChNeQx0TniMdE17v7wcTno4d7wcO97n4iO+L7xJaHRN4+VD5UHAdE7iCChN4Qx0TuCMdE3jv7wcTuDodBxN4Rx33XO8BUwoD+Ox7HfzsJ/gkJyEK+B3vcx3vEwATXPlQVB0TvO/87AcTXDgKE7xxHQcTXFIKE7z87PtcFWsd91wWax0Oi+/v704K7/dcE62LCu8GE50nBxPbngoTzWEKE8vvBhOrbgoTm+8HE50n720KBg74He/v7+/3XO8B91zvnR35tIEd/IgnnB0n738K98D47CEKi+8nbQqDHRLv74vvi++L7xOTIPjs+VBwHROVICcHE5VAJ3oKE5KgJwYTIqAnBxMjICcGE5Mg+1wkChNTIO8HE1Kg7/dcBhOTQO8GE4lA7wcTiSDvBhOTIPdc7wcTVSD8JCcVdwr4JPvAPx0HDvgdJ+9RCu/vEovv748dE/2A7ycK+Ozv/OwG/VAE+Own/OwH+VAnCvzs7/jsB/yIJxVGHQb3XBabHe/7XBX8JCcGE0IASgoTwQDvBu/7XBWSCvgdJ/dcJ1EK91wSi/dc7/dc7/dcE7r5UHgK/OyCChN6/OzvBxO6cR0HE37v7/jsB/zsJxXvJycG+CQWJ+/vBvvABCcGE74njR0Tfp4d+CQHDvgdJ2cdEotnHROrVPlQBCfv7wcTCiD4JPtcFXcKEwhAJwYTEUAn+1w+HQcTIEAnBxOgIO9KHQYTIBDvBhMQFO/3XPdcjR0TChTvB/dc91wVRh0GEwSI/VAWJ+/vB/iIFkYdBhMoUDAdFftcPh0HE0CI+1z8JBWbHfjsJxXvggoTgQT87CcVmx35tCcV74IKDovv72oKEu/vi/dci+8TABOqIgoT2j0KE6ojChPaJwcT1J4KE9onJwYT1EoKE9rv7wYT1CfvBhPahwpSHRPaLh34HSfvi/fAYx33XEsdE6/5tIEdJ+8GE5+CChOvRQoHE08jChOfJ3sK7/gknh0H/CT7wHAdE6+dCgcO97kn7/dc7xL3XG8K7xPQ+Ox7He8neB0n+1xqHQcT4HodJ1sKnh1VCve5J+/3XEsdAWQdA/lQVB37XHAKdAorCid5HXodJ1sK7ydVCve5i/lQ/CT3wBLv91yL74v3XBMAE2j47EkKJ+/7XC8KJwcTkHod7+8GE0jv7++JHQYO97n3wO8B98DvA/jsVB3vJ+8n7ycnah3vfwrv7++THfe5i4kd7+8Bi/dcnQoD+Oz47BWWCvyIUR2ICgf8iBb3wEUKBg6DHe/vEu/vi20KE51fHe/vBhOa+1zv74AdJycnhwonBxOtJwYTTTgKE61bCu8nB/vAFu/vJwcO+B33wHMd91wTvPm0cQr9UAYTXDgKE7wnnB33XPjs7/zsjQr87FQdax0OMwr3XO8Tq4BoCvyIBhOVgCsKKgoTq4A3HQcTU4BwCm4KE6uAQx0nBPdcJ3oKDkEKEovvjwoTmoD3XFQdE6qA+1zv7wcTqYDvBhOZgO/v7wcTmoD8JCcGE1mAbwoVJwYTlYCCChNUgO8HE1qAJ/dcRQoGE1SA7wYTpYAnewonB+97HRNqgPvA72Yd+2OMClQKJh35UJYdXgr7wPdcZh34JDwdE6j4iGYKE2jvBxNQJ2QKBhNoJwYTqCMdE2hFHROoQB1sHRLv74v3XIvvE+hfHe8HE9AnZAoGE+gnLB347PfABjQdDoT7XO+L7xJ+ChNg+CQWegoToCf7XDodBxNgRx0eoDf/DAmLDAv5UBT4jxWcEwB/AgABAAgADAARABUAGgAlAC4AMgA7AEAARABIAE4AVABdAGEAaQBxAHQAewB/AIQAjQCSAJcAnACgAKUAqwCvALMAtwDBAMYAygDRANYA2gDkAOkA7gDyAPYA/gELARQBGQEgAScBKwEvATQBOAE9AUEBTgFVAVoBYAFkAWsBcwF4AXwBigGXAaABpQGpAa0BsQG2AbsBwQHHAcwB0QHXAdsB4AHlAekB8wH7Af8CAwILAg8CEwIYAhwCIAInAiwCMgI2AjsCQQJFAkoCTgJTAlgCXQJiAmkCcAJ5An0CgQKKAo8ClQKaAp0CoAKmAqsCsQK1AroCvgLDAsgCzQLSAtb3XPdc91wL91wGDviIJwoLLwoHCycnjQoLTh38iO8n+CRsCguL74v3XIuLHQv47BULi+8Si/dcfgoLIgpWCgsrCgcLJ0YdCygdWwoGDjUKFftcC18KB/tc+8AyHSwd7wuL7xLv734KCxVWCjYKBycd7wcOi++L7y8dC2QK7wv7XPvACycn+8BRHVMKCwEgHQMLQgrvBwvvi+/vC+8wCgs3CvjsC/dcBvtcC1YKBwsVKh0Li2oKC4tgHe8B7+/3XAskHYvvCydWHQvoMwqLhAoLJ/gkBwsn+8ALi+8S7+/3XPdcC3sKNwoLgwr7XAtZCicLbx0GC2UdVB0TuO8LNwqIChXv/Ij8iPdcC/fAUB34JBWSCmMdi+8L/CQ1HfvAC/fANQrvBwtLHe8L70UdC/gk91wL7/fAC+/v73Id7/wkCzUd+1w6He/vbwpWHQv4JPiIWgoLeAr7XAsV91yeCgsn+IgLBjAdFXUKCwcTlCcGE6wLPAonFQsniAoL+1w6HQcTTO8HE0qHCguYHfjs91z7XFYd7wYL+OwE98B0CgYL+VB2HQvvMB0L7ycyCviIFQs7CnEKC/dchR0LJwYTrQAL74wKi+8L91xTCgvvYB0HC/dcJ/dcC3AKBwv3wPtcC+/v7ycL+VAVCycHE1rvBxNkdB2PCu/vEu/vC+/7wAsiHScL91z3XAP3XAuFCgcLJwrvC/wk91wL+1wGC/gk7wvv7+/vXh0L+OxjCgv3XO8TAAsneh0L+1xGHQv7XO/3XAsnJwcLJh0nCgvvfh0L91x5HQvvEwAAC+8GE6oL+Ij4JAvvEoIdEwAL+OxxCnkdC/jscQr87PtcC4v3wAv3XAcLi/dci/dcEwALi+8kHQsnFoEKBgv9UGsKCyodDhVAHScGE5MACxOUgO8L7/yIJycL70sdC/jsZgoLeR0VC/iI91wL+Oz7XAv8JCfvC/fA91wL7ycGCwAAAGQAAAK8AAACvAAAArwAAAK8AAACvAAAArwAAAK8AAACvAAAArwAAAK8AAACvAAAArwAAAH0AAACvAAAArwAAAK8AAACvAAAArwAAAK8AAACvAAAArwAAAK8AAACvAAAArwAAAK8AAACvAAAArwAAAK8AAACvAAAArwAAAK8AAACvAAAArwAAAK8AAACvAAAArwAAAK8AAACvAAAArwAAAK8AAACvAAAArwAAAK8AAACvAAAArwAAAK8AAACWAAAArwAAAK8AAABLAAAAZAAAAH0AAACvAAAAlgAAAGQAAACvAAAArwAAAK8AAACvAAAArwAAAK8AAACvAAAArwAAAK8AAACvAAAArwAAAK8AAACvAAAAfQAAAK8AAACvAAAArwAAAK8AAACvAAAArwAAAK8AAACvAAAArwAAAK8AAACvAAAArwAAAK8AAACvAAAArwAAAK8AAACvAAAArwAAAK8AAACvAAAArwAAAK8AAABLAAAASwAAAEsAAABLAAAASwAAAEsAAACvAAAArwAAAGQAAABkAAAAlgAAAK8AAACvAAAArwAAAJYAAACWAAAAlgAAAJYAAAB9AAAAfQAAAK8AAABkAAAArwAAAK8AAACvAAAArwAAAJYAAABkAAAAZAAAAJYAAAB9AAAArwAAAK8AAACvAAAArwAAAK8AAACvAAAAlgAAAJYAAACvAAAAyAAAAMgAAACvAAAA4QAAAK8AAADhAAAArwAAAOEAAADhAAAA4QAAAK8AAADhAAAAyAAAAMgAAADIAAAAyAAAAMgAAACvAAAA4QAAAK8AAACvAAAASwAAAK8AAACvAAAAfQAAAABAAAAAAAAAAAAAA==]])
             end)
             state.fonts.list = {}
-            for k23, v347 in state.fonts.info do
+            for k23, v349 in state.fonts.info do
                 table.insert(state.fonts.list, k23)
-                game:GetService("TextService"):GetTextBoundsAsync(fn5("GetTextBoundsParams", {Text = "\\\\", Size = v347.size, Font = v347.font, Width = huge}))
+                game:GetService("TextService"):GetTextBoundsAsync(fn5("GetTextBoundsParams", {Text = "\\\\", Size = v349.size, Font = v349.font, Width = huge}))
             end
             table.sort(state.fonts.list, function(a, b)
                 return #a > #b
@@ -3622,7 +3625,7 @@ if not getgenv().UE_LOADED then
                             local obj15 = uiLibrary:Create(parent8:Clone(), {Position = UDim2.new(0.5, 2, 0, 228), Size = UDim2.new(0.5, -6, 0, 20), Parent = parent3})
                             local obj16 = uiLibrary:Create(obj15.Frame:FindFirstChild("TextBox"), {Text = "255, 255, 255", PlaceholderText = "RGB color", TextColor3 = uiLibrary.FontColor})
                             local parent10 = nil
-                            local v348 = nil
+                            local v350 = nil
                             if option.Transparency then
                                 local parent11 = uiLibrary:Create(frameClassRef, {
                                     BorderColor3 = Color3.new(0, 0, 0),
@@ -3647,7 +3650,7 @@ if not getgenv().UE_LOADED then
                                     ZIndex = 20,
                                     Parent = parent10,
                                 })
-                                v348 = uiLibrary:Create(frameClassRef, {
+                                v350 = uiLibrary:Create(frameClassRef, {
                                     BackgroundColor3 = Color3.new(1, 1, 1),
                                     AnchorPoint = Vector2.new(0.5, 0),
                                     BorderColor3 = Color3.new(0, 0, 0),
@@ -3810,7 +3813,7 @@ if not getgenv().UE_LOADED then
 
                                     if parent10 then
                                         parent10.BackgroundColor3 = colorPicker.Value
-                                        v348.Position = UDim2.new(1 - colorPicker.Transparency, 0, 0, 0)
+                                        v350.Position = UDim2.new(1 - colorPicker.Transparency, 0, 0, 0)
                                     end
 
                                     imageLabel2.Position = UDim2.new(colorPicker.Sat, 0, 1 - colorPicker.Vib, 0)
@@ -4425,8 +4428,8 @@ if not getgenv().UE_LOADED then
                         end,
                         AddLabel = function(arg1, arg2, arg3)
                             local list = {}
-                            local v345 = arg1
-                            local container = v345.Container
+                            local v347 = arg1
+                            local container = v347.Container
                             local label = uiLibrary:CreateLabel({
                                 Size = UDim2.new(1, -4, 0, 15),
                                 TextSize = 14,
@@ -4461,7 +4464,7 @@ if not getgenv().UE_LOADED then
                                         label.Size = UDim2.new(1, -4, 0, count)
                                     end
 
-                                    v345:Resize()
+                                    v347:Resize()
                                 end
 
                                 local list2 = {}
@@ -4473,15 +4476,15 @@ if not getgenv().UE_LOADED then
 
                                     label:Destroy()
                                     table.clear(list)
-                                    v345:Resize()
+                                    v347:Resize()
                                 end
 
                                 if not arg3 then
                                     setmetatable(list, tbl5)
                                 end
 
-                                table.insert(list2, v345:AddBlank(5))
-                                v345:Resize()
+                                table.insert(list2, v347:AddBlank(5))
+                                v347:Resize()
                             end)()
                             return list
                         end,
@@ -4497,8 +4500,8 @@ if not getgenv().UE_LOADED then
                                 list.Func = select(2, __select(2, ...))
                             end
                             assert(typeof(list.Func) == "function", "AddButton: `Func` callback is missing.")
-                            local v345 = arg1
-                            local container = v345.Container
+                            local v347 = arg1
+                            local container = v347.Container
                             local fn62 = function(arg12)
                                 local parent2 = uiLibrary:Create(frameClassRef, {
                                     BackgroundColor3 = Color3.new(0, 0, 0),
@@ -4565,13 +4568,13 @@ if not getgenv().UE_LOADED then
                                         arg12.Label.TextColor3 = uiLibrary.RiskColor
                                         arg12.Label.Text = "Are you sure?"
                                         arg12.Locked = true
-                                        local v349 = fn64(arg12.Outer.InputBegan, 1, fn65)
+                                        local v351 = fn64(arg12.Outer.InputBegan, 1, fn65)
                                         uiLibrary:RemoveFromRegistry(arg12.Label)
                                         uiLibrary:AddToRegistry(arg12.Label, {TextColor3 = "FontColor"})
                                         arg12.Label.TextColor3 = uiLibrary.FontColor
                                         arg12.Label.Text = arg12.Text
                                         task.defer(rawset, arg12, "Locked", false)
-                                        if v349 then
+                                        if v351 then
                                             uiLibrary:SafeCallback(arg12.Func)
                                         end
                                     end
@@ -4630,20 +4633,20 @@ if not getgenv().UE_LOADED then
 
                                     list.Outer:Destroy()
                                     table.clear(list)
-                                    v345:Resize()
+                                    v347:Resize()
                                 end
 
                                 if typeof(list.Tooltip) == 'string' then
                                     list:AddTooltip(list.Tooltip)
                                 end
 
-                                table.insert(list2, v345:AddBlank(5))
-                                v345:Resize()
+                                table.insert(list2, v347:AddBlank(5))
+                                v347:Resize()
                             end)()
                             return list
                         end,
                         AddFrame = function(self2)
-                            local v345 = self2
+                            local v347 = self2
                             local parent2 = uiLibrary:Create(frameClassRef, {
                                 BackgroundColor3 = Color3.new(0, 0, 0),
                                 BorderColor3 = Color3.new(0, 0, 0),
@@ -4681,7 +4684,7 @@ if not getgenv().UE_LOADED then
                                 function tbl60:SetSize(value008)
                                     parent2.Size = UDim2.new(1, -4, 0, value008)
 
-                                    v345:Resize()
+                                    v347:Resize()
                                 end
                                 function tbl60:GetOuter()
                                     return parent2
@@ -4701,10 +4704,10 @@ if not getgenv().UE_LOADED then
                             return tbl60
                         end,
                         AddDivider = function(self)
-                            local v345 = self
+                            local v347 = self
                             local container = self.Container
                             local tbl58 = {Type = "Divider"}
-                            local list = {v345:AddBlank(2)}
+                            local list = {v347:AddBlank(2)}
                             local parent2 = uiLibrary:Create(frameClassRef, {
                                 BackgroundColor3 = Color3.new(0, 0, 0),
                                 BorderColor3 = Color3.new(0, 0, 0),
@@ -4722,14 +4725,14 @@ if not getgenv().UE_LOADED then
                             })
                             uiLibrary:AddToRegistry(parent2, {BorderColor3 = "Black"})
                             uiLibrary:AddToRegistry(obj2, {BackgroundColor3 = "MainColor", BorderColor3 = outlineColorNameRef})
-                            table.insert(list, v345:AddBlank(9))
-                            v345:Resize()
+                            table.insert(list, v347:AddBlank(9))
+                            v347:Resize()
                             tbl58.Remove = function(arg12)
-                                for _, v346 in list do
-                                    v346:Destroy()
+                                for _, v348 in list do
+                                    v348:Destroy()
                                 end
                                 parent2:Destroy()
-                                v345:Resize()
+                                v347:Resize()
                             end
                             return tbl58
                         end,
@@ -4747,8 +4750,8 @@ if not getgenv().UE_LOADED then
                             assert(option.ClearTextOnFocus == nil, "do not use ClearTextOnFocus, use Clear instead")
                             local clear2 = option.Clear
                             option.Clear = not not (clear2 or clear2 == nil)
-                            local v345 = arg1
-                            local container = v345.Container
+                            local v347 = arg1
+                            local container = v347.Container
                             uiLibrary:CreateLabel({
                                 Size = UDim2.new(1, 0, 0, 15),
                                 TextSize = 14,
@@ -4757,7 +4760,7 @@ if not getgenv().UE_LOADED then
                                 ZIndex = 5,
                                 Parent = container,
                             })
-                            table.insert(list, v345:AddBlank(1))
+                            table.insert(list, v347:AddBlank(1))
                             local parent2 = uiLibrary:Create(frameClassRef, {
                                 BackgroundColor3 = Color3.new(0, 0, 0),
                                 BorderColor3 = Color3.new(0, 0, 0),
@@ -4843,7 +4846,7 @@ if not getgenv().UE_LOADED then
 
                                     parent2:Destroy()
                                     table.clear(option2)
-                                    v345:Resize()
+                                    v347:Resize()
                                 end
 
                                 if option2.Finished then
@@ -4908,8 +4911,8 @@ if not getgenv().UE_LOADED then
                                     callback(option2.Value)
                                 end
 
-                                table.insert(list, v345:AddBlank(5))
-                                v345:Resize()
+                                table.insert(list, v347:AddBlank(5))
+                                v347:Resize()
 
                                 options[arg2] = option2
                             end)()
@@ -4930,8 +4933,8 @@ if not getgenv().UE_LOADED then
                                 Scrambled = option.Scrambled,
                                 Idx = arg2,
                             }
-                            local v345 = arg1
-                            local container = v345.Container
+                            local v347 = arg1
+                            local container = v347.Container
                             local parent2 = uiLibrary:Create(frameClassRef, {
                                 BackgroundTransparency = 1,
                                 Size = UDim2.new(1, -25, 0, 13),
@@ -4998,8 +5001,8 @@ if not getgenv().UE_LOADED then
                                             local list2 = {}
                                             local len = #option.Text
                                             local n = math.floor(tbl60.progress * len)
-                                            local n17 = len + 0
-                                            for i9 = 1, n17 do
+                                            local n18 = len + 0
+                                            for i9 = 1, n18 do
                                                 local sub = option.Text:sub(i9, i9)
                                                 if not (i9 <= n) then
                                                     if sub == " " then
@@ -5072,7 +5075,7 @@ if not getgenv().UE_LOADED then
                                         Blank.Visible = option2.Visible
                                     end
 
-                                    v345:Resize()
+                                    v347:Resize()
                                 end
                                 function option2:Remove()
                                     for key3, value3 in list do
@@ -5083,7 +5086,7 @@ if not getgenv().UE_LOADED then
 
                                     parent2:Destroy()
                                     table.clear(option2)
-                                    v345:Resize()
+                                    v347:Resize()
                                 end
 
                                 toggleRegion.InputBegan:Connect(function(input)
@@ -5117,8 +5120,8 @@ if not getgenv().UE_LOADED then
                                 end
 
                                 option2:Display()
-                                table.insert(list, v345:AddBlank(option.BlankSize or 7))
-                                v345:Resize()
+                                table.insert(list, v347:AddBlank(option.BlankSize or 7))
+                                v347:Resize()
 
                                 option2.ColorPickerCount = 0
                                 option2.ToggleRegion = toggleRegion
@@ -5154,9 +5157,9 @@ if not getgenv().UE_LOADED then
                             ChangedFuncs = {},
                             Parent = arg4,
                         }
-                        local v345 = arg1
-                        local v346 = nil
-                        local parent2 = arg4 and arg4.Outer or v345.Container
+                        local v347 = arg1
+                        local v348 = nil
+                        local parent2 = arg4 and arg4.Outer or v347.Container
                         if not option.Compact then
                             local label = uiLibrary:CreateLabel({
                                 Size = UDim2.new(1, 0, 0, 10),
@@ -5169,7 +5172,7 @@ if not getgenv().UE_LOADED then
                                 Parent = parent2,
                             })
                             table.insert(list, label)
-                            table.insert(list, v345:AddBlank(3))
+                            table.insert(list, v347:AddBlank(3))
                         end
                         local holderFrame = arg4 and arg4.HolderFrame or uiLibrary:Create(frameClassRef, {BackgroundTransparency = 1, Size = UDim2.new(1, -6, 0, 13), ZIndex = 5, Parent = parent2})
                         slider.HolderFrame = holderFrame
@@ -5183,10 +5186,11 @@ if not getgenv().UE_LOADED then
                         slider.Layout = layout
                         local obj = uiLibrary:Create(frameClassRef, {BackgroundTransparency = 1, Size = UDim2.new(1, 0, 1, 0), ZIndex = 5, Parent = holderFrame})
                         slider.Frame = obj
-                        local n16 = #holderFrame:GetChildren() - 1
-                        if 1 < n16 then
-                            layout.CellPadding = n16 % 2 == 1 and UDim2.new(0, 7, 0, 0) or UDim2.new(0, 6, 0, 0)
-                            layout.CellSize = UDim2.new(1 / n16, -(6 * (n16 - 1) / n16), 1, 0)
+                        local n17 = #holderFrame:GetChildren() - 1
+                        if 1 < n17 then
+                            local n18 = 6 * (n17 - 1) / n17
+                            layout.CellPadding = n17 % 2 == 1 and UDim2.new(0, 7, 0, 0) or UDim2.new(0, 6, 0, 0)
+                            layout.CellSize = UDim2.new(1 / n17, -n18, 1, 0)
                         end
                         local obj2 = uiLibrary:Create(frameClassRef, {
                             BackgroundColor3 = Color3.new(0, 0, 0),
@@ -5250,15 +5254,15 @@ if not getgenv().UE_LOADED then
 
                                 local value023 = uiLibrary:MapValue(slider.Value, slider.Min, slider.Max, 0, 1)
 
-                                if v346 then
-                                    v346:Cancel()
+                                if v348 then
+                                    v348:Cancel()
                                 end
 
-                                v346 = v42:Create(parent4, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                                v348 = v42:Create(parent4, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
                                     Size = UDim2.new(value023, 0, 1, 0),
                                 })
 
-                                v346:Play()
+                                v348:Play()
 
                                 obj5.Visible = not (value023 == 1 or value023 == 0)
                             end
@@ -5291,7 +5295,7 @@ if not getgenv().UE_LOADED then
 
                                 slider.HolderFrame:Destroy()
                                 table.clear(slider)
-                                v345:Resize()
+                                v347:Resize()
                             end
                             function slider:SetValue(newValue)
                                 local num = tonumber(newValue)
@@ -5311,7 +5315,7 @@ if not getgenv().UE_LOADED then
                                 end
                             end
                             function slider:AddSlider(value040, value041)
-                                return index2.AddSlider(v345, value040, value041, slider)
+                                return index2.AddSlider(v347, value040, value041, slider)
                             end
 
                             parent3.InputBegan:Connect(function(input)
@@ -5404,8 +5408,8 @@ if not getgenv().UE_LOADED then
                             slider:Display()
 
                             if not arg4 then
-                                table.insert(list, v345:AddBlank(option.BlankSize or 6))
-                                v345:Resize()
+                                table.insert(list, v347:AddBlank(option.BlankSize or 6))
+                                v347:Resize()
                             end
 
                             options[arg2] = slider
@@ -5436,8 +5440,8 @@ if not getgenv().UE_LOADED then
                             Callback = option.Callback or function(arg12) end,
                             Idx = arg2,
                         }
-                        local v345 = arg1
-                        local container = v345.Container
+                        local v347 = arg1
+                        local container = v347.Container
                         local num9 = 0
                         if not option.Compact then
                             local label = uiLibrary:CreateLabel({
@@ -5451,14 +5455,14 @@ if not getgenv().UE_LOADED then
                                 Parent = container,
                             })
                             table.insert(list, label)
-                            table.insert(list, v345:AddBlank(3))
+                            table.insert(list, v347:AddBlank(3))
                         end
                         do
                             local next_2 = next
-                            local v347, v348 = container:GetChildren()
-                            for _, v349 in next_2, v347, v348 do
-                                if not v349:IsA("UIListLayout") then
-                                    num9 = num9 + v349.Size.Y.Offset
+                            local v349, v350 = container:GetChildren()
+                            for _, v351 in next_2, v349, v350 do
+                                if not v351:IsA("UIListLayout") then
+                                    num9 = num9 + v351.Size.Y.Offset
                                 end
                             end
                         end
@@ -5880,8 +5884,8 @@ if not getgenv().UE_LOADED then
                                 dropdown:Display()
                             end
 
-                            table.insert(list, v345:AddBlank(option.BlankSize or 5))
-                            v345:Resize()
+                            table.insert(list, v347:AddBlank(option.BlankSize or 5))
+                            v347:Resize()
 
                             options[arg2] = dropdown
                         end)()
@@ -5889,8 +5893,8 @@ if not getgenv().UE_LOADED then
                     end
                     index2.AddDependencyBox = function(arg1)
                         local list = {Dependencies = {}}
-                        local v345 = arg1
-                        local container = v345.Container
+                        local v347 = arg1
+                        local container = v347.Container
                         local parent2 = uiLibrary:Create(frameClassRef, {BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 0), Visible = false, Parent = container})
                         local obj2 = uiLibrary:Create(frameClassRef, {BackgroundTransparency = 1, Size = UDim2.new(1, 0, 1, 0), Visible = true, Parent = parent2})
                         local uiListLayout = uiLibrary:Create("UIListLayout", {FillDirection = Enum.FillDirection.Vertical, SortOrder = Enum.SortOrder.LayoutOrder, Parent = obj2});
@@ -5898,7 +5902,7 @@ if not getgenv().UE_LOADED then
                             function list:Resize()
                                 parent2.Size = UDim2.new(1, 0, 0, uiListLayout.AbsoluteContentSize.Y)
 
-                                v345:Resize()
+                                v347:Resize()
                             end
 
                             uiListLayout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
@@ -5939,7 +5943,7 @@ if not getgenv().UE_LOADED then
                                 table.remove(uiLibrary.DependencyBoxes, table.find(uiLibrary.DependencyBoxes, list))
                                 table.clear(list)
                                 parent2:Destroy()
-                                v345:Resize()
+                                v347:Resize()
                             end
 
                             list.Container = obj2
@@ -6102,9 +6106,9 @@ if not getgenv().UE_LOADED then
                         if typeof(tbl59.Size) ~= "UDim2" then
                             tbl59.Size = UDim2.fromOffset(550, 600)
                             if uiLibrary.IsMobile then
-                                local n16 = tonumber(workspace.CurrentCamera.ViewportSize.Y) - 35
-                                if 200 <= n16 and n16 <= 600 then
-                                    tbl59.Size = UDim2.fromOffset(550, n16)
+                                local n17 = tonumber(workspace.CurrentCamera.ViewportSize.Y) - 35
+                                if 200 <= n17 and n17 <= 600 then
+                                    tbl59.Size = UDim2.fromOffset(550, n17)
                                 else
                                     tbl59.Size = UDim2.fromOffset(550, 350)
                                 end
@@ -7806,15 +7810,15 @@ if not getgenv().UE_LOADED then
                             self:SaveCustomTheme(options.ThemeManager_CustomThemeList.Value)
                         end):AddButton("Delete Theme", function()
                             local themeManager_CustomThemeList = options.ThemeManager_CustomThemeList.Value
-                            local v347, v348 = self:Delete(themeManager_CustomThemeList)
-                            local v349 = v348
-                            if v347 then
+                            local v349, v350 = self:Delete(themeManager_CustomThemeList)
+                            local v351 = v350
+                            if v349 then
                                 self.Library:Notify(string.format("Deleted theme %q", themeManager_CustomThemeList))
                                 options.ThemeManager_CustomThemeList:SetValues(self:ReloadCustomThemes())
                                 options.ThemeManager_CustomThemeList:SetValue(nil)
                                 return
                             end
-                            return self.Library:Notify("Failed to delete theme: " .. v349)
+                            return self.Library:Notify("Failed to delete theme: " .. v351)
                         end)
                         tab:AddButton("Set Default", function()
                             if options.ThemeManager_CustomThemeList.Value ~= nil and options.ThemeManager_CustomThemeList.Value ~= "" then
@@ -7924,34 +7928,34 @@ if not getgenv().UE_LOADED then
                         if saveManager_ConfigName:gsub(" ", "") == "" then
                             return self.Library:Notify("Invalid config name (empty)", 2)
                         end
-                        local v347, v348 = self:Save(saveManager_ConfigName)
-                        local v349 = v348
-                        if v347 then
+                        local v349, v350 = self:Save(saveManager_ConfigName)
+                        local v351 = v350
+                        if v349 then
                             self.Library:Notify(string.format("Created config %q", saveManager_ConfigName))
                             options.SaveManager_ConfigList:SetValues(self:RefreshConfigList())
                             options.SaveManager_ConfigList:SetValue(nil)
                             return
                         end
-                        return self.Library:Notify("Failed to save config: " .. v349)
+                        return self.Library:Notify("Failed to save config: " .. v351)
                     end):AddButton("Load config", function()
                         local saveManager_ConfigList = options.SaveManager_ConfigList.Value
-                        local v347, v348 = self:Load(saveManager_ConfigList)
-                        local v349 = v348
-                        if v347 then
+                        local v349, v350 = self:Load(saveManager_ConfigList)
+                        local v351 = v350
+                        if v349 then
                             self.Library:Notify(string.format("Loaded config %q", saveManager_ConfigList))
                             return
                         end
-                        return self.Library:Notify("Failed to load config: " .. v349)
+                        return self.Library:Notify("Failed to load config: " .. v351)
                     end)
                     groupbox:AddButton({
                         Text = "Overwrite config",
                         DoubleClick = true,
                         Func = function()
                             local saveManager_ConfigList = options.SaveManager_ConfigList.Value
-                            local v347, v348 = self:Save(saveManager_ConfigList)
-                            local v349 = v348
-                            if not v347 then
-                                return self.Library:Notify("Failed to overwrite config: " .. v349)
+                            local v349, v350 = self:Save(saveManager_ConfigList)
+                            local v351 = v350
+                            if not v349 then
+                                return self.Library:Notify("Failed to overwrite config: " .. v351)
                             end
                             self.Library:Notify(string.format("Overwrote config %q", saveManager_ConfigList))
                         end,
@@ -7960,15 +7964,15 @@ if not getgenv().UE_LOADED then
                         DoubleClick = true,
                         Func = function()
                             local saveManager_ConfigList = options.SaveManager_ConfigList.Value
-                            local v347, v348 = self:Delete(saveManager_ConfigList)
-                            local v349 = v348
-                            if v347 then
+                            local v349, v350 = self:Delete(saveManager_ConfigList)
+                            local v351 = v350
+                            if v349 then
                                 self.Library:Notify(string.format("Deleted config %q", saveManager_ConfigList))
                                 options.SaveManager_ConfigList:SetValues(self:RefreshConfigList())
                                 options.SaveManager_ConfigList:SetValue(nil)
                                 return
                             end
-                            return self.Library:Notify("Failed to delete config: " .. v349)
+                            return self.Library:Notify("Failed to delete config: " .. v351)
                         end,
                     })
                     groupbox:AddButton("Refresh list", function()
@@ -8004,26 +8008,26 @@ if not getgenv().UE_LOADED then
                         Callback = function(value)
                             if value ~= "" then
                                 options.SaveManager_ConfigTextInput:SetValue("")
-                                local ok5, v347 = pcall(function()
+                                local ok5, v349 = pcall(function()
                                     return HttpService2:JSONDecode(base64.decode(value))
                                 end)
                                 local ok = ok5
-                                local v349 = v347
+                                local v351 = v349
                                 if not ok then
-                                    local ok6, v350 = pcall(function()
+                                    local ok6, v352 = pcall(function()
                                         return HttpService2:JSONDecode(value)
                                     end)
                                     ok = ok6
-                                    v349 = v350
+                                    v351 = v352
                                 end
-                                if ok and type(v349) == "table" and v349.objects then
-                                    local v351, v352 = self:Load(v349)
-                                    local v353 = v352
-                                    if v351 then
+                                if ok and type(v351) == "table" and v351.objects then
+                                    local v353, v354 = self:Load(v351)
+                                    local v355 = v354
+                                    if v353 then
                                         self.Library:Notify("Loaded copied config!")
                                         return
                                     end
-                                    return self.Library:Notify("Failed to load config: " .. v353)
+                                    return self.Library:Notify("Failed to load config: " .. v355)
                                 end
                                 return self.Library:Notify("Failed to load paste config, did you copy it properly?")
                             end
@@ -8031,14 +8035,14 @@ if not getgenv().UE_LOADED then
                     })
                     groupbox:AddButton("Copy config to clipboard", function()
                         local saveManager_ConfigList = options.SaveManager_ConfigList.Value
-                        local v347, v348 = self:Save(saveManager_ConfigList, true)
-                        local v349 = v348
-                        if v347 then
-                            setclipboard(base64.encode(v349))
+                        local v349, v350 = self:Save(saveManager_ConfigList, true)
+                        local v351 = v350
+                        if v349 then
+                            setclipboard(base64.encode(v351))
                             self.Library:Notify(string.format("copied config %q", saveManager_ConfigList))
                             return
                         end
-                        return self.Library:Notify("Failed to copy config: " .. v349)
+                        return self.Library:Notify("Failed to copy config: " .. v351)
                     end)
                     configManager:SetIgnoreIndexes({"SaveManager_ConfigList", "SaveManager_ConfigName", "SaveManager_ConfigTextInput"})
                 end
@@ -8065,10 +8069,10 @@ if not getgenv().UE_LOADED then
                 settings = window:AddTab("settings"),
             }
             local fn10 = function(arg1, arg2, arg3)
-                local v345 = arg1:AddDependencyBox()
-                v345:AddToggle("INVISIBLE_IGNORE_ME_THANKS", {Text = "", Default = false})
-                v345:AddInput(arg2, {Text = "", Default = arg3 or "[]", Clear = false, Numeric = false, Finished = false})
-                v345:SetupDependencies({{Toggles.INVISIBLE_IGNORE_ME_THANKS, false}})
+                local v347 = arg1:AddDependencyBox()
+                v347:AddToggle("INVISIBLE_IGNORE_ME_THANKS", {Text = "", Default = false})
+                v347:AddInput(arg2, {Text = "", Default = arg3 or "[]", Clear = false, Numeric = false, Finished = false})
+                v347:SetupDependencies({{Toggles.INVISIBLE_IGNORE_ME_THANKS, false}})
                 Toggles.INVISIBLE_IGNORE_ME_THANKS:SetValue(true)
             end
             do
@@ -8781,16 +8785,16 @@ if not getgenv().UE_LOADED then
                     do
                         local tab = tabbox6:AddTab("options")
                         local fn17 = function(arg1, arg2, arg3)
-                            local v345 = tab:AddDependencyBox()
-                            v345:SetupDependencies({{Toggles["esp_" .. arg1], true}})
+                            local v347 = tab:AddDependencyBox()
+                            v347:SetupDependencies({{Toggles["esp_" .. arg1], true}})
                             local callback2 = callback
                             if arg3 then
                                 callback2 = nil
                             end
                             if arg2 then
-                                v345:AddToggle("esp_" .. arg1 .. "_moving", {Text = "moving rotation", Default = false, Callback = callback2})
+                                v347:AddToggle("esp_" .. arg1 .. "_moving", {Text = "moving rotation", Default = false, Callback = callback2})
                             end
-                            local slider = v345:AddSlider("esp_" .. arg1 .. "_rotation", {
+                            local slider = v347:AddSlider("esp_" .. arg1 .. "_rotation", {
                                 Text = "rotation",
                                 Default = 0,
                                 Increment = 5,
@@ -8813,12 +8817,12 @@ if not getgenv().UE_LOADED then
                                     Compact = true,
                                 })
                             end
-                            return v345
+                            return v347
                         end
                         local fn18 = function(arg1, arg2, arg3, arg4, arg5)
                             local toggle = tab:AddToggle("esp_" .. arg1, {Text = arg1, Tooltip = arg4, Default = false})
-                            local n16 = arg2 + 0
-                            for i9 = 1, n16 do
+                            local n17 = arg2 + 0
+                            for i9 = 1, n17 do
                                 toggle:AddColorPicker("esp_" .. arg1 .. "_color" .. i9, {
                                     Default = Color3.new(1, 1, 1),
                                     Transparency = arg3,
@@ -8888,8 +8892,8 @@ if not getgenv().UE_LOADED then
                         local fn19 = function(arg1, arg2)
                             local replaced = arg1:gsub(" ", "_")
                             local toggle = tab:AddToggle("esp_flag_" .. replaced, {Text = arg1, Tooltip = tooltip, Default = false})
-                            local n16 = arg2 + 0
-                            for i9 = 1, n16 do
+                            local n17 = arg2 + 0
+                            for i9 = 1, n17 do
                                 toggle:AddColorPicker("esp_flag_" .. replaced .. "_color" .. i9, {Default = Color3.new(1, 1, 1), Transparency = transparency, Title = arg1 .. " color " .. i9})
                             end
                             return toggle
@@ -9475,8 +9479,9 @@ if not getgenv().UE_LOADED then
                     if shoot_sound_change_value == "custom" or state.sounds.shoot[shoot_sound_change_value] then
                         local sound = Instance.new("Sound", game:GetService("SoundService"))
                         sound.SoundId = state.sounds.shoot[shoot_sound_change_value] or "rbxassetid://" .. tostring(Options.shoot_sound_custom_value.Value)
+                        local playbackSpeed = Options.shoot_sound_speed.Value
                         local volume = Options.shoot_sound_volume.Value
-                        sound.PlaybackSpeed = Options.shoot_sound_speed.Value
+                        sound.PlaybackSpeed = playbackSpeed
                         sound.Volume = volume
                         sound.TimePosition = sound.TimeLength * (Options.shoot_sound_start.Value / 100)
                         sound:Play()
@@ -9711,13 +9716,13 @@ if not getgenv().UE_LOADED then
                         return #a > #b
                     end)
                     if class then
-                        local v347 = nil
-                        for _, v348 in list do
-                            if table.find(module3.DEFAULT_WEAPONS, v348) then
-                                v347 = v348
+                        local v349 = nil
+                        for _, v350 in list do
+                            if table.find(module3.DEFAULT_WEAPONS, v350) then
+                                v349 = v350
                             end
                         end
-                        return list, v347
+                        return list, v349
                     end
                     return list, nil
                 end
@@ -9796,8 +9801,8 @@ if not getgenv().UE_LOADED then
                         AllowNull = true,
                         Callback = function(value)
                             local custom = {}
-                            for k23, v345 in value do
-                                if v345 then
+                            for k23, v347 in value do
+                                if v347 then
                                     table.insert(custom, k23)
                                 end
                             end
@@ -9822,27 +9827,27 @@ if not getgenv().UE_LOADED then
                     })
                     local fn22 = function()
                         local list = {}
-                        for _, v345 in v15.listfiles("chat") do
-                            local parts = readfile(v345):split("\n")
+                        for _, v347 in v15.listfiles("chat") do
+                            local parts = readfile(v347):split("\n")
                             if #parts == 0 then
-                                Library:Notify("invalid file for chat spam:" .. v345)
+                                Library:Notify("invalid file for chat spam:" .. v347)
                             else
-                                local parts2 = v345:split("\\")
+                                local parts2 = v347:split("\\")
                                 list[parts2[#parts2]] = parts
                             end
                         end
                         local values3 = Options.chat_spam_mode.Values
-                        for _, v347 in values3 do
-                            if not list[v347] and not chat_spam.default[v347] then
-                                table.remove(values3, table.find(values3, v347))
-                                chat_spam.messages[v347] = nil
+                        for _, v349 in values3 do
+                            if not list[v349] and not chat_spam.default[v349] then
+                                table.remove(values3, table.find(values3, v349))
+                                chat_spam.messages[v349] = nil
                             end
                         end
-                        for k23, v348 in list do
+                        for k23, v350 in list do
                             if not table.find(values3, k23) then
                                 table.insert(values3, k23)
                             end
-                            chat_spam.messages[k23] = v348
+                            chat_spam.messages[k23] = v350
                         end
                         for k24 in chat_spam.default do
                             if not table.find(values3, k24) then
@@ -9874,8 +9879,8 @@ if not getgenv().UE_LOADED then
                     AllowNull = true,
                     Callback = function(value)
                         local hit = {}
-                        for k23, v345 in value do
-                            if v345 then
+                        for k23, v347 in value do
+                            if v347 then
                                 table.insert(hit, k23)
                             end
                         end
@@ -9904,9 +9909,9 @@ if not getgenv().UE_LOADED then
             do
                 local tabbox13 = tabs.settings:AddLeftTabbox()
                 local fn23 = function()
-                    for _, v345 in Options do
-                        if v345.Type == "KeyPicker" then
-                            pcall(v345.Update, v345)
+                    for _, v347 in Options do
+                        if v347.Type == "KeyPicker" then
+                            pcall(v347.Update, v347)
                         end
                     end
                 end
@@ -9932,8 +9937,9 @@ if not getgenv().UE_LOADED then
                         Compact = true,
                         Callback = function(value)
                             local transparency = 1 - value / 100
+                            local keybindFrame = Library.KeybindFrame
                             local frame = Library.KeybindFrame.Frame
-                            Library.KeybindFrame.Transparency = transparency
+                            keybindFrame.Transparency = transparency
                             frame.Transparency = transparency
                         end,
                     })
@@ -10024,7 +10030,8 @@ if not getgenv().UE_LOADED then
                         Rounding = 0,
                         Compact = true,
                     }):OnChanged(function(value)
-                        Library.NotificationStyle.Transparency = 1 - value / 100
+                        local transparency = 1 - value / 100
+                        Library.NotificationStyle.Transparency = transparency
                     end)
                     for _, name in {"X", "Y"} do
                         Options["NotificationPosition" .. name]:OnChanged(function()
@@ -10098,12 +10105,12 @@ if not getgenv().UE_LOADED then
                 groupbox16:AddDropdown("community_selected_config", {Values = values, Default = 1, Text = "config list"})
                 groupbox16:AddButton("load config", function()
                     local community_selected_config = Options.community_selected_config.Value
-                    local v345 = list[community_selected_config]
-                    if community_selected_config and v345 then
-                        local ok5, v346 = pcall(HttpService.JSONDecode, HttpService, v345)
-                        local v347 = v346
+                    local v347 = list[community_selected_config]
+                    if community_selected_config and v347 then
+                        local ok5, v348 = pcall(HttpService.JSONDecode, HttpService, v347)
+                        local v349 = v348
                         if ok5 then
-                            SaveManager:Load(v347)
+                            SaveManager:Load(v349)
                             Library:Notify(string.format("Loaded config: %q", community_selected_config))
                             return
                         end
@@ -10138,17 +10145,17 @@ if not getgenv().UE_LOADED then
             local fn24 = function(arg1, arg2, arg3)
                 for _, list in type(arg1) == "string" and {arg1} or arg1 do
                     local list2 = {}
-                    local v346 = nil
-                    for k23, v347 in list:split("") do
-                        if v347 ~= v347:lower() and v347:upper() ~= v347:lower() then
-                            if v346 then
-                                table.insert(list2, list:sub(v346, k23 - 1))
+                    local v348 = nil
+                    for k23, v349 in list:split("") do
+                        if v349 ~= v349:lower() and v349:upper() ~= v349:lower() then
+                            if v348 then
+                                table.insert(list2, list:sub(v348, k23 - 1))
                             end
-                            v346 = k23
+                            v348 = k23
                         end
                     end
-                    if v346 then
-                        table.insert(list2, list:sub(v346, #list))
+                    if v348 then
+                        table.insert(list2, list:sub(v348, #list))
                     end
                     local tbl59 = {
                         upper = list2[1],
@@ -10157,19 +10164,19 @@ if not getgenv().UE_LOADED then
                         camel = list2[1]:lower(),
                     }
                     tbl59.camel = tbl59.camel .. list2[1]:lower()
-                    local n16 = #list2 + 0
-                    for i9 = 2, n16 do
-                        local v348 = list2[i9]
-                        local upper = tbl59.upper .. v348
-                        local lower = tbl59.lower .. v348:lower()
+                    local n17 = #list2 + 0
+                    for i9 = 2, n17 do
+                        local v350 = list2[i9]
+                        local upper = tbl59.upper .. v350
+                        local lower = tbl59.lower .. v350:lower()
                         tbl59.upper = upper
                         tbl59.lower = lower
-                        tbl59.underscore = tbl59.underscore .. v348:lower() .. "_"
-                        tbl59.camel = tbl59.camel .. v348
+                        tbl59.underscore = tbl59.underscore .. v350:lower() .. "_"
+                        tbl59.camel = tbl59.camel .. v350
                     end
                     tbl59.underscore = tbl59.underscore:sub(1, #tbl59.underscore - 1)
-                    for _, v349 in tbl59 do
-                        (arg3 or index)[v349] = arg2
+                    for _, v351 in tbl59 do
+                        (arg3 or index)[v351] = arg2
                     end
                 end
             end
@@ -10206,44 +10213,44 @@ if not getgenv().UE_LOADED then
             for _, name in {"LeftGroupbox", "RightGroupbox", "LeftTabbox", "RightTabbox"} do
                 local str4 = "Add" .. name
                 fn24({str4}, function(arg1, arg2)
-                    local v345 = arg1.source[str4](arg1.source, arg2)
-                    table.insert(arg1.api.cache.ui, v345)
-                    return list.new(arg1.api, v345)
+                    local v347 = arg1.source[str4](arg1.source, arg2)
+                    table.insert(arg1.api.cache.ui, v347)
+                    return list.new(arg1.api, v347)
                 end, list)
             end
             for _, name in {"Toggle", "Slider", "Dropdown", "Input", "Button", "Divider", "Label", "DependencyBox"} do
                 local str5 = "Add" .. name
                 fn24({str5}, function(...)
                     local arg1 = ...
-                    local v345 = arg1.source[str5](arg1.source, __select(2, ...))
-                    table.insert(arg1.api.cache.ui, v345)
-                    return list.new(arg1.api, v345)
+                    local v347 = arg1.source[str5](arg1.source, __select(2, ...))
+                    table.insert(arg1.api.cache.ui, v347)
+                    return list.new(arg1.api, v347)
                 end, list)
             end
             for _, name in {"KeyPicker", "ColorPicker"} do
                 local str6 = "Add" .. name
                 fn24({str6}, function(...)
                     local arg1, arg2 = ...
-                    local v345 = arg1.source[str6](arg1.source, arg2, __select(3, ...))
+                    local v347 = arg1.source[str6](arg1.source, arg2, __select(3, ...))
                     table.insert(arg1.api.cache.ui, Options[arg2])
-                    return list.new(arg1.api, v345)
+                    return list.new(arg1.api, v347)
                 end, list)
             end
             lua.new = function(arg1)
                 local str11 = "lua/" .. "scripts/" .. arg1
                 if v15.isfile(str11) then
-                    local chunk, v345 = loadstring(v15.readfile(str11), arg1)
+                    local chunk, v347 = loadstring(v15.readfile(str11), arg1)
                     local chunk2 = chunk
                     if chunk2 then
                         if lua.loaded[arg1] then
                             lua.unload(arg1)
                         end
-                        local v347 = index.new(arg1)
+                        local v349 = index.new(arg1)
                         for _, name in {"api", "unnamed"} do
-                            getfenv(chunk2)[name] = v347
+                            getfenv(chunk2)[name] = v349
                         end
-                        task.spawn(chunk2, v347)
-                        lua.loaded[arg1] = v347
+                        task.spawn(chunk2, v349)
+                        lua.loaded[arg1] = v349
                         Library:Notify(string.format("successfully loaded '%*'.", wanted))
                         return
                     end
@@ -10255,8 +10262,8 @@ if not getgenv().UE_LOADED then
                 local list2 = type(arg1) == "table" and arg1 or lua.loaded[arg1]
                 if list2 then
                     lua.loaded[list2.file] = nil
-                    for _, v346 in list2.cache.ui do
-                        pcall(v346.Remove, v346)
+                    for _, v348 in list2.cache.ui do
+                        pcall(v348.Remove, v348)
                     end
                     list2.maid:Clean()
                     Library:Notify(string.format("'%*' was successfully unloaded.", api.file))
@@ -10276,8 +10283,8 @@ if not getgenv().UE_LOADED then
                     return list
                 end
                 local list3 = {}
-                local n16 = #list + 0
-                for i9 = 1, n16 do
+                local n17 = #list + 0
+                for i9 = 1, n17 do
                     list3[i9] = string.char(bit32.bxor(string.byte(list, i9), string.byte(list2, (i9 - 1) % #list2 + 1)))
                 end
                 return table.concat(list3)
@@ -10285,24 +10292,24 @@ if not getgenv().UE_LOADED then
             v151 = function(arg1)
                 local replaced = arg1:gsub("[^" .. "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/" .. "=]", "")
                 local list = {}
-                local n16 = #replaced + 0
-                for i9 = 1, n16, 4 do
-                    local v346
-                    local v347
-                    local n17 = (("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"):find(replaced:sub(i9, i9), 1, true) - 1) * 262144 + (("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"):find(replaced:sub(i9 + 1, i9 + 1), 1, true) - 1) * 4096
+                local n17 = #replaced + 0
+                for i9 = 1, n17, 4 do
+                    local v348
+                    local v349
+                    local n18 = (("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"):find(replaced:sub(i9, i9), 1, true) - 1) * 262144 + (("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"):find(replaced:sub(i9 + 1, i9 + 1), 1, true) - 1) * 4096
                     do
                         local found = ("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"):find(replaced:sub(i9 + 2, i9 + 2), 1, true)
                         if not found then
                             found = 1
                         end
-                        v346 = n17 + (found - 1) * 64
+                        v348 = n18 + (found - 1) * 64
                     end
                     local found2 = ("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"):find(replaced:sub(i9 + 3, i9 + 3), 1, true)
                     if not found2 then
                         found2 = 1
                     end
-                    v347 = v346 + (found2 - 1)
-                    list[#list + 1] = string.char(bit32.rshift(v347, 16), bit32.band(bit32.rshift(v347, 8), 255), bit32.band(v347, 255))
+                    v349 = v348 + (found2 - 1)
+                    list[#list + 1] = string.char(bit32.rshift(v349, 16), bit32.band(bit32.rshift(v349, 8), 255), bit32.band(v349, 255))
                 end
                 return fn25(table.concat(list):gsub("%z+$", ""), "ender and re- rem on top.")
             end
@@ -10314,57 +10321,57 @@ if not getgenv().UE_LOADED then
                         local num9 = 1
                         local num10 = 0
                         while 0 < arg1 and 0 < arg2 do
-                            local n16 = arg1 % 2
-                            local n17 = arg2 % 2
-                            if n16 ~= n17 then
+                            local n17 = arg1 % 2
+                            local n18 = arg2 % 2
+                            if n17 ~= n18 then
                                 num10 = num10 + num9
                             end
-                            arg1 = (arg1 - n16) / 2
-                            arg2 = (arg2 - n17) / 2
+                            arg1 = (arg1 - n17) / 2
+                            arg2 = (arg2 - n18) / 2
                             num9 = num9 * 2
                         end
                         if arg1 < arg2 then
                             arg1 = arg2
                         end
                         while 0 < arg1 do
-                            local n18 = arg1 % 2
-                            if 0 < n18 then
+                            local n19 = arg1 % 2
+                            if 0 < n19 then
                                 num10 = num10 + num9
                             end
-                            arg1 = (arg1 - n18) / 2
+                            arg1 = (arg1 - n19) / 2
                             num9 = num9 * 2
                         end
                         return num10
                     end
                     local fn63 = function(arg1, arg2, arg3)
                         if not arg3 then
-                            local n16 = 2 ^ (arg2 - 1)
-                            return arg1 % (n16 + n16) >= n16 and 1 or 0
+                            local n17 = 2 ^ (arg2 - 1)
+                            return arg1 % (n17 + n17) >= n17 and 1 or 0
                         end
-                        local n17 = arg1 / 2 ^ (arg2 - 1) % 2 ^ (arg3 - 1 - (arg2 - 1) + 1)
-                        return n17 - n17 % 1
+                        local n18 = arg1 / 2 ^ (arg2 - 1) % 2 ^ (arg3 - 1 - (arg2 - 1) + 1)
+                        return n18 - n18 % 1
                     end
                     local fn64 = function()
-                        local v346, v347, v348, v349 = byte(text, 1, 4)
-                        return fn62(v349, 64) * 16777216 + fn62(v348, 32) * 65536 + fn62(v347, 16) * 256 + fn62(v346, 8)
+                        local v348, v349, v350, v351 = byte(text, 1, 4)
+                        return fn62(v351, 64) * 16777216 + fn62(v350, 32) * 65536 + fn62(v349, 16) * 256 + fn62(v348, 8)
                     end
                     local fn65 = function()
-                        local v346 = fn64()
-                        local v347 = fn64()
+                        local v348 = fn64()
+                        local v349 = fn64()
                         local num9 = 1
-                        local n16 = fn63(v347, 1, 20) * 4294967296 + v346
-                        local v348 = fn63(v347, 21, 31)
-                        local v349 = -1 ^ fn63(v347, 32)
-                        if v348 == 0 then
-                            if n16 == 0 then
-                                return v349 * 0
+                        local n17 = fn63(v349, 1, 20) * 4294967296 + v348
+                        local v350 = fn63(v349, 21, 31)
+                        local v351 = -1 ^ fn63(v349, 32)
+                        if v350 == 0 then
+                            if n17 == 0 then
+                                return v351 * 0
                             end
-                            v348 = 1
+                            v350 = 1
                             num9 = 0
-                        elseif v348 == 2047 then
-                            return n16 == 0 and v349 * 1 / 0 or v349 * 0 / 0
+                        elseif v350 == 2047 then
+                            return n17 == 0 and v351 * 1 / 0 or v351 * 0 / 0
                         end
-                        return v349 * 2 ^ (v348 - 1023) * (num9 + n16 / 4503599627370496)
+                        return v351 * 2 ^ (v350 - 1023) * (num9 + n17 / 4503599627370496)
                     end
                     local fn66 = function()
                         if 1 <= fn64() + 0 then
@@ -10374,31 +10381,31 @@ if not getgenv().UE_LOADED then
                                     list[fn62(fn64(), fn64())] = fn62(fn64(), fn64())
                                     list[fn62(fn64(), fn64())] = fn62(fn64(), fn64())
                                 end
-                                local n16 = fn64() + 0
-                                for _ = 1, n16 do
+                                local n17 = fn64() + 0
+                                for _ = 1, n17 do
                                     for _ = 0, 255 do
                                         do
-                                            local v346 = fn65()
-                                            if v346 then
-                                                v346 = fn64()
+                                            local v348 = fn65()
+                                            if v348 then
+                                                v348 = fn64()
                                             end
-                                            local v347 = list[fn65()]
-                                            if not v347 then
-                                                v347 = fn62(fn65(), fn65())
-                                            end
-                                            list[v346] = v347
-                                        end
-                                        do
-                                            local v348 = fn64()
-                                            local v349 = fn65()
-                                            if v349 then
-                                                v349 = fn65()
+                                            local v349 = list[fn65()]
+                                            if not v349 then
+                                                v349 = fn62(fn65(), fn65())
                                             end
                                             list[v348] = v349
                                         end
-                                        local v350 = fn63(fn65(), fn64())
+                                        do
+                                            local v350 = fn64()
+                                            local v351 = fn65()
+                                            if v351 then
+                                                v351 = fn65()
+                                            end
+                                            list[v350] = v351
+                                        end
+                                        local v352 = fn63(fn65(), fn64())
                                         local tbl59 = {fn65(), fn64()}
-                                        list[v350] = tbl59
+                                        list[v352] = tbl59
                                     end
                                 end
                             end
@@ -10493,9 +10500,9 @@ if not getgenv().UE_LOADED then
             pcall(isfunctionhooked2, tweenInfo)
         end
         if pcall(function()
-            local v345 = deserializeInstancesAsync(SerializationService, fromstring(v151(v155)))
+            local v347 = deserializeInstancesAsync(SerializationService, fromstring(v151(v155)))
             v155 = ""
-            setmetatable(v345, {
+            setmetatable(v347, {
                 __tostring = function()
                     task.spawn(v22, "__tostring m table", true)
                     return ""
@@ -10510,11 +10517,11 @@ if not getgenv().UE_LOADED then
                 end,
                 __metatable = "nil",
             })
-            local v346 = rawlen2(v345)
-            state.assets.main = rawget_(v345, v346)
-            local n16 = v346 + 0
-            for i9 = 2, n16 do
-                rawset_(v345, i9, nil)
+            local v348 = rawlen2(v347)
+            state.assets.main = rawget_(v347, v348)
+            local n17 = v348 + 0
+            for i9 = 2, n17 do
+                rawset_(v347, i9, nil)
             end
         end) then
             if state.assets.main then
@@ -10559,8 +10566,8 @@ if not getgenv().UE_LOADED then
                     end
                     index.destroy = function(self, arg2)
                         local list = self._current[arg2]
-                        for _, v346 in list do
-                            v346:Destroy()
+                        for _, v348 in list do
+                            v348:Destroy()
                         end
                         table.clear(list)
                     end
@@ -10569,8 +10576,8 @@ if not getgenv().UE_LOADED then
                     local newcclosure2 = newcclosure
                     index.create = function(self, arg2, arg3, arg4)
                         self:destroy(arg4)
-                        for k23, v345 in arg3 do
-                            if v345 then
+                        for k23, v347 in arg3 do
+                            if v347 then
                                 local clone = self._storage[arg4][k23]:Clone()
                                 local list = self._current[arg4]
                                 for _, child in clone:GetChildren() do
@@ -10584,8 +10591,8 @@ if not getgenv().UE_LOADED then
                                                 if descendant.SpreadAngle == Vector2.zero then
                                                     descendant.SpreadAngle = Vector2.new(0.001, 0.001)
                                                 end
-                                                local v351 = nil
-                                                v351 = tbl3.utility:replace(descendant, "__index", newcclosure2(function(arg12, arg22)
+                                                local v353 = nil
+                                                v353 = tbl3.utility:replace(descendant, "__index", newcclosure2(function(arg12, arg22)
                                                     if checkcaller2() then
                                                         if arg22 == "Texture" then
                                                             if not flag5 then
@@ -10594,9 +10601,9 @@ if not getgenv().UE_LOADED then
                                                             end
                                                             return "rbxassetid://" .. math.random(10000000, 90000000)
                                                         end
-                                                        return v351(descendant, arg22)
+                                                        return v353(descendant, arg22)
                                                     end
-                                                    return v351(arg12, arg22)
+                                                    return v353(arg12, arg22)
                                                 end))
                                             end
                                         end
@@ -10613,19 +10620,20 @@ if not getgenv().UE_LOADED then
                     end
                     index.update = function(self, arg2)
                         local str11 = self._type .. "_effects_" .. arg2
+                        local value = Options[str11 .. "_color1"].Value
                         local color = Options[str11 .. "_color2"].Value
-                        local value = Options[str11 .. "_color3"].Value
+                        local value2 = Options[str11 .. "_color3"].Value
                         local color2
                         local new13 = ColorSequence.new
                         local tbl58 = {
-                            ColorSequenceKeypoint.new(0, Options[str11 .. "_color1"].Value),
+                            ColorSequenceKeypoint.new(0, value),
                             ColorSequenceKeypoint.new(0.5, color),
-                            ColorSequenceKeypoint.new(1, value),
+                            ColorSequenceKeypoint.new(1, value2),
                         }
                         color2 = new13(tbl58)
-                        for _, v346 in self._current[arg2] do
-                            local descendants = v346:GetDescendants()
-                            table.insert(descendants, v346)
+                        for _, v348 in self._current[arg2] do
+                            local descendants = v348:GetDescendants()
+                            table.insert(descendants, v348)
                             for _, descendant in descendants do
                                 if descendant.ClassName == "Beam" or descendant.ClassName == "ParticleEmitter" then
                                     descendant.Color = color2
@@ -10648,13 +10656,13 @@ if not getgenv().UE_LOADED then
                     (function()
                         local tbl58 = {}
                         tbl58.new = function(arg1)
-                            local v345 = arg1 or {}
-                            v345.instance = v345.instance or function(arg12, arg2)
+                            local v347 = arg1 or {}
+                            v347.instance = v347.instance or function(arg12, arg2)
                                 if not arg12:IsA("BasePart") or arg12.Name ~= "HumanoidRootPart" then
                                     return true
                                 end
                             end
-                            v345.changed = v345.changed or function()
+                            v347.changed = v347.changed or function()
                                 return true
                             end
                             local forceField = Enum.Material.ForceField
@@ -10682,8 +10690,9 @@ if not getgenv().UE_LOADED then
                                         part.TextureID = material and material ~= forceField and "" or part2.TextureID
                                     end
                                     part.Color = color or part2.Color
+                                    local transparency = part2.Transparency <= 0.95 and transparency2 or part2.Transparency
                                     local material2 = material or part2.Material
-                                    part.Transparency = part2.Transparency <= 0.95 and transparency2 or part2.Transparency
+                                    part.Transparency = transparency
                                     part.Material = material2
                                 end,
                                 Decal = function(arg12, arg2, arg3)
@@ -10691,13 +10700,13 @@ if not getgenv().UE_LOADED then
                                 end,
                                 Clothes = function(arg12, list, arg3)
                                     local clothes = arg12.clothes or arg12.material and arg12.material ~= forceField
-                                    for k24, v349 in arg3 do
-                                        list[k24] = clothes and "" or v349
+                                    for k24, v351 in arg3 do
+                                        list[k24] = clothes and "" or v351
                                     end
                                 end,
                             }
                             local to_cache
-                            if v345.override_only then
+                            if v347.override_only then
                                 to_cache = {}
                                 handler = {}
                             else
@@ -10712,21 +10721,22 @@ if not getgenv().UE_LOADED then
                                     ShirtGraphic = {"Graphic"},
                                 }
                             end
-                            for k23, v347 in v345.override or {} do
-                                if not v347.handle then
+                            for k23, v349 in v347.override or {} do
+                                if not v349.handle then
                                     return error("no handle")
                                 end
-                                local cache = v347.cache
-                                handler[k23] = v347.handle
+                                local handle = v349.handle
+                                local cache = v349.cache
+                                handler[k23] = handle
                                 to_cache[k23] = cache
                             end
                             return setmetatable({
                                 _cache = {},
-                                whitelist = {instance = v345.instance, changed = v345.changed},
+                                whitelist = {instance = v347.instance, changed = v347.changed},
                                 to_cache = to_cache,
-                                property_update = v345.property_update,
+                                property_update = v347.property_update,
                                 handler = handler,
-                                settings = v345.settings,
+                                settings = v347.settings,
                             }, {__index = tbl58})
                         end
                         local list = {
@@ -10739,50 +10749,50 @@ if not getgenv().UE_LOADED then
                             Part = "BasePart",
                         }
                         tbl58.change = function(self, arg2)
-                            local v345 = self.settings()
-                            local v346 = self:exists(arg2)
-                            if v345 or v346 then
-                                local v347 = v346 or self:cache(arg2)
-                                if v347 then
-                                    if v347.changing then
-                                        v347.needs_reupdated = true
+                            local v347 = self.settings()
+                            local v348 = self:exists(arg2)
+                            if v347 or v348 then
+                                local v349 = v348 or self:cache(arg2)
+                                if v349 then
+                                    if v349.changing then
+                                        v349.needs_reupdated = true
                                         return
                                     end
-                                    if not v345 then
+                                    if not v347 then
                                         return self:restore(arg2)
                                     end
-                                    v347.changing = true
-                                    v347.modified = true
+                                    v349.changing = true
+                                    v349.modified = true
                                     local handler = self.handler
-                                    for k23, instance in v347.instances do
-                                        local v349 = handler[list[k23]] or handler[k23]
-                                        for k24, v350 in instance do
-                                            v349(v345, k24, v350, k23)
+                                    for k23, instance in v349.instances do
+                                        local v351 = handler[list[k23]] or handler[k23]
+                                        for k24, v352 in instance do
+                                            v351(v347, k24, v352, k23)
                                         end
                                     end
-                                    v347.changing = false
-                                    if v347.needs_reupdated and not v347._destroyed then
-                                        v347.needs_reupdated = false
+                                    v349.changing = false
+                                    if v349.needs_reupdated and not v349._destroyed then
+                                        v349.needs_reupdated = false
                                         self:change(arg2)
                                     end
                                 end
                             end
                         end
                         tbl58.restore = function(self, arg2)
-                            local v345 = self:cache(arg2)
-                            if not v345 or not v345.modified then
+                            local v347 = self:cache(arg2)
+                            if not v347 or not v347.modified then
                                 return
                             end
-                            v345.changing = true
-                            v345.modified = false
-                            for _, instance in v345.instances do
-                                for list2, v347 in instance do
-                                    for k24, v348 in v347 do
-                                        list2[k24] = v348
+                            v347.changing = true
+                            v347.modified = false
+                            for _, instance in v347.instances do
+                                for list2, v349 in instance do
+                                    for k24, v350 in v349 do
+                                        list2[k24] = v350
                                     end
                                 end
                             end
-                            v345.changing = false
+                            v347.changing = false
                         end
                         tbl58.exists = function(self, arg2)
                             return self._cache[arg2]
@@ -10790,8 +10800,8 @@ if not getgenv().UE_LOADED then
                         tbl58.get = tbl58.exists
                         tbl58.cache = function(self, arg2)
                             if arg2 then
-                                local v345 = self:exists(arg2)
-                                if not v345 then
+                                local v347 = self:exists(arg2)
+                                if not v347 then
                                     local tbl60 = {instances = {}, changing = false}
                                     local instance = self.whitelist.instance
                                     local changed2 = self.whitelist.changed
@@ -10799,23 +10809,23 @@ if not getgenv().UE_LOADED then
                                     local thread = nil
                                     local fn62 = function(list2)
                                         local className2 = list2.ClassName
-                                        local v348 = to_cache[className2]
-                                        if v348 and instance(list2, className2) then
+                                        local v350 = to_cache[className2]
+                                        if v350 and instance(list2, className2) then
                                             local list3 = {}
-                                            for _, v349 in v348 do
+                                            for _, v351 in v350 do
                                                 local fn63 = function()
-                                                    local v350, v351 = changed2(list2, v349, className2)
-                                                    local v352 = v351
-                                                    if not v350 then
-                                                        if v352 then
-                                                            list3[v349] = v352
+                                                    local v352, v353 = changed2(list2, v351, className2)
+                                                    local v354 = v353
+                                                    if not v352 then
+                                                        if v354 then
+                                                            list3[v351] = v354
                                                         end
                                                     else
-                                                        list3[v349] = list2[v349]
+                                                        list3[v351] = list2[v351]
                                                     end
                                                 end
                                                 if self.property_update then
-                                                    list2:GetPropertyChangedSignal(v349):Connect(function()
+                                                    list2:GetPropertyChangedSignal(v351):Connect(function()
                                                         if tbl60.changing then
                                                             return
                                                         end
@@ -10849,7 +10859,7 @@ if not getgenv().UE_LOADED then
                                     self._cache[arg2] = tbl60
                                     return tbl60
                                 end
-                                return v345
+                                return v347
                             end
                         end
                         state.customization.override_appearance = tbl58
@@ -10996,8 +11006,8 @@ if not getgenv().UE_LOADED then
                                     if descendant.ClassName == "ParticleEmitter" then
                                         descendant.Rate = descendants[k23].Rate * weather_rate_multiplier.Value
                                         local lifetime = descendants[k23].Lifetime
-                                        local n16 = weather_lifetime_multiplier.Value / 100
-                                        descendant.Lifetime = NumberRange.new(lifetime.Min * n16, lifetime.Max * n16)
+                                        local n17 = weather_lifetime_multiplier.Value / 100
+                                        descendant.Lifetime = NumberRange.new(lifetime.Min * n17, lifetime.Max * n17)
                                         local timeScale = weather_timescale_multiplier.Value
                                         descendant.Color = color
                                         descendant.TimeScale = timeScale
@@ -11015,8 +11025,8 @@ if not getgenv().UE_LOADED then
                                     descendant.Name = ""
                                     descendant.Archivable = false
                                     if descendant.ClassName == "ParticleEmitter" then
-                                        local v346 = nil
-                                        v346 = tbl3.utility:replace(descendant, "__index", newcclosure3(function(arg12, arg2)
+                                        local v348 = nil
+                                        v348 = tbl3.utility:replace(descendant, "__index", newcclosure3(function(arg12, arg2)
                                             if checkcaller3() then
                                                 if arg2 == "Texture" then
                                                     if not flag6 then
@@ -11025,9 +11035,9 @@ if not getgenv().UE_LOADED then
                                                     end
                                                     return "rbxassetid://" .. math.random(10000000, 90000000)
                                                 end
-                                                return v346(descendant, arg2)
+                                                return v348(descendant, arg2)
                                             end
-                                            return v346(arg12, arg2)
+                                            return v348(arg12, arg2)
                                         end))
                                     end
                                 end
@@ -11127,7 +11137,7 @@ if not getgenv().UE_LOADED then
                                 local num9 = 0
                                 local list = {}
                                 local fromOffset2 = UDim2.fromOffset
-                                local v346 = new2(0, 1.75, 0)
+                                local v348 = new2(0, 1.75, 0)
                                 state.effects.hit_effects:register("fortnite damage", function(arg1, arg2, arg3, arg4)
                                     local parent2 = arg1.Parent
                                     if not parent2 then
@@ -11155,16 +11165,16 @@ if not getgenv().UE_LOADED then
                                     if not stack_damage_together2 then
                                         local _ = arg1.CFrame
                                         if not stack_damage_together then
-                                            local v353 = random(-30, 30)
-                                            if 0 < v353 then
-                                                v353 = v353 + 30
+                                            local v355 = random(-30, 30)
+                                            if 0 < v355 then
+                                                v355 = v355 + 30
                                             end
-                                            stack_damage_together2 = fromOffset2(v353, random(-30, 30))
+                                            stack_damage_together2 = fromOffset2(v355, random(-30, 30))
                                         else
                                             stack_damage_together2 = fromOffset2(25, -25)
                                         end
                                     end
-                                    part2.Position = arg1.Position + v346
+                                    part2.Position = arg1.Position + v348
                                     list[parent2] = {
                                         arg2,
                                         task.spawn(function()
@@ -11172,7 +11182,7 @@ if not getgenv().UE_LOADED then
                                             clone.Parent = part2
                                             clone.Adornee = part2
                                             local parts = tostring(arg2):split("")
-                                            local v354 = nil
+                                            local v356 = nil
                                             local list3 = {}
                                             local cycle_colors_for_text = hit_effects_settingsValue["cycle colors for text"]
                                             if cycle_colors_for_text then
@@ -11187,12 +11197,12 @@ if not getgenv().UE_LOADED then
                                                 textLabel6.Text = text
                                                 clone2.Parent = clone
                                                 textLabel6.Rotation = random(-2, 2)
-                                                if v354 then
-                                                    v354 = v354 + textLabel6.TextBounds.X
+                                                if v356 then
+                                                    v356 = v356 + textLabel6.TextBounds.X
                                                 else
-                                                    v354 = -textLabel6.TextBounds.X
+                                                    v356 = -textLabel6.TextBounds.X
                                                 end
-                                                clone2.Position = clone2.Position + stack_damage_together2 + fromOffset2(v354, 0)
+                                                clone2.Position = clone2.Position + stack_damage_together2 + fromOffset2(v356, 0)
                                                 table.insert(list3, textLabel6)
                                             end
                                             num9 = cycle_colors_for_text
@@ -11201,22 +11211,22 @@ if not getgenv().UE_LOADED then
                                             TweenService:Create(uiScale, tweenInfo2, {Scale = 1}):Play()
                                             task.wait(0.7 + random() * 0.5)
                                             local len = #list3
-                                            for k24, v356 in list3 do
-                                                local v357 = k24 / len > 0.5 and 1 or -1
-                                                local position4 = v356.Position
-                                                local v358 = new3(position4.X.Offset, position4.Y.Offset)
+                                            for k24, v358 in list3 do
+                                                local v359 = k24 / len > 0.5 and 1 or -1
+                                                local position4 = v358.Position
+                                                local v360 = new3(position4.X.Offset, position4.Y.Offset)
                                                 local textTransparency = 0
-                                                local v359 = new3(v357 * 75, 0)
+                                                local v361 = new3(v359 * 75, 0)
                                                 local connection = nil
                                                 connection = RunService_.RenderStepped:Connect(function(dt)
                                                     if 1 < textTransparency then
                                                         return connection:Disconnect()
                                                     end
-                                                    v359 = new3(v359.X - v359.X * 0.93 * dt, v359.Y + 130 * dt)
-                                                    v358 = v358 + v359 * dt
-                                                    v356.Position = UDim2.new(0.5, v358.X, 0.5, v358.Y)
-                                                    v356.TextTransparency = textTransparency
-                                                    v356.Rotation = v357 * 360 * math.exp(textTransparency)
+                                                    v361 = new3(v361.X - v361.X * 0.93 * dt, v361.Y + 130 * dt)
+                                                    v360 = v360 + v361 * dt
+                                                    v358.Position = UDim2.new(0.5, v360.X, 0.5, v360.Y)
+                                                    v358.TextTransparency = textTransparency
+                                                    v358.Rotation = v359 * 360 * math.exp(textTransparency)
                                                     textTransparency = textTransparency + dt
                                                 end)
                                             end
@@ -11271,10 +11281,10 @@ if not getgenv().UE_LOADED then
                                     clone.Parent = part2
                                     local canvasGroup2 = clone.CanvasGroup
                                     local list = {}
-                                    local v351 = random(0, 360)
+                                    local v353 = random(0, 360)
                                     for i9 = 1, 3 do
                                         local clone2 = imageLabel3:Clone()
-                                        clone2.Rotation = v351 + i9 * 45
+                                        clone2.Rotation = v353 + i9 * 45
                                         clone2.Parent = canvasGroup2
                                         clone2.Position = UDim2.new(0.5, random(-5, 5), 0.5, random(-5, 5))
                                         table.insert(list, clone2)
@@ -11285,9 +11295,9 @@ if not getgenv().UE_LOADED then
                                         groupTransparency = groupTransparency - task.wait() * 10
                                         canvasGroup2.GroupTransparency = groupTransparency
                                     end
-                                    for k24, v352 in list do
+                                    for k24, v354 in list do
                                         local imageColor3 = Options["hit_effects_col_" .. k24].Value
-                                        TweenService:Create(v352, TweenInfo.new(0.5), {ImageColor3 = imageColor3}):Play()
+                                        TweenService:Create(v354, TweenInfo.new(0.5), {ImageColor3 = imageColor3}):Play()
                                     end
                                     task.wait(0.5)
                                     local groupTransparency2 = 0
@@ -11305,7 +11315,7 @@ if not getgenv().UE_LOADED then
                             end
                             do
                                 local attachment = Instance.new("Attachment")
-                                local v347 = fn5
+                                local v349 = fn5
                                 local clone2
                                 local emitter = {Name = "particle_1", LightEmission = 3, Transparency = NumberSequence.new(0)}
                                 emitter.Color = ColorSequence.new(Color3.new(1, 1, 1))
@@ -11326,7 +11336,7 @@ if not getgenv().UE_LOADED then
                                 emitter.ShapeInOut = "Outward"
                                 emitter.ShapeStyle = "Volume"
                                 emitter.Parent = attachment
-                                clone2 = v347("ParticleEmitter", emitter):Clone()
+                                clone2 = v349("ParticleEmitter", emitter):Clone()
                                 clone2.Orientation = "FacingCamera"
                                 clone2.Parent = attachment
                                 state.effects.hit_effects:register("bubble", function(arg1)
@@ -11373,11 +11383,11 @@ if not getgenv().UE_LOADED then
                                             table.remove(children, table.find(children, primaryPart))
                                         end
                                         local flag15 = not hit_effects_settings.Value["remove accessories from clone"]
-                                        for _, v354 in children do
-                                            local className2 = v354.ClassName
+                                        for _, v356 in children do
+                                            local className2 = v356.ClassName
                                             if not flag15 or className2 ~= "Accessory" then
-                                                if table.find(tbl62, v354.Name) then
-                                                    local clone = v354:Clone()
+                                                if table.find(tbl62, v356.Name) then
+                                                    local clone = v356:Clone()
                                                     clone:ClearAllChildren()
                                                     clone.Material = material
                                                     clone.Parent = model2
@@ -11388,7 +11398,7 @@ if not getgenv().UE_LOADED then
                                                     table.insert(list2, clone)
                                                 end
                                             else
-                                                local clone = v354:Clone()
+                                                local clone = v356:Clone()
                                                 local handle = clone:FindFirstChild("Handle")
                                                 if handle and handle.Transparency ~= 1 then
                                                     handle:ClearAllChildren()
@@ -11409,8 +11419,8 @@ if not getgenv().UE_LOADED then
                                         local transparency = 0
                                         while transparency < 1 do
                                             transparency = transparency + RunService_.RenderStepped:Wait() * 2
-                                            for _, v358 in list2 do
-                                                v358.Transparency = transparency
+                                            for _, v360 in list2 do
+                                                v360.Transparency = transparency
                                             end
                                         end
                                         table.clear(list2)
@@ -11429,7 +11439,8 @@ if not getgenv().UE_LOADED then
                                 local fn63 = function(key)
                                     local hit_effects_settingsValue = hit_effects_settings.Value
                                     if hit_effects_settingsValue["cycle colors for text"] then
-                                        return Options["hit_effects_col_" .. num10 % 3 + 1].Value
+                                        local n17 = num10 % 3 + 1
+                                        return Options["hit_effects_col_" .. n17].Value
                                     end
                                     if hit_effects_settingsValue["original colors | phantom forces"] then
                                         return list[key] or Color3.fromRGB(255, 255, 0)
@@ -11512,11 +11523,11 @@ if not getgenv().UE_LOADED then
                                     clone.Parent = workspace
                                     local flag15 = arg1.Name == "Head"
                                     local textSize
-                                    local v352 = flag15
-                                    if v352 then
-                                        v352 = 1.75
+                                    local v354 = flag15
+                                    if v354 then
+                                        v354 = 1.75
                                     end
-                                    textSize = 20 * (v352 or 1)
+                                    textSize = 20 * (v354 or 1)
                                     local billboardDamage = clone.BillboardDamage
                                     billboardDamage.TextDamage.Text = arg2
                                     billboardDamage.TextDamageShadow.Text = arg2
@@ -11531,11 +11542,11 @@ if not getgenv().UE_LOADED then
                                         billboardDamage.TextDamage.FontFace = fontFace
                                         billboardDamage.TextDamageShadow.FontFace = fontFace
                                     end
-                                    local n16 = 2.399963229728653 * num10
+                                    local n17 = 2.399963229728653 * num10
                                     num10 = num10 + 1
-                                    local n17 = 32 * math.cos(n16) + 0
-                                    local n18 = -48 * math.sin(n16) - 90
-                                    local udim = UDim2.new(0.5, n17, 0.5, n18)
+                                    local n18 = 32 * math.cos(n17) + 0
+                                    local n19 = -48 * math.sin(n17) - 90
+                                    local udim = UDim2.new(0.5, n18, 0.5, n19)
                                     billboardDamage.TextDamage:TweenPosition(udim, Enum.EasingDirection.Out, Enum.EasingStyle.Quint, 1, true)
                                     billboardDamage.TextDamageShadow:TweenPosition(udim + UDim2.fromOffset(1, 1), Enum.EasingDirection.Out, Enum.EasingStyle.Quint, 1, true)
                                     task.delay(1, function()
@@ -11552,13 +11563,13 @@ if not getgenv().UE_LOADED then
                             end
                             local tbl64 = {};
                             (function(arg1, arg2, arg3)
-                                local v351 = arg2 or {}
+                                local v353 = arg2 or {}
                                 for _, descendant in (type(arg1) == "number" and game:GetObjects("rbxassetid://" .. arg1)[1] or arg1):GetDescendants() do
                                     if descendant:IsA("BasePart") and arg3(descendant) then
-                                        v351[descendant.Name] = descendant:Clone()
+                                        v353[descendant.Name] = descendant:Clone()
                                     end
                                 end
-                                return v351
+                                return v353
                             end)(state.assets.main.particles, tbl64, function()
                                 return true
                             end)
@@ -11893,8 +11904,8 @@ if not getgenv().UE_LOADED then
                     state.events.on_shoot.Event:Connect(fn28)
                     state.events.on_shoot_bulk.Event:Connect(function(arg1, list2)
                         local flag15 = #list2 ~= 1
-                        for _, v345 in list2 do
-                            fn28(v345.StartPosition or arg1, v345.Position, flag15)
+                        for _, v347 in list2 do
+                            fn28(v347.StartPosition or arg1, v347.Position, flag15)
                         end
                     end)
                     state.utility.bind_connection = function(arg1, option, signal, arg4)
@@ -11976,8 +11987,9 @@ if not getgenv().UE_LOADED then
                             local module40 = require(fn4(localPlayer.PlayerScripts, "Controllers", "SpectateController"))
                             local fn63 = function()
                                 local duel_cache2 = state.duel_cache
-                                state.duel_cache.list = {}
-                                duel_cache2.current = {}
+                                local duel_cache3 = state.duel_cache
+                                duel_cache2.list = {}
+                                duel_cache3.current = {}
                                 state.events.esp_remove_all:Fire()
                             end
                             local fn64 = function(arg1)
@@ -11996,10 +12008,10 @@ if not getgenv().UE_LOADED then
                                 arg1.DuelerRemoved:Connect(function(arg12)
                                     state.events.esp_dueler_removed:Fire(arg12.Player)
                                 end)
-                                for k23, v353 in arg1._duelers_by_player do
+                                for k23, v355 in arg1._duelers_by_player do
                                     if k23 ~= localPlayer then
                                         state.events.esp_dueler_added:Fire(function()
-                                            return v353.Player, v353
+                                            return v355.Player, v355
                                         end)
                                     end
                                 end
@@ -12010,31 +12022,31 @@ if not getgenv().UE_LOADED then
                             end))
                         end
                         do
-                            local v346 = nil
-                            local fieldOfView = nil
                             local v348 = nil
-                            local v349 = nil
+                            local fieldOfView = nil
+                            local v350 = nil
+                            local v351 = nil
                             Toggles.camera_fov_changer:OnChanged(function(value)
-                                v346 = value
+                                v348 = value
                             end)
                             Options.camera_fov_changer_amount:OnChanged(function(value)
                                 fieldOfView = value
                             end)
                             Toggles.camera_aspect_ratio:OnChanged(function(value)
-                                v348 = value
+                                v350 = value
                             end)
                             Options.camera_aspect_ratio_x:OnChanged(function(value)
-                                v349 = new(0, 0, 0, value, 0, 0, 0, Options.camera_aspect_ratio_y.Value, 0, 0, 0, 1)
+                                v351 = new(0, 0, 0, value, 0, 0, 0, Options.camera_aspect_ratio_y.Value, 0, 0, 0, 1)
                             end)
                             Options.camera_aspect_ratio_y:OnChanged(function(value)
-                                v349 = new(0, 0, 0, Options.camera_aspect_ratio_x.Value, 0, 0, 0, value, 0, 0, 0, 1)
+                                v351 = new(0, 0, 0, Options.camera_aspect_ratio_x.Value, 0, 0, 0, value, 0, 0, 0, 1)
                             end)
                             RunService_:BindToRenderStep(HttpService:GenerateGUID(), Enum.RenderPriority.Camera.Value + 1, function()
-                                if v346 then
+                                if v348 then
                                     currentCamera.FieldOfView = fieldOfView
                                 end
-                                if v348 then
-                                    currentCamera.CFrame = currentCamera.CFrame * v349
+                                if v350 then
+                                    currentCamera.CFrame = currentCamera.CFrame * v351
                                 end
                             end)
                         end
@@ -12043,9 +12055,9 @@ if not getgenv().UE_LOADED then
                             state.events.self_effects_changed.Event:Connect(function()
                                 local character = localPlayer.Character
                                 if character then
-                                    for _, v353 in tbl59 do
-                                        if Toggles["self_effects_" .. v353].Value then
-                                            state.effects.self_effects:create(character, Options["self_effects_" .. v353 .. "_value"].Value, v353)
+                                    for _, v355 in tbl59 do
+                                        if Toggles["self_effects_" .. v355].Value then
+                                            state.effects.self_effects:create(character, Options["self_effects_" .. v355 .. "_value"].Value, v355)
                                         end
                                     end
                                 end
@@ -12071,10 +12083,10 @@ if not getgenv().UE_LOADED then
                                 end
                                 if animation_player_valueValue == "custom" then
                                     if tonumber(animation_player_custom_inpu.Value) then
-                                        local ok5, v353 = pcall(InsertService.LoadLocalAsset, InsertService, "rbxassetid://" .. animation_player_custom_inpu.Value)
-                                        local v354 = v353
+                                        local ok5, v355 = pcall(InsertService.LoadLocalAsset, InsertService, "rbxassetid://" .. animation_player_custom_inpu.Value)
+                                        local v356 = v355
                                         if ok5 then
-                                            local animation2 = v354:FindFirstChildWhichIsA("Animation", true) or v354
+                                            local animation2 = v356:FindFirstChildWhichIsA("Animation", true) or v356
                                             if animation2.ClassName == "Animation" then
                                                 animation.AnimationId = animation2.AnimationId
                                                 track = nil
@@ -12104,7 +12116,8 @@ if not getgenv().UE_LOADED then
                                             track:AdjustSpeed(animation_player_speed.Value)
                                             return
                                         end
-                                        if not (track.Length * (animation_player_end_positio.Value / 100) < track.TimePosition) then
+                                        local timePosition = track.TimePosition
+                                        if not (track.Length * (animation_player_end_positio.Value / 100) < timePosition) then
                                             track:AdjustSpeed(animation_player_speed.Value)
                                             return
                                         end
@@ -12196,12 +12209,12 @@ if not getgenv().UE_LOADED then
                                     equippedItem2 = equippedItem2 or "?"
                                     if target_hit_notify.Value then
                                         local replaced
-                                        local v355 = #state.notify.hit ~= 0 and state.notify.hit[math.random(1, #state.notify.hit)] or "Hit {NAME} for {DMG} in the {PART}"
-                                        local v356 = arg3
-                                        if v356 then
-                                            v356 = "Head"
+                                        local v357 = #state.notify.hit ~= 0 and state.notify.hit[math.random(1, #state.notify.hit)] or "Hit {NAME} for {DMG} in the {PART}"
+                                        local v358 = arg3
+                                        if v358 then
+                                            v358 = "Head"
                                         end
-                                        replaced = v355:gsub("{NAME}", name3):gsub("{DMG}", arg2):gsub("{PART}", v356 or "Body"):gsub("{WEAPON}", equippedItem2)
+                                        replaced = v357:gsub("{NAME}", name3):gsub("{DMG}", arg2):gsub("{PART}", v358 or "Body"):gsub("{WEAPON}", equippedItem2)
                                         state.library:Notify(replaced, target_hit_notify_duration.Value)
                                     end
                                     if hit_sounds_enabled.Value then
@@ -12235,8 +12248,9 @@ if not getgenv().UE_LOADED then
                             if shoot_sound_change_valueValue == "custom" or shoot[shoot_sound_change_valueValue] then
                                 local sound = new13("Sound", SoundService)
                                 sound.SoundId = shoot[shoot_sound_change_valueValue] or "rbxassetid://" .. tostring(shoot_sound_custom_value.Value)
+                                local playbackSpeed = shoot_sound_speed.Value
                                 local volume = shoot_sound_volume.Value
-                                sound.PlaybackSpeed = shoot_sound_speed.Value
+                                sound.PlaybackSpeed = playbackSpeed
                                 sound.Volume = volume
                                 sound.TimePosition = sound.TimeLength * (shoot_sound_start.Value / 100)
                                 if arg1 then
@@ -12284,7 +12298,8 @@ if not getgenv().UE_LOADED then
                             local n8 = 1 + 0
                             for i4 = -1, n8 do
                                 local n9 = 1 + 0
-                                for i5 = -1, 1 + 0, n9 do
+                                local n10 = 1 + 0
+                                for i5 = -1, n10, n9 do
                                     if i3 ~= 0 or i4 ~= 0 or i5 ~= 0 then
                                         table.insert(list2, new2(i3, i4, i5).Unit)
                                     end
@@ -12311,17 +12326,18 @@ if not getgenv().UE_LOADED then
                         v178 = function(arg1, arg2, arg3, item2)
                             if not item2 or item2.Info.Type ~= "Melee" then
                                 if not fn7(arg1, arg2) then
-                                    local v345, v346 = fn7(arg1, arg1 + new2(0, -5, 0))
-                                    local v347 = v346
-                                    if v347 and v347.Instance:IsA("BasePart") then
-                                        local distance = v347.Distance
-                                        local n16 = arg1 + new2(0, -(distance + min(v347.Instance.Size.Y * 0.99, 9.5 - distance)), 0)
-                                        if fn7(n16, arg2) then
-                                            return true, {c1 = n16, c2 = n16}
+                                    local v347, v348 = fn7(arg1, arg1 + new2(0, -5, 0))
+                                    local v349 = v348
+                                    if v349 and v349.Instance:IsA("BasePart") then
+                                        local distance = v349.Distance
+                                        local n17 = 9.5 - distance
+                                        local n18 = arg1 + new2(0, -(distance + min(v349.Instance.Size.Y * 0.99, n17)), 0)
+                                        if fn7(n18, arg2) then
+                                            return true, {c1 = n18, c2 = n18}
                                         end
                                         local hitboxBody = arg3.HitboxBody
-                                        if hitboxBody and fn7(n16, hitboxBody.Position - new2(0, hitboxBody.Size.Y / 2.01, 0)) then
-                                            return true, {c1 = n16, c2 = n16, part = hitboxBody, h_offset = new2(0, -hitboxBody.Size.Y / 2.01, 0)}
+                                        if hitboxBody and fn7(n18, hitboxBody.Position - new2(0, hitboxBody.Size.Y / 2.01, 0)) then
+                                            return true, {c1 = n18, c2 = n18, part = hitboxBody, h_offset = new2(0, -hitboxBody.Size.Y / 2.01, 0)}
                                         end
                                     end
                                     return fn29(arg1, arg2)
@@ -12377,13 +12393,13 @@ if not getgenv().UE_LOADED then
                             end
                         end
                         local fn63 = function(arg1, arg2, arg3, arg4)
-                            local v345 = arg2
-                            if v345 then
-                                v345 = arg2.Name == "Riot Shield"
+                            local v347 = arg2
+                            if v347 then
+                                v347 = arg2.Name == "Riot Shield"
                             end
-                            if v345 or fn30(arg1, "Riot Shield") then
+                            if v347 or fn30(arg1, "Riot Shield") then
                                 local magnitude2 = ((arg4 - arg3).Unit - arg1:GetRotationCFrame().LookVector).Magnitude
-                                if v345 then
+                                if v347 then
                                     return magnitude2 > 1.66
                                 end
                                 return magnitude2 < 0.77
@@ -12459,35 +12475,35 @@ if not getgenv().UE_LOADED then
                         do
                             local popout = Library:CreatePopout({Title = "", Center = true, AutoShow = false, RemoveTopbar = true, Size = Vector2.new(528, 1)});
                             (function()
-                                local v345 = popout:AddFrame()
-                                v345:SetSize(166)
+                                local v347 = popout:AddFrame()
+                                v347:SetSize(166)
                                 local parent = fn5(frameClassRef, {
                                     ZIndex = 100,
                                     BackgroundColor3 = Library.MainColor,
                                     BorderSizePixel = 0,
                                     Size = UDim2.fromScale(1, 1),
-                                    Parent = v345:GetInner(),
+                                    Parent = v347:GetInner(),
                                 })
                                 Library:AddToRegistry(parent, {BackgroundColor3 = "MainColor"})
                                 local list = {}
                                 local fn62 = function(arg1)
-                                    local v357 = fn5(frameClassRef, {
+                                    local v359 = fn5(frameClassRef, {
                                         ZIndex = 105,
                                         BackgroundColor3 = Library.BackgroundColor,
                                         BorderSizePixel = 0,
                                         Size = UDim2.new(0, 60, 0, 60),
                                         Parent = arg1,
                                     })
-                                    Library:AddToRegistry(v357, {BackgroundColor3 = "BackgroundColor"})
-                                    fn5("UICorner", {CornerRadius = UDim.new(0, 4), Parent = v357})
+                                    Library:AddToRegistry(v359, {BackgroundColor3 = "BackgroundColor"})
+                                    fn5("UICorner", {CornerRadius = UDim.new(0, 4), Parent = v359})
                                     local uiStroke = fn5("UIStroke", {
                                         Color = Library.OutlineColor,
                                         BorderStrokePosition = Enum.BorderStrokePosition.Inner,
-                                        Parent = v357,
+                                        Parent = v359,
                                     })
                                     Library:AddToRegistry(uiStroke, {Color = outlineColorNameRef})
                                     return {
-                                        frame = v357,
+                                        frame = v359,
                                         stroke = uiStroke,
                                         image = fn5("ImageLabel", {
                                             ZIndex = 106,
@@ -12498,7 +12514,7 @@ if not getgenv().UE_LOADED then
                                             Size = UDim2.new(1.5, 0, 1.5, 0),
                                             Image = "",
                                             ScaleType = Enum.ScaleType.Fit,
-                                            Parent = v357,
+                                            Parent = v359,
                                         }),
                                     }
                                 end
@@ -12548,31 +12564,31 @@ if not getgenv().UE_LOADED then
                                 }
                                 popout.set_items = function(arg1, list4)
                                     for i9 = 1, 4 do
-                                        local v357 = list[i9]
-                                        if v357 then
-                                            local v358 = list4[i9]
-                                            local v359 = v358
-                                            if v359 then
-                                                v359 = v358.image
+                                        local v359 = list[i9]
+                                        if v359 then
+                                            local v360 = list4[i9]
+                                            local v361 = v360
+                                            if v361 then
+                                                v361 = v360.image
                                             end
-                                            local v360 = v358
-                                            if v360 then
-                                                v360 = v358.equipped
+                                            local v362 = v360
+                                            if v362 then
+                                                v362 = v360.equipped
                                             end
                                             do
-                                                local image = v357.image
-                                                local image2 = v359
+                                                local image = v359.image
+                                                local image2 = v361
                                                 if not image2 then
                                                     image2 = list3[i9]
                                                 end
                                                 image.Image = image2
                                             end
-                                            local n16 = Options.target_ui_item_scale.Value / 100
+                                            local n17 = Options.target_ui_item_scale.Value / 100
                                             do
-                                                local image2 = v357.image
-                                                local size = v359
+                                                local image2 = v359.image
+                                                local size = v361
                                                 if size then
-                                                    size = UDim2.fromScale(1.5 * n16, 1.5 * n16)
+                                                    size = UDim2.fromScale(1.5 * n17, 1.5 * n17)
                                                 end
                                                 if not size then
                                                     size = UDim2.fromScale(0.75, 0.75)
@@ -12580,8 +12596,8 @@ if not getgenv().UE_LOADED then
                                                 image2.Size = size
                                             end
                                             do
-                                                local image3 = v357.image
-                                                local imageColor3 = v359
+                                                local image3 = v359.image
+                                                local imageColor3 = v361
                                                 if imageColor3 then
                                                     imageColor3 = Color3.new(1, 1, 1)
                                                 end
@@ -12590,8 +12606,8 @@ if not getgenv().UE_LOADED then
                                                 end
                                                 image3.ImageColor3 = imageColor3
                                             end
-                                            local stroke = v357.stroke
-                                            local color = v360
+                                            local stroke = v359.stroke
+                                            local color = v362
                                             if color then
                                                 color = Library.AccentColor
                                             end
@@ -12703,15 +12719,16 @@ if not getgenv().UE_LOADED then
                                         return textLabel2
                                     end
                                     popout.set_stats = function(arg1, list5)
-                                        for _, v357 in list4 do
-                                            local parent2 = v357.Parent
-                                            Library:RemoveFromRegistry(v357)
+                                        for _, v359 in list4 do
+                                            local parent2 = v359.Parent
+                                            Library:RemoveFromRegistry(v359)
                                             parent2:Destroy()
                                         end
                                         list4 = {}
-                                        for i9, v358 in ipairs(list5) do
-                                            local value = v358.value
-                                            list4[i9] = fn63(parent5, v358.key)
+                                        for i9, v360 in ipairs(list5) do
+                                            local key21 = v360.key
+                                            local value = v360.value
+                                            list4[i9] = fn63(parent5, key21)
                                             list4[i9].Text = tostring(value)
                                         end
                                     end
@@ -12737,8 +12754,8 @@ if not getgenv().UE_LOADED then
                                         BackgroundColor3 = Color3.fromRGB(255, 255, 255),
                                         Parent = parent2,
                                     })
-                                    local v355
-                                    local v356 = fn5
+                                    local v357
+                                    local v358 = fn5
                                     local tbl61 = {}
                                     local new13 = ColorSequence.new
                                     local tbl62 = {
@@ -12749,8 +12766,8 @@ if not getgenv().UE_LOADED then
                                     }
                                     tbl61.Color = new13(tbl62)
                                     tbl61.Parent = parent4
-                                    v355 = v356("UIGradient", tbl61)
-                                    Library:AddToRegistry(v355, {
+                                    v357 = v358("UIGradient", tbl61)
+                                    Library:AddToRegistry(v357, {
                                         Color = function()
                                             local new14 = ColorSequence.new
                                             local tbl63 = {
@@ -12817,7 +12834,7 @@ if not getgenv().UE_LOADED then
                                         Size = UDim2.new(1, 0, 0, 2),
                                         Parent = parent2,
                                     })
-                                    local v362 = fn5(frameClassRef, {
+                                    local v364 = fn5(frameClassRef, {
                                         ZIndex = 101,
                                         BackgroundColor3 = Library.OutlineColor,
                                         BorderSizePixel = 0,
@@ -12825,8 +12842,8 @@ if not getgenv().UE_LOADED then
                                         Size = UDim2.new(1, 0, 0, 2),
                                         Parent = parent5,
                                     })
-                                    Library:AddToRegistry(v362, {BackgroundColor3 = outlineColorNameRef})
-                                    local v363 = fn5(frameClassRef, {
+                                    Library:AddToRegistry(v364, {BackgroundColor3 = outlineColorNameRef})
+                                    local v365 = fn5(frameClassRef, {
                                         ZIndex = 102,
                                         BackgroundColor3 = Library.AccentColor,
                                         BorderSizePixel = 0,
@@ -12834,23 +12851,23 @@ if not getgenv().UE_LOADED then
                                         Size = UDim2.new(0, 0, 0, 2),
                                         Parent = parent5,
                                     })
-                                    Library:AddToRegistry(v363, {BackgroundColor3 = "AccentColor"})
+                                    Library:AddToRegistry(v365, {BackgroundColor3 = "AccentColor"})
                                     return {
                                         set = function(arg12, arg22)
                                             local first = arg22.first
                                             local second = arg22.second
-                                            local v364 = arg22.ratio and clamp(first / (first + second), 0, 1) or clamp(first / second, 0, 1)
+                                            local v366 = arg22.ratio and clamp(first / (first + second), 0, 1) or clamp(first / second, 0, 1)
                                             local format = arg22.format
                                             if format then
                                                 format = arg22.format:format(first, second)
                                             end
                                             textLabel.Text = format or string.format("%s / %s", first, second)
-                                            v363.Size = UDim2.new(v364, 0, 0, 2)
+                                            v365.Size = UDim2.new(v366, 0, 0, 2)
                                         end,
                                         delete = function(arg12)
                                             Library:RemoveFromRegistry(textLabel)
-                                            Library:RemoveFromRegistry(v362)
-                                            Library:RemoveFromRegistry(v363)
+                                            Library:RemoveFromRegistry(v364)
+                                            Library:RemoveFromRegistry(v365)
                                             parent2:Destroy()
                                             num9 = num9 - 1
                                         end,
@@ -12905,9 +12922,10 @@ if not getgenv().UE_LOADED then
                                 holder.InputEnded:Connect(function(input10)
                                     if connection and input10.UserInputType == mouseButton12 then
                                         connection = connection:Disconnect()
-                                        local scale = holder.Position.Y.Scale
-                                        target_ui_position_x:SetValue(round(clamp(holder.Position.X.Scale * 100, 0, 100)))
-                                        target_ui_position_y:SetValue(round(clamp(scale * 100, 0, 100)))
+                                        local scale = holder.Position.X.Scale
+                                        local scale2 = holder.Position.Y.Scale
+                                        target_ui_position_x:SetValue(round(clamp(scale * 100, 0, 100)))
+                                        target_ui_position_y:SetValue(round(clamp(scale2 * 100, 0, 100)))
                                     end
                                 end)
                             end
@@ -12956,8 +12974,8 @@ if not getgenv().UE_LOADED then
                                     end
                                     local list3 = {}
                                     for k23, item3 in item2.Items do
-                                        local v348 = viewModels[item3.Name]
-                                        list3[k23] = {image = v348 and v348.ImageHighResolution or "", equipped = item3 == item2.EquippedItem}
+                                        local v350 = viewModels[item3.Name]
+                                        list3[k23] = {image = v350 and v350.ImageHighResolution or "", equipped = item3 == item2.EquippedItem}
                                     end
                                     popout:set_items(list3)
                                     if arg2 ~= v199 then
@@ -12977,13 +12995,13 @@ if not getgenv().UE_LOADED then
                                             list4[3] = {
                                                 key = "device",
                                                 value = (function()
-                                                    local v351 = item2:Get("Controls")
+                                                    local v353 = item2:Get("Controls")
                                                     for k24, name in {["virtual reality"] = "VR", computer = "MouseKeyboard", controller = "Gamepad", mobile = "Touch"} do
-                                                        if name == v351 then
+                                                        if name == v353 then
                                                             return k24
                                                         end
                                                     end
-                                                    return (v351 or "?"):lower()
+                                                    return (v353 or "?"):lower()
                                                 end)(),
                                             }
                                             list4[4] = {key = "streak", value = arg2:GetAttribute("StatisticDuelsWinStreak") or 0}
@@ -13017,11 +13035,11 @@ if not getgenv().UE_LOADED then
                                             set_stats(popout2, list3)
                                         end)
                                     end
-                                    local n16 = (math.sin(tick()) + 1) / 2
+                                    local n17 = (math.sin(tick()) + 1) / 2
                                     popout:set_items({})
                                     popout:set_name(localPlayer.Name)
-                                    v193:set({first = round(n16 * 150), second = 150})
-                                    v194:set({first = round((1 - n16) * 100), second = round(n16 * 100), format = "%s 🔺 %s🔻", ratio = true})
+                                    v193:set({first = round(n17 * 150), second = 150})
+                                    v194:set({first = round((1 - n17) * 100), second = round(n17 * 100), format = "%s 🔺 %s🔻", ratio = true})
                                 end
                                 holder.Visible = visible
                                 flag9 = visible
@@ -13110,23 +13128,27 @@ if not getgenv().UE_LOADED then
                                 local crosshair_lerp = Options.crosshair_lerp
                                 Options.crosshair_thickness:OnChanged(function(value)
                                     for _, list3 in list do
-                                        local v346 = list3[2]
-                                        list3[1].Thickness = value
-                                        v346.Thickness = value + 2
+                                        local v348 = list3[1]
+                                        local v349 = list3[2]
+                                        local thickness = value + 2
+                                        v348.Thickness = value
+                                        v349.Thickness = thickness
                                     end
                                 end)
                                 for i6 = 1, 4 do
                                     Options["crosshair_color_" .. i6]:OnChanged(function(value)
-                                        local v345 = list[i6][1]
+                                        local v347 = list[i6][1]
+                                        local v348 = list[i6][1]
                                         local transparency = 1 - (Options["crosshair_color_" .. i6].Transparency or 0)
-                                        list[i6][1].Color = value
-                                        v345.Transparency = transparency
+                                        v347.Color = value
+                                        v348.Transparency = transparency
                                     end)
                                     Options["crosshair_outline_color_" .. i6]:OnChanged(function(value)
-                                        local v345 = list[i6][2]
+                                        local v347 = list[i6][2]
+                                        local v348 = list[i6][2]
                                         local transparency = 1 - (Options["crosshair_outline_color_" .. i6].Transparency or 0)
-                                        list[i6][2].Color = value
-                                        v345.Transparency = transparency
+                                        v347.Color = value
+                                        v348.Transparency = transparency
                                     end)
                                 end
                                 local mousePos = UserInputService:GetMouseLocation()
@@ -13351,10 +13373,10 @@ if not getgenv().UE_LOADED then
                             local CFrame = nil
                             local position = nil
                             local CFrame2 = nil
-                            local v348 = nil
-                            local v349 = nil
+                            local v350 = nil
+                            local v351 = nil
                             local fn62 = function()
-                                v349 = nil
+                                v351 = nil
                                 CFrame = nil
                                 position = nil
                                 CFrame2 = nil
@@ -13367,25 +13389,25 @@ if not getgenv().UE_LOADED then
                                 desync2.get_server = function()
                                     return CFrame2
                                 end
-                                local v350 = nil
+                                local v352 = nil
                                 local guid = HttpService:GenerateGUID()
                                 local fn63 = function(arg1)
                                     local humanoidRootPart = arg1:WaitForChild("HumanoidRootPart", huge2)
-                                    v350 = arg1
-                                    v348 = humanoidRootPart
+                                    v352 = arg1
+                                    v350 = humanoidRootPart
                                     pcall(RunService_.UnbindFromRenderStep, RunService_, guid)
                                     RunService_:BindToRenderStep(guid, Enum.RenderPriority.Camera.Value - 1, function()
                                         if not CFrame then
                                             return
                                         end
-                                        v348.CFrame = CFrame
+                                        v350.CFrame = CFrame
                                     end)
                                 end
                                 localPlayer.CharacterAdded:Connect(fn63)
                                 localPlayer.CharacterRemoving:Connect(function(character2)
-                                    if character2 == v350 then
+                                    if character2 == v352 then
                                         pcall(RunService_.UnbindFromRenderStep, RunService_, guid)
-                                        v348 = nil
+                                        v350 = nil
                                         CFrame = nil
                                         CFrame2 = nil
                                         position = nil
@@ -13407,24 +13429,24 @@ if not getgenv().UE_LOADED then
                                 CFrame2 = arg1
                             end
                             state.utility.is_ragebot = function()
-                                return v349
+                                return v351
                             end
-                            local v352
-                            local v353
+                            local v354
+                            local v355
                             local ragebot_enabled = Toggles.ragebot_enabled.Value
                             do
                                 local ragebot_keybind = Options.ragebot_keybind
                                 Toggles.ragebot_enabled:OnChanged(function(value)
                                     ragebot_enabled = value
                                 end)
-                                v352 = function()
+                                v354 = function()
                                     return ragebot_enabled and ragebot_keybind:GetState()
                                 end
                             end
                             do
                                 local duel_cache2 = state.duel_cache
                                 local service2 = cloneref(fn4(ReplicatedStorage, "Remotes", "Replication", "Fighter", "UseItem"))
-                                local v354
+                                local v356
                                 do
                                     local list = {}
                                     for i9 = -1, 1, 0.1 do
@@ -13436,7 +13458,7 @@ if not getgenv().UE_LOADED then
                                             end
                                         end
                                     end
-                                    v354 = function(arg1)
+                                    v356 = function(arg1)
                                         local map = arg1.Map
                                         if map then
                                             local model2 = map.Model
@@ -13449,30 +13471,30 @@ if not getgenv().UE_LOADED then
                                                         zero3 = zero3 + descendant.Position
                                                     end
                                                 end
-                                                local position2, children, list3, v382, filterDescendantsInstances, rayParams, v385, rayResult, v387, rayResult2
+                                                local position2, children, list3, v384, filterDescendantsInstances, rayParams, v387, rayResult, v389, rayResult2
                                                 if 0 < num10 then
                                                     position2 = zero3 / num10
                                                     children = model2.Barriers:GetChildren()
                                                     list3 = {}
-                                                    for _, v389 in list do
-                                                        v382 = v389
+                                                    for _, v391 in list do
+                                                        v384 = v391
                                                         filterDescendantsInstances = table.clone(children)
                                                         rayParams = RaycastParams.new()
                                                         rayParams.FilterDescendantsInstances = filterDescendantsInstances
                                                         rayParams.FilterType = Enum.RaycastFilterType.Whitelist
                                                         rayParams.BruteForceAllSlow = true
-                                                        v385 = v382 * 500
-                                                        rayResult = workspace:Raycast(position2, v385, rayParams)
+                                                        v387 = v384 * 500
+                                                        rayResult = workspace:Raycast(position2, v387, rayParams)
                                                         while true do
                                                             rayParams.FilterDescendantsInstances = filterDescendantsInstances
-                                                            v387 = rayResult
-                                                            if v387 then
-                                                                v387 = rayResult.Position
+                                                            v389 = rayResult
+                                                            if v389 then
+                                                                v389 = rayResult.Position
                                                             end
-                                                            if not v387 then
-                                                                v387 = position2 + v385
+                                                            if not v389 then
+                                                                v389 = position2 + v387
                                                             end
-                                                            rayResult2 = workspace:Raycast(v387, position2 - v387, rayParams)
+                                                            rayResult2 = workspace:Raycast(v389, position2 - v389, rayParams)
                                                             if not rayResult2 then
                                                                 break
                                                             end
@@ -13480,7 +13502,7 @@ if not getgenv().UE_LOADED then
                                                             table.remove(filterDescendantsInstances, table.find(filterDescendantsInstances, rayResult.Instance))
                                                         end
                                                         if rayResult then
-                                                            table.insert(list3, rayResult.Position - v382 * 10)
+                                                            table.insert(list3, rayResult.Position - v384 * 10)
                                                         end
                                                     end
                                                     return list3, position2
@@ -13488,25 +13510,25 @@ if not getgenv().UE_LOADED then
                                                 position2 = position
                                                 children = model2.Barriers:GetChildren()
                                                 list3 = {}
-                                                for _, v389 in list do
-                                                    v382 = v389
+                                                for _, v391 in list do
+                                                    v384 = v391
                                                     filterDescendantsInstances = table.clone(children)
                                                     rayParams = RaycastParams.new()
                                                     rayParams.FilterDescendantsInstances = filterDescendantsInstances
                                                     rayParams.FilterType = Enum.RaycastFilterType.Whitelist
                                                     rayParams.BruteForceAllSlow = true
-                                                    v385 = v382 * 500
-                                                    rayResult = workspace:Raycast(position2, v385, rayParams)
+                                                    v387 = v384 * 500
+                                                    rayResult = workspace:Raycast(position2, v387, rayParams)
                                                     while true do
                                                         rayParams.FilterDescendantsInstances = filterDescendantsInstances
-                                                        v387 = rayResult
-                                                        if v387 then
-                                                            v387 = rayResult.Position
+                                                        v389 = rayResult
+                                                        if v389 then
+                                                            v389 = rayResult.Position
                                                         end
-                                                        if not v387 then
-                                                            v387 = position2 + v385
+                                                        if not v389 then
+                                                            v389 = position2 + v387
                                                         end
-                                                        rayResult2 = workspace:Raycast(v387, position2 - v387, rayParams)
+                                                        rayResult2 = workspace:Raycast(v389, position2 - v389, rayParams)
                                                         if not rayResult2 then
                                                             break
                                                         end
@@ -13514,7 +13536,7 @@ if not getgenv().UE_LOADED then
                                                         table.remove(filterDescendantsInstances, table.find(filterDescendantsInstances, rayResult.Instance))
                                                     end
                                                     if rayResult then
-                                                        table.insert(list3, rayResult.Position - v382 * 10)
+                                                        table.insert(list3, rayResult.Position - v384 * 10)
                                                     end
                                                 end
                                                 return list3, position2
@@ -13522,12 +13544,12 @@ if not getgenv().UE_LOADED then
                                         end
                                     end
                                 end
-                                local v355 = nil
-                                local v356 = nil
-                                local v357
+                                local v357 = nil
+                                local v358 = nil
+                                local v359
                                 do
                                     local list = {}
-                                    v357 = function()
+                                    v359 = function()
                                         local current = duel_cache2.current
                                         if current then
                                             do
@@ -13536,157 +13558,159 @@ if not getgenv().UE_LOADED then
                                                     return new(list3[1][random(1, list3[2])])
                                                 end
                                             end
-                                            local list3 = v354(current)
+                                            local list3 = v356(current)
                                             if list3 then
                                                 list[current] = {list3, #list3}
-                                                return v355()
+                                                return v357()
                                             end
                                         end
                                         return CFrame
                                     end
                                     if not require(fn4(ReplicatedStorage, "Modules", "CONSTANTS")).IS_PRIVATE_SERVER and game.PlaceId == 17625359962 then
-                                        v355 = v357
+                                        v357 = v359
                                     else
-                                        v356 = true
-                                        v355 = function()
+                                        v358 = true
+                                        v357 = function()
                                             return new(Random.new():NextUnitVector() * 2147483647)
                                         end
                                     end
                                 end
-                                local v358
-                                local v359
-                                local v360 = nil
+                                local v360
+                                local v361
+                                local v362 = nil
                                 do
-                                    local v361 = nil
-                                    local v362 = nil
+                                    local v363 = nil
+                                    local v364 = nil
                                     Toggles.ragebot_void_spam:OnChanged(function(value)
-                                        v360 = value
+                                        v362 = value
                                     end)
                                     Options.ragebot_void_spam_hide:OnChanged(function(value)
-                                        v361 = value
+                                        v363 = value
                                     end)
                                     Options.ragebot_void_spam_attack:OnChanged(function(value)
-                                        v362 = value + 0.05 * 2
+                                        v364 = value + 0.05 * 2
                                     end)
                                     local now4 = tick()
                                     local flag15 = false
-                                    v358 = function()
-                                        if not v360 then
+                                    v360 = function()
+                                        if not v362 then
                                             return
                                         end
                                         local now9 = tick()
                                         if now4 < now9 then
                                             flag15 = not flag15
-                                            now4 = now9 + (flag15 and v361 or v362)
+                                            now4 = now9 + (flag15 and v363 or v364)
                                         end
                                         return flag15
                                     end
                                 end
-                                local v363
-                                local v364 = nil
+                                local v365
+                                local v366 = nil
                                 do
                                     local num9 = 0
-                                    v359 = function(item2, arg2, arg3, arg4, arg5, arg6)
+                                    v361 = function(item2, arg2, arg3, arg4, arg5, arg6)
                                         if item.EquippedItem == item2 then
                                             if arg2 then
                                                 local now9 = tick()
-                                                if arg2 ~= v364 and num9 < now9 then
-                                                    local n16 = now9 + 0.5
-                                                    v364 = arg2
-                                                    num9 = n16
+                                                if arg2 ~= v366 and num9 < now9 then
+                                                    local n17 = now9 + 0.5
+                                                    v366 = arg2
+                                                    num9 = n17
                                                 end
                                                 local position4 = arg2.Position
-                                                local v377, v378 = fn30(arg4, "Riot Shield")
-                                                local v379 = v378
-                                                local v380
-                                                local v381
-                                                if not v377 then
-                                                    v381 = new(position4) + Random.new():NextUnitVector() * 5
+                                                local v379, v380 = fn30(arg4, "Riot Shield")
+                                                local v381 = v380
+                                                local v382
+                                                local v383
+                                                if not v379 then
+                                                    v383 = new(position4) + Random.new():NextUnitVector() * 5
                                                 else
-                                                    v381 = new(position4) * arg4:GetRotationCFrame() * new(0, 0, v379 and 5 or -5)
+                                                    v383 = new(position4) * arg4:GetRotationCFrame() * new(0, 0, v381 and 5 or -5)
                                                 end
-                                                v380 = new(v381.Position, position4)
-                                                local n17 = arg2.CFrame * new(0, 0, 3)
+                                                v382 = new(v383.Position, position4)
+                                                local n18 = arg2.CFrame * new(0, 0, 3)
                                                 if num9 < now9 then
+                                                    local v384
                                                     local heavy_attack_num = item2._heavy_attack_num % #item2.ViewModel:GetAnimationKeys("HeavyAttack") + 1
                                                     item2._heavy_attack_num = heavy_attack_num
-                                                    local v382 = v17
+                                                    v384 = "HeavyAttack" .. heavy_attack_num
+                                                    local v385 = v17
                                                     local service = service2
-                                                    local v384 = item2:Get("ObjectID")
-                                                    local v385 = module2:ToEnum("StartAiming")
+                                                    local v387 = item2:Get("ObjectID")
+                                                    local v388 = module2:ToEnum("StartAiming")
                                                     local tbl62 = {}
-                                                    local tbl63 = {["\0"] = v36(n17), ["\1"] = v36(n17 + Vector3.one * 0.01), ["\2"] = arg2}
+                                                    local tbl63 = {["\0"] = v36(n18), ["\1"] = v36(n18 + Vector3.one * 0.01), ["\2"] = arg2}
                                                     tbl63["\3"] = v36(new(random() * 0.1, random() * 0.1, random() * 0.1))
                                                     tbl62["\1"] = tbl63
-                                                    tbl62["\2"] = module2:ToEnum("HeavyAttack" .. heavy_attack_num)
-                                                    v382(service, v384, v385, tbl62, nil)
+                                                    tbl62["\2"] = module2:ToEnum(v384)
+                                                    v385(service, v387, v388, tbl62, nil)
                                                     num9 = tick() + item2.Info.HeavyAttackCooldown * 0.75
-                                                    fn65(v355())
+                                                    fn65(v357())
                                                     return "backstabbing " .. arg6 .. "..."
                                                 end
                                                 if not (num9 < now9 + max(arg5, 0.05)) then
-                                                    fn65(v355())
+                                                    fn65(v357())
                                                     return "stabbing " .. arg6 .. " in " .. string.format("%.2f", num9 - tick() - 0.05) .. "... (void)"
                                                 end
-                                                fn65(v380 * fromOrientation(0, random() / 10, 0))
-                                                v183(n17, true)
+                                                fn65(v382 * fromOrientation(0, random() / 10, 0))
+                                                v183(n18, true)
                                                 return "backstabbing " .. arg6 .. "..."
                                             end
-                                            fn65(v355())
+                                            fn65(v357())
                                             return "void..."
                                         end
                                         task.spawn(item.EquipItem, item, item2.Data.ItemIndex)
-                                        fn65(v355())
+                                        fn65(v357())
                                         return "void..."
                                     end
                                 end
-                                local v365
+                                local v367
                                 local now5 = tick()
                                 do
                                     local now6 = tick()
                                     local fn66 = function()
-                                        fn65(v355())
+                                        fn65(v357())
                                         now5 = tick() + 0.05
                                     end
-                                    v363 = function(arg1, arg2, arg3, arg4, arg5, arg6)
+                                    v365 = function(arg1, arg2, arg3, arg4, arg5, arg6)
                                         if item.EquippedItem == arg1 then
                                             if arg2 then
-                                                if v358() then
+                                                if v360() then
                                                     fn66()
                                                     return "void spamming..."
                                                 end
                                                 local now9 = tick()
                                                 local position4 = arg2.Position
-                                                local v377, v378 = fn30(arg4, "Riot Shield")
-                                                local v379 = v378
-                                                local v380
-                                                if v377 then
-                                                    local n16 = new(position4) * arg4:GetRotationCFrame()
+                                                local v379, v380 = fn30(arg4, "Riot Shield")
+                                                local v381 = v380
+                                                local v382
+                                                if v379 then
+                                                    local n17 = new(position4) * arg4:GetRotationCFrame()
                                                     local new4 = new
-                                                    local v382 = v379
-                                                    if v382 then
-                                                        v382 = 3
+                                                    local v384 = v381
+                                                    if v384 then
+                                                        v384 = 3
                                                     end
-                                                    v380 = n16 * new4(0, 0, v382 or -3)
+                                                    v382 = n17 * new4(0, 0, v384 or -3)
                                                 else
-                                                    v380 = new(position4) + Random.new():NextUnitVector() * 3
+                                                    v382 = new(position4) + Random.new():NextUnitVector() * 3
                                                 end
-                                                local v383 = new(v380.Position, position4)
-                                                fn65(v383)
+                                                local v385 = new(v382.Position, position4)
+                                                fn65(v385)
                                                 if not (now9 < now5) and not (now9 < now6) then
                                                     arg1._attack_num = arg1._attack_num % #arg1.ViewModel:GetAnimationKeys("Attack") + 1
                                                     local str11 = "Attack" .. arg1._attack_num
                                                     now6 = now9 + 0.016666666666666666
-                                                    local v384 = v17
+                                                    local v386 = v17
                                                     local service = service2
-                                                    local v386 = arg1:Get("ObjectID")
-                                                    local v387 = module2:ToEnum("StartShooting")
+                                                    local v388 = arg1:Get("ObjectID")
+                                                    local v389 = module2:ToEnum("StartShooting")
                                                     local tbl62 = {}
-                                                    local tbl63 = {["\0"] = v36(v383), ["\1"] = v36(v383 + Vector3.one * 0.01), ["\2"] = arg2}
+                                                    local tbl63 = {["\0"] = v36(v385), ["\1"] = v36(v385 + Vector3.one * 0.01), ["\2"] = arg2}
                                                     tbl63["\3"] = v36(new(random() * 0.1, random() * 0.1, random() * 0.1))
                                                     tbl62["\1"] = tbl63
                                                     tbl62["\2"] = module2:ToEnum(str11)
-                                                    v384(service, v386, v387, tbl62, nil)
+                                                    v386(service, v388, v389, tbl62, nil)
                                                     return "attacking " .. arg6 .. "..."
                                                 end
                                                 return "attacking " .. arg6 .. "..."
@@ -13699,14 +13723,14 @@ if not getgenv().UE_LOADED then
                                         return "void..."
                                     end
                                 end
-                                local v366
+                                local v368
                                 local fn67 = function(arg1)
                                     local list = {arg1:StartReloading()}
                                     if table.remove(list, 1) then
                                         local removed = table.remove(list, 1)
                                         local tbl63 = {}
-                                        for k23, v377 in pairs(list) do
-                                            tbl63[utf8.char(k23)] = v377
+                                        for k23, v379 in pairs(list) do
+                                            tbl63[utf8.char(k23)] = v379
                                         end
                                         v17(service2, arg1:Get("ObjectID"), module2:ToEnum(removed), tbl63, nil)
                                         return
@@ -13722,69 +13746,69 @@ if not getgenv().UE_LOADED then
                                         end
                                         return nil, true
                                     end
-                                    local v367 = new2(0, 1.75, 0)
-                                    local v368 = new2(0, 0.25, 0)
+                                    local v369 = new2(0, 1.75, 0)
+                                    local v370 = new2(0, 0.25, 0)
                                     local swap_weapons_when_empty = nil
                                     local prefer_projectile_weapon = nil
-                                    local v371 = nil
-                                    local v372 = nil
+                                    local v373 = nil
+                                    local v374 = nil
                                     Options.ragebot_settings:OnChanged(function(value)
                                         swap_weapons_when_empty = value["swap weapons when empty"]
                                         prefer_projectile_weapon = value["prefer projectile weapon"]
                                     end)
                                     Options.ragebot_weapon:OnChanged(function()
-                                        v372 = Options.ragebot_weapon.Value == "primary"
+                                        v374 = Options.ragebot_weapon.Value == "primary"
                                     end)
                                     Options.ragebot_shoot_attempts:OnChanged(function(value)
-                                        v371 = value
+                                        v373 = value
                                     end)
                                     local now7 = tick()
                                     local terrain2 = workspace.Terrain
                                     local fn69 = function(arg1)
                                         now7 = tick() + 0.05
-                                        fn65(arg1 or v355())
+                                        fn65(arg1 or v357())
                                         v7(8)
-                                        v8(v348, "PhysicsRepRootPart", terrain2)
+                                        v8(v350, "PhysicsRepRootPart", terrain2)
                                     end
                                     local now8 = tick()
-                                    v365 = function(list, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
-                                        local v377, v378, v379
-                                        if not v372 then
-                                            v377 = #list
-                                            v378 = 1
-                                            v379 = -1
+                                    v367 = function(list, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+                                        local v379, v380, v381
+                                        if not v374 then
+                                            v379 = #list
+                                            v380 = 1
+                                            v381 = -1
                                         else
-                                            v378 = #list
-                                            v377 = 1
+                                            v380 = #list
                                             v379 = 1
+                                            v381 = 1
                                         end
                                         local list3 = {}
-                                        local n16 = v377 - v379
-                                        local v380 = v378
-                                        local v381 = v379
+                                        local n17 = v379 - v381
+                                        local v382 = v380
+                                        local v383 = v381
                                         while true do
-                                            local n17 = n16 + v381
-                                            if (not (v381 <= 0) or not (n17 >= v380)) and (not (0 < v381) or not (n17 <= v380)) then
+                                            local n18 = n17 + v383
+                                            if (not (v383 <= 0) or not (n18 >= v382)) and (not (0 < v383) or not (n18 <= v382)) then
                                                 break
                                             end
-                                            n16 = n17
-                                            local v382 = list[n17]
-                                            local v383, v384 = fn68(v382)
-                                            local v385 = v383
-                                            local v386 = v384
-                                            if v385 or not v386 then
-                                                table.insert(list3, {v382, v385, v386})
+                                            n17 = n18
+                                            local v384 = list[n18]
+                                            local v385, v386 = fn68(v384)
+                                            local v387 = v385
+                                            local v388 = v386
+                                            if v387 or not v388 then
+                                                table.insert(list3, {v384, v387, v388})
                                             end
                                         end
                                         local values = nil
-                                        local v388 = nil
-                                        local v389 = nil
+                                        local v390 = nil
+                                        local v391 = nil
                                         for _, list4 in list3 do
-                                            local values3, v391, v392 = unpack(list4)
+                                            local values3, v393, v394 = unpack(list4)
                                             values = values3
-                                            v388 = v391
-                                            v389 = v392
-                                            if v388 or not swap_weapons_when_empty then
+                                            v390 = v393
+                                            v391 = v394
+                                            if v390 or not swap_weapons_when_empty then
                                                 break
                                             end
                                         end
@@ -13794,310 +13818,310 @@ if not getgenv().UE_LOADED then
                                         end
                                         if item.EquippedItem == values then
                                             if values.Info.ReloadType == "Segmented" then
-                                                local v393
+                                                local v395
                                                 local reload_threads = values._reload_threads
-                                                v393 = reload_threads[#reload_threads]
-                                                if v393 and coroutine.status(v393) ~= "dead" then
+                                                v395 = reload_threads[#reload_threads]
+                                                if v395 and coroutine.status(v395) ~= "dead" then
                                                     fn69()
                                                     return "reloading..."
                                                 end
                                             end
                                             local now9 = tick()
-                                            if not v388 and state.picked_up_drop or not (now9 < values._reload_cooldown) then
+                                            if not v390 and state.picked_up_drop or not (now9 < values._reload_cooldown) then
                                                 if arg8 ~= "RoundStarted" then
                                                     fn69()
                                                     return "void..."
                                                 end
-                                                if v388 then
+                                                if v390 then
                                                     if not arg2 or arg7 then
                                                         fn69()
                                                         return "void..."
                                                     end
                                                     local position4 = arg2.Position
-                                                    if not v358() then
-                                                        local v394, v395 = fn30(arg4, "Riot Shield")
-                                                        local v396 = v395
-                                                        local position2, v398, v399, v400, v401, v402, terrain, v404, v405, v406, v407, v408, service, v410, v411, v412, v413, v414, v415
-                                                        if not v394 then
+                                                    if not v360() then
+                                                        local v396, v397 = fn30(arg4, "Riot Shield")
+                                                        local v398 = v397
+                                                        local position2, v400, v401, v402, v403, v404, terrain, v406, v407, v408, v409, v410, service, v412, v413, v414, v415, v416, v417
+                                                        if not v396 then
                                                             position2 = position4 + new2(0, 3, 0)
-                                                            v398 = item:IsCrouching()
-                                                            if v398 then
-                                                                v398 = v368
-                                                                v399 = new(position2 + (v398 or v367), position4)
-                                                                v400 = v399
-                                                                v401 = v399
-                                                                v402 = arg2
+                                                            v400 = item:IsCrouching()
+                                                            if v400 then
+                                                                v400 = v370
+                                                                v401 = new(position2 + (v400 or v369), position4)
+                                                                v402 = v401
+                                                                v403 = v401
+                                                                v404 = arg2
                                                                 terrain = terrain2
-                                                                v404 = new(position2) * fromOrientation(rad(90), 0, 0)
+                                                                v406 = new(position2) * fromOrientation(rad(90), 0, 0)
                                                                 v7(8)
-                                                                fn65(v404)
-                                                                v8(v348, "PhysicsRepRootPart", terrain)
+                                                                fn65(v406)
+                                                                v8(v350, "PhysicsRepRootPart", terrain)
                                                                 if now9 < now7 or now9 < now8 then
                                                                     return "killing " .. arg6 .. "..."
                                                                 end
                                                                 now8 = now9 + 0.008333333333333333
-                                                                v405 = 0
-                                                                v406 = v371
+                                                                v407 = 0
+                                                                v408 = v373
                                                                 while true do
-                                                                    v407 = v405 + 1
-                                                                    if not (v407 <= v406) then
+                                                                    v409 = v407 + 1
+                                                                    if not (v409 <= v408) then
                                                                         break
                                                                     end
-                                                                    v405 = v407
-                                                                    v408 = v17
+                                                                    v407 = v409
+                                                                    v410 = v17
                                                                     service = service2
-                                                                    v410 = values:Get("ObjectID")
-                                                                    v411 = module2:ToEnum("StartShooting")
-                                                                    v412 = {}
-                                                                    v413 = {["\0"] = v36(v400), ["\1"] = v36(v401), ["\2"] = v402}
-                                                                    v414 = v402
-                                                                    if v414 then
-                                                                        v414 = v36(new(random() * 0.1, random() * 0.1, random() * 0.1))
+                                                                    v412 = values:Get("ObjectID")
+                                                                    v413 = module2:ToEnum("StartShooting")
+                                                                    v414 = {}
+                                                                    v415 = {["\0"] = v36(v402), ["\1"] = v36(v403), ["\2"] = v404}
+                                                                    v416 = v404
+                                                                    if v416 then
+                                                                        v416 = v36(new(random() * 0.1, random() * 0.1, random() * 0.1))
                                                                     end
-                                                                    v413["\3"] = v414 or nil
-                                                                    v412["\1"] = v413
-                                                                    v412["\2"] = true
-                                                                    v415 = values.Name == "Revolver"
-                                                                    if v415 then
-                                                                        v415 = true
+                                                                    v415["\3"] = v416 or nil
+                                                                    v414["\1"] = v415
+                                                                    v414["\2"] = true
+                                                                    v417 = values.Name == "Revolver"
+                                                                    if v417 then
+                                                                        v417 = true
                                                                     end
-                                                                    v412["\3"] = v415 or nil
-                                                                    v408(service, v410, v411, v412, nil)
+                                                                    v414["\3"] = v417 or nil
+                                                                    v410(service, v412, v413, v414, nil)
                                                                 end
                                                                 return "killing " .. arg6 .. "..."
                                                             end
-                                                            v399 = new(position2 + (v398 or v367), position4)
-                                                            v400 = v399
-                                                            v401 = v399
-                                                            v402 = arg2
+                                                            v401 = new(position2 + (v400 or v369), position4)
+                                                            v402 = v401
+                                                            v403 = v401
+                                                            v404 = arg2
                                                             terrain = terrain2
-                                                            v404 = new(position2) * fromOrientation(rad(90), 0, 0)
+                                                            v406 = new(position2) * fromOrientation(rad(90), 0, 0)
                                                             v7(8)
-                                                            fn65(v404)
-                                                            v8(v348, "PhysicsRepRootPart", terrain)
+                                                            fn65(v406)
+                                                            v8(v350, "PhysicsRepRootPart", terrain)
                                                             if now9 < now7 or now9 < now8 then
                                                                 return "killing " .. arg6 .. "..."
                                                             end
                                                             now8 = now9 + 0.008333333333333333
-                                                            v405 = 0
-                                                            v406 = v371
+                                                            v407 = 0
+                                                            v408 = v373
                                                             while true do
-                                                                v407 = v405 + 1
-                                                                if not (v407 <= v406) then
+                                                                v409 = v407 + 1
+                                                                if not (v409 <= v408) then
                                                                     break
                                                                 end
-                                                                v405 = v407
-                                                                v408 = v17
+                                                                v407 = v409
+                                                                v410 = v17
                                                                 service = service2
-                                                                v410 = values:Get("ObjectID")
-                                                                v411 = module2:ToEnum("StartShooting")
-                                                                v412 = {}
-                                                                v413 = {["\0"] = v36(v400), ["\1"] = v36(v401), ["\2"] = v402}
-                                                                v414 = v402
-                                                                if v414 then
-                                                                    v414 = v36(new(random() * 0.1, random() * 0.1, random() * 0.1))
+                                                                v412 = values:Get("ObjectID")
+                                                                v413 = module2:ToEnum("StartShooting")
+                                                                v414 = {}
+                                                                v415 = {["\0"] = v36(v402), ["\1"] = v36(v403), ["\2"] = v404}
+                                                                v416 = v404
+                                                                if v416 then
+                                                                    v416 = v36(new(random() * 0.1, random() * 0.1, random() * 0.1))
                                                                 end
-                                                                v413["\3"] = v414 or nil
-                                                                v412["\1"] = v413
-                                                                v412["\2"] = true
-                                                                v415 = values.Name == "Revolver"
-                                                                if v415 then
-                                                                    v415 = true
+                                                                v415["\3"] = v416 or nil
+                                                                v414["\1"] = v415
+                                                                v414["\2"] = true
+                                                                v417 = values.Name == "Revolver"
+                                                                if v417 then
+                                                                    v417 = true
                                                                 end
-                                                                v412["\3"] = v415 or nil
-                                                                v408(service, v410, v411, v412, nil)
+                                                                v414["\3"] = v417 or nil
+                                                                v410(service, v412, v413, v414, nil)
                                                             end
                                                             return "killing " .. arg6 .. "..."
                                                         end
-                                                        local n18 = new(position4) * arg4:GetRotationCFrame()
+                                                        local n19 = new(position4) * arg4:GetRotationCFrame()
                                                         local new4 = new
-                                                        local v417 = v396
-                                                        if v417 then
-                                                            v417 = 2
-                                                            position2 = (n18 * new4(0, 0, v417 or -2)).Position
-                                                            v398 = item:IsCrouching()
-                                                            if v398 then
-                                                                v398 = v368
-                                                                v399 = new(position2 + (v398 or v367), position4)
-                                                                v400 = v399
-                                                                v401 = v399
-                                                                v402 = arg2
+                                                        local v419 = v398
+                                                        if v419 then
+                                                            v419 = 2
+                                                            position2 = (n19 * new4(0, 0, v419 or -2)).Position
+                                                            v400 = item:IsCrouching()
+                                                            if v400 then
+                                                                v400 = v370
+                                                                v401 = new(position2 + (v400 or v369), position4)
+                                                                v402 = v401
+                                                                v403 = v401
+                                                                v404 = arg2
                                                                 terrain = terrain2
-                                                                v404 = new(position2) * fromOrientation(rad(90), 0, 0)
+                                                                v406 = new(position2) * fromOrientation(rad(90), 0, 0)
                                                                 v7(8)
-                                                                fn65(v404)
-                                                                v8(v348, "PhysicsRepRootPart", terrain)
+                                                                fn65(v406)
+                                                                v8(v350, "PhysicsRepRootPart", terrain)
                                                                 if now9 < now7 or now9 < now8 then
                                                                     return "killing " .. arg6 .. "..."
                                                                 end
                                                                 now8 = now9 + 0.008333333333333333
-                                                                v405 = 0
-                                                                v406 = v371
+                                                                v407 = 0
+                                                                v408 = v373
                                                                 while true do
-                                                                    v407 = v405 + 1
-                                                                    if not (v407 <= v406) then
+                                                                    v409 = v407 + 1
+                                                                    if not (v409 <= v408) then
                                                                         break
                                                                     end
-                                                                    v405 = v407
-                                                                    v408 = v17
+                                                                    v407 = v409
+                                                                    v410 = v17
                                                                     service = service2
-                                                                    v410 = values:Get("ObjectID")
-                                                                    v411 = module2:ToEnum("StartShooting")
-                                                                    v412 = {}
-                                                                    v413 = {["\0"] = v36(v400), ["\1"] = v36(v401), ["\2"] = v402}
-                                                                    v414 = v402
-                                                                    if v414 then
-                                                                        v414 = v36(new(random() * 0.1, random() * 0.1, random() * 0.1))
+                                                                    v412 = values:Get("ObjectID")
+                                                                    v413 = module2:ToEnum("StartShooting")
+                                                                    v414 = {}
+                                                                    v415 = {["\0"] = v36(v402), ["\1"] = v36(v403), ["\2"] = v404}
+                                                                    v416 = v404
+                                                                    if v416 then
+                                                                        v416 = v36(new(random() * 0.1, random() * 0.1, random() * 0.1))
                                                                     end
-                                                                    v413["\3"] = v414 or nil
-                                                                    v412["\1"] = v413
-                                                                    v412["\2"] = true
-                                                                    v415 = values.Name == "Revolver"
-                                                                    if v415 then
-                                                                        v415 = true
+                                                                    v415["\3"] = v416 or nil
+                                                                    v414["\1"] = v415
+                                                                    v414["\2"] = true
+                                                                    v417 = values.Name == "Revolver"
+                                                                    if v417 then
+                                                                        v417 = true
                                                                     end
-                                                                    v412["\3"] = v415 or nil
-                                                                    v408(service, v410, v411, v412, nil)
+                                                                    v414["\3"] = v417 or nil
+                                                                    v410(service, v412, v413, v414, nil)
                                                                 end
                                                                 return "killing " .. arg6 .. "..."
                                                             end
-                                                            v399 = new(position2 + (v398 or v367), position4)
-                                                            v400 = v399
-                                                            v401 = v399
-                                                            v402 = arg2
+                                                            v401 = new(position2 + (v400 or v369), position4)
+                                                            v402 = v401
+                                                            v403 = v401
+                                                            v404 = arg2
                                                             terrain = terrain2
-                                                            v404 = new(position2) * fromOrientation(rad(90), 0, 0)
+                                                            v406 = new(position2) * fromOrientation(rad(90), 0, 0)
                                                             v7(8)
-                                                            fn65(v404)
-                                                            v8(v348, "PhysicsRepRootPart", terrain)
+                                                            fn65(v406)
+                                                            v8(v350, "PhysicsRepRootPart", terrain)
                                                             if now9 < now7 or now9 < now8 then
                                                                 return "killing " .. arg6 .. "..."
                                                             end
                                                             now8 = now9 + 0.008333333333333333
-                                                            v405 = 0
-                                                            v406 = v371
+                                                            v407 = 0
+                                                            v408 = v373
                                                             while true do
-                                                                v407 = v405 + 1
-                                                                if not (v407 <= v406) then
+                                                                v409 = v407 + 1
+                                                                if not (v409 <= v408) then
                                                                     break
                                                                 end
-                                                                v405 = v407
-                                                                v408 = v17
+                                                                v407 = v409
+                                                                v410 = v17
                                                                 service = service2
-                                                                v410 = values:Get("ObjectID")
-                                                                v411 = module2:ToEnum("StartShooting")
-                                                                v412 = {}
-                                                                v413 = {["\0"] = v36(v400), ["\1"] = v36(v401), ["\2"] = v402}
-                                                                v414 = v402
-                                                                if v414 then
-                                                                    v414 = v36(new(random() * 0.1, random() * 0.1, random() * 0.1))
+                                                                v412 = values:Get("ObjectID")
+                                                                v413 = module2:ToEnum("StartShooting")
+                                                                v414 = {}
+                                                                v415 = {["\0"] = v36(v402), ["\1"] = v36(v403), ["\2"] = v404}
+                                                                v416 = v404
+                                                                if v416 then
+                                                                    v416 = v36(new(random() * 0.1, random() * 0.1, random() * 0.1))
                                                                 end
-                                                                v413["\3"] = v414 or nil
-                                                                v412["\1"] = v413
-                                                                v412["\2"] = true
-                                                                v415 = values.Name == "Revolver"
-                                                                if v415 then
-                                                                    v415 = true
+                                                                v415["\3"] = v416 or nil
+                                                                v414["\1"] = v415
+                                                                v414["\2"] = true
+                                                                v417 = values.Name == "Revolver"
+                                                                if v417 then
+                                                                    v417 = true
                                                                 end
-                                                                v412["\3"] = v415 or nil
-                                                                v408(service, v410, v411, v412, nil)
+                                                                v414["\3"] = v417 or nil
+                                                                v410(service, v412, v413, v414, nil)
                                                             end
                                                             return "killing " .. arg6 .. "..."
                                                         end
-                                                        position2 = (n18 * new4(0, 0, v417 or -2)).Position
-                                                        v398 = item:IsCrouching()
-                                                        if v398 then
-                                                            v398 = v368
-                                                            v399 = new(position2 + (v398 or v367), position4)
-                                                            v400 = v399
-                                                            v401 = v399
-                                                            v402 = arg2
+                                                        position2 = (n19 * new4(0, 0, v419 or -2)).Position
+                                                        v400 = item:IsCrouching()
+                                                        if v400 then
+                                                            v400 = v370
+                                                            v401 = new(position2 + (v400 or v369), position4)
+                                                            v402 = v401
+                                                            v403 = v401
+                                                            v404 = arg2
                                                             terrain = terrain2
-                                                            v404 = new(position2) * fromOrientation(rad(90), 0, 0)
+                                                            v406 = new(position2) * fromOrientation(rad(90), 0, 0)
                                                             v7(8)
-                                                            fn65(v404)
-                                                            v8(v348, "PhysicsRepRootPart", terrain)
+                                                            fn65(v406)
+                                                            v8(v350, "PhysicsRepRootPart", terrain)
                                                             if now9 < now7 or now9 < now8 then
                                                                 return "killing " .. arg6 .. "..."
                                                             end
                                                             now8 = now9 + 0.008333333333333333
-                                                            v405 = 0
-                                                            v406 = v371
+                                                            v407 = 0
+                                                            v408 = v373
                                                             while true do
-                                                                v407 = v405 + 1
-                                                                if not (v407 <= v406) then
+                                                                v409 = v407 + 1
+                                                                if not (v409 <= v408) then
                                                                     break
                                                                 end
-                                                                v405 = v407
-                                                                v408 = v17
+                                                                v407 = v409
+                                                                v410 = v17
                                                                 service = service2
-                                                                v410 = values:Get("ObjectID")
-                                                                v411 = module2:ToEnum("StartShooting")
-                                                                v412 = {}
-                                                                v413 = {["\0"] = v36(v400), ["\1"] = v36(v401), ["\2"] = v402}
-                                                                v414 = v402
-                                                                if v414 then
-                                                                    v414 = v36(new(random() * 0.1, random() * 0.1, random() * 0.1))
+                                                                v412 = values:Get("ObjectID")
+                                                                v413 = module2:ToEnum("StartShooting")
+                                                                v414 = {}
+                                                                v415 = {["\0"] = v36(v402), ["\1"] = v36(v403), ["\2"] = v404}
+                                                                v416 = v404
+                                                                if v416 then
+                                                                    v416 = v36(new(random() * 0.1, random() * 0.1, random() * 0.1))
                                                                 end
-                                                                v413["\3"] = v414 or nil
-                                                                v412["\1"] = v413
-                                                                v412["\2"] = true
-                                                                v415 = values.Name == "Revolver"
-                                                                if v415 then
-                                                                    v415 = true
+                                                                v415["\3"] = v416 or nil
+                                                                v414["\1"] = v415
+                                                                v414["\2"] = true
+                                                                v417 = values.Name == "Revolver"
+                                                                if v417 then
+                                                                    v417 = true
                                                                 end
-                                                                v412["\3"] = v415 or nil
-                                                                v408(service, v410, v411, v412, nil)
+                                                                v414["\3"] = v417 or nil
+                                                                v410(service, v412, v413, v414, nil)
                                                             end
                                                             return "killing " .. arg6 .. "..."
                                                         end
-                                                        v399 = new(position2 + (v398 or v367), position4)
-                                                        v400 = v399
-                                                        v401 = v399
-                                                        v402 = arg2
+                                                        v401 = new(position2 + (v400 or v369), position4)
+                                                        v402 = v401
+                                                        v403 = v401
+                                                        v404 = arg2
                                                         terrain = terrain2
-                                                        v404 = new(position2) * fromOrientation(rad(90), 0, 0)
+                                                        v406 = new(position2) * fromOrientation(rad(90), 0, 0)
                                                         v7(8)
-                                                        fn65(v404)
-                                                        v8(v348, "PhysicsRepRootPart", terrain)
+                                                        fn65(v406)
+                                                        v8(v350, "PhysicsRepRootPart", terrain)
                                                         if now9 < now7 or now9 < now8 then
                                                             return "killing " .. arg6 .. "..."
                                                         end
                                                         now8 = now9 + 0.008333333333333333
-                                                        v405 = 0
-                                                        v406 = v371
+                                                        v407 = 0
+                                                        v408 = v373
                                                         while true do
-                                                            v407 = v405 + 1
-                                                            if not (v407 <= v406) then
+                                                            v409 = v407 + 1
+                                                            if not (v409 <= v408) then
                                                                 break
                                                             end
-                                                            v405 = v407
-                                                            v408 = v17
+                                                            v407 = v409
+                                                            v410 = v17
                                                             service = service2
-                                                            v410 = values:Get("ObjectID")
-                                                            v411 = module2:ToEnum("StartShooting")
-                                                            v412 = {}
-                                                            v413 = {["\0"] = v36(v400), ["\1"] = v36(v401), ["\2"] = v402}
-                                                            v414 = v402
-                                                            if v414 then
-                                                                v414 = v36(new(random() * 0.1, random() * 0.1, random() * 0.1))
+                                                            v412 = values:Get("ObjectID")
+                                                            v413 = module2:ToEnum("StartShooting")
+                                                            v414 = {}
+                                                            v415 = {["\0"] = v36(v402), ["\1"] = v36(v403), ["\2"] = v404}
+                                                            v416 = v404
+                                                            if v416 then
+                                                                v416 = v36(new(random() * 0.1, random() * 0.1, random() * 0.1))
                                                             end
-                                                            v413["\3"] = v414 or nil
-                                                            v412["\1"] = v413
-                                                            v412["\2"] = true
-                                                            v415 = values.Name == "Revolver"
-                                                            if v415 then
-                                                                v415 = true
+                                                            v415["\3"] = v416 or nil
+                                                            v414["\1"] = v415
+                                                            v414["\2"] = true
+                                                            v417 = values.Name == "Revolver"
+                                                            if v417 then
+                                                                v417 = true
                                                             end
-                                                            v412["\3"] = v415 or nil
-                                                            v408(service, v410, v411, v412, nil)
+                                                            v414["\3"] = v417 or nil
+                                                            v410(service, v412, v413, v414, nil)
                                                         end
                                                         return "killing " .. arg6 .. "..."
                                                     end
                                                     fn69()
                                                     return "void spamming..."
                                                 end
-                                                if not v389 then
+                                                if not v391 then
                                                     fn67(values)
                                                 end
                                             end
@@ -14129,16 +14153,16 @@ if not getgenv().UE_LOADED then
                                         end
                                     end
                                     local list3 = {}
-                                    local v373 = nil
-                                    local v374 = nil
+                                    local v375 = nil
+                                    local v376 = nil
                                     Toggles.ragebot_priority:OnChanged(function(value)
                                         ragebot_priority = value
                                     end)
                                     Toggles.ragebot_priority_notification:OnChanged(function(value)
-                                        v373 = value
+                                        v375 = value
                                     end)
                                     Options.ragebot_priority_settings:OnChanged(function(value)
-                                        v374 = value
+                                        v376 = value
                                     end)
                                     state.utility.add_ragebot_priority = function(arg1, arg2)
                                         if arg2 ~= localPlayer and not list3[arg2] then
@@ -14146,45 +14170,45 @@ if not getgenv().UE_LOADED then
                                             arg2.AncestryChanged:Once(function()
                                                 list3[arg2] = nil
                                             end)
-                                            if v373 then
+                                            if v375 then
                                                 state.events.safe_call:Fire(function()
                                                     Library:Notify("added " .. arg2.Name .. " to ragebot priority")
                                                 end)
                                             end
                                         end
                                     end
-                                    v366 = function()
+                                    v368 = function()
                                         local list = duel_cache2.list
                                         if list then
-                                            local v377 = nil
-                                            local v378 = nil
                                             local v379 = nil
                                             local v380 = nil
                                             local v381 = nil
                                             local v382 = nil
+                                            local v383 = nil
+                                            local v384 = nil
                                             local fn71 = function(arg1, arg2)
-                                                local v387, v388, v389, v390, v391 = fn70(arg1, arg2)
-                                                local v392 = v387
-                                                local v393 = v388
+                                                local v389, v390, v391, v392, v393 = fn70(arg1, arg2)
                                                 local v394 = v389
                                                 local v395 = v390
                                                 local v396 = v391
-                                                if v392 and not v393 and (not v377 or not v393) then
-                                                    v377 = v392
-                                                    v381 = v393
-                                                    v378 = v394
-                                                    v379 = v395
+                                                local v397 = v392
+                                                local v398 = v393
+                                                if v394 and not v395 and (not v379 or not v395) then
+                                                    v379 = v394
+                                                    v383 = v395
                                                     v380 = v396
-                                                    v382 = arg1
-                                                    if not v393 then
+                                                    v381 = v397
+                                                    v382 = v398
+                                                    v384 = arg1
+                                                    if not v395 then
                                                         return true
                                                     end
                                                 end
                                             end
                                             if ragebot_priority then
-                                                if v374["voided players"] then
-                                                    for k23, v383 in list do
-                                                        if k23 ~= localPlayer and not v383._is_ally then
+                                                if v376["voided players"] then
+                                                    for k23, v385 in list do
+                                                        if k23 ~= localPlayer and not v385._is_ally then
                                                             local character = characters3[k23]
                                                             if character then
                                                                 local humanoidRootPart = character.HumanoidRootPart
@@ -14196,20 +14220,20 @@ if not getgenv().UE_LOADED then
                                                     end
                                                 end
                                                 for k24 in list3 do
-                                                    local v385 = list[k24]
-                                                    if v385 and fn71(k24, v385) then
+                                                    local v387 = list[k24]
+                                                    if v387 and fn71(k24, v387) then
                                                         break
                                                     end
                                                 end
                                             end
-                                            if not v377 or v381 then
-                                                for k25, v386 in list do
-                                                    if fn71(k25, v386) then
+                                            if not v379 or v383 then
+                                                for k25, v388 in list do
+                                                    if fn71(k25, v388) then
                                                         break
                                                     end
                                                 end
                                             end
-                                            return v377, v381, v378, v379, v380, v382
+                                            return v379, v383, v380, v381, v382, v384
                                         end
                                         clear(priority)
                                     end
@@ -14222,79 +14246,79 @@ if not getgenv().UE_LOADED then
                                 local indicator_ragebot_style = Options.indicator_ragebot_style
                                 local _ = state.misc.indicator_colors
                                 local insert2 = table.insert
-                                v353 = function(arg1)
-                                    v349 = true
+                                v355 = function(arg1)
+                                    v351 = true
                                     local items2 = item.Items
                                     if not items2 then
                                         return
                                     end
                                     local flag16 = ragebot_mode == "knife"
                                     local flag17 = ragebot_mode == "melee"
-                                    local v377 = nil
-                                    local v378 = nil
                                     local v379 = nil
                                     local v380 = nil
+                                    local v381 = nil
+                                    local v382 = nil
                                     local tbl62 = {}
                                     for _, item2 in items2 do
                                         local type_2 = item2.Info.Type
                                         if type_2 == "Gun" then
                                             insert2(tbl62, item2)
-                                            v377 = true
+                                            v379 = true
                                         else
                                             if flag16 and item2.Name == "Knife" then
-                                                v378 = true
-                                                v380 = item2
+                                                v380 = true
+                                                v382 = item2
                                                 break
                                             end
                                             if type_2 == "Melee" then
-                                                v380 = item2
+                                                v382 = item2
                                                 if flag17 then
-                                                    v379 = true
+                                                    v381 = true
                                                     break
                                                 end
                                             end
                                         end
                                     end
-                                    local v382 = nil
-                                    local v383 = nil
-                                    if not v378 then
-                                        if not v379 and (not v380 or v377) then
-                                            if v377 then
-                                                v382 = v365
-                                                v383 = tbl62
-                                            end
-                                        else
-                                            v382 = v363
-                                            v383 = v380
-                                        end
-                                    else
-                                        v382 = v359
-                                        v383 = v380
-                                    end
                                     local v384 = nil
                                     local v385 = nil
+                                    if not v380 then
+                                        if not v381 and (not v382 or v379) then
+                                            if v379 then
+                                                v384 = v367
+                                                v385 = tbl62
+                                            end
+                                        else
+                                            v384 = v365
+                                            v385 = v382
+                                        end
+                                    else
+                                        v384 = v361
+                                        v385 = v382
+                                    end
                                     local v386 = nil
                                     local v387 = nil
                                     local v388 = nil
                                     local v389 = nil
-                                    local v390
-                                    if not v382 then
-                                        v390 = "invalid weapons for ragebot"
+                                    local v390 = nil
+                                    local v391 = nil
+                                    local v392
+                                    if not v384 then
+                                        v392 = "invalid weapons for ragebot"
                                     else
                                         local data
                                         local current = duel_cache2.current
                                         data = current and current.Data
                                         local status = data and data.Status
                                         if data and status == "RoundStarted" then
-                                            local v393, v394, v395, v396, v397, v398 = v366()
-                                            v384 = v393
-                                            v385 = v394
+                                            local v395, v396, v397, v398, v399, v400 = v368()
                                             v386 = v395
                                             v387 = v396
                                             v388 = v397
                                             v389 = v398
+                                            v390 = v399
+                                            v391 = v400
                                         end
-                                        v390 = v382(v383, v384, v386, v387, arg1, v388, v385, status)
+                                        v392 = v384(v385, v386, v388, v389, arg1, v390, v387, status)
                                     end
                                     local str11 = ""
                                     if indicator_ragebot.Value then
@@ -14305,52 +14329,52 @@ if not getgenv().UE_LOADED then
                                             str12 = v189("ragebot text", ": ")
                                         end
                                         if indicator_ragebot_styleValue.status then
-                                            str11 = str11 .. str12 .. v189("ragebot status", v390 or "?")
+                                            str11 = str11 .. str12 .. v189("ragebot status", v392 or "?")
                                         end
                                         if str11 ~= "" then
                                             str11 = str11 .. "\n"
                                         end
                                     end
-                                    local v399 = v190
-                                    local v400 = n6
-                                    local v401 = v386
-                                    if v401 then
-                                        v401 = v386.character
+                                    local v401 = v190
+                                    local v402 = n6
+                                    local v403 = v388
+                                    if v403 then
+                                        v403 = v388.character
                                     end
-                                    v399(v400, v401, v384, nil, false, str11, v387, v389, "ragebot")
+                                    v401(v402, v403, v386, nil, false, str11, v389, v391, "ragebot")
                                     return true
                                 end
                             end
                             local list = {}
                             do
-                                local v375 = nil
+                                local v377 = nil
                                 local anti_aim_floor_hide_keybind = Options.anti_aim_floor_hide_keybind
                                 Toggles.anti_aim_floor_hide:OnChanged(function(value)
-                                    v375 = value
+                                    v377 = value
                                 end)
-                                local v376 = new2(0, 5, 0);
+                                local v378 = new2(0, 5, 0);
                                 (function(arg1)
                                     table.insert(list, arg1)
                                 end)(function()
-                                    if v375 and anti_aim_floor_hide_keybind:GetState() then
-                                        CFrame2 = new(position - v376) * fromOrientation(rad(90), 0, 0)
+                                    if v377 and anti_aim_floor_hide_keybind:GetState() then
+                                        CFrame2 = new(position - v378) * fromOrientation(rad(90), 0, 0)
                                     end
                                 end)
                                 local _ = renderStepped2.Wait
                             end
                             local index8 = v6(Instance.new("Part")).__index
                             RunService_.Heartbeat:Connect(function(dt)
-                                if v348 and v177() then
-                                    local v377 = v348
-                                    fn64(index8(v377, "CFrame"))
-                                    if v352() then
-                                        v353(dt)
-                                    elseif v349 then
-                                        v349 = nil
+                                if v350 and v177() then
+                                    local v379 = v350
+                                    fn64(index8(v379, "CFrame"))
+                                    if v354() then
+                                        v355(dt)
+                                    elseif v351 then
+                                        v351 = nil
                                     end
                                     if not CFrame2 then
-                                        for _, v378 in list do
-                                            if v378() then
+                                        for _, v380 in list do
+                                            if v380() then
                                                 break
                                             end
                                         end
@@ -14359,7 +14383,7 @@ if not getgenv().UE_LOADED then
                                         CFrame = nil
                                         position = nil
                                     else
-                                        v377.CFrame = CFrame2
+                                        v379.CFrame = CFrame2
                                     end
                                     return
                                 end
@@ -14461,7 +14485,7 @@ if not getgenv().UE_LOADED then
                             local targeting_disableflashValue = targeting_disableflash.Value
                             local radius = silent_toggleValue and silent3.Radius or 0
                             local radius2 = aimbot_toggleValue and aimbot3.Radius or 0
-                            local v348 = max(radius, radius2)
+                            local v350 = max(radius, radius2)
                             local silent_manipulationValue = silent_toggleValue and silent_keybind:GetState() and silent_manipulation.Value
                             local targeting_partValue = silent_manipulationValue and "HitboxHead" or targeting_part.Value
                             local targeting_visibleonlyValue = targeting_visibleonly.Value
@@ -14471,54 +14495,54 @@ if not getgenv().UE_LOADED then
                             local character2 = nil
                             local character4 = nil
                             local player = nil
-                            local v355 = nil
-                            local v356 = nil
                             local v357 = nil
+                            local v358 = nil
+                            local v359 = nil
                             local data = nil
                             local fighter = nil
                             local str11 = ""
                             local equippedItem2 = item.EquippedItem
-                            for k23, v360 in duel_cache.list do
-                                if k23 ~= localPlayer and not v360._is_ally then
+                            for k23, v362 in duel_cache.list do
+                                if k23 ~= localPlayer and not v362._is_ally then
                                     local character5 = characters2[k23]
                                     if character5 then
                                         local humanoid2 = character5.Humanoid
                                         if humanoid2 and 0 < humanoid2.Health then
-                                            local v362 = character5[targeting_partValue]
-                                            if v362 then
-                                                local position4 = v362.Position
+                                            local v364 = character5[targeting_partValue]
+                                            if v364 then
+                                                local position4 = v364.Position
                                                 if not targeting_maxdistanceValue or not (targeting_maxdistanceValue < (position - position4).Magnitude) then
-                                                    local v363, v364 = v20(position4)
-                                                    local v365 = v363
-                                                    if v364 then
-                                                        local magnitude2 = (n6 - v365).Magnitude
-                                                        if not (v348 < magnitude2) then
-                                                            local clientFighter = v360.ClientFighter
+                                                    local v365, v366 = v20(position4)
+                                                    local v367 = v365
+                                                    if v366 then
+                                                        local magnitude2 = (n6 - v367).Magnitude
+                                                        if not (v350 < magnitude2) then
+                                                            local clientFighter = v362.ClientFighter
                                                             if clientFighter and (not value61 or not v186(clientFighter) and not v185(clientFighter, value62, position, position4)) then
-                                                                local v366 = nil
-                                                                local v367 = nil
+                                                                local v368 = nil
+                                                                local v369 = nil
                                                                 if not silent_manipulationValue then
                                                                     if targeting_visibleonlyValue and not fn7(position, position4) then
                                                                         continue
                                                                     end
                                                                 else
-                                                                    local v368, v369 = v178(position, position4, character5, equippedItem2)
-                                                                    v366 = v368
-                                                                    v367 = v369
-                                                                    if not v366 then
+                                                                    local v370, v371 = v178(position, position4, character5, equippedItem2)
+                                                                    v368 = v370
+                                                                    v369 = v371
+                                                                    if not v368 then
                                                                         continue
                                                                     end
-                                                                    v362 = v367 and v367.part or v362
+                                                                    v364 = v369 and v369.part or v364
                                                                 end
-                                                                v357 = v366
-                                                                v348 = magnitude2
-                                                                v356 = v365
+                                                                v359 = v368
+                                                                v350 = magnitude2
+                                                                v358 = v367
                                                                 character2 = character5.character
                                                                 character4 = character5
-                                                                v355 = v362
+                                                                v357 = v364
                                                                 fighter = clientFighter
                                                                 player = k23
-                                                                data = v367
+                                                                data = v369
                                                             end
                                                         end
                                                     end
@@ -14542,45 +14566,45 @@ if not getgenv().UE_LOADED then
                             if not flag15 then
                                 character2 = nil
                                 player = nil
-                                v355 = nil
-                                v356 = nil
                                 v357 = nil
+                                v358 = nil
+                                v359 = nil
                                 data = nil
                             end
                             local silent_closest_partValue = silent_closest_part.Value
                             local aimbot_closest_partValue = aimbot_closest_part.Value
-                            local v370 = nil
-                            if v355 and (silent_closest_partValue or aimbot_closest_partValue) and not data then
-                                local v371, v372 = v207(n6, character4)
-                                local v373 = v371
-                                local v374 = v372
-                                if v373 then
-                                    v370 = v373
-                                    v356 = v374
+                            local v372 = nil
+                            if v357 and (silent_closest_partValue or aimbot_closest_partValue) and not data then
+                                local v373, v374 = v207(n6, character4)
+                                local v375 = v373
+                                local v376 = v374
+                                if v375 then
+                                    v372 = v375
+                                    v358 = v376
                                 end
                             end
-                            if not (v348 < radius) then
+                            if not (v350 < radius) then
                                 clear(silent2)
                             else
-                                silent2.part = silent_closest_partValue and v370 or v355
+                                silent2.part = silent_closest_partValue and v372 or v357
                                 silent2.player = player
                                 silent2.fighter = fighter
                                 silent2.character = character4
                             end
-                            if not (v348 < radius2) then
+                            if not (v350 < radius2) then
                                 clear(aimbot2)
                             else
-                                aimbot2.part = aimbot_closest_partValue and v370 or v355
+                                aimbot2.part = aimbot_closest_partValue and v372 or v357
                                 aimbot2.player = player
                                 aimbot2.fighter = fighter
                                 aimbot2.character = character4
                             end
                             manipulation.data = data
-                            if v357 and indicator_manipulated.Value then
+                            if v359 and indicator_manipulated.Value then
                                 str11 = "" .. v189("manipulated", "manipulated", true)
                             end
                             v209 = player
-                            v190(n6, character2, v370 or v355, v356, true, str11, fighter, player, (aimbot_toggleValue or silent_toggleValue) and "aimbot" or nil)
+                            v190(n6, character2, v372 or v357, v358, true, str11, fighter, player, (aimbot_toggleValue or silent_toggleValue) and "aimbot" or nil)
                         end)
                     end
                     do
@@ -14651,11 +14675,11 @@ if not getgenv().UE_LOADED then
                             end
                             local fn35 = function(arg1)
                                 local clientFighter = rawget(arg1, "ClientFighter")
-                                local v346 = rawget(clientFighter, "_camera_rotation_spring") or {_target = Vector2.zero}
+                                local v348 = rawget(clientFighter, "_camera_rotation_spring") or {_target = Vector2.zero}
                                 local angles = CFrame.Angles
                                 local dot = zero.Dot
                                 return function(vector)
-                                    local value007 = v346[("_target")]
+                                    local value007 = v348[("_target")]
 
                                     return dot((angles(0, value007.Y, 0) * angles(value007.X, 0, 0)).LookVector, vector.Unit) > 0.5
                                 end
@@ -14678,11 +14702,11 @@ if not getgenv().UE_LOADED then
                             end
                             do
                                 local fn37 = function()
-                                    local v345 = upper(Options.esp_flag_bridge.Value:sub(1, 30))
+                                    local v347 = upper(Options.esp_flag_bridge.Value:sub(1, 30))
                                     for _, list3 in {{"&", "&amp;"}, {"'", "&apos;"}, {"\"", "&quot;"}, {">", "&gt;"}, {"<", "&lt;"}} do
-                                        v345 = v345:gsub(unpack(list3))
+                                        v347 = v347:gsub(unpack(list3))
                                     end
-                                    v214 = v345
+                                    v214 = v347
                                 end
                                 Options.esp_flag_style:OnChanged(function(value)
                                     upper = string[value]
@@ -15772,20 +15796,20 @@ if not getgenv().UE_LOADED then
                             do
                                 local running = tbl39.running
                                 state.events.esp_dueler_added.Event:Connect(function(arg1)
-                                    local v345, v346 = arg1()
-                                    v217(v345, v346)
+                                    local v347, v348 = arg1()
+                                    v217(v347, v348)
                                 end)
                                 local fn38 = function(arg1)
-                                    local v345 = running[arg1]
-                                    if v345 then
+                                    local v347 = running[arg1]
+                                    if v347 then
                                         running[arg1] = nil
-                                        for _, connection in v345.connections do
+                                        for _, connection in v347.connections do
                                             connection:Disconnect()
                                         end
-                                        for _, drawing in v345.drawings do
+                                        for _, drawing in v347.drawings do
                                             drawing:Remove()
                                         end
-                                        for k23, gradient in v345.gradients do
+                                        for k23, gradient in v347.gradients do
                                             local index8 = table.find(tbl39.gradients[k23], gradient)
                                             if index8 then
                                                 table.remove(tbl39.gradients[k23], index8)
@@ -15987,13 +16011,16 @@ if not getgenv().UE_LOADED then
                                 state.events.esp_chams_changed.Event:Connect(function()
                                     highlight.Enabled = Toggles.esp_chams.Value
                                     highlight.Adornee = highlight.Enabled and model or nil
-                                    local outlineColor = Options.esp_chams_color.Value
-                                    local n = math.min(Options.esp_chams_alpha_outline.Value, 0.99)
-                                    highlight.OutlineColor = outlineColor
-                                    highlight.OutlineTransparency = n
-                                    highlight.FillTransparency = Options.esp_chams_alpha_fill.Value
-                                    highlight.FillColor = fn39(Options.esp_chams_color2.Value, highlight.FillTransparency)
-                                    highlight.DepthMode = Enum.HighlightDepthMode[Options.esp_chams_settings.Value["through walls"] and "AlwaysOnTop" or "Occluded"]
+                                    do
+                                        local outlineColor = Options.esp_chams_color.Value
+                                        local n = math.min(Options.esp_chams_alpha_outline.Value, 0.99)
+                                        highlight.OutlineColor = outlineColor
+                                        highlight.OutlineTransparency = n
+                                        highlight.FillTransparency = Options.esp_chams_alpha_fill.Value
+                                        highlight.FillColor = fn39(Options.esp_chams_color2.Value, highlight.FillTransparency)
+                                    end
+                                    local esp_chams_settings = Options.esp_chams_settings.Value
+                                    highlight.DepthMode = Enum.HighlightDepthMode[esp_chams_settings["through walls"] and "AlwaysOnTop" or "Occluded"]
                                 end)
                                 Options.esp_chams_settings:OnChanged(function(value)
                                     pulse = value.pulse
@@ -16088,12 +16115,12 @@ if not getgenv().UE_LOADED then
                                     end
                                     local num9 = 0
                                     local position4 = model:GetPivot().Position
-                                    local v348 = nil
+                                    local v350 = nil
                                     local connection = RunService_.RenderStepped:Connect(function(dt)
                                         if not list[arg1] then
                                             return fn62()
                                         end
-                                        if not v348 then
+                                        if not v350 then
                                             position4 = model:GetPivot().Position
                                         end
 
@@ -16122,10 +16149,10 @@ if not getgenv().UE_LOADED then
                                         textLabel.Visible, textLabel.TextColor3 = visible, textColor3
                                         parent.Position, parent.ZIndex = fromOffset(value031.X, value031.Y), -value035
 
-                                        if v348 then
-                                            v348 = v348 + dt
+                                        if v350 then
+                                            v350 = v350 + dt
 
-                                            local value036 = clamp(v348 / v228, 0, 1)
+                                            local value036 = clamp(v350 / v228, 0, 1)
 
                                             for key, value in list3 do
 
@@ -16140,8 +16167,8 @@ if not getgenv().UE_LOADED then
 
                                         local value039, value040
 
-                                        if v229 and v348 then
-                                            value039, value040 = 1, num6 * (1 - clamp(v348 / v228, 0, 1))
+                                        if v229 and v350 then
+                                            value039, value040 = 1, num6 * (1 - clamp(v350 / v228, 0, 1))
                                         else
                                             value039, value040 = v226, num6
                                         end
@@ -16153,7 +16180,7 @@ if not getgenv().UE_LOADED then
                                         parent.Size = fromOffset(num9, num9)
                                     end)
                                     model.Destroying:Connect(function()
-                                        v348 = 0
+                                        v350 = 0
                                         task.wait(v228)
                                         connection:Disconnect()
                                         parent:Destroy()
@@ -16227,10 +16254,10 @@ if not getgenv().UE_LOADED then
                         end
                         v236 = function(arg1, arg2)
                             fn41(arg2, arg1)
-                            local v345 = v237()
-                            local v346 = loadstring(string.format("return function(...) return getfenv()['\\0%s'](...); end;", v345))()
-                            rawset(getfenv(arg1), "\0" .. v345, arg2)
-                            return hookfunction_(arg1, fn41(v346, arg1))
+                            local v347 = v237()
+                            local v348 = loadstring(string.format("return function(...) return getfenv()['\\0%s'](...); end;", v347))()
+                            rawset(getfenv(arg1), "\0" .. v347, arg2)
+                            return hookfunction_(arg1, fn41(v348, arg1))
                         end
                     end
                     local fn42 = function(arg1)
@@ -16238,8 +16265,8 @@ if not getgenv().UE_LOADED then
                         return arg1
                     end
                     local fn43 = function(arg1, arg2, arg3)
-                        for k23, v345 in v232(arg1) do
-                            if v345 == arg2 then
+                        for k23, v347 in v232(arg1) do
+                            if v347 == arg2 then
                                 if not arg3 then
                                     return k23
                                 end
@@ -16249,8 +16276,8 @@ if not getgenv().UE_LOADED then
                         end
                     end
                     local fn44 = function(arg1, arg2, arg3, arg4)
-                        for k23, v345 in v234(arg1) do
-                            if arg4 and arg4(v345) or arg3 ~= nil and v345 == arg2 then
+                        for k23, v347 in v234(arg1) do
+                            if arg4 and arg4(v347) or arg3 ~= nil and v347 == arg2 then
                                 if not arg3 then
                                     return k23
                                 end
@@ -16267,8 +16294,8 @@ if not getgenv().UE_LOADED then
                         local module8 = require(fn4(controllers, "CameraController"))
                         local aimbot_keybind = Options.aimbot_keybind
                         local fn45 = function(cframe, arg2)
-                            local v345 = new3((cframe:Inverse() * arg2):ToOrientation())
-                            return new3(v345.X * 0.5, v345.Y) * 14
+                            local v347 = new3((cframe:Inverse() * arg2):ToOrientation())
+                            return new3(v347.X * 0.5, v347.Y) * 14
                         end
                         local v243 = nil
                         local v244 = nil
@@ -16323,142 +16350,142 @@ if not getgenv().UE_LOADED then
                                             local cameraCFrame = module8:GetCameraCFrame()
                                             local position4 = cameraCFrame.Position
                                             local position5 = part.Position
-                                            local fighter, v347, v348, lerped, lerped2, v351, equippedItem, v353, v354
+                                            local fighter, v349, v350, lerped, lerped2, v353, equippedItem, v355, v356
                                             if not v243 then
                                                 if v244 then
                                                     fighter = aimbot4.fighter
-                                                    v347 = position4 + cameraCFrame.LookVector * (cameraCFrame.Position - position5).Magnitude
+                                                    v349 = position4 + cameraCFrame.LookVector * (cameraCFrame.Position - position5).Magnitude
                                                     if v250 ~= fighter then
-                                                        v249 = v347
+                                                        v249 = v349
                                                         v250 = fighter
-                                                        if (v347 - position5).Magnitude < (v249 - position5).Magnitude then
-                                                            v249 = v347
-                                                            v348 = lerp(v249.Y, position5.Y, fn47(fn48(humanoid2) and v247 or v246, arg1))
+                                                        if (v349 - position5).Magnitude < (v249 - position5).Magnitude then
+                                                            v249 = v349
+                                                            v350 = lerp(v249.Y, position5.Y, fn47(fn48(humanoid2) and v247 or v246, arg1))
                                                             lerped = v249:Lerp(position5, fn47(v245, arg1))
-                                                            v249 = new2(lerped.X, v348, lerped.Z)
+                                                            v249 = new2(lerped.X, v350, lerped.Z)
                                                             position5 = v249
                                                             lerped2 = cameraCFrame:Lerp(lookAt(position4, position5), fn47(v248, arg1))
                                                             if lerped2 == lerped2 then
                                                                 module8:SetRotation(new3(lerped2:ToOrientation()))
-                                                                v351 = fn45(cameraCFrame, lerped2)
+                                                                v353 = fn45(cameraCFrame, lerped2)
                                                                 equippedItem = item.EquippedItem
-                                                                v353 = equippedItem
-                                                                if v353 then
-                                                                    v353 = equippedItem.ViewModel
-                                                                    v354 = v353
-                                                                    if v354 then
-                                                                        v354._sway_spring.Value = v354._sway_spring.Value + v351 * 35
-                                                                        module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                                v355 = equippedItem
+                                                                if v355 then
+                                                                    v355 = equippedItem.ViewModel
+                                                                    v356 = v355
+                                                                    if v356 then
+                                                                        v356._sway_spring.Value = v356._sway_spring.Value + v353 * 35
+                                                                        module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                                         return
                                                                     end
-                                                                    module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                                    module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                                     return
                                                                 end
-                                                                v354 = v353
-                                                                if v354 then
-                                                                    v354._sway_spring.Value = v354._sway_spring.Value + v351 * 35
-                                                                    module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                                v356 = v355
+                                                                if v356 then
+                                                                    v356._sway_spring.Value = v356._sway_spring.Value + v353 * 35
+                                                                    module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                                     return
                                                                 end
-                                                                module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                                module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                                 return
                                                             end
                                                             return
                                                         end
-                                                        v348 = lerp(v249.Y, position5.Y, fn47(fn48(humanoid2) and v247 or v246, arg1))
+                                                        v350 = lerp(v249.Y, position5.Y, fn47(fn48(humanoid2) and v247 or v246, arg1))
                                                         lerped = v249:Lerp(position5, fn47(v245, arg1))
-                                                        v249 = new2(lerped.X, v348, lerped.Z)
+                                                        v249 = new2(lerped.X, v350, lerped.Z)
                                                         position5 = v249
                                                         lerped2 = cameraCFrame:Lerp(lookAt(position4, position5), fn47(v248, arg1))
                                                         if lerped2 == lerped2 then
                                                             module8:SetRotation(new3(lerped2:ToOrientation()))
-                                                            v351 = fn45(cameraCFrame, lerped2)
+                                                            v353 = fn45(cameraCFrame, lerped2)
                                                             equippedItem = item.EquippedItem
-                                                            v353 = equippedItem
-                                                            if v353 then
-                                                                v353 = equippedItem.ViewModel
-                                                                v354 = v353
-                                                                if v354 then
-                                                                    v354._sway_spring.Value = v354._sway_spring.Value + v351 * 35
-                                                                    module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                            v355 = equippedItem
+                                                            if v355 then
+                                                                v355 = equippedItem.ViewModel
+                                                                v356 = v355
+                                                                if v356 then
+                                                                    v356._sway_spring.Value = v356._sway_spring.Value + v353 * 35
+                                                                    module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                                     return
                                                                 end
-                                                                module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                                module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                                 return
                                                             end
-                                                            v354 = v353
-                                                            if v354 then
-                                                                v354._sway_spring.Value = v354._sway_spring.Value + v351 * 35
-                                                                module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                            v356 = v355
+                                                            if v356 then
+                                                                v356._sway_spring.Value = v356._sway_spring.Value + v353 * 35
+                                                                module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                                 return
                                                             end
-                                                            module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                            module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                             return
                                                         end
                                                         return
                                                     end
-                                                    if (v347 - position5).Magnitude < (v249 - position5).Magnitude then
-                                                        v249 = v347
-                                                        v348 = lerp(v249.Y, position5.Y, fn47(fn48(humanoid2) and v247 or v246, arg1))
+                                                    if (v349 - position5).Magnitude < (v249 - position5).Magnitude then
+                                                        v249 = v349
+                                                        v350 = lerp(v249.Y, position5.Y, fn47(fn48(humanoid2) and v247 or v246, arg1))
                                                         lerped = v249:Lerp(position5, fn47(v245, arg1))
-                                                        v249 = new2(lerped.X, v348, lerped.Z)
+                                                        v249 = new2(lerped.X, v350, lerped.Z)
                                                         position5 = v249
                                                         lerped2 = cameraCFrame:Lerp(lookAt(position4, position5), fn47(v248, arg1))
                                                         if lerped2 == lerped2 then
                                                             module8:SetRotation(new3(lerped2:ToOrientation()))
-                                                            v351 = fn45(cameraCFrame, lerped2)
+                                                            v353 = fn45(cameraCFrame, lerped2)
                                                             equippedItem = item.EquippedItem
-                                                            v353 = equippedItem
-                                                            if v353 then
-                                                                v353 = equippedItem.ViewModel
-                                                                v354 = v353
-                                                                if v354 then
-                                                                    v354._sway_spring.Value = v354._sway_spring.Value + v351 * 35
-                                                                    module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                            v355 = equippedItem
+                                                            if v355 then
+                                                                v355 = equippedItem.ViewModel
+                                                                v356 = v355
+                                                                if v356 then
+                                                                    v356._sway_spring.Value = v356._sway_spring.Value + v353 * 35
+                                                                    module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                                     return
                                                                 end
-                                                                module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                                module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                                 return
                                                             end
-                                                            v354 = v353
-                                                            if v354 then
-                                                                v354._sway_spring.Value = v354._sway_spring.Value + v351 * 35
-                                                                module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                            v356 = v355
+                                                            if v356 then
+                                                                v356._sway_spring.Value = v356._sway_spring.Value + v353 * 35
+                                                                module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                                 return
                                                             end
-                                                            module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                            module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                             return
                                                         end
                                                         return
                                                     end
-                                                    v348 = lerp(v249.Y, position5.Y, fn47(fn48(humanoid2) and v247 or v246, arg1))
+                                                    v350 = lerp(v249.Y, position5.Y, fn47(fn48(humanoid2) and v247 or v246, arg1))
                                                     lerped = v249:Lerp(position5, fn47(v245, arg1))
-                                                    v249 = new2(lerped.X, v348, lerped.Z)
+                                                    v249 = new2(lerped.X, v350, lerped.Z)
                                                     position5 = v249
                                                     lerped2 = cameraCFrame:Lerp(lookAt(position4, position5), fn47(v248, arg1))
                                                     if lerped2 == lerped2 then
                                                         module8:SetRotation(new3(lerped2:ToOrientation()))
-                                                        v351 = fn45(cameraCFrame, lerped2)
+                                                        v353 = fn45(cameraCFrame, lerped2)
                                                         equippedItem = item.EquippedItem
-                                                        v353 = equippedItem
-                                                        if v353 then
-                                                            v353 = equippedItem.ViewModel
-                                                            v354 = v353
-                                                            if v354 then
-                                                                v354._sway_spring.Value = v354._sway_spring.Value + v351 * 35
-                                                                module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                        v355 = equippedItem
+                                                        if v355 then
+                                                            v355 = equippedItem.ViewModel
+                                                            v356 = v355
+                                                            if v356 then
+                                                                v356._sway_spring.Value = v356._sway_spring.Value + v353 * 35
+                                                                module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                                 return
                                                             end
-                                                            module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                            module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                             return
                                                         end
-                                                        v354 = v353
-                                                        if v354 then
-                                                            v354._sway_spring.Value = v354._sway_spring.Value + v351 * 35
-                                                            module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                        v356 = v355
+                                                        if v356 then
+                                                            v356._sway_spring.Value = v356._sway_spring.Value + v353 * 35
+                                                            module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                             return
                                                         end
-                                                        module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                        module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                         return
                                                     end
                                                     return
@@ -16466,27 +16493,27 @@ if not getgenv().UE_LOADED then
                                                 lerped2 = cameraCFrame:Lerp(lookAt(position4, position5), fn47(v248, arg1))
                                                 if lerped2 == lerped2 then
                                                     module8:SetRotation(new3(lerped2:ToOrientation()))
-                                                    v351 = fn45(cameraCFrame, lerped2)
+                                                    v353 = fn45(cameraCFrame, lerped2)
                                                     equippedItem = item.EquippedItem
-                                                    v353 = equippedItem
-                                                    if v353 then
-                                                        v353 = equippedItem.ViewModel
-                                                        v354 = v353
-                                                        if v354 then
-                                                            v354._sway_spring.Value = v354._sway_spring.Value + v351 * 35
-                                                            module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                    v355 = equippedItem
+                                                    if v355 then
+                                                        v355 = equippedItem.ViewModel
+                                                        v356 = v355
+                                                        if v356 then
+                                                            v356._sway_spring.Value = v356._sway_spring.Value + v353 * 35
+                                                            module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                             return
                                                         end
-                                                        module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                        module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                         return
                                                     end
-                                                    v354 = v353
-                                                    if v354 then
-                                                        v354._sway_spring.Value = v354._sway_spring.Value + v351 * 35
-                                                        module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                    v356 = v355
+                                                    if v356 then
+                                                        v356._sway_spring.Value = v356._sway_spring.Value + v353 * 35
+                                                        module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                         return
                                                     end
-                                                    module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                    module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                     return
                                                 end
                                                 return
@@ -16494,138 +16521,138 @@ if not getgenv().UE_LOADED then
                                             position5 = state.utility:match_axis(part, position5, cameraCFrame)
                                             if v244 then
                                                 fighter = aimbot4.fighter
-                                                v347 = position4 + cameraCFrame.LookVector * (cameraCFrame.Position - position5).Magnitude
+                                                v349 = position4 + cameraCFrame.LookVector * (cameraCFrame.Position - position5).Magnitude
                                                 if v250 ~= fighter then
-                                                    v249 = v347
+                                                    v249 = v349
                                                     v250 = fighter
-                                                    if (v347 - position5).Magnitude < (v249 - position5).Magnitude then
-                                                        v249 = v347
-                                                        v348 = lerp(v249.Y, position5.Y, fn47(fn48(humanoid2) and v247 or v246, arg1))
+                                                    if (v349 - position5).Magnitude < (v249 - position5).Magnitude then
+                                                        v249 = v349
+                                                        v350 = lerp(v249.Y, position5.Y, fn47(fn48(humanoid2) and v247 or v246, arg1))
                                                         lerped = v249:Lerp(position5, fn47(v245, arg1))
-                                                        v249 = new2(lerped.X, v348, lerped.Z)
+                                                        v249 = new2(lerped.X, v350, lerped.Z)
                                                         position5 = v249
                                                         lerped2 = cameraCFrame:Lerp(lookAt(position4, position5), fn47(v248, arg1))
                                                         if lerped2 == lerped2 then
                                                             module8:SetRotation(new3(lerped2:ToOrientation()))
-                                                            v351 = fn45(cameraCFrame, lerped2)
+                                                            v353 = fn45(cameraCFrame, lerped2)
                                                             equippedItem = item.EquippedItem
-                                                            v353 = equippedItem
-                                                            if v353 then
-                                                                v353 = equippedItem.ViewModel
-                                                                v354 = v353
-                                                                if v354 then
-                                                                    v354._sway_spring.Value = v354._sway_spring.Value + v351 * 35
-                                                                    module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                            v355 = equippedItem
+                                                            if v355 then
+                                                                v355 = equippedItem.ViewModel
+                                                                v356 = v355
+                                                                if v356 then
+                                                                    v356._sway_spring.Value = v356._sway_spring.Value + v353 * 35
+                                                                    module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                                     return
                                                                 end
-                                                                module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                                module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                                 return
                                                             end
-                                                            v354 = v353
-                                                            if v354 then
-                                                                v354._sway_spring.Value = v354._sway_spring.Value + v351 * 35
-                                                                module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                            v356 = v355
+                                                            if v356 then
+                                                                v356._sway_spring.Value = v356._sway_spring.Value + v353 * 35
+                                                                module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                                 return
                                                             end
-                                                            module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                            module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                             return
                                                         end
                                                         return
                                                     end
-                                                    v348 = lerp(v249.Y, position5.Y, fn47(fn48(humanoid2) and v247 or v246, arg1))
+                                                    v350 = lerp(v249.Y, position5.Y, fn47(fn48(humanoid2) and v247 or v246, arg1))
                                                     lerped = v249:Lerp(position5, fn47(v245, arg1))
-                                                    v249 = new2(lerped.X, v348, lerped.Z)
+                                                    v249 = new2(lerped.X, v350, lerped.Z)
                                                     position5 = v249
                                                     lerped2 = cameraCFrame:Lerp(lookAt(position4, position5), fn47(v248, arg1))
                                                     if lerped2 == lerped2 then
                                                         module8:SetRotation(new3(lerped2:ToOrientation()))
-                                                        v351 = fn45(cameraCFrame, lerped2)
+                                                        v353 = fn45(cameraCFrame, lerped2)
                                                         equippedItem = item.EquippedItem
-                                                        v353 = equippedItem
-                                                        if v353 then
-                                                            v353 = equippedItem.ViewModel
-                                                            v354 = v353
-                                                            if v354 then
-                                                                v354._sway_spring.Value = v354._sway_spring.Value + v351 * 35
-                                                                module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                        v355 = equippedItem
+                                                        if v355 then
+                                                            v355 = equippedItem.ViewModel
+                                                            v356 = v355
+                                                            if v356 then
+                                                                v356._sway_spring.Value = v356._sway_spring.Value + v353 * 35
+                                                                module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                                 return
                                                             end
-                                                            module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                            module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                             return
                                                         end
-                                                        v354 = v353
-                                                        if v354 then
-                                                            v354._sway_spring.Value = v354._sway_spring.Value + v351 * 35
-                                                            module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                        v356 = v355
+                                                        if v356 then
+                                                            v356._sway_spring.Value = v356._sway_spring.Value + v353 * 35
+                                                            module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                             return
                                                         end
-                                                        module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                        module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                         return
                                                     end
                                                     return
                                                 end
-                                                if (v347 - position5).Magnitude < (v249 - position5).Magnitude then
-                                                    v249 = v347
-                                                    v348 = lerp(v249.Y, position5.Y, fn47(fn48(humanoid2) and v247 or v246, arg1))
+                                                if (v349 - position5).Magnitude < (v249 - position5).Magnitude then
+                                                    v249 = v349
+                                                    v350 = lerp(v249.Y, position5.Y, fn47(fn48(humanoid2) and v247 or v246, arg1))
                                                     lerped = v249:Lerp(position5, fn47(v245, arg1))
-                                                    v249 = new2(lerped.X, v348, lerped.Z)
+                                                    v249 = new2(lerped.X, v350, lerped.Z)
                                                     position5 = v249
                                                     lerped2 = cameraCFrame:Lerp(lookAt(position4, position5), fn47(v248, arg1))
                                                     if lerped2 == lerped2 then
                                                         module8:SetRotation(new3(lerped2:ToOrientation()))
-                                                        v351 = fn45(cameraCFrame, lerped2)
+                                                        v353 = fn45(cameraCFrame, lerped2)
                                                         equippedItem = item.EquippedItem
-                                                        v353 = equippedItem
-                                                        if v353 then
-                                                            v353 = equippedItem.ViewModel
-                                                            v354 = v353
-                                                            if v354 then
-                                                                v354._sway_spring.Value = v354._sway_spring.Value + v351 * 35
-                                                                module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                        v355 = equippedItem
+                                                        if v355 then
+                                                            v355 = equippedItem.ViewModel
+                                                            v356 = v355
+                                                            if v356 then
+                                                                v356._sway_spring.Value = v356._sway_spring.Value + v353 * 35
+                                                                module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                                 return
                                                             end
-                                                            module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                            module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                             return
                                                         end
-                                                        v354 = v353
-                                                        if v354 then
-                                                            v354._sway_spring.Value = v354._sway_spring.Value + v351 * 35
-                                                            module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                        v356 = v355
+                                                        if v356 then
+                                                            v356._sway_spring.Value = v356._sway_spring.Value + v353 * 35
+                                                            module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                             return
                                                         end
-                                                        module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                        module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                         return
                                                     end
                                                     return
                                                 end
-                                                v348 = lerp(v249.Y, position5.Y, fn47(fn48(humanoid2) and v247 or v246, arg1))
+                                                v350 = lerp(v249.Y, position5.Y, fn47(fn48(humanoid2) and v247 or v246, arg1))
                                                 lerped = v249:Lerp(position5, fn47(v245, arg1))
-                                                v249 = new2(lerped.X, v348, lerped.Z)
+                                                v249 = new2(lerped.X, v350, lerped.Z)
                                                 position5 = v249
                                                 lerped2 = cameraCFrame:Lerp(lookAt(position4, position5), fn47(v248, arg1))
                                                 if lerped2 == lerped2 then
                                                     module8:SetRotation(new3(lerped2:ToOrientation()))
-                                                    v351 = fn45(cameraCFrame, lerped2)
+                                                    v353 = fn45(cameraCFrame, lerped2)
                                                     equippedItem = item.EquippedItem
-                                                    v353 = equippedItem
-                                                    if v353 then
-                                                        v353 = equippedItem.ViewModel
-                                                        v354 = v353
-                                                        if v354 then
-                                                            v354._sway_spring.Value = v354._sway_spring.Value + v351 * 35
-                                                            module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                    v355 = equippedItem
+                                                    if v355 then
+                                                        v355 = equippedItem.ViewModel
+                                                        v356 = v355
+                                                        if v356 then
+                                                            v356._sway_spring.Value = v356._sway_spring.Value + v353 * 35
+                                                            module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                             return
                                                         end
-                                                        module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                        module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                         return
                                                     end
-                                                    v354 = v353
-                                                    if v354 then
-                                                        v354._sway_spring.Value = v354._sway_spring.Value + v351 * 35
-                                                        module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                    v356 = v355
+                                                    if v356 then
+                                                        v356._sway_spring.Value = v356._sway_spring.Value + v353 * 35
+                                                        module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                         return
                                                     end
-                                                    module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                    module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                     return
                                                 end
                                                 return
@@ -16633,27 +16660,27 @@ if not getgenv().UE_LOADED then
                                             lerped2 = cameraCFrame:Lerp(lookAt(position4, position5), fn47(v248, arg1))
                                             if lerped2 == lerped2 then
                                                 module8:SetRotation(new3(lerped2:ToOrientation()))
-                                                v351 = fn45(cameraCFrame, lerped2)
+                                                v353 = fn45(cameraCFrame, lerped2)
                                                 equippedItem = item.EquippedItem
-                                                v353 = equippedItem
-                                                if v353 then
-                                                    v353 = equippedItem.ViewModel
-                                                    v354 = v353
-                                                    if v354 then
-                                                        v354._sway_spring.Value = v354._sway_spring.Value + v351 * 35
-                                                        module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                v355 = equippedItem
+                                                if v355 then
+                                                    v355 = equippedItem.ViewModel
+                                                    v356 = v355
+                                                    if v356 then
+                                                        v356._sway_spring.Value = v356._sway_spring.Value + v353 * 35
+                                                        module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                         return
                                                     end
-                                                    module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                    module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                     return
                                                 end
-                                                v354 = v353
-                                                if v354 then
-                                                    v354._sway_spring.Value = v354._sway_spring.Value + v351 * 35
-                                                    module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                v356 = v355
+                                                if v356 then
+                                                    v356._sway_spring.Value = v356._sway_spring.Value + v353 * 35
+                                                    module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                     return
                                                 end
-                                                module8._sway_spring.Value = module8._sway_spring.Value + v351 * 0.25
+                                                module8._sway_spring.Value = module8._sway_spring.Value + v353 * 0.25
                                                 return
                                             end
                                             return
@@ -16839,8 +16866,8 @@ if not getgenv().UE_LOADED then
                                 if CFrame and humanoid2 then
                                     CFrame = nil
                                     if humanoidRootPart then
-                                        local v353, v354 = humanoidRootPart.CFrame:ToOrientation()
-                                        humanoidRootPart.CFrame = new(humanoidRootPart.Position) * fromOrientation(0, v354, 0)
+                                        local v355, v356 = humanoidRootPart.CFrame:ToOrientation()
+                                        humanoidRootPart.CFrame = new(humanoidRootPart.Position) * fromOrientation(0, v356, 0)
                                         RunService_.Stepped:Wait()
                                         humanoid2.PlatformStand = false
                                     end
@@ -16868,8 +16895,8 @@ if not getgenv().UE_LOADED then
                             if not movement_noclip.Value or not movement_noclipkeybind:GetState() then
                                 if flag13 then
                                     flag13 = false
-                                    for _, v345 in tbl45 do
-                                        local part = list[v345]
+                                    for _, v347 in tbl45 do
+                                        local part = list[v347]
                                         if not part then
                                             break
                                         end
@@ -16878,8 +16905,8 @@ if not getgenv().UE_LOADED then
                                 end
                             else
                                 flag13 = true
-                                for _, v347 in tbl45 do
-                                    local part = list[v347]
+                                for _, v349 in tbl45 do
+                                    local part = list[v349]
                                     if not part then
                                         break
                                     end
@@ -16966,24 +16993,24 @@ if not getgenv().UE_LOADED then
                         task.spawn(function()
                             local input10 = require(fn4(modules, "ClientReplicatedClasses", "ClientFighter", "ClientItem")).Input
                             local triggerbot_keybind = Options.triggerbot_keybind
-                            local n16 = Options.triggerbot_shoot_delay.Value / 1000
-                            local n17 = Options.triggerbot_reaction_time.Value / 1000
-                            local n18 = Options.triggerbot_reaction_time_offset.Value / 1000
+                            local n17 = Options.triggerbot_shoot_delay.Value / 1000
+                            local n18 = Options.triggerbot_reaction_time.Value / 1000
+                            local n19 = Options.triggerbot_reaction_time_offset.Value / 1000
                             local triggerbot_forget_time = Options.triggerbot_forget_time.Value
                             local triggerbot_settings = Options.triggerbot_settings.Value
                             local list3 = nil
-                            local v346 = nil
+                            local v348 = nil
                             Options.triggerbot_max_distance:OnChanged(function(value)
-                                v346 = value
+                                v348 = value
                             end)
                             Options.triggerbot_shoot_delay:OnChanged(function(value)
-                                n16 = value / 1000
-                            end)
-                            Options.triggerbot_reaction_time:OnChanged(function(value)
                                 n17 = value / 1000
                             end)
-                            Options.triggerbot_reaction_time_offset:OnChanged(function(value)
+                            Options.triggerbot_reaction_time:OnChanged(function(value)
                                 n18 = value / 1000
+                            end)
+                            Options.triggerbot_reaction_time_offset:OnChanged(function(value)
+                                n19 = value / 1000
                             end)
                             Options.triggerbot_forget_time:OnChanged(function(value)
                                 triggerbot_forget_time = value
@@ -16998,9 +17025,9 @@ if not getgenv().UE_LOADED then
                             local num10 = 0
                             local num11 = 0
                             local num12 = 0
-                            local v347 = nil
+                            local v349 = nil
                             local fn62 = function(arg1)
-                                num11 = arg1 + n17 + random(-n18, n18)
+                                num11 = arg1 + n18 + random(-n19, n19)
                             end
                             local duel_cache2 = state.duel_cache
                             local list4 = {
@@ -17011,9 +17038,9 @@ if not getgenv().UE_LOADED then
                                 HitboxHeadSmall = true,
                                 FakeMass = true,
                             }
-                            local v348 = nil
+                            local v350 = nil
                             Options.triggerbot_scoped:OnChanged(function(value)
-                                v348 = value
+                                v350 = value
                             end)
                             local new13 = RaycastParams.new
                             state.utility:bind_connection(Toggles.triggerbot_enabled, RunService_.Heartbeat, fn41(function()
@@ -17024,21 +17051,21 @@ if not getgenv().UE_LOADED then
                                         if list then
                                             num9 = now4 + 0.016666666666666666
                                             local equippedItem2 = item.EquippedItem
-                                            if not equippedItem2 or equippedItem2.Info.Type ~= "Gun" or v348[equippedItem2.Name] and not equippedItem2:IsFullyAiming() then
+                                            if not equippedItem2 or equippedItem2.Info.Type ~= "Gun" or v350[equippedItem2.Name] and not equippedItem2:IsFullyAiming() then
                                                 return fn62(now4)
                                             end
                                             local cFrame3 = currentCamera.CFrame
-                                            local v349 = new13()
-                                            v349.CollisionGroup = ""
-                                            v349.FilterDescendantsInstances = {tbl.viewmodels, localPlayer.Character}
+                                            local v351 = new13()
+                                            v351.CollisionGroup = ""
+                                            v351.FilterDescendantsInstances = {tbl.viewmodels, localPlayer.Character}
                                             local position4 = cFrame3.Position
-                                            local n19 = cFrame3.LookVector * v346
+                                            local n20 = cFrame3.LookVector * v348
                                             while true do
-                                                local v350 = fn8(position4, n19, v349)
-                                                if not v350 then
+                                                local v352 = fn8(position4, n20, v351)
+                                                if not v352 then
                                                     break
                                                 end
-                                                local instance = v350.Instance
+                                                local instance = v352.Instance
                                                 if not instance:IsA("BasePart") then
                                                     break
                                                 end
@@ -17054,15 +17081,15 @@ if not getgenv().UE_LOADED then
                                                     end
                                                     local player = Players_2:GetPlayerFromCharacter(model)
                                                     if player then
-                                                        local v353 = list[player]
-                                                        if v353 and not v353._is_ally then
-                                                            local clientFighter = v353.ClientFighter
+                                                        local v355 = list[player]
+                                                        if v355 and not v355._is_ally then
+                                                            local clientFighter = v355.ClientFighter
                                                             if clientFighter and not v186(clientFighter) and (not triggerbot_settings["anti katana"] or not v185(clientFighter)) then
                                                                 if not (num12 < now4) then
-                                                                    if v347 and (v347 == humanoid or triggerbot_settings["no delay between targets"]) or not (now4 < num11) then
-                                                                        v347 = humanoid
+                                                                    if v349 and (v349 == humanoid or triggerbot_settings["no delay between targets"]) or not (now4 < num11) then
+                                                                        v349 = humanoid
                                                                         num12 = now4 + triggerbot_forget_time
-                                                                        num10 = now4 + n16
+                                                                        num10 = now4 + n17
                                                                         v7(1)
                                                                         input10(equippedItem2, "StartShooting")
                                                                         v7(8)
@@ -17070,11 +17097,11 @@ if not getgenv().UE_LOADED then
                                                                     end
                                                                     return
                                                                 end
-                                                                v347 = nil
-                                                                if v347 and (v347 == humanoid or triggerbot_settings["no delay between targets"]) or not (now4 < num11) then
-                                                                    v347 = humanoid
+                                                                v349 = nil
+                                                                if v349 and (v349 == humanoid or triggerbot_settings["no delay between targets"]) or not (now4 < num11) then
+                                                                    v349 = humanoid
                                                                     num12 = now4 + triggerbot_forget_time
-                                                                    num10 = now4 + n16
+                                                                    num10 = now4 + n17
                                                                     v7(1)
                                                                     input10(equippedItem2, "StartShooting")
                                                                     v7(8)
@@ -17088,7 +17115,7 @@ if not getgenv().UE_LOADED then
                                                     end
                                                     break
                                                 end
-                                                v349:AddToFilter(instance)
+                                                v351:AddToFilter(instance)
                                             end
                                             return fn62(now4)
                                         end
@@ -17106,9 +17133,9 @@ if not getgenv().UE_LOADED then
                             task = setmetatable({
                                 defer = newcclosure(fn41(function(arg1, ...)
                                     local list = v255(arg1)
-                                    local v346 = list[1]
-                                    if v346 then
-                                        world_esp_added:Fire(v346.Name, list[3])
+                                    local v348 = list[1]
+                                    if v348 then
+                                        world_esp_added:Fire(v348.Name, list[3])
                                     end
                                     return defer(arg1, ...)
                                 end, replicateFromServer)),
@@ -17136,139 +17163,139 @@ if not getgenv().UE_LOADED then
                                 if select_("#", ...) == 0 then
                                     local part = silent4.part
                                     if part and silent_toggle2.Value then
-                                        local v345 = random(0, 99)
-                                        if not (silent_hitchance.Value < v345) and silent_keybind2:GetState() then
+                                        local v347 = random(0, 99)
+                                        if not (silent_hitchance.Value < v347) and silent_keybind2:GetState() then
                                             local list3 = pack(getCameraData(arg1, ...))
-                                            local v347 = list3[1]
-                                            local v348 = v38("CameraData", v347)
-                                            local cameraCFrame = v348:GetCameraCFrame()
-                                            local muzzleCFrame = v348:GetMuzzleCFrame()
+                                            local v349 = list3[1]
+                                            local v350 = v38("CameraData", v349)
+                                            local cameraCFrame = v350:GetCameraCFrame()
+                                            local muzzleCFrame = v350:GetMuzzleCFrame()
                                             local data = manipulation2.data
                                             local _ = item.EquippedItem
-                                            v348:SetHitOffset(new(Random.new():NextUnitVector() * 0.1))
+                                            v350:SetHitOffset(new(Random.new():NextUnitVector() * 0.1))
                                             if not data then
                                                 local position4 = part.Position
-                                                v348:SetCameraCFrame(new(cameraCFrame.Position, position4))
-                                                v348:SetMuzzleCFrame(new(muzzleCFrame.Position, position4))
-                                                v348:SetHitPart(part)
+                                                v350:SetCameraCFrame(new(cameraCFrame.Position, position4))
+                                                v350:SetMuzzleCFrame(new(muzzleCFrame.Position, position4))
+                                                v350:SetHitPart(part)
                                                 return unpack_(list3, 1, list3.n)
                                             end
                                             if not data.projectile then
                                                 local c1 = data.c1
                                                 local c2 = data.c2
                                                 local offset3 = data.offset
-                                                local h_offset, v352, v353, v354
+                                                local h_offset, v354, v355, v356
                                                 if not c1 then
                                                     if not c2 then
                                                         if not offset3 then
-                                                            v348:SetCameraCFrame(cameraCFrame)
-                                                            v348:SetMuzzleCFrame(muzzleCFrame)
+                                                            v350:SetCameraCFrame(cameraCFrame)
+                                                            v350:SetMuzzleCFrame(muzzleCFrame)
                                                             h_offset = data.h_offset
                                                             if not h_offset then
-                                                                v348:SetHitPart(part)
+                                                                v350:SetHitPart(part)
                                                                 return unpack_(list3, 1, list3.n)
                                                             end
-                                                            v348:SetHitOffset(new(h_offset))
-                                                            v348:SetHitPart(part)
+                                                            v350:SetHitOffset(new(h_offset))
+                                                            v350:SetHitPart(part)
                                                             return unpack_(list3, 1, list3.n)
                                                         end
                                                         muzzleCFrame = muzzleCFrame + offset3
                                                         cameraCFrame = cameraCFrame + offset3
-                                                        v348:SetCameraCFrame(cameraCFrame)
-                                                        v348:SetMuzzleCFrame(muzzleCFrame)
+                                                        v350:SetCameraCFrame(cameraCFrame)
+                                                        v350:SetMuzzleCFrame(muzzleCFrame)
                                                         h_offset = data.h_offset
                                                         if not h_offset then
-                                                            v348:SetHitPart(part)
+                                                            v350:SetHitPart(part)
                                                             return unpack_(list3, 1, list3.n)
                                                         end
-                                                        v348:SetHitOffset(new(h_offset))
-                                                        v348:SetHitPart(part)
+                                                        v350:SetHitOffset(new(h_offset))
+                                                        v350:SetHitPart(part)
                                                         return unpack_(list3, 1, list3.n)
                                                     end
-                                                    v352, v353, v354 = muzzleCFrame:ToOrientation()
-                                                    muzzleCFrame = new(c2) * fromOrientation(v352, v353, v354)
+                                                    v354, v355, v356 = muzzleCFrame:ToOrientation()
+                                                    muzzleCFrame = new(c2) * fromOrientation(v354, v355, v356)
                                                     if not offset3 then
-                                                        v348:SetCameraCFrame(cameraCFrame)
-                                                        v348:SetMuzzleCFrame(muzzleCFrame)
+                                                        v350:SetCameraCFrame(cameraCFrame)
+                                                        v350:SetMuzzleCFrame(muzzleCFrame)
                                                         h_offset = data.h_offset
                                                         if not h_offset then
-                                                            v348:SetHitPart(part)
+                                                            v350:SetHitPart(part)
                                                             return unpack_(list3, 1, list3.n)
                                                         end
-                                                        v348:SetHitOffset(new(h_offset))
-                                                        v348:SetHitPart(part)
+                                                        v350:SetHitOffset(new(h_offset))
+                                                        v350:SetHitPart(part)
                                                         return unpack_(list3, 1, list3.n)
                                                     end
                                                     muzzleCFrame = muzzleCFrame + offset3
                                                     cameraCFrame = cameraCFrame + offset3
-                                                    v348:SetCameraCFrame(cameraCFrame)
-                                                    v348:SetMuzzleCFrame(muzzleCFrame)
+                                                    v350:SetCameraCFrame(cameraCFrame)
+                                                    v350:SetMuzzleCFrame(muzzleCFrame)
                                                     h_offset = data.h_offset
                                                     if not h_offset then
-                                                        v348:SetHitPart(part)
+                                                        v350:SetHitPart(part)
                                                         return unpack_(list3, 1, list3.n)
                                                     end
-                                                    v348:SetHitOffset(new(h_offset))
-                                                    v348:SetHitPart(part)
+                                                    v350:SetHitOffset(new(h_offset))
+                                                    v350:SetHitPart(part)
                                                     return unpack_(list3, 1, list3.n)
                                                 end
-                                                local v355, v356, v357 = cameraCFrame:ToOrientation()
-                                                cameraCFrame = new(c1) * fromOrientation(v355, v356, v357)
+                                                local v357, v358, v359 = cameraCFrame:ToOrientation()
+                                                cameraCFrame = new(c1) * fromOrientation(v357, v358, v359)
                                                 if not c2 then
                                                     if not offset3 then
-                                                        v348:SetCameraCFrame(cameraCFrame)
-                                                        v348:SetMuzzleCFrame(muzzleCFrame)
+                                                        v350:SetCameraCFrame(cameraCFrame)
+                                                        v350:SetMuzzleCFrame(muzzleCFrame)
                                                         h_offset = data.h_offset
                                                         if not h_offset then
-                                                            v348:SetHitPart(part)
+                                                            v350:SetHitPart(part)
                                                             return unpack_(list3, 1, list3.n)
                                                         end
-                                                        v348:SetHitOffset(new(h_offset))
-                                                        v348:SetHitPart(part)
+                                                        v350:SetHitOffset(new(h_offset))
+                                                        v350:SetHitPart(part)
                                                         return unpack_(list3, 1, list3.n)
                                                     end
                                                     muzzleCFrame = muzzleCFrame + offset3
                                                     cameraCFrame = cameraCFrame + offset3
-                                                    v348:SetCameraCFrame(cameraCFrame)
-                                                    v348:SetMuzzleCFrame(muzzleCFrame)
+                                                    v350:SetCameraCFrame(cameraCFrame)
+                                                    v350:SetMuzzleCFrame(muzzleCFrame)
                                                     h_offset = data.h_offset
                                                     if not h_offset then
-                                                        v348:SetHitPart(part)
+                                                        v350:SetHitPart(part)
                                                         return unpack_(list3, 1, list3.n)
                                                     end
-                                                    v348:SetHitOffset(new(h_offset))
-                                                    v348:SetHitPart(part)
+                                                    v350:SetHitOffset(new(h_offset))
+                                                    v350:SetHitPart(part)
                                                     return unpack_(list3, 1, list3.n)
                                                 end
-                                                v352, v353, v354 = muzzleCFrame:ToOrientation()
-                                                muzzleCFrame = new(c2) * fromOrientation(v352, v353, v354)
+                                                v354, v355, v356 = muzzleCFrame:ToOrientation()
+                                                muzzleCFrame = new(c2) * fromOrientation(v354, v355, v356)
                                                 if not offset3 then
-                                                    v348:SetCameraCFrame(cameraCFrame)
-                                                    v348:SetMuzzleCFrame(muzzleCFrame)
+                                                    v350:SetCameraCFrame(cameraCFrame)
+                                                    v350:SetMuzzleCFrame(muzzleCFrame)
                                                     h_offset = data.h_offset
                                                     if not h_offset then
-                                                        v348:SetHitPart(part)
+                                                        v350:SetHitPart(part)
                                                         return unpack_(list3, 1, list3.n)
                                                     end
-                                                    v348:SetHitOffset(new(h_offset))
-                                                    v348:SetHitPart(part)
+                                                    v350:SetHitOffset(new(h_offset))
+                                                    v350:SetHitPart(part)
                                                     return unpack_(list3, 1, list3.n)
                                                 end
                                                 muzzleCFrame = muzzleCFrame + offset3
                                                 cameraCFrame = cameraCFrame + offset3
-                                                v348:SetCameraCFrame(cameraCFrame)
-                                                v348:SetMuzzleCFrame(muzzleCFrame)
+                                                v350:SetCameraCFrame(cameraCFrame)
+                                                v350:SetMuzzleCFrame(muzzleCFrame)
                                                 h_offset = data.h_offset
                                                 if not h_offset then
-                                                    v348:SetHitPart(part)
+                                                    v350:SetHitPart(part)
                                                     return unpack_(list3, 1, list3.n)
                                                 end
-                                                v348:SetHitOffset(new(h_offset))
-                                                v348:SetHitPart(part)
+                                                v350:SetHitOffset(new(h_offset))
+                                                v350:SetHitPart(part)
                                                 return unpack_(list3, 1, list3.n)
                                             end
-                                            list[v347] = true
-                                            v348:SetHitPart(part)
+                                            list[v349] = true
+                                            v350:SetHitPart(part)
                                             return unpack_(list3, 1, list3.n)
                                         end
                                     end
@@ -17286,13 +17313,13 @@ if not getgenv().UE_LOADED then
                                 if v256 and not arg2 and arg1.ClientFighter.IsLocalPlayer then
                                     local now4 = tick()
                                     if arg1._attack_cooldown < now4 and not arg1:IsEquipping() then
-                                        local v345 = item:GetCameraData()["\2"]
-                                        if v345 then
-                                            local model = v345:FindFirstAncestorOfClass("Model")
+                                        local v347 = item:GetCameraData()["\2"]
+                                        if v347 then
+                                            local model = v347:FindFirstAncestorOfClass("Model")
                                             if model and model:FindFirstChildOfClass("Humanoid") then
                                                 v182 = true
                                                 task.wait(0.05)
-                                                v183(v345.CFrame * new(0, 0, 3), true)
+                                                v183(v347.CFrame * new(0, 0, 3), true)
                                                 task.wait(0.05)
                                             end
                                         end
@@ -17316,8 +17343,8 @@ if not getgenv().UE_LOADED then
                                     local arg1 = ...
                                     if arg1 == 0 and silent_visualize.Value and (silent_toggle2.Value and silent_keybind2:GetState()) then
                                         if not v258 then
-                                            for k23, v345 in getstack2(3) do
-                                                if type(v345) == "table" and typeof(rawget(v345, "\0")) == "CFrame" then
+                                            for k23, v347 in getstack2(3) do
+                                                if type(v347) == "table" and typeof(rawget(v347, "\0")) == "CFrame" then
                                                     v258 = k23
                                                     break
                                                 end
@@ -17328,11 +17355,11 @@ if not getgenv().UE_LOADED then
                                         end
                                         local part = silent4.part
                                         if part then
-                                            local v346 = getstack2(3, v258)
-                                            v346["\0"] = lookAt(v346["\0"].Position, part.Position)
-                                            v346["\1"] = v346["\0"]
-                                            v346["\2"] = nil
-                                            v346["\3"] = nil
+                                            local v348 = getstack2(3, v258)
+                                            v348["\0"] = lookAt(v348["\0"].Position, part.Position)
+                                            v348["\1"] = v348["\0"]
+                                            v348["\2"] = nil
+                                            v348["\3"] = nil
                                             return char2(...)
                                         end
                                     end
@@ -17467,10 +17494,12 @@ if not getgenv().UE_LOADED then
                             arg3.MoveSpeed = 0
                         end
                         if viewmodel_options["shoot animation"] then
+                            local recoil_spring = humanoid._recoil_spring
                             local unrecoil_spring = humanoid._unrecoil_spring
                             local value = zero
-                            humanoid._recoil_spring.Value = zero
-                            unrecoil_spring.Value = value
+                            local value2 = zero
+                            recoil_spring.Value = value
+                            unrecoil_spring.Value = value2
                         end
                         if viewmodel_options["slide animation"] then
                             arg3.IsSliding = false
@@ -17508,9 +17537,9 @@ if not getgenv().UE_LOADED then
                         end
                         if v266 then
                             for _, name in {"_right_arm", "_left_arm", "_left_arm_shirt_texture", "_right_arm_shirt_texture"} do
-                                local v347 = humanoid[name]
-                                if v347 then
-                                    v347.Transparency = v347.Transparency + v265
+                                local v350 = humanoid[name]
+                                if v350 then
+                                    v350.Transparency = v350.Transparency + v265
                                 end
                             end
                         end
@@ -17533,7 +17562,7 @@ if not getgenv().UE_LOADED then
                     task.spawn(function()
                         v7(8)
                         local new13 = ColorSequence.new
-                        local v345 = state.customization.override_appearance.new({
+                        local v347 = state.customization.override_appearance.new({
                             settings = function()
                                 if Toggles.viewmodel_override_appearance.Value then
                                     return {
@@ -17573,8 +17602,8 @@ if not getgenv().UE_LOADED then
                                             local transparency2 = arg1.transparency
                                             local list3 = {}
                                             for _, keypoint in arg3.Transparency.Keypoints do
-                                                local v359 = min(1, keypoint.Value + transparency2)
-                                                table.insert(list3, NumberSequenceKeypoint.new(keypoint.Time, v359, keypoint.Envelope * (1 - transparency2)))
+                                                local v361 = min(1, keypoint.Value + transparency2)
+                                                table.insert(list3, NumberSequenceKeypoint.new(keypoint.Time, v361, keypoint.Envelope * (1 - transparency2)))
                                             end
                                             local color2 = color and new13(color) or arg3.Color
                                             local sequence = NumberSequence.new(list3)
@@ -17586,7 +17615,7 @@ if not getgenv().UE_LOADED then
                                 return list
                             end)(),
                         })
-                        local v346 = state.customization.override_appearance.new({
+                        local v348 = state.customization.override_appearance.new({
                             settings = function()
                                 if Toggles.arm_override_appearance.Value then
                                     local arm_material = Toggles.arm_material.Value
@@ -17617,7 +17646,7 @@ if not getgenv().UE_LOADED then
                             },
                         })
                         local list = {}
-                        local v347 = state.customization.override_appearance.new({
+                        local v349 = state.customization.override_appearance.new({
                             settings = function()
                                 return Toggles.viewmodel_override_appearance.Value and Toggles.viewmodel_wireframe.Value and {mode = "wireframe"}
                             end,
@@ -17639,28 +17668,28 @@ if not getgenv().UE_LOADED then
                             local UGCValidationService = cloneref(game:GetService("UGCValidationService"))
                             local list3 = {}
                             local fn62 = function(arg1)
-                                local ok5, v357 = pcall(UGCValidationService.GetMeshDataBinaryString, UGCValidationService, arg1)
-                                local v358 = v357
+                                local ok5, v359 = pcall(UGCValidationService.GetMeshDataBinaryString, UGCValidationService, arg1)
+                                local v360 = v359
                                 if not ok5 then
                                     return
                                 end
-                                return UGCValidationService:CreateEditableMeshFromBinaryStringRobloxOnly(v358)
+                                return UGCValidationService:CreateEditableMeshFromBinaryStringRobloxOnly(v360)
                             end
                             return function(arg1, arg2)
-                                local v357 = list3[arg1]
-                                if v357 then
-                                    return v357
+                                local v359 = list3[arg1]
+                                if v359 then
+                                    return v359
                                 end
-                                local v358 = fn62(arg1)
-                                if v358 then
+                                local v360 = fn62(arg1)
+                                if v360 then
                                     local list4 = {}
-                                    for _, face_id in v358:GetFaces() do
-                                        local faceVertices = v358:GetFaceVertices(face_id)
+                                    for _, face_id in v360:GetFaces() do
+                                        local faceVertices = v360:GetFaceVertices(face_id)
                                         if not (#faceVertices < 3) then
                                             local positions = {}
                                             local len = #faceVertices
                                             for i9 = 1, len do
-                                                positions[i9] = v358:GetPosition(faceVertices[i9])
+                                                positions[i9] = v360:GetPosition(faceVertices[i9])
                                             end
                                             local cross = (positions[2] - positions[1]):Cross(positions[3] - positions[1])
                                             if not (cross.Magnitude < 1e-06) then
@@ -17668,44 +17697,45 @@ if not getgenv().UE_LOADED then
                                             end
                                         end
                                     end
-                                    for _, v361 in list4 do
-                                        v358:RemoveFace(v361.face_id)
+                                    for _, v363 in list4 do
+                                        v360:RemoveFace(v363.face_id)
                                     end
-                                    v358:RemoveUnused()
+                                    v360:RemoveUnused()
                                     local list5 = {}
-                                    for _, v362 in list4 do
-                                        local len2 = #v362.verts
-                                        local n16 = v362.normal * 0.001
+                                    for _, v364 in list4 do
+                                        local len2 = #v364.verts
+                                        local n17 = v364.normal * 0.001
                                         local len = len2
                                         for i10 = 1, len do
-                                            local n17 = i10 % len2 + 1
-                                            local v364 = v362.verts[i10]
-                                            local v365 = v362.verts[n17]
-                                            local flag15 = v364 > v365
+                                            local n18 = i10 % len2 + 1
+                                            local v366 = v364.verts[i10]
+                                            local v367 = v364.verts[n18]
+                                            local flag15 = v366 > v367
                                             if flag15 then
-                                                flag15 = v365 * 1000000 + v364
+                                                flag15 = v367 * 1000000 + v366
                                             end
                                             if not flag15 then
-                                                flag15 = v364 * 1000000 + v365
+                                                flag15 = v366 * 1000000 + v367
                                             end
                                             if not list5[flag15] then
                                                 list5[flag15] = true
-                                                local v366 = v362.positions[i10]
-                                                local v367 = v362.positions[n17]
-                                                local vector = v367 - v366
+                                                local v368 = v364.positions[i10]
+                                                local v369 = v364.positions[n18]
+                                                local vector = v369 - v368
                                                 if not (vector.Magnitude < 1e-06) then
-                                                    local cross2 = v362.normal:Cross(vector.Unit)
+                                                    local unit2 = vector.Unit
+                                                    local cross2 = v364.normal:Cross(unit2)
                                                     if not (cross2.Magnitude < 1e-06) then
-                                                        local unit2 = cross2.Unit
-                                                        local v368 = v358:AddVertex(v366 - unit2 * 0.00125 + n16)
-                                                        local v369 = v358:AddVertex(v366 + unit2 * 0.00125 + n16)
-                                                        local v370 = v358:AddVertex(v367 + unit2 * 0.00125 + n16)
-                                                        local v371 = v358:AddVertex(v367 - unit2 * 0.00125 + n16)
+                                                        local unit3 = cross2.Unit
+                                                        local v370 = v360:AddVertex(v368 - unit3 * 0.00125 + n17)
+                                                        local v371 = v360:AddVertex(v368 + unit3 * 0.00125 + n17)
+                                                        local v372 = v360:AddVertex(v369 + unit3 * 0.00125 + n17)
+                                                        local v373 = v360:AddVertex(v369 - unit3 * 0.00125 + n17)
                                                         for _ = 1, 4 do
-                                                            v358:AddColor(Color3.new(1, 1, 1), 1)
+                                                            v360:AddColor(Color3.new(1, 1, 1), 1)
                                                         end
-                                                        for _, list6 in {{v368, v369, v370}, {v368, v370, v371}} do
-                                                            if not pcall(v358.AddTriangle, v358, unpack(list6)) then
+                                                        for _, list6 in {{v370, v371, v372}, {v370, v372, v373}} do
+                                                            if not pcall(v360.AddTriangle, v360, unpack(list6)) then
                                                                 list3[arg1] = arg2.MeshContent
                                                                 return list3[arg1]
                                                             end
@@ -17715,9 +17745,9 @@ if not getgenv().UE_LOADED then
                                             end
                                         end
                                     end
-                                    local v373 = Content.fromObject(v358)
-                                    list3[arg1] = v373
-                                    return v373
+                                    local v375 = Content.fromObject(v360)
+                                    list3[arg1] = v375
+                                    return v375
                                 end
                                 list3[arg1] = arg2.MeshContent
                                 return list3[arg1]
@@ -17726,11 +17756,11 @@ if not getgenv().UE_LOADED then
                         local event = fn5(str)
                         event.Event:Connect(function(arg1)
                             v7(8)
-                            v345:change(arg1)
                             v347:change(arg1)
-                            v346:change(arg1)
+                            v349:change(arg1)
+                            v348:change(arg1)
                         end)
-                        local v349 = newcclosure(fn41(function(arg1)
+                        local v351 = newcclosure(fn41(function(arg1)
                             if arg1 and type(arg1) == "table" then
                                 local viewModel = rawget(arg1, "ViewModel")
                                 if viewModel then
@@ -17755,8 +17785,8 @@ if not getgenv().UE_LOADED then
                                 local str11 = name .. name2
                                 for _, option in {Options[str11], Toggles[str11]} do
                                     option:OnChanged(function()
-                                        for _, v357 in rawget(item, "Items") or {} do
-                                            v349(v357)
+                                        for _, v359 in rawget(item, "Items") or {} do
+                                            v351(v359)
                                         end
                                     end)
                                 end
@@ -17765,11 +17795,11 @@ if not getgenv().UE_LOADED then
                         do
                             local list3 = {}
                             do
-                                local v353 = nil
-                                v353 = v236(module10.SetArmsData, function(...)
+                                local v355 = nil
+                                v355 = v236(module10.SetArmsData, function(...)
                                     local arg1, arg2, arg3, arg4, arg5 = ...
                                     if (arg2 or arg3 or arg4) and arg1.ClientItem.ClientFighter == item then
-                                        local list4 = table.pack(v353(arg1, __select(2, ...)))
+                                        local list4 = table.pack(v355(arg1, __select(2, ...)))
                                         local parent
                                         local itemModel = arg1.ItemModel
                                         parent = itemModel and itemModel.Parent
@@ -17782,15 +17812,15 @@ if not getgenv().UE_LOADED then
                                         end
                                         return unpack(list4, 1, list4.n)
                                     end
-                                    return v353(arg1, __select(2, ...))
+                                    return v355(arg1, __select(2, ...))
                                 end)
                             end
-                            local v354 = nil
-                            v354 = v236(module10._UpdateWrap, function(arg1, ...)
+                            local v356 = nil
+                            v356 = v236(module10._UpdateWrap, function(arg1, ...)
                                 if not list3[arg1] or arg1.ClientItem.ClientFighter ~= item then
-                                    return v354(arg1, ...)
+                                    return v356(arg1, ...)
                                 end
-                                local list4 = table.pack(v354(arg1, ...))
+                                local list4 = table.pack(v356(arg1, ...))
                                 local parent
                                 local itemModel = arg1.ItemModel
                                 parent = itemModel and itemModel.Parent
@@ -17805,7 +17835,7 @@ if not getgenv().UE_LOADED then
                             items = {}
                         end
                         for _, item2 in items do
-                            task.spawn(v349, item2)
+                            task.spawn(v351, item2)
                         end
                     end)
                     do
@@ -17877,9 +17907,9 @@ if not getgenv().UE_LOADED then
                                 local flag14 = false
                                 local on_sound_wanted = state.events.on_sound_wanted
                                 local shoot_sound_change = Toggles.shoot_sound_change
-                                local n10 = 1 - Options.exploits_firerate.Value / 100
+                                local n11 = 1 - Options.exploits_firerate.Value / 100
                                 Options.exploits_firerate:OnChanged(function(value)
-                                    n10 = 1 - value / 100
+                                    n11 = 1 - value / 100
                                 end)
                                 rawset(module10, "\0PlayAnimation ", fn41(function(arg1, arg2, arg3, ...)
                                     local clientItem = arg1.ClientItem
@@ -17888,14 +17918,14 @@ if not getgenv().UE_LOADED then
                                             flag14 = true
                                             on_sound_wanted:Fire()
                                         end
-                                        clientItem._shoot_cooldown = clientItem._shoot_cooldown - arg3 * n10
+                                        clientItem._shoot_cooldown = clientItem._shoot_cooldown - arg3 * n11
                                     end
                                     if not viewmodel_options["shoot animation"] then
                                         return playAnimation(arg1, arg2, ...)
                                     end
-                                    local v345 = table.pack(playAnimation(arg1, arg2, ...))
+                                    local v347 = table.pack(playAnimation(arg1, arg2, ...))
                                     stopAnimation(arg1, arg2)
-                                    return unpack_3(v345, 1, v345.n)
+                                    return unpack_3(v347, 1, v347.n)
                                 end, playAnimation))
                                 do
                                     local module14 = require(fn4(clientItem2, "ClientViewModel", "ViewModelAnimator"))
@@ -17919,6 +17949,7 @@ if not getgenv().UE_LOADED then
                                 local v277 = v276
                                 if ok4 then
                                     fn43(v277, "_CreateMinigunShootingSounds", "\0_CreateMinigunShootingSounds ")
+                                    local createMinigunShootingSounds = module15._CreateMinigunShootingSounds
                                     local shoot_sound_change_value = Options.shoot_sound_change_value
                                     local thread = nil
                                     rawset(module15, "\0_CreateMinigunShootingSounds ", fn41(function(arg1, ...)
@@ -17939,7 +17970,7 @@ if not getgenv().UE_LOADED then
                                             on_sound_wanted:Fire()
                                         end
                                         return {}
-                                    end, module15._CreateMinigunShootingSounds))
+                                    end, createMinigunShootingSounds))
                                 end
                             end
                         end
@@ -17985,11 +18016,11 @@ if not getgenv().UE_LOADED then
                                 local v285 = nil
                                 v285 = v236(module17._CreateViewModel, function(arg1, list, ...)
                                     if arg1.ClientFighter == item then
-                                        local v345 = skin_data[arg1.Name]
-                                        if v345 then
+                                        local v347 = skin_data[arg1.Name]
+                                        if v347 then
                                             local cosmetics_cache = state.misc.cosmetics_cache
                                             local list3 = list[v282]
-                                            local skin2 = v345.skin
+                                            local skin2 = v347.skin
                                             if skin2.enabled then
                                                 local name3 = skin2.name
                                                 if skin2.random and cosmetics_cache then
@@ -18002,7 +18033,7 @@ if not getgenv().UE_LOADED then
                                                     list3[module2:ToEnum("Name")] = name3
                                                 end
                                             end
-                                            local charm = v345.charm
+                                            local charm = v347.charm
                                             if charm.enabled then
                                                 local name4 = charm.name
                                                 if charm.random and cosmetics_cache then
@@ -18015,17 +18046,17 @@ if not getgenv().UE_LOADED then
                                                     list3[v283] = {Name = name4}
                                                 end
                                             end
-                                            local wrap2 = v345.wrap
-                                            if wrap2.enabled then
-                                                local name5 = wrap2.name
-                                                if wrap2.random and cosmetics_cache then
-                                                    local wrap3 = cosmetics_cache.wrap
-                                                    if wrap3 and 0 < #wrap3 then
-                                                        name5 = wrap3[math.random(1, #wrap3)]
+                                            local wrap3 = v347.wrap
+                                            if wrap3.enabled then
+                                                local name5 = wrap3.name
+                                                if wrap3.random and cosmetics_cache then
+                                                    local wrap4 = cosmetics_cache.wrap
+                                                    if wrap4 and 0 < #wrap4 then
+                                                        name5 = wrap4[math.random(1, #wrap4)]
                                                     end
                                                 end
                                                 if name5 then
-                                                    list3[v284] = {Name = name5, Inverted = wrap2.inverted}
+                                                    list3[v284] = {Name = name5, Inverted = wrap3.inverted}
                                                 end
                                             end
                                         end
@@ -18040,22 +18071,22 @@ if not getgenv().UE_LOADED then
                                 local v287 = nil
                                 v287 = v236(module18.GetViewModelImage, function(...)
                                     local arg1, arg2 = ...
-                                    local v345 = arg2
-                                    local v346 = skin_data[v345]
-                                    if v346 and v346.skin.enabled and traceback():find(".PickWeapons") then
+                                    local v347 = arg2
+                                    local v348 = skin_data[v347]
+                                    if v348 and v348.skin.enabled and traceback():find(".PickWeapons") then
                                         local cosmetics_cache = state.misc.cosmetics_cache
-                                        local name3 = v346.skin.name
-                                        if v346.skin.random and cosmetics_cache then
-                                            local list = cosmetics_cache.skin[v345]
+                                        local name3 = v348.skin.name
+                                        if v348.skin.random and cosmetics_cache then
+                                            local list = cosmetics_cache.skin[v347]
                                             if list and 0 < #list then
                                                 name3 = list[math.random(1, #list)]
                                             end
                                         end
                                         if name3 then
-                                            v345 = name3
+                                            v347 = name3
                                         end
                                     end
-                                    return v287(arg1, v345, __select(3, ...))
+                                    return v287(arg1, v347, __select(3, ...))
                                 end)
                             end
                             local module19 = require(fn4(localPlayer.PlayerScripts, "Modules", "ClientReplicatedClasses", "ClientEntity"))
@@ -18063,7 +18094,7 @@ if not getgenv().UE_LOADED then
                             local playFinisher = module19._PlayFinisher
                             rawset(module19, "\0_PlayFinisher ", fn41(function(...)
                                 local arg1, arg2, arg3, arg4 = ...
-                                local v345 = arg2
+                                local v347 = arg2
                                 if arg4 == localPlayer then
                                     local equippedItem2 = item.EquippedItem
                                     if equippedItem2 then
@@ -18078,12 +18109,12 @@ if not getgenv().UE_LOADED then
                                                 end
                                             end
                                             if name3 then
-                                                v345 = name3
+                                                v347 = name3
                                             end
                                         end
                                     end
                                 end
-                                return playFinisher(arg1, v345, arg3, arg4, __select(5, ...))
+                                return playFinisher(arg1, v347, arg3, arg4, __select(5, ...))
                             end, playFinisher))
                         end
                         do
@@ -18230,11 +18261,11 @@ if not getgenv().UE_LOADED then
                                 end
                                 rawset(module26, "\0IsFinished ", fn41(function(...)
                                     if auto_queue_enabled.Value then
-                                        local v345 = isFinished(...)
-                                        if v345 then
+                                        local v347 = isFinished(...)
+                                        if v347 then
                                             fn55(false, true)
                                         end
-                                        return v345
+                                        return v347
                                     end
                                     return isFinished(...)
                                 end, isFinished))
@@ -18300,11 +18331,11 @@ if not getgenv().UE_LOADED then
                             local v309 = nil
                             local fn56 = function()
                                 if spoof_device_enabled.Value then
-                                    local v345 = tbl48[spoof_device_type.Value]
-                                    if v345 then
+                                    local v347 = tbl48[spoof_device_type.Value]
+                                    if v347 then
                                         v309 = true
                                         pcall(task.cancel, thread)
-                                        thread = task.delay(0.5, setControls.FireServer, setControls, v345)
+                                        thread = task.delay(0.5, setControls.FireServer, setControls, v347)
                                     end
                                 elseif v309 then
                                     v309 = false
@@ -18341,9 +18372,9 @@ if not getgenv().UE_LOADED then
                                         end
                                     end
                                 elseif arg2 == "ItemAdded" then
-                                    local v347 = arg3[module2:ToEnum("Data")][module2:ToEnum("ObjectID")]
-                                    if v347 then
-                                        state.misc.skin_cache[v347] = v31(arg3)
+                                    local v349 = arg3[module2:ToEnum("Data")][module2:ToEnum("ObjectID")]
+                                    if v349 then
+                                        state.misc.skin_cache[v349] = v31(arg3)
                                     end
                                 end
                                 return replicateFromServer2(arg1, arg2, ...)
@@ -18552,11 +18583,11 @@ if not getgenv().UE_LOADED then
                                     do
                                         local char3 = utf8.char
                                         local fn58 = function(arg1)
-                                            local v345 = floor2(arg1)
-                                            if 55296 <= v345 and v345 < 57344 then
-                                                v345 = 57344
+                                            local v347 = floor2(arg1)
+                                            if 55296 <= v347 and v347 < 57344 then
+                                                v347 = 57344
                                             end
-                                            return char3(clamp(v345, 0, 1114111))
+                                            return char3(clamp(v347, 0, 1114111))
                                         end
                                         list["extended random"] = function()
                                             return fn58(random(0, 1114111)), true
@@ -18594,13 +18625,13 @@ if not getgenv().UE_LOADED then
                                         EncodeCameraRotation = fn41(function(arg1, arg2, ...)
                                             if not is_ragebot3() then
                                                 if v319 then
-                                                    local v345, v346 = v323(deg(arg2.X))
-                                                    local v347 = v345
-                                                    if not v346 then
-                                                        local v348 = v322(deg(arg2.Y))
-                                                        return encodeCameraRotation(module35, new3(rad(v347), rad(v348)), ...)
+                                                    local v347, v348 = v323(deg(arg2.X))
+                                                    local v349 = v347
+                                                    if not v348 then
+                                                        local v350 = v322(deg(arg2.Y))
+                                                        return encodeCameraRotation(module35, new3(rad(v349), rad(v350)), ...)
                                                     end
-                                                    return v347
+                                                    return v349
                                                 end
                                                 return encodeCameraRotation(module35, arg2, ...)
                                             end
@@ -18612,33 +18643,33 @@ if not getgenv().UE_LOADED then
                         end
                         do
                             local module36 = require(fn4(modules, "ItemTypes", "Throwable"))
-                            local explode_on_impact = nil
+                            local explode_on_impact2 = nil
                             local explode_on_throw2 = nil
                             local v326 = nil
                             v326 = v236(module36._FinishThrow, function(arg1, ...)
                                 if arg1.Name == "Grenade" and arg1.ClientFighter.IsLocalPlayer then
-                                    local v345 = nil
+                                    local v347 = nil
                                     if not explode_on_throw2 then
-                                        if explode_on_impact then
+                                        if explode_on_impact2 then
                                             pcall(function()
                                                 local trajectory_visual = arg1._trajectory_visual
-                                                local v346 = trajectory_visual._last_args[4] or 0.05
+                                                local v348 = trajectory_visual._last_args[4] or 0.05
                                                 local huge = trajectory_visual._last_args[6] or math.huge
                                                 local cFrame3 = trajectory_visual._impact_sphere.CFrame
                                                 for k23, segment in trajectory_visual._segments do
                                                     if segment.CFrame == cFrame3 then
-                                                        v345 = min(huge, (k23 - 2) * v346)
+                                                        v347 = min(huge, (k23 - 2) * v348)
                                                         break
                                                     end
                                                 end
                                             end)
                                         end
                                     else
-                                        v345 = 0
+                                        v347 = 0
                                     end
                                     local list = {v326(arg1, ...)}
-                                    if v345 and type(list[2]) == "number" then
-                                        list[2] = v345
+                                    if v347 and type(list[2]) == "number" then
+                                        list[2] = v347
                                     end
                                     return unpack(list)
                                 end
@@ -18649,10 +18680,10 @@ if not getgenv().UE_LOADED then
                                 [v326] = {"_cook_detonate_delay", "\0", fn43(v326, "_cook_detonate_delay")},
                             }
                             pcall(function()
-                                local v345 = v235(module36._CreateTractoryVisual, 1)
-                                if v345 then
-                                    local tbl58 = {"_cook_detonate_delay", "\0", fn43(v345, "_cook_detonate_delay")}
-                                    list[v345] = tbl58
+                                local v347 = v235(module36._CreateTractoryVisual, 1)
+                                if v347 then
+                                    local tbl58 = {"_cook_detonate_delay", "\0", fn43(v347, "_cook_detonate_delay")}
+                                    list[v347] = tbl58
                                 end
                             end)
                             for k19, list3 in list do
@@ -18662,8 +18693,9 @@ if not getgenv().UE_LOADED then
                             end
                             Options.exploits_grenade_settings:OnChanged(function(value)
                                 local remove_fuse = value["remove fuse"]
+                                local explode_on_impact = value["explode on impact"]
                                 local explode_on_throw = value["explode on throw"]
-                                explode_on_impact = value["explode on impact"]
+                                explode_on_impact2 = explode_on_impact
                                 explode_on_throw2 = explode_on_throw
                                 for k23, list3 in list do
                                     v231(k23, list3[3], list3[remove_fuse and 2 or 1])
@@ -18734,35 +18766,36 @@ if not getgenv().UE_LOADED then
                             local esp_name_changed = state.events.esp_name_changed
                             local fn60 = function()
                                 v7(8)
-                                local v345 = nil
-                                for player, v346 in pairs(module39._player_to_fighter) do
-                                    local v347 = list4[player == localPlayer and "local" or "other"]
-                                    if v347.enabled or list3[player] then
-                                        v345 = true
+                                local v347 = nil
+                                for player, v348 in pairs(module39._player_to_fighter) do
+                                    local v349 = list4[player == localPlayer and "local" or "other"]
+                                    if v349.enabled or list3[player] then
+                                        v347 = true
                                         local name, displayName
-                                        if not v347.enabled then
-                                            local values3, v350 = unpack(list[player])
+                                        if not v349.enabled then
+                                            local list5 = list[player]
+                                            local values3, v353 = unpack(list5)
                                             name = values3
-                                            displayName = v350
+                                            displayName = v353
                                             list3[player] = nil
                                         else
-                                            name = v347.value
-                                            displayName = v347.value
+                                            name = v349.value
+                                            displayName = v349.value
                                             list3[player] = true
                                         end
                                         player.Name = name
                                         player.DisplayName = displayName
-                                        local entity = v346.Entity
+                                        local entity = v348.Entity
                                         if entity and entity.CustomNametag then
                                             v34(entity.CustomNametag._Refresh, entity.CustomNametag)
                                         end
-                                        local v351 = playerListSlots[v346]
-                                        if v351 then
-                                            v34(v351._Setup, v351)
+                                        local v354 = playerListSlots[v348]
+                                        if v354 then
+                                            v34(v354._Setup, v354)
                                         end
                                     end
                                 end
-                                if v345 then
+                                if v347 then
                                     esp_name_changed:Fire()
                                 end
                             end
@@ -18793,19 +18826,19 @@ if not getgenv().UE_LOADED then
                                     Text = "weapon filter",
                                     Placeholder = "grenade launcher...",
                                 })
-                                local v346 = popout:AddFrame()
-                                v346:SetSize(207)
+                                local v348 = popout:AddFrame()
+                                v348:SetSize(207)
                                 local scrollingFrame = fn5("ScrollingFrame", {
                                     ZIndex = 100,
                                     BackgroundTransparency = 1,
                                     Size = UDim2.fromScale(1, 1),
                                     CanvasSize = UDim2.fromScale(1, 0),
                                     AutomaticCanvasSize = Enum.AutomaticSize.Y,
-                                    Parent = v346:GetInner(),
+                                    Parent = v348:GetInner(),
                                     ClipsDescendants = true,
                                     ScrollBarThickness = 0,
                                 })
-                                fn5(frameClassRef, {BackgroundTransparency = 1, Parent = v346:GetInner(), Visible = false})
+                                fn5(frameClassRef, {BackgroundTransparency = 1, Parent = v348:GetInner(), Visible = false})
                                 fn5("UIGridLayout", {
                                     Parent = scrollingFrame,
                                     FillDirectionMaxCells = 7,
@@ -18821,25 +18854,25 @@ if not getgenv().UE_LOADED then
                                 })
                                 local parent
                                 do
-                                    local v349 = popout:AddFrame()
-                                    v349:SetSize(207)
+                                    local v351 = popout:AddFrame()
+                                    v351:SetSize(207)
                                     parent = fn5("ScrollingFrame", {
                                         ZIndex = 100,
                                         BackgroundTransparency = 1,
                                         Size = UDim2.fromScale(1, 1),
                                         CanvasSize = UDim2.fromScale(1, 0),
                                         AutomaticCanvasSize = Enum.AutomaticSize.Y,
-                                        Parent = v349:GetInner(),
+                                        Parent = v351:GetInner(),
                                         ClipsDescendants = true,
                                         ScrollBarThickness = 0,
                                     })
                                     fn5("UIGridLayout", {Parent = parent, FillDirectionMaxCells = 7, FillDirection = Enum.FillDirection.Horizontal})
                                 end
                                 do
-                                    local v350 = popout:AddDependencyBox()
-                                    v350:AddToggle("cosmetics_wrap_inverted", {Text = "inverted", Tooltip = "inverts the selected wrap", Default = false})
+                                    local v352 = popout:AddDependencyBox()
+                                    v352:AddToggle("cosmetics_wrap_inverted", {Text = "inverted", Tooltip = "inverts the selected wrap", Default = false})
                                     popout:AddDropdown("cosmetics_changer_mode", {Values = {"skin", "wrap", "charm", "finisher"}, Center = true, Default = 1})
-                                    v350:SetupDependencies({{Options.cosmetics_changer_mode, "wrap"}})
+                                    v352:SetupDependencies({{Options.cosmetics_changer_mode, "wrap"}})
                                 end
                                 local module40 = require(ReplicatedStorage.Modules.CosmeticLibrary)
                                 local cosmetics_cache = {skin = {}, wrap = {}, charm = {}, finisher = {}}
@@ -18866,16 +18899,16 @@ if not getgenv().UE_LOADED then
                                 end
                                 local key = "skin"
                                 local list5 = {}
-                                local v352
+                                local v354
                                 do
                                     local module43 = require(localPlayer.PlayerScripts.Modules:WaitForChild("ViewportCameras"))
                                     local cosmeticViewportFrame = localPlayer.PlayerScripts.UserInterface:WaitForChild("CosmeticViewportFrame")
-                                    local wrap2 = localPlayer.PlayerScripts.Assets:WaitForChild("Misc"):WaitForChild("Wrap")
+                                    local wrap3 = localPlayer.PlayerScripts.Assets:WaitForChild("Misc"):WaitForChild("Wrap")
                                     local charms = localPlayer.PlayerScripts.Assets:WaitForChild("Charms")
                                     local title = fn4(localPlayer.PlayerScripts, "UserInterface", "CosmeticSlot", "Button", "Title")
                                     local module44 = require(fn4(localPlayer.PlayerScripts, "Controllers", "WrapController"))
                                     local list6 = {charm = {}, wrap = {}}
-                                    v352 = function(arg1, arg2, arg3, arg4, arg5, arg6)
+                                    v354 = function(arg1, arg2, arg3, arg4, arg5, arg6)
                                         local imageButton = fn5("ImageButton", {
                                             ZIndex = 997,
                                             Parent = arg1,
@@ -18902,15 +18935,15 @@ if not getgenv().UE_LOADED then
                                                     parent2 = cosmeticViewportFrame:Clone()
                                                     parent2.ZIndex = 1000
                                                     if key == "wrap" then
-                                                        local clone = wrap2:Clone()
+                                                        local clone = wrap3:Clone()
                                                         clone:PivotTo(CFrame.identity)
                                                         clone.Parent = parent2
                                                         parent2.CurrentCamera = module43.Wrap
-                                                        local v382 = module44:RecordOriginalWrapProperties(clone)
-                                                        for _, v383 in v382 do
-                                                            v383.IgnoreObject = true
+                                                        local v384 = module44:RecordOriginalWrapProperties(clone)
+                                                        for _, v385 in v384 do
+                                                            v385.IgnoreObject = true
                                                         end
-                                                        module44:ApplyWrap(v382, {Name = arg3})
+                                                        module44:ApplyWrap(v384, {Name = arg3})
                                                     else
                                                         local clone2 = charms[arg3]:Clone()
                                                         clone2.PrimaryPart = clone2.Primary
@@ -18944,16 +18977,16 @@ if not getgenv().UE_LOADED then
                                             BackgroundTransparency = 1,
                                             Image = image,
                                         })
-                                        local v385 = nil
+                                        local v387 = nil
                                         for _, name in {"MouseEnter", "MouseLeave"} do
                                             imageButton[name]:Connect(function()
-                                                if v385 then
-                                                    v385:Cancel()
+                                                if v387 then
+                                                    v387:Cancel()
                                                 end
-                                                v385 = TweenService:Create(imageLabel, TweenInfo.new(0.15, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
+                                                v387 = TweenService:Create(imageLabel, TweenInfo.new(0.15, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out), {
                                                     Size = name == "MouseEnter" and UDim2.new(num9 * 1.09375, 0, num9 * 1.09375, 0) or UDim2.new(num9, 0, num9, 0),
                                                 })
-                                                v385:Play()
+                                                v387:Play()
                                             end)
                                         end
                                         return imageButton, imageLabel, fn5("ImageLabel", {
@@ -18982,72 +19015,72 @@ if not getgenv().UE_LOADED then
                                 end
                                 local inst = Instance.new(str)
                                 module2:ToEnum("Name")
-                                local v354
+                                local v356
                                 do
-                                    local v355 = module2:ToEnum("Data")
+                                    local v357 = module2:ToEnum("Data")
                                     module2:ToEnum("ObjectID")
-                                    local v356 = module2:ToEnum("ViewModel")
+                                    local v358 = module2:ToEnum("ViewModel")
                                     rawget(v6(item).__index, "ReplicateFromServer")
                                     local replicate = game:GetService("ReplicatedStorage").Remotes.Replication.Fighter.Replicate
-                                    local v357, v358 = module2:ToEnum("ReplicationChanged")
-                                    local v359 = v357
+                                    local v359, v360 = module2:ToEnum("ReplicationChanged")
+                                    local v361 = v359
                                     local fn64 = function(...)
-                                        for _, v380 in getconnections(replicate.OnClientEvent) do
-                                            local function_ = v380.Function
+                                        for _, v382 in getconnections(replicate.OnClientEvent) do
+                                            local function_ = v382.Function
                                             if function_ then
-                                                v33(function_, v359, item:Get("ObjectID"), ...)
+                                                v33(function_, v361, item:Get("ObjectID"), ...)
                                             end
                                         end
                                     end
-                                    local v360 = module2:ToEnum("ItemRemoved")
-                                    local v361 = module2:ToEnum("ItemAdded")
+                                    local v362 = module2:ToEnum("ItemRemoved")
+                                    local v363 = module2:ToEnum("ItemAdded")
                                     module2:ToEnum("SafeUpdateLocalEquippedItemID")
                                     local list6 = {ItemIndex = true, FOVOffset = true, IsAiming = true}
                                     local skin_cache = state.misc.skin_cache
-                                    v354 = function()
+                                    v356 = function()
                                         fn62()
                                         local items2 = item.Items
                                         local itemIndex = item.EquippedItem and item.EquippedItem.Data.ItemIndex
                                         local list7 = {}
                                         for k25 in item.Items do
-                                            local v381 = items2[k25]
-                                            if v381 and v381.ViewModel and skin_data2[v381.Name] then
-                                                local v382 = v381:Get("ObjectID")
-                                                local list8 = skin_cache[v382]
+                                            local v383 = items2[k25]
+                                            if v383 and v383.ViewModel and skin_data2[v383.Name] then
+                                                local v384 = v383:Get("ObjectID")
+                                                local list8 = skin_cache[v384]
                                                 if not list8 then
-                                                    list8 = {[v355] = {}, [v356] = {[v355] = {}}}
-                                                    for k26, v384 in v381.Data do
-                                                        local v385 = not list6[k26] and module2:ToEnum(k26, true)
-                                                        if v385 then
-                                                            list8[v355][v385] = v384
+                                                    list8 = {[v357] = {}, [v358] = {[v357] = {}}}
+                                                    for k26, v386 in v383.Data do
+                                                        local v387 = not list6[k26] and module2:ToEnum(k26, true)
+                                                        if v387 then
+                                                            list8[v357][v387] = v386
                                                         end
                                                     end
-                                                    for k27, v386 in v381.ViewModel.Data do
-                                                        local v387 = module2:ToEnum(k27, true)
-                                                        if v387 then
-                                                            list8[v356][v355][v387] = v386
+                                                    for k27, v388 in v383.ViewModel.Data do
+                                                        local v389 = module2:ToEnum(k27, true)
+                                                        if v389 then
+                                                            list8[v358][v357][v389] = v388
                                                         end
                                                     end
                                                 end
                                                 local list9 = v31(list8)
-                                                for k28, v389 in v381.Data do
-                                                    local v390 = not list6[k28] and k28 ~= "Name" and module2:ToEnum(k28, true)
-                                                    if v390 then
-                                                        list9[v355][v390] = v389
+                                                for k28, v391 in v383.Data do
+                                                    local v392 = not list6[k28] and k28 ~= "Name" and module2:ToEnum(k28, true)
+                                                    if v392 then
+                                                        list9[v357][v392] = v391
                                                     end
                                                 end
-                                                list7[k25] = {list9, v382, v381.Name}
+                                                list7[k25] = {list9, v384, v383.Name}
                                             end
                                         end
                                         if itemIndex and 0 < #list7 then
                                             v33(item.EquipItem, item, nil)
                                         end
                                         for _, list8 in list7 do
-                                            fn64(v360, list8[2])
+                                            fn64(v362, list8[2])
                                         end
                                         for k29, list8 in list7 do
                                             v7(1)
-                                            fn64(v361, list8[1], k29)
+                                            fn64(v363, list8[1], k29)
                                             v7(8)
                                         end
                                         if itemIndex and 0 < #list7 then
@@ -19063,13 +19096,13 @@ if not getgenv().UE_LOADED then
                                         }
                                     end
                                 end
-                                local v363 = nil
-                                local v364 = nil
+                                local v365 = nil
+                                local v366 = nil
                                 local list6 = {skin = {}}
                                 local list7 = {}
                                 local list8 = {}
-                                local v365 = nil
-                                local v366 = nil
+                                local v367 = nil
+                                local v368 = nil
                                 local color = Color3.new(0.133333, 0.34902, 0.0980392)
                                 local color2 = Color3.fromRGB(51, 51, 51)
                                 local fn65 = function()
@@ -19084,50 +19117,50 @@ if not getgenv().UE_LOADED then
                                     end
                                     local list9
                                     if key == "skin" then
-                                        list9 = table.clone(cosmetics_cache.skin[v363])
-                                        table.insert(list9, 1, v363)
+                                        list9 = table.clone(cosmetics_cache.skin[v365])
+                                        table.insert(list9, 1, v365)
                                     else
                                         list9 = cosmetics_cache[key]
                                     end
                                     local list10
                                     if key == "skin" then
-                                        list10 = list6[key][v363]
+                                        list10 = list6[key][v365]
                                     else
                                         list10 = list6[key]
                                     end
                                     if not list10 then
                                         list10 = {}
-                                        for _, v382 in list9 do
-                                            local v383, v384, v385 = v352(parent, v363, v382)
-                                            v383.Activated:Connect(function()
-                                                local v394 = skin_data2[v363][key]
-                                                local name = v394.name ~= v382 and v382
+                                        for _, v384 in list9 do
+                                            local v385, v386, v387 = v354(parent, v365, v384)
+                                            v385.Activated:Connect(function()
+                                                local v396 = skin_data2[v365][key]
+                                                local name = v396.name ~= v384 and v384
                                                 if name then
-                                                    v394.name = name
+                                                    v396.name = name
                                                 else
-                                                    v394.name = nil
+                                                    v396.name = nil
                                                 end
-                                                v394.random = false
+                                                v396.random = false
                                                 if key == "skin" then
-                                                    fn63(list7[v363][2], v363, v394.name)
+                                                    fn63(list7[v365][2], v365, v396.name)
                                                 end
                                                 Options.weapon_filter:SetValue("")
-                                                v364()
+                                                v366()
                                                 if key ~= "finisher" then
-                                                    task.spawn(v354)
+                                                    task.spawn(v356)
                                                 end
                                                 v7(8)
                                             end)
-                                            list10[v382] = {v383, v384, v385}
+                                            list10[v384] = {v385, v386, v387}
                                         end
                                         if key == "skin" then
-                                            list6[key][v363] = list10
+                                            list6[key][v365] = list10
                                         else
                                             list6[key] = list10
                                         end
                                     end
                                     for k25, list11 in list7 do
-                                        local values3, v387, v388 = unpack(list11)
+                                        local values3, v389, v390 = unpack(list11)
                                         local values = values3
                                         if not k25:lower():find(lower2, 1, true) then
                                             values.Visible = false
@@ -19136,9 +19169,9 @@ if not getgenv().UE_LOADED then
                                         end
                                     end
                                     local list11 = {}
-                                    local name3 = skin_data2[v363][key].name
+                                    local name3 = skin_data2[v365][key].name
                                     for k26, list12 in list10 do
-                                        local values4, v391, v392 = unpack(list12)
+                                        local values4, v393, v394 = unpack(list12)
                                         local values = values4
                                         if not k26:lower():find(lower3, 1, true) then
                                             values.Visible = false
@@ -19154,8 +19187,8 @@ if not getgenv().UE_LOADED then
                                             values.BackgroundColor3 = color2
                                         end
                                     end
-                                    if flag15 or key == "skin" and v365 ~= v363 then
-                                        v365 = v363
+                                    if flag15 or key == "skin" and v367 ~= v365 then
+                                        v367 = v365
                                         for k27 in list8 do
                                             if not list11[k27] then
                                                 list8[k27] = nil
@@ -19163,81 +19196,82 @@ if not getgenv().UE_LOADED then
                                             end
                                         end
                                     end
-                                    if v363 then
-                                        v366.BackgroundColor3 = skin_data2[v363][key].random and color or color2
+                                    if v365 then
+                                        v368.BackgroundColor3 = skin_data2[v365][key].random and color or color2
                                     end
                                 end
-                                local v367, v368, v369 = v352(parent, "Random", "Random", true, "rbxassetid://94238795177693", 0.5)
-                                v369:Destroy()
-                                v366 = v367
-                                v366.LayoutOrder = -1
-                                v366.Name = "!Random"
-                                v366.Activated:Connect(function()
-                                    if v363 then
-                                        local v380 = skin_data2[v363][key]
-                                        v380.random = not v380.random
-                                        if v380.random then
-                                            v380.name = nil
+                                local v369, v370, v371 = v354(parent, "Random", "Random", true, "rbxassetid://94238795177693", 0.5)
+                                v371:Destroy()
+                                v368 = v369
+                                v368.LayoutOrder = -1
+                                v368.Name = "!Random"
+                                v368.Activated:Connect(function()
+                                    if v365 then
+                                        local v382 = skin_data2[v365][key]
+                                        v382.random = not v382.random
+                                        if v382.random then
+                                            v382.name = nil
                                         end
                                         fn62()
                                         fn65()
                                         if key ~= "finisher" then
-                                            task.spawn(v354)
+                                            task.spawn(v356)
                                         end
                                     end
                                 end)
                                 do
                                     local list9 = {}
-                                    local v370 = nil
+                                    local v372 = nil
                                     for k24, ownableWeapon in module41.OwnableWeapons do
                                         if not table.find(list9, ownableWeapon) then
                                             table.insert(list9, ownableWeapon)
-                                            local v372, v373, v374, v375 = v352(scrollingFrame, ownableWeapon, skin_data2[ownableWeapon].skin.name, true)
-                                            local v376 = v372
-                                            local v377 = v373
-                                            local v378 = v375
-                                            v376.Name = string.char(k24 + 4)
+                                            local v374, v375, v376, v377 = v354(scrollingFrame, ownableWeapon, skin_data2[ownableWeapon].skin.name, true)
+                                            local v378 = v374
+                                            local v379 = v375
+                                            local v380 = v377
+                                            v378.Name = string.char(k24 + 4)
                                             local fn66 = function()
                                                 Options.weapon_filter:SetValue("")
-                                                if v370 then
-                                                    v370.BackgroundColor3 = color2
+                                                if v372 then
+                                                    v372.BackgroundColor3 = color2
                                                 end
-                                                v370 = v376
-                                                v376.BackgroundColor3 = color
-                                                v363 = ownableWeapon
+                                                v372 = v378
+                                                v378.BackgroundColor3 = color
+                                                v365 = ownableWeapon
                                                 fn65()
                                             end
-                                            list7[ownableWeapon] = {v376, v377, v374}
-                                            v376.Activated:Connect(fn66)
-                                            local text2 = v378.Text
+                                            list7[ownableWeapon] = {v378, v379, v376}
+                                            v378.Activated:Connect(fn66)
+                                            local text2 = v380.Text
                                             local fn67 = function()
                                                 local enabled = skin_data2[ownableWeapon][key].enabled
                                                 if enabled then
-                                                    v378.Text = text2
+                                                    v380.Text = text2
                                                 else
-                                                    v378.Text = (key:sub(1, 1):upper() .. key:sub(2, #key)) .. " Off"
+                                                    v380.Text = (key:sub(1, 1):upper() .. key:sub(2, #key)) .. " Off"
                                                 end
-                                                v377.ImageColor3 = enabled and Color3.new(1, 1, 1) or Color3.new(1, 0, 0)
-                                                v377.ImageTransparency = enabled and 0 or 0.75
+                                                v379.ImageColor3 = enabled and Color3.new(1, 1, 1) or Color3.new(1, 0, 0)
+                                                v379.ImageTransparency = enabled and 0 or 0.75
                                             end
-                                            v376.MouseButton2Click:Connect(function()
-                                                skin_data2[ownableWeapon][key].enabled = not skin_data2[ownableWeapon][key].enabled
+                                            v378.MouseButton2Click:Connect(function()
+                                                local enabled = not skin_data2[ownableWeapon][key].enabled
+                                                skin_data2[ownableWeapon][key].enabled = enabled
                                                 fn67()
-                                                task.spawn(v354)
+                                                task.spawn(v356)
                                             end)
                                             fn67()
                                             inst.Event:Connect(function()
                                                 fn67()
-                                                fn63(v377, ownableWeapon, skin_data2[ownableWeapon].skin.name)
+                                                fn63(v379, ownableWeapon, skin_data2[ownableWeapon].skin.name)
                                             end)
-                                            if not v363 then
+                                            if not v365 then
                                                 fn66()
                                             end
                                         end
                                     end
                                     inst.Event:Connect(function()
                                         if key == "wrap" then
-                                            Toggles.cosmetics_wrap_inverted:SetValue(not not skin_data2[v363][key].inverted)
+                                            Toggles.cosmetics_wrap_inverted:SetValue(not not skin_data2[v365][key].inverted)
                                         end
                                     end)
                                 end
@@ -19251,9 +19285,9 @@ if not getgenv().UE_LOADED then
                                         clear(list9)
                                         for k26, item2 in item.Items do
                                             if list7[item2.Name] then
-                                                local v382 = list7[item2.Name][1]
-                                                list9[v382] = v382.Name
-                                                v382.Name = string.char(k26)
+                                                local v384 = list7[item2.Name][1]
+                                                list9[v384] = v384.Name
+                                                v384.Name = string.char(k26)
                                             end
                                         end
                                     end)
@@ -19266,19 +19300,19 @@ if not getgenv().UE_LOADED then
                                         Text = "apply selected to all",
                                         DoubleClick = true,
                                         Func = function()
-                                            local v380 = skin_data2[v363][key]
-                                            local random2 = v380.random
+                                            local v382 = skin_data2[v365][key]
+                                            local random2 = v382.random
                                             if key == "skin" and not random2 then
                                                 return Library:Notify("cant apply weapon skins to all!")
                                             end
                                             for _, list10 in skin_data2 do
-                                                list10[key].name = random2 and nil or v380.name
+                                                list10[key].name = random2 and nil or v382.name
                                                 list10[key].random = random2
                                             end
-                                            local lower = random2 and "random" or (v380.name or "none"):lower()
+                                            local lower = random2 and "random" or (v382.name or "none"):lower()
                                             Library:Notify("applied " .. key .. ": " .. lower .. " to all weapons")
                                             fn65()
-                                            task.spawn(v354)
+                                            task.spawn(v356)
                                         end,
                                     })
                                     popout:AddButton({
@@ -19294,7 +19328,7 @@ if not getgenv().UE_LOADED then
                                             end
                                             Options.cosmetics_changer_mode:SetValue("skin")
                                             fn65()
-                                            task.spawn(v354)
+                                            task.spawn(v356)
                                         end,
                                         DoubleClick = true,
                                     }):AddButton("close", function()
@@ -19305,31 +19339,31 @@ if not getgenv().UE_LOADED then
                                 label.TextLabel.TextXAlignment = Enum.TextXAlignment.Center
                                 label.TextLabel.TextTransparency = 0.5
                                 Options.cosmetics_changer_save_data.Changed = function()
-                                    local ok5, v380 = pcall(HttpService.JSONDecode, HttpService, Options.cosmetics_changer_save_data.Value)
-                                    local v381 = v380
-                                    if not ok5 or type(v381) ~= "table" then
+                                    local ok5, v382 = pcall(HttpService.JSONDecode, HttpService, Options.cosmetics_changer_save_data.Value)
+                                    local v383 = v382
+                                    if not ok5 or type(v383) ~= "table" then
                                         return
                                     end
                                     local tbl67 = {"finisher", "wrap", "charm", "skin"}
-                                    for k25, list9 in v381 do
+                                    for k25, list9 in v383 do
                                         if type(list9) == "table" then
                                             skin_data2[k25] = list9
-                                            for _, v383 in tbl67 do
-                                                if not list9[v383] then
-                                                    list9[v383] = {enabled = true}
+                                            for _, v385 in tbl67 do
+                                                if not list9[v385] then
+                                                    list9[v385] = {enabled = true}
                                                 end
                                             end
                                         end
                                     end
-                                    task.spawn(v354)
+                                    task.spawn(v356)
                                     v7(8)
                                     fn65()
                                     inst:Fire()
                                 end
                                 Toggles.cosmetics_wrap_inverted.Callback = function(arg1)
-                                    skin_data2[v363][key].inverted = arg1 and true or nil
+                                    skin_data2[v365][key].inverted = arg1 and true or nil
                                     fn62()
-                                    task.spawn(v354)
+                                    task.spawn(v356)
                                 end
                                 Options.cosmetics_changer_mode:OnChanged(function(value)
                                     fn65()
@@ -19362,39 +19396,41 @@ if not getgenv().UE_LOADED then
                                     state.drawings[name .. "_outline"].Visible = Toggles[name .. "_fov_outline"].Value and visible
                                 end)
                                 Toggles[name .. "_fov_outline"]:OnChanged(function(value)
-                                    state.drawings[name .. "_outline"].Visible = value and Toggles[name .. "_toggle"].Value and Toggles[name .. "_showfov"].Value
+                                    local visible = value and Toggles[name .. "_toggle"].Value and Toggles[name .. "_showfov"].Value
+                                    state.drawings[name .. "_outline"].Visible = visible
                                 end)
                                 Options[name .. "_fov_rotation"]:OnChanged(function(value)
                                     local frame = state.drawings[name]._frame
-                                    for _, v345 in {frame.UIGradient, frame._stroke.UIGradient} do
-                                        v345.Rotation = value
+                                    for _, v347 in {frame.UIGradient, frame._stroke.UIGradient} do
+                                        v347.Rotation = value
                                     end
                                 end)
                                 Toggles[name .. "_fov_moving"]:OnChanged(function(value)
                                     if not value then
                                         local frame = state.drawings[name]._frame
-                                        for _, v345 in {frame.UIGradient, frame._stroke.UIGradient} do
-                                            v345.Rotation = Options[name .. "_fov_rotation"].Value
+                                        for _, v347 in {frame.UIGradient, frame._stroke.UIGradient} do
+                                            v347.Rotation = Options[name .. "_fov_rotation"].Value
                                         end
                                     end
                                 end)
-                                local n11 = 3 + 0
-                                for i7 = 1, n11 do
+                                local n12 = 3 + 0
+                                local v339 = n12
+                                for i7 = 1, v339 do
                                     Options[name .. "_color" .. i7]:OnChanged(function(value)
                                         local list5 = {}
                                         local tbl59 = {}
                                         for i9 = 1, 3 do
-                                            local v345 = Options[name .. "_color" .. i9]
-                                            table.insert(list5, ColorSequenceKeypoint.new((i9 - 1) / 2, v345.Value))
+                                            local v347 = Options[name .. "_color" .. i9]
+                                            table.insert(list5, ColorSequenceKeypoint.new((i9 - 1) / 2, v347.Value))
                                             local insert2 = table.insert
-                                            local v346 = tbl59
+                                            local v348 = tbl59
                                             local new13 = NumberSequenceKeypoint.new
-                                            local n16 = (i9 - 1) / 2
-                                            local transparency2 = v345.Transparency
+                                            local n17 = (i9 - 1) / 2
+                                            local transparency2 = v347.Transparency
                                             if not transparency2 then
                                                 transparency2 = 0
                                             end
-                                            insert2(v346, new13(n16, transparency2))
+                                            insert2(v348, new13(n17, transparency2))
                                         end
                                         local colorSequence = ColorSequence.new(list5)
                                         local sequence = NumberSequence.new(tbl59)
@@ -19406,17 +19442,17 @@ if not getgenv().UE_LOADED then
                                         local list5 = {}
                                         local tbl59 = {}
                                         for i9 = 1, 3 do
-                                            local v345 = Options[name .. "_outline_color" .. i9]
-                                            table.insert(list5, ColorSequenceKeypoint.new((i9 - 1) / 2, v345.Value))
+                                            local v347 = Options[name .. "_outline_color" .. i9]
+                                            table.insert(list5, ColorSequenceKeypoint.new((i9 - 1) / 2, v347.Value))
                                             local insert2 = table.insert
-                                            local v346 = tbl59
+                                            local v348 = tbl59
                                             local new13 = NumberSequenceKeypoint.new
-                                            local n16 = (i9 - 1) / 2
-                                            local transparency2 = v345.Transparency
+                                            local n17 = (i9 - 1) / 2
+                                            local transparency2 = v347.Transparency
                                             if not transparency2 then
                                                 transparency2 = 0
                                             end
-                                            insert2(v346, new13(n16, transparency2))
+                                            insert2(v348, new13(n17, transparency2))
                                         end
                                         local colorSequence = ColorSequence.new(list5)
                                         local sequence = NumberSequence.new(tbl59)
@@ -19428,17 +19464,17 @@ if not getgenv().UE_LOADED then
                                         local list5 = {}
                                         local tbl59 = {}
                                         for i9 = 1, 3 do
-                                            local v345 = Options[name .. "_fill_color" .. i9]
-                                            table.insert(list5, ColorSequenceKeypoint.new((i9 - 1) / 2, v345.Value))
+                                            local v347 = Options[name .. "_fill_color" .. i9]
+                                            table.insert(list5, ColorSequenceKeypoint.new((i9 - 1) / 2, v347.Value))
                                             local insert2 = table.insert
-                                            local v346 = tbl59
+                                            local v348 = tbl59
                                             local new13 = NumberSequenceKeypoint.new
-                                            local n16 = (i9 - 1) / 2
-                                            local transparency2 = v345.Transparency
+                                            local n17 = (i9 - 1) / 2
+                                            local transparency2 = v347.Transparency
                                             if not transparency2 then
                                                 transparency2 = 0
                                             end
-                                            insert2(v346, new13(n16, transparency2))
+                                            insert2(v348, new13(n17, transparency2))
                                         end
                                         local colorSequence = ColorSequence.new(list5)
                                         local sequence = NumberSequence.new(tbl59)
@@ -19521,8 +19557,9 @@ if not getgenv().UE_LOADED then
                                         state.events.esp_effects_changed:Fire()
                                     end
                                 end)
-                                local n12 = 3 + 0
-                                for i8 = 1, n12 do
+                                local n13 = 3 + 0
+                                local v344 = n13
+                                for i8 = 1, v344 do
                                     Options["esp_effects_" .. name .. "_color" .. i8]:OnChanged(function()
                                         if Toggles["esp_effects_" .. name].Value then
                                             state.events.esp_effects_color_changed:Fire()
@@ -19562,57 +19599,57 @@ if not getgenv().UE_LOADED then
                 local num9 = 1
                 local num10 = 0
                 while 0 < arg1 and 0 < arg2 do
-                    local n16 = arg1 % 2
-                    local n17 = arg2 % 2
-                    if n16 ~= n17 then
+                    local n17 = arg1 % 2
+                    local n18 = arg2 % 2
+                    if n17 ~= n18 then
                         num10 = num10 + num9
                     end
-                    arg1 = (arg1 - n16) / 2
-                    arg2 = (arg2 - n17) / 2
+                    arg1 = (arg1 - n17) / 2
+                    arg2 = (arg2 - n18) / 2
                     num9 = num9 * 2
                 end
                 if arg1 < arg2 then
                     arg1 = arg2
                 end
                 while 0 < arg1 do
-                    local n18 = arg1 % 2
-                    if 0 < n18 then
+                    local n19 = arg1 % 2
+                    if 0 < n19 then
                         num10 = num10 + num9
                     end
-                    arg1 = (arg1 - n18) / 2
+                    arg1 = (arg1 - n19) / 2
                     num9 = num9 * 2
                 end
                 return num10
             end
             local fn63 = function(arg1, arg2, arg3)
                 if not arg3 then
-                    local n16 = 2 ^ (arg2 - 1)
-                    return arg1 % (n16 + n16) >= n16 and 1 or 0
+                    local n17 = 2 ^ (arg2 - 1)
+                    return arg1 % (n17 + n17) >= n17 and 1 or 0
                 end
-                local n17 = arg1 / 2 ^ (arg2 - 1) % 2 ^ (arg3 - 1 - (arg2 - 1) + 1)
-                return n17 - n17 % 1
+                local n18 = arg1 / 2 ^ (arg2 - 1) % 2 ^ (arg3 - 1 - (arg2 - 1) + 1)
+                return n18 - n18 % 1
             end
             local fn64 = function()
-                local v346, v347, v348, v349 = byte(text, 1, 4)
-                return fn62(v349, 64) * 16777216 + fn62(v348, 32) * 65536 + fn62(v347, 16) * 256 + fn62(v346, 8)
+                local v348, v349, v350, v351 = byte(text, 1, 4)
+                return fn62(v351, 64) * 16777216 + fn62(v350, 32) * 65536 + fn62(v349, 16) * 256 + fn62(v348, 8)
             end
             local fn65 = function()
-                local v346 = fn64()
-                local v347 = fn64()
+                local v348 = fn64()
+                local v349 = fn64()
                 local num9 = 1
-                local n16 = fn63(v347, 1, 20) * 4294967296 + v346
-                local v348 = fn63(v347, 21, 31)
-                local v349 = -1 ^ fn63(v347, 32)
-                if v348 == 0 then
-                    if n16 == 0 then
-                        return v349 * 0
+                local n17 = fn63(v349, 1, 20) * 4294967296 + v348
+                local v350 = fn63(v349, 21, 31)
+                local v351 = -1 ^ fn63(v349, 32)
+                if v350 == 0 then
+                    if n17 == 0 then
+                        return v351 * 0
                     end
-                    v348 = 1
+                    v350 = 1
                     num9 = 0
-                elseif v348 == 2047 then
-                    return n16 == 0 and v349 * 1 / 0 or v349 * 0 / 0
+                elseif v350 == 2047 then
+                    return n17 == 0 and v351 * 1 / 0 or v351 * 0 / 0
                 end
-                return v349 * 2 ^ (v348 - 1023) * (num9 + n16 / 4503599627370496)
+                return v351 * 2 ^ (v350 - 1023) * (num9 + n17 / 4503599627370496)
             end
             local fn66 = function()
                 if 1 <= fn64() + 0 then
@@ -19622,31 +19659,31 @@ if not getgenv().UE_LOADED then
                             list[fn62(fn64(), fn64())] = fn62(fn64(), fn64())
                             list[fn62(fn64(), fn64())] = fn62(fn64(), fn64())
                         end
-                        local n16 = fn64() + 0
-                        for _ = 1, n16 do
+                        local n17 = fn64() + 0
+                        for _ = 1, n17 do
                             for _ = 0, 255 do
                                 do
-                                    local v346 = fn65()
-                                    if v346 then
-                                        v346 = fn64()
+                                    local v348 = fn65()
+                                    if v348 then
+                                        v348 = fn64()
                                     end
-                                    local v347 = list[fn65()]
-                                    if not v347 then
-                                        v347 = fn62(fn65(), fn65())
-                                    end
-                                    list[v346] = v347
-                                end
-                                do
-                                    local v348 = fn64()
-                                    local v349 = fn65()
-                                    if v349 then
-                                        v349 = fn65()
+                                    local v349 = list[fn65()]
+                                    if not v349 then
+                                        v349 = fn62(fn65(), fn65())
                                     end
                                     list[v348] = v349
                                 end
-                                local v350 = fn63(fn65(), fn64())
+                                do
+                                    local v350 = fn64()
+                                    local v351 = fn65()
+                                    if v351 then
+                                        v351 = fn65()
+                                    end
+                                    list[v350] = v351
+                                end
+                                local v352 = fn63(fn65(), fn64())
                                 local tbl59 = {fn65(), fn64()}
-                                list[v350] = tbl59
+                                list[v352] = tbl59
                             end
                         end
                     end
@@ -19685,19 +19722,19 @@ if not getgenv().UE_LOADED then
         isfunctionhooked2 = nil
         integrityOffsetRef = 20428
         integrityModuloRef = 1
-        local n13 = integrityModuloRef + 0
-        local n14 = integrityOffsetRef + 0
-        local n15 = 1 - n13 + n13
-        if n13 <= 0 then
-            if not (n15 >= n14) then
+        local n14 = integrityModuloRef + 0
+        local n15 = integrityOffsetRef + 0
+        local n16 = 1 - n14 + n14
+        if n14 <= 0 then
+            if not (n16 >= n15) then
                 while true do
                 end
             end
-        elseif not (n15 <= n14) then
+        elseif not (n16 <= n15) then
             while true do
             end
         end
-        integrityProductRef = n15
+        integrityProductRef = n16
         error("tamper detected") -- original: script wipes its own bytecode here (anti-tamper)
     end
     return game:GetService("Players").LocalPlayer:Kick("rivals updated, ping developers (ABSCX)")

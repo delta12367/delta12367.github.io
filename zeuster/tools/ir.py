@@ -138,6 +138,18 @@ def reads_mem(e):
     return False
 
 
+def may_raise(e):
+    """operators that can call a metamethod or fail on the wrong types (so their position relative to
+    side effects is observable): arithmetic, concatenation, ordering comparisons, length, unary minus"""
+    for x in walk(e):
+        k = x[0]
+        if k == "bin" and x[1] not in ("==", "~="):
+            return True
+        if k == "un" and x[1] in ("#", "-"):
+            return True
+    return False
+
+
 def has_alloc(e):
     for x in walk(e):
         if x[0] in ("closure", "native", "newtable"):

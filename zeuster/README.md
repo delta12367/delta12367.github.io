@@ -93,6 +93,12 @@ Luau's 200-local limit), `constfold.py` (encrypted constants),
   handles varargs without a global lookup, so the decompiled code must not depend on that
   environment either. Found by the fuzz phase below.
 
+* Expressions that can raise or run a metamethod (field reads, arithmetic, concatenation,
+  ordering comparisons, `#`) are no longer moved past side effects or past each other when a
+  temporary is inlined, so the original evaluation order is kept (for example the camera's
+  `LookVector` is read before `Position`, as in the VM). Found by the fuzz phase; it costs
+  29 extra locals.
+
 ## Verification (`oracle/`)
 
 The original script (with its Luraph VM) and the decompiled file are run under the same
@@ -122,10 +128,12 @@ tree (943 instances) so `DeserializeInstancesAsync` returns the real hierarchy.
 
 Current result:
 
-* 3,925,491 trace events on both sides (with the fuzz phase); all 2,443,692 events other than
-  plain property reads are identical and in the same order.
-* The reads are identical as a multiset; in 56 places a method lookup is moved past its
-  arguments. Luraph's VM
+* 5,708,194 trace events (with the fuzz phases); all 3,609,168 events other than plain
+  property reads are identical and in the same order, after normalising error positions and
+  two error wordings that differ between the VM and Luau for the same failure (calling a
+  missing method, a numeric `for` over a non-number).
+* Reads (`readcheck.py`): 30,075 method lookups are moved past their arguments, and once,
+  when an argument fails, the original's lookup happens and the decompiled one does not. Luraph's VM
   looks a method up before evaluating the arguments (`SELF`); Luau's `obj:m(args)` looks
   it up after them. Reading a method of an Instance has no side effects.
 * Both runs iterate tables in a canonical key order (`__ITER` in the harness). Lua leaves
@@ -135,9 +143,11 @@ Current result:
   `__REG(function ... end, pid)` wrapper in an `ORACLE_REG=1` build of the decompiled file,
   which is otherwise identical text). Functions the normal run never executed are then called
   with placeholder arguments, in two rounds (`fuzzlist.py` builds `fuzz_pids.txt`): 216
-  functions, 248 calls, identical traces. Closures that only the original creates are the
+  functions, 248 calls. A last round calls every registered function (607) with six
+  argument profiles (objects, numbers, strings, booleans, nil, tables): 3,642 calls. All
+  traces are identical. Closures that only the original creates are the
   bodies inside folded constant closures and closure values the decompiler removed as dead.
-* 629 of the 844 emitted functions run, covering 64% of the lifted VM instructions
+* 631 of the 844 emitted functions run, covering 64.5% of the lifted VM instructions
   (`covstat.py`; the folded constant closures are not counted). `gapcheck.py`
   confirms that every executed instruction is in the lifted code, except Luraph's
   first-run jump resolvers (which only patch operand slots) and the encrypted-constant

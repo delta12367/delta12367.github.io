@@ -1,6 +1,6 @@
 """IR optimisation: call conversion, expression propagation, copy propagation, dead code elimination."""
 import collections
-from ir import (VAR_KINDS, is_var, children, rebuild, subst, walk, vars_read, has_effects, reads_mem, has_alloc,
+from ir import (VAR_KINDS, is_var, children, rebuild, subst, walk, vars_read, has_effects, reads_mem, has_alloc, may_raise,
                 stmt_exprs, stmt_with_exprs, stmt_defs, stmt_effects, term_exprs, term_with_exprs, liveness)
 
 CALL_KINDS = ("callx", "callmx", "mcallx", "mcallmx")
@@ -62,6 +62,7 @@ def all_exprs(F):
 
 
 KEEP_READS = True
+STRICT_ORDER = True    # expressions that can raise keep their order relative to each other
 
 
 class Optimizer:
@@ -356,7 +357,7 @@ class Optimizer:
         stmts = b.stmts
         end = pos if pos != "term" else len(stmts)
         evars = vars_read(E)
-        mem = reads_mem(E)
+        mem = reads_mem(E) or may_raise(E)
         eff = has_effects(E)
         for k in range(i + 1, end):
             sk = stmts[k]
@@ -366,19 +367,22 @@ class Optimizer:
                 return False
             if (mem or eff) and stmt_effects(sk):
                 return False
+            if STRICT_ORDER and mem and any(reads_mem(e) or may_raise(e) for e in stmt_exprs_any(sk)):
+                # both can raise (index of nil, arithmetic on a wrong type): keep their order
+                return False
             if eff:
                 for e in stmt_exprs_any(sk):
                     if reads_mem(e):
                         return False
         if var is not None and (mem or eff):
             # evaluation order inside the using statement: nothing that is evaluated before the
-            # use may call (or, when E has side effects, read memory)
+            # use may call (or, when E has side effects or may raise, read memory / raise)
             exprs = term_exprs(b.term) if pos == "term" else eval_order_exprs(stmts[pos])
             before = effects_before(exprs, var)
             if before is None:
                 return False
             calls, reads = before
-            if calls or (eff and reads):
+            if calls or ((eff or STRICT_ORDER) and reads):
                 return False
         return True
 
@@ -487,6 +491,12 @@ def effects_before(exprs, var):
             for a, b in e[2]:
                 visit(a)
                 visit(b)
+            return
+        if (k == "bin" and e[1] not in ("==", "~=", "and", "or")) or (k == "un" and e[1] in ("#", "-")):
+            for c in children(e):
+                visit(c)
+            if not state["found"]:
+                state["reads"] += 1      # the operator itself can raise (counted with the reads)
             return
         for c in children(e):
             visit(c)
