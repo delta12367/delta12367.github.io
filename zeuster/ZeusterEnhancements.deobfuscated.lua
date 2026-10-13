@@ -4,6 +4,8 @@
     Variable names are reconstructed (heuristic); the original names were not present in the file.
 ]]
 
+local __select, __pack, __move = select, table.pack, table.move
+
 os.clock()
 local _ = math.huge
 local v = ({...})[2]
@@ -1521,7 +1523,7 @@ if not getgenv().UE_LOADED then
         local fn4 = function(...)
             local arg1 = ...
             local v345 = arg1
-            local tbl58 = {select(2, ...)}
+            local tbl58 = {__select(2, ...)}
             for _, v346 in tbl58 do
                 v345 = v345:WaitForChild(v346, math.huge or nil)
             end
@@ -4485,14 +4487,14 @@ if not getgenv().UE_LOADED then
                         end,
                         AddButton = function(...)
                             local arg1 = ...
-                            local list = typeof(select(1, select(2, ...))) == "table"
+                            local list = typeof(select(1, __select(2, ...))) == "table"
                             if list then
-                                list = select(1, select(2, ...))
+                                list = select(1, __select(2, ...))
                             end
                             if not list then
                                 list = {}
-                                list.Text = select(1, select(2, ...))
-                                list.Func = select(2, select(2, ...))
+                                list.Text = select(1, __select(2, ...))
+                                list.Func = select(2, __select(2, ...))
                             end
                             assert(typeof(list.Func) == "function", "AddButton: `Func` callback is missing.")
                             local v345 = arg1
@@ -10213,7 +10215,7 @@ if not getgenv().UE_LOADED then
                 local str5 = "Add" .. name
                 fn24({str5}, function(...)
                     local arg1 = ...
-                    local v345 = arg1.source[str5](arg1.source, select(2, ...))
+                    local v345 = arg1.source[str5](arg1.source, __select(2, ...))
                     table.insert(arg1.api.cache.ui, v345)
                     return list.new(arg1.api, v345)
                 end, list)
@@ -10222,7 +10224,7 @@ if not getgenv().UE_LOADED then
                 local str6 = "Add" .. name
                 fn24({str6}, function(...)
                     local arg1, arg2 = ...
-                    local v345 = arg1.source[str6](arg1.source, arg2, select(3, ...))
+                    local v345 = arg1.source[str6](arg1.source, arg2, __select(3, ...))
                     table.insert(arg1.api.cache.ui, Options[arg2])
                     return list.new(arg1.api, v345)
                 end, list)
@@ -17767,7 +17769,7 @@ if not getgenv().UE_LOADED then
                                 v353 = v236(module10.SetArmsData, function(...)
                                     local arg1, arg2, arg3, arg4, arg5 = ...
                                     if (arg2 or arg3 or arg4) and arg1.ClientItem.ClientFighter == item then
-                                        local list4 = table.pack(v353(arg1, select(2, ...)))
+                                        local list4 = table.pack(v353(arg1, __select(2, ...)))
                                         local parent
                                         local itemModel = arg1.ItemModel
                                         parent = itemModel and itemModel.Parent
@@ -17780,7 +17782,7 @@ if not getgenv().UE_LOADED then
                                         end
                                         return unpack(list4, 1, list4.n)
                                     end
-                                    return v353(arg1, select(2, ...))
+                                    return v353(arg1, __select(2, ...))
                                 end)
                             end
                             local v354 = nil
@@ -17854,7 +17856,7 @@ if not getgenv().UE_LOADED then
                                     v274 = v236(module13.StartShooting, function(...)
                                         local arg1 = ...
                                         if arg1.ClientFighter.IsLocalPlayer then
-                                            local list = pack2(v274(arg1, select(2, ...)))
+                                            local list = pack2(v274(arg1, __select(2, ...)))
                                             if list[1] and list[2] == "StartShooting" then
                                                 if arg1.Name == "Revolver" then
                                                     list[5] = true
@@ -17865,7 +17867,7 @@ if not getgenv().UE_LOADED then
                                             end
                                             return unpack_2(list, 1, list.n)
                                         end
-                                        return v274(arg1, select(2, ...))
+                                        return v274(arg1, __select(2, ...))
                                     end)
                                     fn43(v274, "PlayAnimation", "\0PlayAnimation ")
                                 end
@@ -17946,7 +17948,7 @@ if not getgenv().UE_LOADED then
                             local v279 = nil
                             v279 = v236(module11._Recoil, function(...)
                                 local arg1, arg2 = ...
-                                return v279(arg1, (arg2 or 1) * (viewmodel_recoil.Value / 100), select(3, ...))
+                                return v279(arg1, (arg2 or 1) * (viewmodel_recoil.Value / 100), __select(3, ...))
                             end)
                         end
                         do
@@ -18053,7 +18055,7 @@ if not getgenv().UE_LOADED then
                                             v345 = name3
                                         end
                                     end
-                                    return v287(arg1, v345, select(3, ...))
+                                    return v287(arg1, v345, __select(3, ...))
                                 end)
                             end
                             local module19 = require(fn4(localPlayer.PlayerScripts, "Modules", "ClientReplicatedClasses", "ClientEntity"))
@@ -18081,7 +18083,7 @@ if not getgenv().UE_LOADED then
                                         end
                                     end
                                 end
-                                return playFinisher(arg1, v345, arg3, arg4, select(5, ...))
+                                return playFinisher(arg1, v345, arg3, arg4, __select(5, ...))
                             end, playFinisher))
                         end
                         do
@@ -18120,7 +18122,7 @@ if not getgenv().UE_LOADED then
                                     rawset(module21, "\0_DoubleJumpRequest ", fn41(function(...)
                                         local arg1 = ...
                                         if not v289 or arg1.LocalFighter:IsGrounded() then
-                                            return doubleJumpRequest(arg1, select(2, ...))
+                                            return doubleJumpRequest(arg1, __select(2, ...))
                                         end
                                         return arg1:DoubleJump()
                                     end, doubleJumpRequest))
@@ -18270,10 +18272,10 @@ if not getgenv().UE_LOADED then
                                     local list = arg1.DuelInterface.ClientDuel:Get("VoteOptions")
                                     if list and not (3 < #list) then
                                         task.delay(autoban_map_delay.Value, vote.FireServer, vote, list[random(1, 3)].Name)
-                                        return generateRemainingBans2(arg1, select(2, ...))
+                                        return generateRemainingBans2(arg1, __select(2, ...))
                                     end
                                 end
-                                return generateRemainingBans2(arg1, select(2, ...))
+                                return generateRemainingBans2(arg1, __select(2, ...))
                             end, generateRemainingBans2))
                         end
                         do

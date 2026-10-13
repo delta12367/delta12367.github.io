@@ -18,6 +18,8 @@ def norm(lines):
         if ln.startswith("get ") or ln.startswith("rawget "):
             continue
         ln = loc.sub("<loc>: ", ln)
+        while "<loc>: <loc>: " in ln:      # the VM re-raises errors with a second position prefix
+            ln = ln.replace("<loc>: <loc>: ", "<loc>: ")
         m = SET.match(ln)
         if m:
             if run_obj is not None and m.group(1) != run_obj:

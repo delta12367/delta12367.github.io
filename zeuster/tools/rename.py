@@ -165,6 +165,14 @@ def singular(name):
     return None
 
 
+def unreg(e):
+    """oracle builds wrap closures as __REG(function ... end, pid): look through the wrapper"""
+    if e and e.get("type") == "AstExprCall" and e["func"].get("type") == "AstExprGlobal" and \
+            e["func"].get("global") == "__REG" and e["args"]:
+        return e["args"][0]
+    return e
+
+
 def loc(s):
     a, b = s.split(" - ")
     l1, c1 = a.split(",")
@@ -244,9 +252,9 @@ class Analyzer:
             vals = st.get("values", [])
             for i, L in enumerate(vs):
                 if i < len(vals) and (i < len(vals) - 1 or len(vs) == len(vals)):
-                    L.init = vals[i]
-                    if vals[i]["type"] == "AstExprFunction":
-                        L.func = vals[i]
+                    L.init = unreg(vals[i])
+                    if L.init["type"] == "AstExprFunction":
+                        L.func = L.init
             return
         if t == "AstStatLocalFunction":
             L = self.decl(st["name"], "localfunction", block_end, loc(st["name"]["location"])[0])
@@ -265,6 +273,7 @@ class Analyzer:
             return
         if t == "AstStatAssign":
             for var, val in zip(st["vars"], st["values"]):
+                val = unreg(val)
                 if var["type"] == "AstExprIndexName" and val["type"] == "AstExprLocal":
                     L = self.locals.get(val["local"]["location"])
                     if L is not None:
@@ -392,8 +401,8 @@ class Analyzer:
                 callee = dotted(f)
             self.expr(f)
             if f["type"] == "AstExprIndexName" and f.get("op") == ":" and e["args"] and \
-                    e["args"][0]["type"] == "AstExprFunction":
-                fn0 = e["args"][0]
+                    unreg(e["args"][0])["type"] == "AstExprFunction":
+                fn0 = unreg(e["args"][0])
                 if f["index"] in ("Connect", "Once", "ConnectParallel") and f["expr"]["type"] == "AstExprIndexName":
                     self.callbacks[id(fn0)] = EVENT_PARAMS.get(f["expr"]["index"])
                 elif f["index"] == "OnChanged":
@@ -424,7 +433,7 @@ class Analyzer:
         if t == "AstExprTable":
             for it in e.get("items", []):
                 if it.get("kind") == "record" and it["key"]["type"] == "AstExprConstantString":
-                    v = it["value"]
+                    v = unreg(it["value"])
                     if v["type"] == "AstExprLocal":
                         L = self.locals.get(v["local"]["location"])
                         if L is not None:

@@ -30,9 +30,17 @@ do
     __H.trace = TRACE
 
     local STREAM = true
+    local FUZZEV = nil
     local function ev(s)
         if not ON or STOP then
             return
+        end
+        if FUZZEV ~= nil then
+            FUZZEV += 1
+            if FUZZEV > 20000 then
+                FUZZEV = nil
+                _error("FUZZ_EVENT_BUDGET", 0)
+            end
         end
         NT += 1
         if NT > MAXT then
@@ -47,10 +55,18 @@ do
     end
     local STEPS = 0
     local STEPMAX = 400000000
+    local FUZZSTEPS, FUZZMAX = nil, 20000000
     function __STEP()
         STEPS += 1
         if STOP then
             _error("HARNESS_STOP", 0)
+        end
+        if FUZZSTEPS ~= nil then
+            FUZZSTEPS += 1
+            if FUZZSTEPS > FUZZMAX then
+                _error("FUZZ_STEP_BUDGET", 0)
+            end
+            return
         end
         if STEPS > STEPMAX then
             if not STOP then
@@ -1537,7 +1553,44 @@ do
         return f, s, c, ...
     end
     _rawset(env, "__ITER", __ITER)
-    __H.COV, __H.STEP, __H.ITER = __COV, __STEP, __ITER
+    -- closures by proto id, in creation order (original: VM closure creation; decompiled: __REG wrappers)
+    local REGS = {}
+    function __REG(f, pid)
+        if ON then
+            local list = REGS[pid]
+            if list == nil then
+                list = {}
+                REGS[pid] = list
+            end
+            if #list < 4 then
+                list[#list + 1] = f
+            end
+        end
+        return f
+    end
+    __H.COV, __H.STEP, __H.ITER, __H.REG = __COV, __STEP, __ITER, __REG
+    -- fuzz phase: call registered closures of functions the normal run never executed
+    function __H.fuzz(pids)
+        for _, pid in _ipairs(pids) do
+            local list = REGS[pid]
+            if list then
+                for i, f in _ipairs(list) do
+                    if i > 2 or STOP then
+                        break
+                    end
+                    __H.newphase()
+                    ev("fuzz " .. _tostring(pid) .. "#" .. i)
+                    FUZZSTEPS = 0
+                    FUZZEV = 0
+                    local base = "fz:" .. _tostring(pid) .. ":" .. i
+                    resume(_co.create(f), P(base .. ":a1"), P(base .. ":a2"), P(base .. ":a3"))
+                    __H.runqueue(30)
+                    FUZZSTEPS = nil
+                    FUZZEV = nil
+                end
+            end
+        end
+    end
 
     function __H.run(fn, protos)
         __H.protos = protos
@@ -1636,6 +1689,22 @@ do
         __H.newphase()
         __H.frames(5)
         __H.runqueue(2000)
+        -- closure registry sizes after each fuzz round (filtered from the trace by the ^COV prefix)
+        local function dumpreg(r)
+            local ids = {}
+            for pid, list in _pairs(REGS) do
+                ids[#ids + 1] = pid
+            end
+            _table.sort(ids)
+            for _, pid in _ipairs(ids) do
+                _print("COVREG " .. r .. " " .. _tostring(pid) .. " " .. _tostring(#REGS[pid]))
+            end
+        end
+        dumpreg(0)
+        for r, pids in _ipairs(FUZZ_ROUNDS or {}) do
+            __H.fuzz(pids)
+            dumpreg(r)
+        end
         ON = false
         covon = false
         if not STREAM then

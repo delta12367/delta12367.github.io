@@ -4,7 +4,13 @@ pre = open("harness_pre.luau", encoding="utf-8").read()
 pre = open("asset_tree.luau", encoding="utf-8").read() + pre
 # the instrumentation hooks are upvalues: the script changes function and thread environments
 # with setfenv, which must not hide them
-HOOKS = "local __COV, __STEP, __ITER = __H.COV, __H.STEP, __H.ITER\n"
+HOOKS = "local __COV, __STEP, __ITER, __REG = __H.COV, __H.STEP, __H.ITER, __H.REG\n"
+import os as _os
+if _os.path.exists("fuzz_pids.txt"):
+    # one line per fuzz round
+    _rounds = [[int(x) for x in ln.split()] for ln in open("fuzz_pids.txt") if ln.strip()]
+    pre = pre.replace("    local STEPMAX = ", "    local FUZZ_ROUNDS = {%s}\n    local STEPMAX = " %
+                      ", ".join("{%s}" % ", ".join(map(str, r)) for r in _rounds), 1)
 
 
 def lua_patch_table(path):
@@ -85,6 +91,18 @@ do
     if __P then
         for _, p in ipairs(__P) do
             rawset(rawget(__data[p[1]], p[2]), p[3], p[4])
+        end
+    end
+    do
+        -- register every closure the VM creates (paired with __REG in the decompiled build)
+        local __nc = __state[56]
+        __state[56] = function(p, c, ...)
+            local f = __nc(p, c, ...)
+            local pid = type(p) == "table" and __protos[rawget(p, 3)]
+            if pid then
+                __H.REG(f, pid)
+            end
+            return f
         end
     end
     local __entry = __state[56](__data[1], __state[2])

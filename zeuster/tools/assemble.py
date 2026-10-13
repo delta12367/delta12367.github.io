@@ -101,6 +101,10 @@ def main():
     out.append("    Variable names are reconstructed (heuristic); the original names were not present in the file.")
     out.append("]]")
     out.append("")
+    # helpers the decompiled code uses on its own (vararg slices, multi-value table fills); bound here so
+    # they keep working inside functions whose environment the script replaces with setfenv
+    out.append("local __select, __pack, __move = select, table.pack, table.move")
+    out.append("")
     out.extend(body)
     out_path = sys.argv[1]
     with open(out_path, "w", encoding="utf-8", newline="\n") as f:

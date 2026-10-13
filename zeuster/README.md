@@ -87,6 +87,12 @@ Luau's 200-local limit), `constfold.py` (encrypted constants),
   scratch-register writes are dropped (never field reads, parameter copies or calls) and the
   resulting empty pass-through blocks are bypassed.
 
+* Helpers the decompiled code introduces itself (`select` for vararg slices, the multi-value
+  table fill) are bound once at the top of the file (`local __select, __pack, __move = ...`).
+  The script replaces the environments of some of its hook functions with `setfenv`; the VM
+  handles varargs without a global lookup, so the decompiled code must not depend on that
+  environment either. Found by the fuzz phase below.
+
 ## Verification (`oracle/`)
 
 The original script (with its Luraph VM) and the decompiled file are run under the same
@@ -100,10 +106,15 @@ cd oracle
 ./run.sh ../ZeusterEnhancements.deobfuscated.lua   # needs ../bin/luau and ../data/z.lua
 python3 segdiff.py o.tr d.tr                       # reads between matching events
 python3 gapcheck.py orig.txt root.pkl noroot.pkl    # executed VM code missing from the lift
+python3 covstat.py orig.txt root.pkl noroot.pkl     # coverage
+
+# with the fuzz phase: build the decompiled file with closure registration first
+ORACLE_REG=1 python ../tools/assemble.py out_reg.lua root.pkl noroot.pkl
+./run.sh out_reg.lua                               # uses fuzz_pids.txt
 ```
 
 The run executes the main chunk to the end, the queued threads and signal handlers, then
-flips every registered UI toggle and option (129 toggles, 329 options), and finally turns
+flips every registered UI toggle and option (130 toggles, 332 options), and finally turns
 every toggle on and runs five frames of RenderStepped/Heartbeat/render-step bindings with
 two other players in the game. The embedded
 asset bundle is decoded by the script itself; `rbxm.py`/`gen_asset.py` read its instance
@@ -111,19 +122,26 @@ tree (943 instances) so `DeserializeInstancesAsync` returns the real hierarchy.
 
 Current result:
 
-* 3,881,734 trace events on both sides; all 2,421,284 events other than plain property
-  reads are identical and in the same order.
-* The reads are identical as a multiset; in 24 places a method lookup is moved past its
+* 3,925,491 trace events on both sides (with the fuzz phase); all 2,443,692 events other than
+  plain property reads are identical and in the same order.
+* The reads are identical as a multiset; in 56 places a method lookup is moved past its
   arguments. Luraph's VM
   looks a method up before evaluating the arguments (`SELF`); Luau's `obj:m(args)` looks
   it up after them. Reading a method of an Instance has no side effects.
 * Both runs iterate tables in a canonical key order (`__ITER` in the harness). Lua leaves
   `next`/`pairs` order unspecified and it depends on how a table was filled: the VM fills
   tables key by key, the decompiled code uses table constructors.
-* 385 of the 854 functions run, covering 52% of the lifted VM instructions (`covstat.py`). `gapcheck.py`
+* Fuzz phase: both runs register every closure they create (`vmState[56]` in the VM, a
+  `__REG(function ... end, pid)` wrapper in an `ORACLE_REG=1` build of the decompiled file,
+  which is otherwise identical text). Functions the normal run never executed are then called
+  with placeholder arguments, in two rounds (`fuzzlist.py` builds `fuzz_pids.txt`): 216
+  functions, 248 calls, identical traces. Closures that only the original creates are the
+  bodies inside folded constant closures and closure values the decompiler removed as dead.
+* 629 of the 844 emitted functions run, covering 64% of the lifted VM instructions
+  (`covstat.py`; the folded constant closures are not counted). `gapcheck.py`
   confirms that every executed instruction is in the lifted code, except Luraph's
   first-run jump resolvers (which only patch operand slots) and the encrypted-constant
-  closure that is folded away.
+  closures that are folded away.
 
 ## Known limitations
 

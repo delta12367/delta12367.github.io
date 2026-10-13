@@ -34,8 +34,10 @@ for path in sys.argv[2:]:
             res[k] = v
 report = []
 ALL = True
+import constfold
+FOLDED = constfold.find_eligible(res)   # replaced by their value in the output, bodies never emitted
 for pid, pcs in cov.items():
-    if pid not in res or (F[pid][1] != 165 and not ALL):
+    if pid not in res or (F[pid][1] != 165 and not ALL) or pid in FOLDED:
         continue
     if all(b["pc"] is None for b in res[pid].values()):
         continue      # straight-line specialised template: lifted as one block

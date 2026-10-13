@@ -148,6 +148,9 @@ def analyse(pid, blocks, nregs):
 
 
 
+import os as _os
+ORACLE_REG = _os.environ.get("ORACLE_REG") == "1"
+
 EVENT_PARAMS = {
     b"CharacterAdded": ["character"], b"CharacterRemoving": ["character"], b"CharacterAppearanceLoaded": ["character"],
     b"PlayerAdded": ["player"], b"PlayerRemoving": ["player"],
@@ -373,7 +376,7 @@ class FuncPrinter:
     def param(self, i):
         if i <= self.nparams or i <= getattr(self.info, "va_locals", 0):
             return self.slot_name(i)
-        return "(select(%d, ...))" % (i - self.nparams)
+        return "(__select(%d, ...))" % (i - self.nparams)
 
     def slot_name(self, i):
         if not getattr(self, "_slots_filled", False):
@@ -388,7 +391,11 @@ class FuncPrinter:
     def closure(self, e, indent):
         pid, refs = e[1], e[2]
         names = [self.ref_name(r, indent) for r in refs]
-        return self.D.function_text(pid, names, indent, self.depth + 1, self.N.taken)
+        txt = self.D.function_text(pid, names, indent, self.depth + 1, self.N.taken)
+        if ORACLE_REG:
+            # oracle build only: register every closure with its proto id (see oracle/harness_pre.luau)
+            txt = "__REG(%s, %d)" % (txt, pid)
+        return txt
 
     def ref_name(self, r, indent):
         if r[0] == "rref":
@@ -518,8 +525,8 @@ class FuncPrinter:
             if st is not None:
                 for i, v in enumerate(vals):
                     if v[0] == "multi" or (v[0] in ("callmx", "mcallmx") and i == len(vals) - 1):
-                        out.append(indent + "for _i, _v in ipairs({" + em.expr(v, 0, indent) + "}) do " +
-                                   em.expr(tbl, 11, indent) + "[" + str(int(st) + i) + " + _i - 1] = _v end")
+                        out.append(indent + "do local _v = __pack(" + em.expr(v, 0, indent) + "); __move(_v, 1, _v.n, " +
+                                   str(int(st) + i) + ", " + em.expr(tbl, 0, indent) + ") end")
                     else:
                         out.append(indent + em.expr(tbl, 11, indent) + "[" + str(int(st) + i) + "] = " + em.expr(v, 0, indent))
             else:

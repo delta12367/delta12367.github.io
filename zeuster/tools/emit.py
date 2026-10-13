@@ -174,7 +174,7 @@ class Emitter:
         if k == "count":
             src = e[1]
             if src[0] == "va":
-                return "select(\"#\", ...)", 100
+                return "__select(\"#\", ...)", 100
             return "--[[count]]0", 100
         if k == "flagvar":
             return c.flag_name(e[1]), 100
@@ -194,7 +194,7 @@ class Emitter:
         if s == n + 1:
             return "..."
         if s > n + 1:
-            return "select(%d, ...)" % (s - n)
+            return "__select(%d, ...)" % (s - n)
         return "..."
 
     def call(self, f, args, indent):
