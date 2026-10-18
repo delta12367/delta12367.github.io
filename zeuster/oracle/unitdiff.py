@@ -2,10 +2,16 @@
 each `fuzz`/`fuzzall`/`unit` call (one phase each) is compared on its own, so one difference does not
 hide the rest.
 
-A difference is accepted only in this form: the decompiled side has extra events directly before an
-error both sides raise in the same way. That is `obj:m(args)` where looking m up fails (a number or nil
-receiver): Luraph's VM looks the method up first (SELF) and fails before the arguments, Luau evaluates
-the arguments first. Everything else is listed as unexplained.
+A difference is accepted only in one of two forms, both extra decompiled-side events directly before
+an error both sides raise in the same way:
+* args-before-failed-lookup: the error is a failed index or call. That is `obj:m(args)` where looking m
+  up fails (a number or nil receiver): Luraph's VM looks the method up first (SELF) and fails before the
+  arguments, Luau evaluates the arguments first.
+* budget: the error is one of the harness's budgets, which stop the threads of a call that run too
+  long. The step budget counts VM instructions in the original and loop iterations in the decompiled
+  code; the event budget counts reads too, and a method lookup sits one event earlier in the original.
+  So a thread in an endless loop is cut a little apart on the two sides.
+Everything else is listed as unexplained.
 
 usage: python3 unitdiff.py o.tr d.tr
 """
@@ -14,6 +20,12 @@ from norm import norm
 
 HEAD = re.compile(r"^(unit|fuzzall|fuzz) \S+$")
 ERR = re.compile(r"^thread error ")
+# the harness stops a fuzz/unit call's threads after a step budget (the original counts VM instructions,
+# the decompiled code loop iterations) or an event budget (reads included, and a method lookup is one
+# event earlier in the original), so a loop that runs into one is cut a little apart
+BUDGET = re.compile(r"FUZZ_(?:STEP|EVENT)_BUDGET")
+# looking a method up on a value that has none: `attempt to index <type> with '<m>'`, or calling it
+LOOKUP = re.compile(r"attempt to (?:index|call) ")
 
 
 def segments(lines):
@@ -47,6 +59,7 @@ def classify(a, b):
     events right before an error both sides report, else 'unexplained'"""
     if a == b:
         return None
+    kinds = set()
     sm = difflib.SequenceMatcher(None, a, b, autojunk=False)
     for tag, i1, i2, j1, j2 in sm.get_opcodes():
         if tag == "equal":
@@ -58,7 +71,13 @@ def classify(a, b):
             return "unexplained"
         if any(ERR.match(x) for x in b[j1:j2]):
             return "unexplained"
-    return "args-before-failed-lookup"
+        if BUDGET.search(a[i1]):
+            kinds.add("budget")
+        elif LOOKUP.search(a[i1]):
+            kinds.add("args-before-failed-lookup")
+        else:
+            return "unexplained"
+    return "+".join(sorted(kinds))
 
 
 def main():

@@ -146,14 +146,19 @@ Current result (`unitdiff.py`, `readcheck.py`):
   trace. After normalising error positions and two error wordings that differ between the
   VM and Luau for the same failure (calling a missing method, a numeric `for` over a
   non-number), the main run and 8,206 of the 8,212 calls are identical, event for event.
-* The other 6 calls differ in one known way: `obj:m(args)` where looking `m` up fails (a
-  number or nil passed as `obj`). Luraph's VM looks the method up before evaluating the
-  arguments (`SELF`) and fails at once; Luau evaluates the arguments first, so the decompiled
-  side logs those argument events and then raises the same error.
-* Reads (`readcheck.py`, main run and fuzz calls): 30,075 method lookups are moved past
-  their arguments, and once, when an argument fails, the original's lookup happens and the
-  decompiled one does not; the same `SELF`/`obj:m(args)` ordering as above. Reading a method
-  of an Instance has no side effects.
+* 3 calls differ in one known way: `obj:m(args)` where looking `m` up fails (a number,
+  boolean or nil passed as `obj`). Luraph's VM looks the method up before evaluating the
+  arguments (`SELF`) and fails at once; Luau evaluates the arguments first, so the
+  decompiled side logs those argument events and then raises the same error.
+* 3 calls end where the harness's budget stops a thread stuck in an endless loop (a mock
+  argument whose field never turns false): the step budget counts VM instructions in the
+  original and loop iterations in the decompiled code, and the event budget counts reads, so
+  the cut falls one loop iteration or one event apart. Everything before the cut is identical.
+* Reads (`readcheck.py`, call by call): 33,928 method lookups are moved past their arguments
+  (the same `SELF` order; reading a method of an Instance has no side effects). 32 reads in 25
+  calls cannot be paired: in 22 calls the original looks a method up, an argument then fails
+  with the same error on both sides, so the decompiled side never looks it up; the other 10
+  reads are at the 3 budget cuts above.
 * Both runs iterate tables in a canonical key order (`__ITER` in the harness). Lua leaves
   `next`/`pairs` order unspecified and it depends on how a table was filled: the VM fills
   tables key by key, the decompiled code uses table constructors.

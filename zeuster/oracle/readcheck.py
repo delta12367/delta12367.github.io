@@ -116,7 +116,7 @@ def main():
                 unpaired.append(("dec only", ha, r))
     print("moved method lookups:", sum(moved.values()), dict(moved.most_common(8)))
     print("unpaired reads:", len(unpaired))
-    for u in unpaired[:20]:
+    for u in unpaired[:int(sys.argv[3]) if len(sys.argv) > 3 else 20]:
         print("  ", u[0], "|", u[1][:40], "|", u[2][:120])
 
 
