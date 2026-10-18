@@ -1649,6 +1649,48 @@ do
             end
         end
     end
+    -- unit round: functions instantiated on their own, outside their parents (unitgen.py); the
+    -- original run builds each with the VM's closure constructor, the decompiled run with its
+    -- standalone text, both from the same upvalue values (mock objects, or the number an integrity
+    -- check in the function expects)
+    function __H.units(pids)
+        local profiles = {
+            function(b) return P(b .. ":a1"), P(b .. ":a2"), P(b .. ":a3") end,
+            function(b) return 1, 2, 3 end,
+            function(b) return "a", "b", "c" end,
+            function(b) return true, false, true end,
+            function(b) return nil, nil, nil end,
+            function(b) return {}, {}, {} end,
+        }
+        for _, pid in _ipairs(pids) do
+            local sp = UNIT_SPEC[pid]
+            if sp then
+                local n, fixed = sp[1], sp[2]
+                for pi, prof in _ipairs(profiles) do
+                    if STOP then
+                        return
+                    end
+                    __H.newphase()
+                    ev("unit " .. _tostring(pid) .. "/" .. pi)
+                    FUZZSTEPS = 0
+                    FUZZEV = 0
+                    local vals = {}
+                    for i = 1, n do
+                        local v = fixed[i]
+                        if v == nil then
+                            v = P("up:" .. _tostring(pid) .. ":" .. pi .. ":" .. i)
+                        end
+                        vals[i] = v
+                    end
+                    local f = __H.mkunit(pid, vals, n, sp[3] or {})
+                    resume(_co.create(f), prof("un:" .. _tostring(pid) .. ":" .. pi))
+                    __H.runqueue(10)
+                    FUZZSTEPS = nil
+                    FUZZEV = nil
+                end
+            end
+        end
+    end
     function __H.fuzz(pids)
         for _, pid in _ipairs(pids) do
             local list = REGS[pid]
@@ -1792,6 +1834,10 @@ do
                 __H.fuzz(pids)
             end
             dumpreg(r)
+        end
+        if UNIT_PIDS and __H.mkunit then
+            __H.units(UNIT_PIDS)
+            dumpreg(#(FUZZ_ROUNDS or {}) + 1)
         end
         ON = false
         covon = false

@@ -62,6 +62,7 @@ def all_exprs(F):
 
 
 KEEP_READS = True
+KEEP_CLOSURES = True
 STRICT_ORDER = True    # expressions that can raise keep their order relative to each other
 
 
@@ -226,6 +227,9 @@ class Optimizer:
                 stmts[i] = ("callstat", E)
                 self.kept_reads += 1
                 return True
+            if KEEP_CLOSURES and any(x[0] == "closure" for x in walk(E)):
+                # a function the program creates but never uses is still part of its source
+                return False
             del stmts[i]
             return True
         if live_after:

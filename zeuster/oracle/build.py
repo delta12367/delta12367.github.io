@@ -11,6 +11,11 @@ if _os.path.exists("fuzz_pids.txt"):
     _rounds = [[int(x) for x in ln.split()] for ln in open("fuzz_pids.txt") if ln.strip()]
     pre = pre.replace("    local STEPMAX = ", "    local FUZZ_ROUNDS = {%s}\n    local STEPMAX = " %
                       ", ".join("{%s}" % ", ".join(map(str, r)) for r in _rounds), 1)
+if _os.path.exists("unit_pids.txt") and _os.path.exists("unitspec.luau"):
+    # unit round (unitgen.py): pids to instantiate on their own, and their upvalue values
+    _units = [int(x) for x in open("unit_pids.txt").read().split()]
+    pre = pre.replace("    local STEPMAX = ", "    local UNIT_PIDS = {%s}\n    local UNIT_SPEC = %s\n    local STEPMAX = " %
+                      (", ".join(map(str, _units)), open("unitspec.luau").read()), 1)
 
 
 def lua_patch_table(path):
@@ -93,6 +98,7 @@ do
             rawset(rawget(__data[p[1]], p[2]), p[3], p[4])
         end
     end
+    local __nc0 = __state[56]
     do
         -- register every closure the VM creates (paired with __REG in the decompiled build)
         local __nc = __state[56]
@@ -106,6 +112,24 @@ do
         end
     end
     local __entry = __state[56](__data[1], __state[2])
+    -- unit round: build a function the way the VM's closure instruction does, with one box per upvalue
+    __H.mkunit = function(pid, vals, n, boxed)
+        local caps = false
+        if n > 0 then
+            caps = {}
+            for i = 1, n do
+                -- a local captured by reference is passed as a box, anything else as the value itself
+                if boxed[i] then
+                    caps[i - 1] = {[2] = 1, [3] = {vals[i]}}
+                else
+                    caps[i - 1] = vals[i]
+                end
+            end
+        end
+        local f = __nc0(__data[pid], caps)
+        __state[31](f, __state[30](0))
+        return f
+    end
     __H.run(__entry, __protos)
     local function __enc(v)
         local tv = type(v)
@@ -182,7 +206,11 @@ def iter_rewrite(src):
 
 def build_dec(src_path, out_path):
     src = add_steps(iter_rewrite(open(src_path, encoding="utf-8").read()))
-    out = pre + "\n" + HOOKS + "local function __MAIN(...)\n" + src + "\nend\n__H.run(__MAIN)\n"
+    units = ""
+    if _os.path.exists("unit_pids.txt") and _os.path.exists("units.lua"):
+        # standalone texts of the unit round (unitgen.py), defined next to the script
+        units = "do\n" + add_steps(iter_rewrite(open("units.lua", encoding="utf-8").read())) + "\nend\n"
+    out = pre + "\n" + HOOKS + "local function __MAIN(...)\n" + src + "\nend\n" + units + "__H.run(__MAIN)\n"
     open(out_path, "w", encoding="utf-8").write(out)
 
 

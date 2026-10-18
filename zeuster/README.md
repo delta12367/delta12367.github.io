@@ -99,6 +99,15 @@ Luau's 200-local limit), `constfold.py` (encrypted constants),
   `LookVector` is read before `Position`, as in the VM). Found by the fuzz phase; it costs
   29 extra locals.
 
+* Functions the script creates but never calls are kept. Creating a closure has no side
+  effects, so the optimizer deleted the unused assignment together with the function body;
+  9 functions were missing for this reason, for example a cosmetics-button builder in the
+  skin changer and several main-chunk helpers. They are emitted as ordinary locals now.
+* A string-library function called on a string literal is written as a method call on it,
+  `("...%s..."):format(x)` (9 places), as in the original. It previously came out as
+  `string.format("...%s...", x)`, which needs the global `string` and breaks inside the hook
+  functions whose environment the script replaces. Found by the unit round below.
+
 ## Verification (`oracle/`)
 
 The original script (with its Luraph VM) and the decompiled file are run under the same
@@ -116,7 +125,11 @@ python3 covstat.py orig.txt root.pkl noroot.pkl     # coverage
 
 # with the fuzz phase: build the decompiled file with closure registration first
 ORACLE_REG=1 python ../tools/assemble.py out_reg.lua root.pkl noroot.pkl
-./run.sh out_reg.lua                               # uses fuzz_pids.txt
+# unit round: standalone texts and upvalue specs of the functions in unit_pids.txt
+ORACLE_REG=1 python ../tools/unitgen.py units.lua unitspec.luau $(cat unit_pids.txt)
+./run.sh out_reg.lua                               # uses fuzz_pids.txt, unit_pids.txt
+python3 unitdiff.py o.tr d.tr                      # call-by-call comparison
+python3 readcheck.py                               # reads, call by call
 ```
 
 The run executes the main chunk to the end, the queued threads and signal handlers, then
@@ -126,40 +139,55 @@ two other players in the game. The embedded
 asset bundle is decoded by the script itself; `rbxm.py`/`gen_asset.py` read its instance
 tree (943 instances) so `DeserializeInstancesAsync` returns the real hierarchy.
 
-Current result:
+Current result (`unitdiff.py`, `readcheck.py`):
 
-* 5,708,194 trace events (with the fuzz phases); all 3,609,168 events other than plain
-  property reads are identical and in the same order, after normalising error positions and
-  two error wordings that differ between the VM and Luau for the same failure (calling a
-  missing method, a numeric `for` over a non-number).
-* Reads (`readcheck.py`): 30,075 method lookups are moved past their arguments, and once,
-  when an argument fails, the original's lookup happens and the decompiled one does not. Luraph's VM
-  looks a method up before evaluating the arguments (`SELF`); Luau's `obj:m(args)` looks
-  it up after them. Reading a method of an Instance has no side effects.
+* The main run, then 250 fuzz calls, 3,708 fuzz calls with argument profiles and 4,254
+  unit calls (below). 3,833,257 events other than plain property reads in the original's
+  trace. After normalising error positions and two error wordings that differ between the
+  VM and Luau for the same failure (calling a missing method, a numeric `for` over a
+  non-number), the main run and 8,206 of the 8,212 calls are identical, event for event.
+* The other 6 calls differ in one known way: `obj:m(args)` where looking `m` up fails (a
+  number or nil passed as `obj`). Luraph's VM looks the method up before evaluating the
+  arguments (`SELF`) and fails at once; Luau evaluates the arguments first, so the decompiled
+  side logs those argument events and then raises the same error.
+* Reads (`readcheck.py`, main run and fuzz calls): 30,075 method lookups are moved past
+  their arguments, and once, when an argument fails, the original's lookup happens and the
+  decompiled one does not; the same `SELF`/`obj:m(args)` ordering as above. Reading a method
+  of an Instance has no side effects.
 * Both runs iterate tables in a canonical key order (`__ITER` in the harness). Lua leaves
   `next`/`pairs` order unspecified and it depends on how a table was filled: the VM fills
   tables key by key, the decompiled code uses table constructors.
 * Fuzz phase: both runs register every closure they create (`vmState[56]` in the VM, a
   `__REG(function ... end, pid)` wrapper in an `ORACLE_REG=1` build of the decompiled file,
-  which is otherwise identical text). Functions the normal run never executed are then called
-  with placeholder arguments, in two rounds (`fuzzlist.py` builds `fuzz_pids.txt`): 216
-  functions, 248 calls. A last round calls every registered function (607) with six
-  argument profiles (objects, numbers, strings, booleans, nil, tables): 3,642 calls. All
-  traces are identical. Closures that only the original creates are the
-  bodies inside folded constant closures and closure values the decompiler removed as dead.
-* 631 of the 844 emitted functions run, covering 64.5% of the lifted VM instructions
-  (`covstat.py`; the folded constant closures are not counted). `gapcheck.py`
-  confirms that every executed instruction is in the lifted code, except Luraph's
-  first-run jump resolvers (which only patch operand slots) and the encrypted-constant
-  closures that are folded away.
+  which is otherwise identical text). Functions the normal run never executed are called
+  with placeholder arguments (`fuzzlist.py` builds `fuzz_pids.txt`), and every registered
+  function is called with six argument profiles (objects, numbers, strings, booleans, nil,
+  tables). Closures that only the original creates are the bodies inside the folded
+  encrypted-constant closures.
+* Unit round: every one of the 709 emitted functions (all but the main chunk) is also built
+  on its own, so code the mocked game never reaches is compared too. The original run
+  builds it with the VM's closure constructor, the decompiled run from its standalone text
+  (`unitgen.py`); both get the same upvalues (mock objects, boxed or not as the VM passes
+  them, and the number a function's own integrity check expects) and the same six argument
+  profiles.
+* All 710 emitted functions run, covering 88.2% of their lifted VM instructions
+  (`covstat.py`; the folded constant closures are not counted). `gapcheck.py` confirms that
+  every executed instruction is in the lifted code, except Luraph's first-run jump resolvers
+  (which only patch operand slots) and the encrypted-constant closures that are folded away.
 
 ## Known limitations
 
 * Anti-tamper paths are kept and marked `error("tamper detected")` (7 places). In the real
   script these overwrite the bytecode (`for i = 1, 20428 do opcodes[i] = {} end`) or spin
   forever. None of them is reached in the oracle run.
-* About 4,100 of the 20,413 main-chunk instructions are never reached by the lifter.
-  Most are Luraph's decoy filler. A few hold loader code (Luarmor flags such as
-  `is_from_loader`, executor checks such as `KRNL_LOADED`, a hardware-ID routine) that is
-  not reachable in this build.
+* About 4,130 of the 20,413 main-chunk instructions are not decompiled because they never
+  run. About 160 are Luraph's decoy branches behind opaque predicates (3 to 7 instructions
+  each, rejoining the real code). The rest, about 3,970, are skipped by the file's own
+  loader: `Backend.initialize` rewrites two instructions at load time (pc 17366 and 17880)
+  into jumps to 15 instructions it appends, which load fixed values (`false`, `"?"`, `0`,
+  `math.huge`, `"Not specified"`, the integrity numbers `9395`/`964` and three integrity
+  functions) in place of what the skipped code computes. That code creates 84 functions
+  (48 directly, 8,445 instructions in all) that look like Luarmor's loader-side runtime:
+  key/whitelist checks, a heartbeat connection, anti-hook checks and a kick routine. It is
+  disabled in this build and is left out.
 * One loop uses an `exitLoop` flag for a two-level break (Lua has no multi-level `break`).

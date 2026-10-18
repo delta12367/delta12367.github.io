@@ -202,6 +202,11 @@ class Emitter:
         if f[0] == "idx" and f[2][0] == "k" and is_ident(f[2][1]) and args and args[0] == f[1] and simple(f[1]) and f[1][0] != "k":
             obj = self.expr(f[1], 11, indent)
             return obj + ":" + f[2][1].decode() + "(" + self.args(args[1:], indent) + ")"
+        # a string library function reached through a string constant is a method call on it in the
+        # source, `("%s"):format(x)`: it goes through the string metatable, not the `string` global
+        # (which a replaced function environment may not have)
+        if f[0] == "builtin" and f[1].startswith("string.") and args and args[0][0] == "k" and isinstance(args[0][1], bytes):
+            return "(" + self.expr(args[0], 0, indent) + "):" + f[1][7:] + "(" + self.args(args[1:], indent) + ")"
         fs = self.prefix(f, indent)
         return fs + "(" + self.args(args, indent) + ")"
 

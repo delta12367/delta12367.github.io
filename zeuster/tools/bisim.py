@@ -87,7 +87,7 @@ def _has_any(x, kinds):
     return False
 
 
-_IMPURE = ("call", "callx", "callmx", "mcallx", "mcallmx", "idx", "g", "p", "va", "multi", "count")  # index reads can run __index; parameter copies fix the arity
+_IMPURE = ("call", "callx", "callmx", "mcallx", "mcallmx", "idx", "g", "p", "va", "multi", "count", "closure")  # index reads can run __index; parameter copies fix the arity; unused functions stay in the source
 
 
 def drop_dead_regs(blocks):
