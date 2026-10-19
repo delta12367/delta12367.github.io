@@ -1,0 +1,370 @@
+{
+ "renames": {
+  "16183,42 - 16183,46": "currentSize",
+  "16185,42 - 16185,46": "fadeElapsed",
+  "16194,46 - 16194,54": "screenPosition",
+  "16194,56 - 16194,64": "onScreen",
+  "16207,46 - 16207,54": "distance",
+  "16222,50 - 16222,58": "fadeAlpha",
+  "16224,53 - 16224,58": "property",
+  "16235,46 - 16235,54": "lerpAlpha",
+  "16235,56 - 16235,64": "targetSize",
+  "16292,80 - 16292,84": "itemName",
+  "16292,86 - 16292,90": "model",
+  "16299,26 - 16299,30": "setConstant",
+  "16300,26 - 16300,30": "getConstants",
+  "16301,26 - 16301,30": "setUpvalue",
+  "16302,26 - 16302,30": "getUpvalues",
+  "16303,26 - 16303,30": "getProto",
+  "16304,26 - 16304,30": "mimicFunction",
+  "16304,42 - 16304,46": "func",
+  "16304,48 - 16304,52": "source",
+  "16311,26 - 16311,30": "wrapCall",
+  "16311,42 - 16311,46": "func",
+  "16312,30 - 16312,34": "wrapper",
+  "16318,26 - 16318,30": "hookFunction",
+  "16320,30 - 16320,34": "generateKey",
+  "16322,30 - 16322,34": "counter",
+  "16323,30 - 16323,34": "minByte",
+  "16324,30 - 16324,34": "maxByte",
+  "16329,40 - 16329,44": "target",
+  "16329,46 - 16329,50": "hook",
+  "16331,34 - 16331,38": "key",
+  "16332,34 - 16332,38": "proxy",
+  "16337,26 - 16337,30": "replaceField",
+  "16337,42 - 16337,46": "target",
+  "16337,48 - 16337,52": "key",
+  "16337,54 - 16337,58": "replacement",
+  "16338,30 - 16338,34": "original",
+  "16343,26 - 16343,30": "stripEnv",
+  "16343,42 - 16343,46": "func",
+  "16347,26 - 16347,30": "findConstant",
+  "16347,42 - 16347,46": "func",
+  "16347,48 - 16347,52": "value",
+  "16347,54 - 16347,58": "replacement",
+  "16348,28 - 16348,31": "index",
+  "16348,33 - 16348,37": "constant",
+  "16358,26 - 16358,30": "findUpvalue",
+  "16358,42 - 16358,46": "func",
+  "16358,48 - 16358,52": "value",
+  "16358,54 - 16358,58": "replacement",
+  "16358,60 - 16358,64": "predicate",
+  "16359,28 - 16359,31": "index",
+  "16359,33 - 16359,37": "upvalue",
+  "16369,26 - 16369,30": "findGcTable",
+  "16370,30 - 16370,35": "args",
+  "16372,31 - 16372,35": "object",
+  "16374,38 - 16374,44": "failed",
+  "16375,39 - 16375,43": "arg",
+  "16396,34 - 16396,38": "getRotationDelta",
+  "16396,58 - 16396,62": "newCFrame",
+  "16397,38 - 16397,42": "orientation",
+  "16400,34 - 16400,38": "matchAxis",
+  "16401,34 - 16401,38": "delayPosition",
+  "16402,34 - 16402,38": "delaySmoothX",
+  "16403,34 - 16403,38": "delaySmoothY",
+  "16404,34 - 16404,38": "delaySmoothJump",
+  "16405,34 - 16405,38": "smoothing",
+  "16424,34 - 16424,38": "delayedPosition",
+  "16425,34 - 16425,38": "lastFighter",
+  "16427,34 - 16427,38": "resetDelayedAim",
+  "16431,34 - 16431,38": "getLerpAlpha",
+  "16431,50 - 16431,58": "speed",
+  "16431,60 - 16431,68": "deltaTime",
+  "16434,34 - 16434,39": "airborneStates",
+  "16436,34 - 16436,38": "isAirborne",
+  "16442,113 - 16442,117": "deltaTime",
+  "16453,63 - 16453,67": "aimPoint",
+  "16453,69 - 16453,73": "smoothedY",
+  "16453,92 - 16453,96": "swayDelta",
+  "16453,112 - 16453,116": "viewModel",
+  "16453,118 - 16453,122": "itemViewModel",
+  "16970,46 - 16970,50": "pitch",
+  "16970,52 - 16970,56": "yaw",
+  "16980,84 - 16980,88": "newCFrame",
+  "16992,30 - 16992,34": "character",
+  "16993,30 - 16993,35": "partNames",
+  "16994,30 - 16994,36": "noclipping",
+  "16999,43 - 16999,47": "partName",
+  "17009,39 - 17009,43": "partName",
+  "17027,30 - 17027,34": "messageIndex",
+  "17036,34 - 17036,38": "messages",
+  "17042,34 - 17042,42": "index",
+  "17051,34 - 17051,42": "message",
+  "17059,111 - 17059,115": "drop",
+  "17097,34 - 17097,37": "shootDelay",
+  "17098,34 - 17098,37": "reactionDelay",
+  "17099,34 - 17099,37": "reactionOffset",
+  "17102,34 - 17102,39": "partBlacklist",
+  "17103,34 - 17103,38": "maxDistance",
+  "17125,34 - 17125,38": "nextCheckTime",
+  "17126,34 - 17126,39": "nextShotTime",
+  "17127,34 - 17127,39": "reactionReadyAt",
+  "17128,34 - 17128,39": "targetForgetAt",
+  "17129,34 - 17129,38": "lastTarget",
+  "17130,34 - 17130,38": "delayReaction",
+  "17130,50 - 17130,54": "now",
+  "17134,34 - 17134,39": "hitboxNames",
+  "17142,34 - 17142,38": "scopedWeapons",
+  "17151,46 - 17151,50": "duelPlayers",
+  "17159,50 - 17159,54": "raycastParams",
+  "17163,50 - 17163,53": "direction",
+  "17165,54 - 17165,58": "raycastResult",
+  "17185,62 - 17185,66": "duelEntry",
+  "17232,30 - 17232,34": "getUpvalues_",
+  "17235,66 - 17235,70": "callback",
+  "17236,42 - 17236,46": "upvalues",
+  "17237,42 - 17237,46": "throwable",
+  "17245,121 - 17245,125": "tripmine",
+  "17254,30 - 17254,34": "projectileCameraData",
+  "17263,72 - 17263,76": "self",
+  "17267,46 - 17267,50": "roll",
+  "17269,50 - 17269,55": "results",
+  "17270,50 - 17270,54": "rawCameraData",
+  "17271,50 - 17271,54": "cameraData",
+  "17288,64 - 17288,68": "muzzleRx",
+  "17288,70 - 17288,74": "muzzleRy",
+  "17288,76 - 17288,80": "muzzleRz",
+  "17343,54 - 17343,58": "cameraRx",
+  "17343,60 - 17343,64": "cameraRy",
+  "17343,66 - 17343,70": "cameraRz",
+  "17408,34 - 17408,38": "alwaysBackstab",
+  "17412,34 - 17412,38": "originalStartAiming",
+  "17413,102 - 17413,106": "knife",
+  "17417,46 - 17417,50": "hitPart",
+  "17434,30 - 17434,34": "tracerSlot",
+  "17437,30 - 17437,34": "noSpread",
+  "17444,42 - 17444,46": "codepoint",
+  "17447,48 - 17447,51": "slot",
+  "17447,53 - 17447,57": "stackValue",
+  "17459,50 - 17459,54": "tracerData",
+  "17471,28 - 17471,31": "upvalueIndex",
+  "17471,33 - 17471,38": "upvalue",
+  "17492,26 - 17492,30": "getFillColor",
+  "17492,42 - 17492,50": "color",
+  "17492,52 - 17492,60": "transparency",
+  "17495,26 - 17495,30": "scopeAimConstantIndex",
+  "17508,26 - 17508,30": "framesPerSecondKey",
+  "17515,26 - 17515,30": "armTransparency",
+  "17516,26 - 17516,30": "armOverrideAppearance",
+  "17519,30 - 17519,34": "clearViewModelHighlight",
+  "17561,26 - 17561,30": "viewModelOffsetCFrame",
+  "17566,30 - 17566,34": "updateViewModelOffset",
+  "17585,26 - 17585,30": "originalViewModelUpdate",
+  "17586,74 - 17586,78": "moveState",
+  "17586,80 - 17586,84": "viewState",
+  "17600,34 - 17600,39": "recoilValue",
+  "17601,34 - 17601,40": "unrecoilValue",
+  "17641,38 - 17641,42": "armPart",
+  "17666,30 - 17666,34": "viewModelAppearance",
+  "17678,38 - 17678,43": "ignoredParts",
+  "17679,48 - 17679,52": "instance",
+  "17687,38 - 17687,42": "overrides",
+  "17690,58 - 17690,62": "settings",
+  "17690,64 - 17690,68": "instance",
+  "17690,70 - 17690,74": "cached",
+  "17701,58 - 17701,62": "settings",
+  "17701,64 - 17701,68": "instance",
+  "17701,70 - 17701,74": "cached",
+  "17704,50 - 17704,55": "keypoints",
+  "17706,54 - 17706,58": "keypointValue",
+  "17719,30 - 17719,34": "armAppearance",
+  "17732,38 - 17732,43": "armPartNames",
+  "17742,54 - 17742,58": "settings",
+  "17742,60 - 17742,64": "instance",
+  "17742,66 - 17742,70": "cached",
+  "17749,30 - 17749,34": "meshModes",
+  "17750,30 - 17750,34": "wireframeAppearance",
+  "17757,54 - 17757,58": "settings",
+  "17757,60 - 17757,64": "instance",
+  "17757,66 - 17757,70": "cached",
+  "17766,34 - 17766,38": "mode",
+  "17766,40 - 17766,44": "builder",
+  "17770,34 - 17770,39": "meshCache",
+  "17771,34 - 17771,38": "loadEditableMesh",
+  "17771,50 - 17771,54": "meshId",
+  "17772,38 - 17772,41": "ok",
+  "17772,43 - 17772,47": "meshBinary",
+  "17773,38 - 17773,42": "binaryString",
+  "17779,44 - 17779,48": "meshId",
+  "17779,50 - 17779,54": "meshPart"
+ },
+ "comments": [
+  {
+   "line": 16187,
+   "text": "Each frame, place the world ESP icon on screen, size it by distance and apply the fade"
+  },
+  {
+   "line": 16250,
+   "text": "When the model is destroyed, let the fade play out, then disconnect and remove the icon"
+  },
+  {
+   "line": 16259,
+   "text": "Keep world ESP settings in sync with the UI toggles and options"
+  },
+  {
+   "line": 16293,
+   "text": "Create an ESP icon for each reported world item that is whitelisted"
+  },
+  {
+   "line": 16300,
+   "text": "Protected copies of the constant/upvalue/proto debug functions"
+  },
+  {
+   "line": 16305,
+   "text": "Copy one function's environment and debug info onto another so it mimics the original"
+  },
+  {
+   "line": 16319,
+   "text": "Hook a function through a loadstring proxy stored under a random key in its environment"
+  },
+  {
+   "line": 16338,
+   "text": "Replace a table field with a mimicking function and return the original"
+  },
+  {
+   "line": 16348,
+   "text": "Find a function constant by value, optionally overwrite it, and return its index"
+  },
+  {
+   "line": 16359,
+   "text": "Find a function upvalue by value or predicate, optionally overwrite it, and return its index"
+  },
+  {
+   "line": 16370,
+   "text": "Scan garbage-collected tables for one that passes every check"
+  },
+  {
+   "line": 16394,
+   "text": "Aimbot: rotate the game camera toward the target part every Heartbeat"
+  },
+  {
+   "line": 16397,
+   "text": "Convert a camera rotation change into a 2D delta used to push the sway springs"
+  },
+  {
+   "line": 16432,
+   "text": "Frame-rate independent lerp factor, capped at 1"
+  },
+  {
+   "line": 16437,
+   "text": "True when the humanoid is jumping, falling or standing on air"
+  },
+  {
+   "line": 16456,
+   "text": "Delayed aim: trail a tracking point behind the target with separate X/Y/jump smoothing"
+  },
+  {
+   "line": 16622,
+   "text": "Apply axis matching to the target position, then run the same smoothing steps"
+  },
+  {
+   "line": 16798,
+   "text": "Velocity movement: drive the root part along the move direction, with W/S vertical on ladders"
+  },
+  {
+   "line": 16916,
+   "text": "Fly: anchor the root part and move it with WASD/Space/C relative to the camera"
+  },
+  {
+   "line": 16968,
+   "text": "When fly stops, restore an upright orientation and turn PlatformStand back off"
+  },
+  {
+   "line": 16981,
+   "text": "Let other features move the fly anchor CFrame while flying"
+  },
+  {
+   "line": 16991,
+   "text": "Noclip: toggle collisions on the main character parts every physics step"
+  },
+  {
+   "line": 17021,
+   "text": "Chat spam: every 5 seconds send a random or sequential message from the chosen preset"
+  },
+  {
+   "line": 17058,
+   "text": "Arcade auto ammo: pull dropped ammo pickups to the player and touch them"
+  },
+  {
+   "line": 17096,
+   "text": "Triggerbot: shoot when a camera raycast hits a living enemy player's hitbox"
+  },
+  {
+   "line": 17131,
+   "text": "Delay the next shot by the reaction time plus a random offset"
+  },
+  {
+   "line": 17165,
+   "text": "Raycast forward, skipping filtered parts, until a valid enemy target or a miss"
+  },
+  {
+   "line": 17230,
+   "text": "Report thrown items to world ESP by hooking task.defer inside Throwable.ReplicateFromServer"
+  },
+  {
+   "line": 17246,
+   "text": "Report Subspace Tripmines to world ESP as they are tagged"
+  },
+  {
+   "line": 17251,
+   "text": "Silent aim: hook GetCameraData to redirect shots at the silent aim target part"
+  },
+  {
+   "line": 17268,
+   "text": "Roll against the hit chance before redirecting the shot"
+  },
+  {
+   "line": 17285,
+   "text": "Apply manipulation data: override camera/muzzle positions, offsets and hit offset"
+  },
+  {
+   "line": 17409,
+   "text": "Always backstab: send a camera CFrame behind the aimed-at character before the knife attack"
+  },
+  {
+   "line": 17442,
+   "text": "Silent aim visualize: point local tracers at the target by editing the caller's stack"
+  },
+  {
+   "line": 17472,
+   "text": "No spread: force the GetSpread flag on the tracer upvalue table"
+  },
+  {
+   "line": 17493,
+   "text": "Return the color as-is when transparency is at most 1, otherwise its inverse"
+  },
+  {
+   "line": 17496,
+   "text": "Toggle the scope aiming animation by patching the 0.375 constant in Scope.SetActive"
+  },
+  {
+   "line": 17502,
+   "text": "MoveVelocity stub whose Cross always returns zero, used to disable viewmodel tilt"
+  },
+  {
+   "line": 17520,
+   "text": "Detach the current viewmodel highlight so updated chams settings get applied"
+  },
+  {
+   "line": 17567,
+   "text": "Rebuild the viewmodel offset CFrame when the X/Y/Z sliders change"
+  },
+  {
+   "line": 17587,
+   "text": "Hook ViewModel.Update to strip animations and apply offset, frame rate, chams and arm transparency"
+  },
+  {
+   "line": 17664,
+   "text": "Appearance overrides for the viewmodel, the arms and wireframe mode"
+  },
+  {
+   "line": 17699,
+   "text": "Override particle, beam and trail colors and transparency keypoints"
+  },
+  {
+   "line": 17767,
+   "text": "Wireframe mode: rebuild each mesh face as thin edge quads in an EditableMesh"
+  }
+ ]
+}

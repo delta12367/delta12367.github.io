@@ -61,7 +61,13 @@ def cmd_apply(src_path, map_path, out_path):
         base = want.get(L.key)
         if not base or base == L.name:
             continue
-        if not IDENT.match(base) or base in rename.KEYWORDS:
+        # `self` is an ordinary identifier: allowed for an explicit parameter (the receiver of a function
+        # called as a method), but never with a suffix and never where another `self` is visible
+        as_self = base == "self" and L.kind == "param"
+        if not IDENT.match(base) or (base in rename.KEYWORDS and not as_self):
+            skipped += 1
+            continue
+        if as_self and any(M is not L and rename.scopes_overlap(M.scope, L.scope) for M in by_name.get("self", ())):
             skipped += 1
             continue
         for k in range(1, 50):

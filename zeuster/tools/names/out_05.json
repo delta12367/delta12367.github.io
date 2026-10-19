@@ -1,0 +1,396 @@
+{
+ "renames": {
+  "10846,55 - 10846,59": "model",
+  "10847,34 - 10847,38": "entry",
+  "10854,36 - 10854,41": "object",
+  "10854,43 - 10854,47": "values",
+  "10855,40 - 10855,43": "property",
+  "10855,45 - 10855,49": "value",
+  "10862,54 - 10862,58": "model",
+  "10866,53 - 10866,57": "model",
+  "10868,38 - 10868,42": "existing",
+  "10870,42 - 10870,47": "entry",
+  "10875,42 - 10875,46": "cacheDescendant",
+  "10875,58 - 10875,63": "descendant",
+  "10877,46 - 10877,50": "properties",
+  "10879,50 - 10879,55": "originals",
+  "10880,51 - 10880,55": "property",
+  "10881,54 - 10881,58": "saveProperty",
+  "10882,58 - 10882,62": "useCurrent",
+  "10882,64 - 10882,68": "override",
+  "10883,58 - 10883,62": "overrideValue",
+  "10935,26 - 10935,31": "skybox",
+  "10939,50 - 10939,54": "name",
+  "10941,30 - 10941,35": "sky",
+  "10961,52 - 10961,56": "name",
+  "10961,58 - 10961,62": "sky",
+  "11013,50 - 11013,54": "name",
+  "11013,56 - 11013,60": "animationId",
+  "11025,24 - 11025,26": "name",
+  "11034,26 - 11034,31": "weather",
+  "11038,50 - 11038,54": "name",
+  "11056,54 - 11056,58": "name",
+  "11062,42 - 11062,47": "keypoints",
+  "11070,36 - 11070,39": "i",
+  "11074,46 - 11074,49": "lifetimeScale",
+  "11085,30 - 11085,35": "textureIndexReported",
+  "11093,46 - 11093,50": "oldIndex",
+  "11094,113 - 11094,118": "object",
+  "11094,120 - 11094,124": "key",
+  "11111,56 - 11111,60": "name",
+  "11144,34 - 11144,38": "updateColor",
+  "11146,38 - 11146,43": "keypoints",
+  "11174,38 - 11174,42": "digitTemplate",
+  "11202,38 - 11202,42": "colorIndex",
+  "11203,38 - 11203,42": "stacks",
+  "11205,38 - 11205,42": "heightOffset",
+  "11206,95 - 11206,99": "hitPart",
+  "11206,101 - 11206,105": "damage",
+  "11206,107 - 11206,111": "targetName",
+  "11206,113 - 11206,117": "weaponName",
+  "11213,42 - 11213,47": "stack",
+  "11233,50 - 11233,54": "offsetX",
+  "11246,50 - 11246,55": "billboard",
+  "11250,50 - 11250,54": "cursorX",
+  "11251,50 - 11251,55": "labels",
+  "11259,54 - 11259,60": "digitFrame",
+  "11278,50 - 11278,53": "labelCount",
+  "11279,48 - 11279,51": "i",
+  "11279,53 - 11279,57": "label",
+  "11280,54 - 11280,58": "direction",
+  "11282,54 - 11282,58": "labelPosition",
+  "11284,54 - 11284,58": "velocity",
+  "11336,87 - 11336,91": "hitPart",
+  "11337,42 - 11337,47": "billboard",
+  "11348,42 - 11348,46": "slashes",
+  "11349,42 - 11349,46": "baseRotation",
+  "11351,46 - 11351,52": "slash",
+  "11363,40 - 11363,43": "i",
+  "11363,45 - 11363,49": "slash",
+  "11375,89 - 11375,93": "hitPart",
+  "11383,38 - 11383,42": "createInstance",
+  "11384,38 - 11384,44": "facingEmitter",
+  "11388,38 - 11388,43": "sizeKeypoints",
+  "11407,86 - 11407,90": "hitPart",
+  "11408,42 - 11408,47": "bubble",
+  "11418,38 - 11418,42": "cooldowns",
+  "11419,38 - 11419,43": "bodyPartNames",
+  "11437,85 - 11437,89": "hitPart",
+  "11442,46 - 11442,51": "cloneParts",
+  "11450,46 - 11450,52": "keepAccessories",
+  "11451,47 - 11451,51": "child",
+  "11455,58 - 11455,63": "partClone",
+  "11466,54 - 11466,59": "accessoryClone",
+  "11487,51 - 11487,55": "part",
+  "11497,34 - 11497,39": "hitCount",
+  "11499,38 - 11499,42": "originalColors",
+  "11504,38 - 11504,42": "getDamageColor",
+  "11507,46 - 11507,49": "colorIndex",
+  "11513,42 - 11513,48": "partColor",
+  "11585,94 - 11585,98": "hitPart",
+  "11585,100 - 11585,104": "damage",
+  "11586,42 - 11586,47": "damagePart",
+  "11589,42 - 11589,48": "isHead",
+  "11591,42 - 11591,46": "sizeMultiplier",
+  "11610,42 - 11610,45": "angle",
+  "11612,42 - 11612,45": "offsetX",
+  "11613,42 - 11613,45": "offsetY",
+  "11629,34 - 11629,39": "particleParts",
+  "11630,38 - 11630,42": "source",
+  "11630,44 - 11630,48": "output",
+  "11630,50 - 11630,54": "filter",
+  "11631,38 - 11631,42": "result",
+  "11646,32 - 11646,35": "effectName",
+  "11652,81 - 11652,89": "hitPart",
+  "11652,91 - 11652,99": "damage",
+  "11652,101 - 11652,109": "targetName",
+  "11652,111 - 11652,119": "weaponName",
+  "11653,42 - 11653,47": "effect",
+  "11682,26 - 11682,31": "shootSounds",
+  "11693,26 - 11693,30": "addRegister",
+  "11693,42 - 11693,46": "sounds",
+  "11693,56 - 11693,60": "sorted",
+  "11694,49 - 11694,54": "self",
+  "11694,56 - 11694,61": "name",
+  "11694,63 - 11694,68": "soundId",
+  "11711,24 - 11711,26": "soundName",
+  "11733,24 - 11733,26": "soundName",
+  "11733,28 - 11733,32": "soundId",
+  "11736,26 - 11736,31": "audioExtensions",
+  "11737,27 - 11737,31": "filePath",
+  "11756,26 - 11756,30": "tracers",
+  "11773,34 - 11773,39": "keypoints",
+  "11775,38 - 11775,40": "alpha",
+  "11780,30 - 11780,34": "easeOutQuad",
+  "11780,46 - 11780,50": "t",
+  "11784,48 - 11784,56": "startPosition",
+  "11784,58 - 11784,66": "endPosition",
+  "11784,68 - 11784,76": "color",
+  "11804,46 - 11804,54": "elapsed",
+  "11806,34 - 11806,40": "lerpTime",
+  "11808,34 - 11808,42": "currentEnd",
+  "11821,42 - 11821,50": "progress",
+  "11826,44 - 11826,52": "fromVisible",
+  "11834,42 - 11834,50": "toVisible",
+  "11842,42 - 11842,50": "fade",
+  "11845,40 - 11845,45": "i",
+  "11847,46 - 11847,54": "alpha",
+  "11878,28 - 11878,30": "tracerName",
+  "11883,34 - 11883,39": "beamTemplate",
+  "11896,32 - 11896,35": "property",
+  "11896,37 - 11896,41": "value",
+  "11899,48 - 11899,56": "startPosition",
+  "11899,58 - 11899,66": "endPosition",
+  "11899,68 - 11899,76": "color",
+  "11904,38 - 11904,43": "mainBeam",
+  "11916,38 - 11916,43": "beams",
+  "11918,36 - 11918,41": "i",
+  "11920,42 - 11920,48": "glowBeam",
+  "11931,45 - 11931,50": "beam",
+  "11947,28 - 11947,31": "tracerName",
+  "11957,26 - 11957,31": "onCooldown",
+  "11958,26 - 11958,30": "drawTracer",
+  "11958,42 - 11958,46": "startPosition",
+  "11958,48 - 11958,52": "endPosition",
+  "11958,54 - 11958,58": "bypassCooldown",
+  "11970,70 - 11970,74": "muzzlePosition",
+  "11970,76 - 11970,81": "raycastResults",
+  "11971,30 - 11971,36": "isMultiShot",
+  "11972,31 - 11972,35": "result",
+  "11976,61 - 11976,65": "self",
+  "11976,83 - 11976,87": "callback",
+  "11978,30 - 11978,34": "disconnect",
+  "11983,50 - 11983,55": "enabled",
+  "11991,26 - 11991,28": "screenCenter",
+  "11997,34 - 11997,39": "trackedNames",
+  "11999,34 - 11999,38": "trackPlayer",
+  "12001,38 - 12001,42": "connections",
+  "12003,38 - 12003,42": "onCharacterAdded",
+  "12007,42 - 12007,46": "onChildAdded",
+  "12053,34 - 12053,38": "clearDuelCache",
+  "12060,34 - 12060,38": "setDuelSubject",
+  "12060,50 - 12060,54": "duelSubject",
+  "12066,66 - 12066,71": "dueler",
+  "12073,68 - 12073,73": "dueler",
+  "12076,36 - 12076,39": "player",
+  "12076,41 - 12076,45": "dueler",
+  "12090,34 - 12090,38": "fovEnabled",
+  "12092,34 - 12092,38": "aspectRatioEnabled",
+  "12093,34 - 12093,38": "aspectRatioCFrame",
+  "12094,74 - 12094,79": "enabled",
+  "12097,81 - 12097,86": "fov",
+  "12100,75 - 12100,80": "enabled",
+  "12103,77 - 12103,82": "scaleX",
+  "12106,77 - 12106,82": "scaleY",
+  "12119,34 - 12119,39": "effectTypes",
+  "12123,43 - 12123,47": "effectType",
+  "12151,46 - 12151,49": "success",
+  "12151,51 - 12151,55": "result",
+  "12152,46 - 12152,50": "asset",
+  "12223,65 - 12223,70": "weatherName",
+  "12236,67 - 12236,72": "enabled",
+  "12266,76 - 12266,80": "hitPart",
+  "12266,82 - 12266,86": "damage",
+  "12266,88 - 12266,92": "isHeadshot",
+  "12277,46 - 12277,50": "template",
+  "12278,46 - 12278,50": "partName",
+  "12295,44 - 12295,47": "effectName",
+  "12311,76 - 12311,80": "looped",
+  "12339,26 - 12339,30": "canAttack",
+  "12340,26 - 12340,30": "findManipulation",
+  "12344,30 - 12344,35": "hasItems",
+  "12358,26 - 12358,31": "directions",
+  "12360,30 - 12360,34": "offsets",
+  "12374,28 - 12374,31": "i",
+  "12374,33 - 12374,37": "direction",
+  "12377,30 - 12377,34": "tryOffsets",
+  "12377,46 - 12377,54": "origin",
+  "12377,56 - 12377,64": "target",
+  "12378,37 - 12378,42": "offset",
+  "12380,38 - 12380,46": "candidate",
+  "12381,38 - 12381,46": "visible",
+  "12381,48 - 12381,56": "hit",
+  "12391,40 - 12391,44": "origin",
+  "12391,46 - 12391,50": "target",
+  "12391,52 - 12391,56": "targetCharacter",
+  "12391,58 - 12391,63": "equippedItem",
+  "12394,42 - 12394,46": "groundClear",
+  "12394,48 - 12394,52": "groundHit",
+  "12395,42 - 12395,46": "ground",
+  "12398,46 - 12398,49": "maxDrop",
+  "12399,46 - 12399,49": "dropPosition",
+  "12414,26 - 12414,30": "cameraReplicationPaused",
+  "12415,26 - 12415,30": "sendCameraRotation",
+  "12421,30 - 12421,34": "resumeThread",
+  "12422,40 - 12422,48": "rotation",
+  "12422,50 - 12422,58": "pauseReplication",
+  "12422,60 - 12422,68": "duration",
+  "12422,70 - 12422,78": "encoded"
+ },
+ "comments": [
+  {
+   "line": 10847,
+   "text": "Restore every cached instance's original property values"
+  },
+  {
+   "line": 10867,
+   "text": "Snapshot whitelisted properties of a model's descendants and keep them updated"
+  },
+  {
+   "line": 10935,
+   "text": "Skybox manager: stores sky presets and parents the selected one to Lighting"
+  },
+  {
+   "line": 10983,
+   "text": "Animation player presets, registered into the animation dropdown"
+  },
+  {
+   "line": 11035,
+   "text": "Weather manager: spawns a weather part whose particle emitters follow the options"
+  },
+  {
+   "line": 11057,
+   "text": "Reapply weather colors and rate/lifetime/timescale multipliers to the active emitters"
+  },
+  {
+   "line": 11087,
+   "text": "Hook emitter __index: executor Texture reads get a random id and trigger a one-time report"
+  },
+  {
+   "line": 11112,
+   "text": "Register a weather preset (BasePart) by name and add it to the weather dropdown"
+  },
+  {
+   "line": 11140,
+   "text": "Hit effects: shared 3-color sequence rebuilt whenever a hit effect color changes"
+  },
+  {
+   "line": 11168,
+   "text": "Fortnite-style damage numbers: billboard template with one frame per digit"
+  },
+  {
+   "line": 11207,
+   "text": "Show per-digit damage numbers above the hit, optionally stacking damage per target"
+  },
+  {
+   "line": 11279,
+   "text": "Fling each digit sideways and upward while fading it out"
+  },
+  {
+   "line": 11309,
+   "text": "Slashes effect: three rotated slash images that fade in, recolor and fade out"
+  },
+  {
+   "line": 11376,
+   "text": "Explosion effect: zero-radius Explosion at the hit position"
+  },
+  {
+   "line": 11383,
+   "text": "Bubble effect: attachment with two particle emitters emitted once in the hit color"
+  },
+  {
+   "line": 11419,
+   "text": "Clone effect: colored copy of the target's body parts (optionally accessories) that fades out"
+  },
+  {
+   "line": 11498,
+   "text": "Phantom Forces style damage numbers, colored by hit body part"
+  },
+  {
+   "line": 11611,
+   "text": "Spread successive numbers around the hit using the golden angle"
+  },
+  {
+   "line": 11630,
+   "text": "Load particle parts from the assets folder and register each as a hit effect"
+  },
+  {
+   "line": 11683,
+   "text": "Built-in shoot sound presets"
+  },
+  {
+   "line": 11694,
+   "text": "Give a sound table a register method that adds the name to its dropdown"
+  },
+  {
+   "line": 11737,
+   "text": "Register .mp3/.wav/.ogg files from the sounds folder as hit and shoot sounds"
+  },
+  {
+   "line": 11757,
+   "text": "Custom bullet tracers keyed by style name"
+  },
+  {
+   "line": 11785,
+   "text": "Drawing tracer: outline and gradient lines redrawn every frame until faded out"
+  },
+  {
+   "line": 11875,
+   "text": "Beam tracers: textured beams between two terrain attachments, extra copies for glow"
+  },
+  {
+   "line": 11958,
+   "text": "Draw the selected tracer on shoot, debounced unless part of a multi-ray shot"
+  },
+  {
+   "line": 11977,
+   "text": "Connect a signal only while the given toggle is enabled"
+  },
+  {
+   "line": 11992,
+   "text": "Track the screen center as the viewport resizes"
+  },
+  {
+   "line": 11998,
+   "text": "Keep a per-player table of character parts, tool and humanoid"
+  },
+  {
+   "line": 12053,
+   "text": "Mirror the spectated duel's duelers into the ESP via events"
+  },
+  {
+   "line": 12091,
+   "text": "Camera FOV override and stretched aspect ratio applied after the camera render step"
+  },
+  {
+   "line": 12120,
+   "text": "Reapply enabled self effects (aura, particle) to the local character"
+  },
+  {
+   "line": 12133,
+   "text": "Animation player: load preset or custom animation and loop it between start/end percents"
+  },
+  {
+   "line": 12201,
+   "text": "Skybox: apply the selected sky and reapply when another Sky is added to Lighting"
+  },
+  {
+   "line": 12220,
+   "text": "Weather: keep the weather part above the camera and react to option changes"
+  },
+  {
+   "line": 12258,
+   "text": "On hit: notify, play the hit sound and run the selected hit effects"
+  },
+  {
+   "line": 12304,
+   "text": "Play the selected or custom shoot sound when requested"
+  },
+  {
+   "line": 12344,
+   "text": "canAttack: true while the local fighter has items and is alive"
+  },
+  {
+   "line": 12359,
+   "text": "26 unit directions around a point, scaled to 9.5 studs as probe offsets"
+  },
+  {
+   "line": 12392,
+   "text": "Find a shot origin that can see the target: lowered spot under the origin or nearby offsets"
+  },
+  {
+   "line": 12418,
+   "text": "Send a camera rotation to the server, optionally pausing normal replication briefly"
+  }
+ ]
+}

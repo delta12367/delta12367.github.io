@@ -1,0 +1,396 @@
+{
+ "renames": {
+  "9420,26 - 9420,30": "armMaterialDependencyBox",
+  "9492,26 - 9492,30": "customTracerDependencyBox",
+  "9522,22 - 9522,26": "shootSoundDependencyBox",
+  "9563,22 - 9563,26": "crosshairDependencyBox",
+  "9610,22 - 9610,26": "targetHighlightDependencyBox",
+  "9682,22 - 9682,26": "customPitchDependencyBox",
+  "9700,22 - 9700,26": "customYawDependencyBox",
+  "9748,147 - 9748,152": "enabled",
+  "9755,165 - 9755,170": "enabled",
+  "9771,22 - 9771,26": "releasedWeapons",
+  "9772,22 - 9772,26": "getWeaponNames",
+  "9772,38 - 9772,42": "filter",
+  "9773,26 - 9773,30": "weaponNames",
+  "9775,24 - 9775,27": "weaponName",
+  "9775,29 - 9775,34": "itemInfo",
+  "9784,30 - 9784,34": "defaultWeapon",
+  "9785,31 - 9785,35": "weaponName",
+  "9794,22 - 9794,26": "dropdownFlags",
+  "9796,26 - 9796,32": "weaponNames",
+  "9797,26 - 9797,30": "flag",
+  "9820,22 - 9820,28": "itemNames",
+  "9821,20 - 9821,22": "itemName",
+  "9867,44 - 9867,49": "selection",
+  "9869,32 - 9869,35": "text",
+  "9869,37 - 9869,41": "isSelected",
+  "9883,44 - 9883,49": "text",
+  "9893,26 - 9893,30": "refreshChatModes",
+  "9894,30 - 9894,34": "fileModes",
+  "9895,31 - 9895,35": "filePath",
+  "9904,30 - 9904,37": "modes",
+  "9905,31 - 9905,35": "mode",
+  "9911,28 - 9911,31": "modeName",
+  "9911,33 - 9911,37": "messages",
+  "9917,28 - 9917,31": "modeName",
+  "9945,40 - 9945,45": "selection",
+  "9947,28 - 9947,31": "text",
+  "9947,33 - 9947,37": "isSelected",
+  "9961,40 - 9961,45": "text",
+  "9976,22 - 9976,26": "refreshKeyPickers",
+  "9977,27 - 9977,31": "option",
+  "9990,44 - 9990,49": "visible",
+  "10003,44 - 10003,49": "percent",
+  "10016,44 - 10016,49": "mode",
+  "10029,38 - 10029,43": "enabled",
+  "10033,26 - 10033,30": "clipDistanceDependencyBox",
+  "10043,44 - 10043,49": "distance",
+  "10054,26 - 10054,30": "overrideColors",
+  "10055,24 - 10055,26": "i",
+  "10055,28 - 10055,32": "colorName",
+  "10059,26 - 10059,30": "getOverrideColors",
+  "10067,24 - 10067,26": "i",
+  "10068,50 - 10068,55": "color",
+  "10072,66 - 10072,71": "enabled",
+  "10075,26 - 10075,30": "forceColorDependencyBox",
+  "10097,42 - 10097,47": "percent",
+  "10112,42 - 10112,47": "alignment",
+  "10122,173 - 10122,178": "barSide",
+  "10125,173 - 10125,178": "sortOrder",
+  "10129,22 - 10129,25": "testCounter",
+  "10155,18 - 10155,22": "communityConfigs",
+  "10157,22 - 10157,28": "configNames",
+  "10166,20 - 10166,22": "configName",
+  "10173,26 - 10173,30": "configJson",
+  "10175,30 - 10175,33": "ok",
+  "10175,35 - 10175,39": "decoded",
+  "10176,30 - 10176,34": "config",
+  "10206,14 - 10206,18": "decodePayload",
+  "10209,18 - 10209,23": "apiClass",
+  "10210,18 - 10210,22": "defineMethod",
+  "10210,34 - 10210,38": "names",
+  "10210,40 - 10210,44": "method",
+  "10210,46 - 10210,50": "target",
+  "10211,23 - 10211,27": "methodName",
+  "10212,26 - 10212,31": "words",
+  "10213,26 - 10213,30": "wordStart",
+  "10214,24 - 10214,27": "charIndex",
+  "10214,29 - 10214,33": "char",
+  "10225,26 - 10225,31": "variants",
+  "10232,26 - 10232,29": "wordCount",
+  "10234,30 - 10234,34": "word",
+  "10243,27 - 10243,31": "variant",
+  "10248,33 - 10248,37": "fileName",
+  "10249,22 - 10249,25": "api",
+  "10254,47 - 10254,51": "self",
+  "10254,53 - 10254,57": "name",
+  "10257,38 - 10257,42": "self",
+  "10260,77 - 10260,81": "self",
+  "10264,18 - 10264,22": "uiProxy",
+  "10265,32 - 10265,36": "api",
+  "10265,38 - 10265,42": "source",
+  "10273,36 - 10273,40": "self",
+  "10273,42 - 10273,46": "tabName",
+  "10279,22 - 10279,26": "methodName",
+  "10280,38 - 10280,42": "proxy",
+  "10280,44 - 10280,48": "title",
+  "10281,26 - 10281,30": "container",
+  "10287,22 - 10287,26": "methodName",
+  "10289,26 - 10289,30": "proxy",
+  "10290,26 - 10290,30": "element",
+  "10296,22 - 10296,26": "methodName",
+  "10298,26 - 10298,30": "proxy",
+  "10298,32 - 10298,36": "idx",
+  "10299,26 - 10299,30": "element",
+  "10304,31 - 10304,35": "wanted",
+  "10305,22 - 10305,27": "path",
+  "10307,33 - 10307,37": "syntax",
+  "10313,30 - 10313,34": "api",
+  "10326,34 - 10326,38": "wanted",
+  "10327,22 - 10327,27": "api",
+  "10330,27 - 10330,31": "element",
+  "10346,18 - 10346,22": "xorString",
+  "10346,34 - 10346,38": "data",
+  "10346,40 - 10346,45": "key",
+  "10350,22 - 10350,27": "chars",
+  "10351,22 - 10351,25": "length",
+  "10357,28 - 10357,32": "encoded",
+  "10359,22 - 10359,26": "chunks",
+  "10360,22 - 10360,25": "length",
+  "10362,26 - 10362,30": "firstThree",
+  "10363,26 - 10363,30": "triple",
+  "10364,26 - 10364,29": "firstTwo",
+  "10366,30 - 10366,35": "thirdIndex",
+  "10372,26 - 10372,32": "fourthIndex",
+  "10385,26 - 10385,30": "bitXor",
+  "10385,42 - 10385,46": "a",
+  "10385,48 - 10385,52": "b",
+  "10386,30 - 10386,34": "bit",
+  "10387,30 - 10387,35": "result",
+  "10389,34 - 10389,37": "bitA",
+  "10390,34 - 10390,37": "bitB",
+  "10402,34 - 10402,37": "bitA",
+  "10411,26 - 10411,30": "extractBits",
+  "10411,42 - 10411,46": "value",
+  "10411,48 - 10411,52": "first",
+  "10411,54 - 10411,58": "last",
+  "10413,34 - 10413,37": "place",
+  "10416,30 - 10416,33": "shifted",
+  "10419,26 - 10419,30": "readUint32",
+  "10420,30 - 10420,34": "firstByte",
+  "10420,36 - 10420,40": "secondByte",
+  "10420,42 - 10420,46": "thirdByte",
+  "10420,48 - 10420,52": "fourthByte",
+  "10423,26 - 10423,30": "readDouble",
+  "10424,30 - 10424,34": "low",
+  "10425,30 - 10425,34": "high",
+  "10426,30 - 10426,34": "leadingBit",
+  "10427,30 - 10427,33": "mantissa",
+  "10428,30 - 10428,34": "exponent",
+  "10429,30 - 10429,34": "sign",
+  "10441,26 - 10441,30": "readBlock",
+  "10444,38 - 10444,42": "block",
+  "10449,38 - 10449,41": "count",
+  "10453,50 - 10453,54": "key",
+  "10457,50 - 10457,54": "value",
+  "10464,50 - 10464,54": "key",
+  "10465,50 - 10465,54": "value",
+  "10471,46 - 10471,50": "key",
+  "10472,46 - 10472,51": "pair",
+  "10507,22 - 10507,24": "step",
+  "10508,22 - 10508,24": "limit",
+  "10509,22 - 10509,24": "start",
+  "10523,14 - 10523,18": "encodedAssets",
+  "10532,18 - 10532,21": "ok",
+  "10532,23 - 10532,27": "service",
+  "10547,14 - 10547,19": "tostringCalled",
+  "10553,18 - 10553,22": "fakeMetatable",
+  "10560,18 - 10560,21": "ok",
+  "10560,23 - 10560,27": "result",
+  "10561,18 - 10561,22": "errorMessage",
+  "10568,18 - 10568,22": "instances",
+  "10585,18 - 10585,22": "instanceCount",
+  "10587,18 - 10587,21": "count",
+  "10593,62 - 10593,66": "self",
+  "10593,68 - 10593,72": "name",
+  "10593,74 - 10593,78": "effect",
+  "10602,26 - 10602,31": "effectsClass",
+  "10604,41 - 10604,45": "effectType",
+  "10605,30 - 10605,33": "effectSet",
+  "10606,28 - 10606,31": "category",
+  "10611,52 - 10611,56": "category",
+  "10611,58 - 10611,62": "name",
+  "10611,64 - 10611,68": "template",
+  "10612,30 - 10612,34": "templates",
+  "10618,30 - 10618,35": "names",
+  "10619,28 - 10619,31": "templateName",
+  "10632,51 - 10632,55": "category",
+  "10633,30 - 10633,34": "active",
+  "10634,31 - 10634,35": "effect",
+  "10639,26 - 10639,31": "textureIndexFlagged",
+  "10642,50 - 10642,54": "character",
+  "10642,56 - 10642,60": "selection",
+  "10642,62 - 10642,66": "category",
+  "10644,28 - 10644,31": "effectName",
+  "10644,33 - 10644,37": "isSelected",
+  "10647,38 - 10647,42": "active",
+  "10651,46 - 10651,52": "partClone",
+  "10659,54 - 10659,58": "oldIndex",
+  "10660,121 - 10660,126": "object",
+  "10660,128 - 10660,133": "key",
+  "10686,50 - 10686,54": "category",
+  "10687,30 - 10687,35": "prefix",
+  "10688,30 - 10688,35": "startColor",
+  "10690,30 - 10690,36": "endColor",
+  "10693,30 - 10693,35": "keypoints",
+  "10699,31 - 10699,35": "effect",
+  "10722,30 - 10722,35": "overrideAppearance",
+  "10723,45 - 10723,49": "params",
+  "10724,34 - 10724,38": "config",
+  "10725,70 - 10725,75": "object",
+  "10725,77 - 10725,81": "className",
+  "10735,55 - 10735,60": "appearance",
+  "10735,62 - 10735,66": "mesh",
+  "10735,68 - 10735,72": "original",
+  "10746,52 - 10746,57": "appearance",
+  "10746,72 - 10746,76": "className",
+  "10763,49 - 10763,54": "appearance",
+  "10763,56 - 10763,60": "decal",
+  "10763,62 - 10763,66": "original",
+  "10766,51 - 10766,56": "appearance",
+  "10766,58 - 10766,62": "clothing",
+  "10766,64 - 10766,68": "original",
+  "10768,40 - 10768,43": "property",
+  "10768,45 - 10768,49": "originalValue",
+  "10789,32 - 10789,35": "className",
+  "10789,37 - 10789,41": "override",
+  "10807,30 - 10807,34": "handlerAliases",
+  "10816,54 - 10816,58": "model",
+  "10817,34 - 10817,38": "appearance",
+  "10818,34 - 10818,38": "existing",
+  "10820,38 - 10820,42": "entry",
+  "10832,40 - 10832,43": "className",
+  "10833,46 - 10833,50": "handle",
+  "10834,44 - 10834,47": "object",
+  "10834,49 - 10834,53": "original"
+ },
+ "comments": [
+  {
+   "line": 9489,
+   "text": "Visuals: custom bullet tracer settings and shoot sound replacement"
+  },
+  {
+   "line": 9543,
+   "text": "Preview: play the chosen shoot sound once with the current speed, volume and start position"
+  },
+  {
+   "line": 9562,
+   "text": "Visuals: crosshair colors, outline, rotation, bounce, size and positioning"
+  },
+  {
+   "line": 9683,
+   "text": "Angle sliders appear only for anti-aim pitch/yaw modes that use a custom angle"
+  },
+  {
+   "line": 9748,
+   "text": "Auto load: create or delete marker files that make the script persist or load silently"
+  },
+  {
+   "line": 9765,
+   "text": "Loadout: per-class auto-select dropdowns listing released weapons, defaulting to the class default"
+  },
+  {
+   "line": 9804,
+   "text": "Auto queue game mode and auto ban map/weapon settings"
+  },
+  {
+   "line": 9857,
+   "text": "Chat spam: editable custom message list plus message modes loaded from files"
+  },
+  {
+   "line": 9894,
+   "text": "Rebuild chat spam modes from files in the chat folder plus the built-in defaults"
+  },
+  {
+   "line": 9928,
+   "text": "Hit notification: duration and editable random message templates"
+  },
+  {
+   "line": 9976,
+   "text": "Settings: menu keybind and keybind list visibility, transparency and mode"
+  },
+  {
+   "line": 10023,
+   "text": "Notification settings: clipping, forced colors, position, transparency, alignment, sort order"
+  },
+  {
+   "line": 10050,
+   "text": "Force-color pickers whose current values are handed to the notification style as an override"
+  },
+  {
+   "line": 10130,
+   "text": "Test button sends a notification with a doubling counter"
+  },
+  {
+   "line": 10135,
+   "text": "Hook up theme/save managers, set their folders and register the default theme"
+  },
+  {
+   "line": 10156,
+   "text": "Community configs: embedded JSON presets loadable through the save manager"
+  },
+  {
+   "line": 10190,
+   "text": "Exclude transient UI options from saved configs"
+  },
+  {
+   "line": 10208,
+   "text": "Lua scripting API: runs user scripts from lua/scripts with a tracked api object"
+  },
+  {
+   "line": 10211,
+   "text": "Register a function under several casing variants of each given method name"
+  },
+  {
+   "line": 10265,
+   "text": "UI proxy: wraps library elements so everything a script creates is tracked for removal"
+  },
+  {
+   "line": 10305,
+   "text": "Load a script file into a fresh api object, unloading any previously loaded copy"
+  },
+  {
+   "line": 10327,
+   "text": "Unload a script: remove its UI elements, clean its maid and clear the api object"
+  },
+  {
+   "line": 10347,
+   "text": "Repeating-key XOR of a string"
+  },
+  {
+   "line": 10358,
+   "text": "Decode a base64 string, then XOR it with a fixed key"
+  },
+  {
+   "line": 10382,
+   "text": "Tamper response when core metamethods or GetObjects are hooked: decoy loop, wipe refs, error"
+  },
+  {
+   "line": 10524,
+   "text": "Embedded base64 asset payload; kick the player if it is missing"
+  },
+  {
+   "line": 10530,
+   "text": "Find SerializationService and make sure its deserializer and buffer.fromstring are not hooked"
+  },
+  {
+   "line": 10552,
+   "text": "Bait check: a TweenInfo disguised as a buffer must fail to cast without touching __tostring"
+  },
+  {
+   "line": 10568,
+   "text": "Deserialize the asset payload, trap the result table and keep only the main asset"
+  },
+  {
+   "line": 10594,
+   "text": "Register a hit effect and keep the hit effect dropdown sorted"
+  },
+  {
+   "line": 10603,
+   "text": "Effects class: stores effect templates per category and attaches clones to a character"
+  },
+  {
+   "line": 10643,
+   "text": "Clone selected effects onto matching parts; caller reads of emitter Texture get a random id"
+  },
+  {
+   "line": 10687,
+   "text": "Recolor active effects from the category's three color options"
+  },
+  {
+   "line": 10712,
+   "text": "Register the bundled self effects from the main asset, then discard the folder"
+  },
+  {
+   "line": 10723,
+   "text": "Appearance override class: caches original properties and applies or restores overrides"
+  },
+  {
+   "line": 10735,
+   "text": "Default handlers applying appearance settings to meshes, parts, decals and clothing"
+  },
+  {
+   "line": 10774,
+   "text": "Properties cached per class; custom overrides add their own handler and cache list"
+  },
+  {
+   "line": 10808,
+   "text": "Map instance classes to the shared handler used for them"
+  },
+  {
+   "line": 10817,
+   "text": "Apply current appearance settings to every cached instance, re-running if it changed meanwhile"
+  }
+ ]
+}

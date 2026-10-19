@@ -1,0 +1,380 @@
+{
+ "renames": {
+  "17780,38 - 17780,42": "cachedContent",
+  "17784,38 - 17784,42": "editableMesh",
+  "17786,42 - 17786,47": "faces",
+  "17791,50 - 17791,53": "vertexCount",
+  "17801,43 - 17801,47": "face",
+  "17805,42 - 17805,47": "seenEdges",
+  "17806,43 - 17806,47": "face",
+  "17807,46 - 17807,50": "vertexCount",
+  "17808,46 - 17808,49": "normalOffset",
+  "17809,46 - 17809,49": "edgeCount",
+  "17811,50 - 17811,53": "nextIndex",
+  "17812,50 - 17812,54": "vertexA",
+  "17813,50 - 17813,54": "vertexB",
+  "17814,50 - 17814,56": "edgeKey",
+  "17823,54 - 17823,58": "startPos",
+  "17824,54 - 17824,58": "endPos",
+  "17831,62 - 17831,66": "startLeft",
+  "17832,62 - 17832,66": "startRight",
+  "17833,62 - 17833,66": "endRight",
+  "17834,62 - 17834,66": "endLeft",
+  "17838,63 - 17838,68": "triangle",
+  "17849,42 - 17849,46": "meshContent",
+  "17858,53 - 17858,57": "model",
+  "17864,30 - 17864,34": "refreshItemAppearance",
+  "17864,63 - 17864,67": "clientItem",
+  "17886,38 - 17886,43": "optionName",
+  "17889,47 - 17889,51": "clientItem",
+  "17897,34 - 17897,39": "trackedViewModels",
+  "17899,38 - 17899,42": "oldSetArmsData",
+  "17901,42 - 17901,46": "viewModel",
+  "17903,46 - 17903,51": "results",
+  "17919,34 - 17919,38": "oldUpdateWrap",
+  "17920,71 - 17920,75": "viewModel",
+  "17924,38 - 17924,43": "results",
+  "17938,31 - 17938,36": "clientItem",
+  "17943,30 - 17943,34": "fpsConstantIndex",
+  "17944,28 - 17944,31": "index",
+  "17944,33 - 17944,37": "constant",
+  "17958,26 - 17958,31": "hookedSwayKey",
+  "17959,24 - 17959,27": "index",
+  "17959,29 - 17959,33": "constant",
+  "17965,26 - 17965,32": "fighterClass",
+  "17979,38 - 17979,42": "oldStartShooting",
+  "17980,38 - 17980,42": "noSpread",
+  "17988,46 - 17988,50": "gun",
+  "17990,50 - 17990,54": "results",
+  "18008,38 - 18008,44": "suppressNextDefer",
+  "18011,38 - 18011,41": "fireRateFactor",
+  "18015,83 - 18015,87": "viewModel",
+  "18015,89 - 18015,93": "animationName",
+  "18027,42 - 18027,46": "results",
+  "18047,38 - 18047,41": "ok",
+  "18047,43 - 18047,47": "protoResult",
+  "18050,38 - 18050,42": "setupProto",
+  "18056,102 - 18056,106": "viewModel",
+  "18080,34 - 18080,38": "oldRecoil",
+  "18082,38 - 18082,42": "clientItem",
+  "18082,44 - 18082,48": "recoilMultiplier",
+  "18102,34 - 18102,38": "oldReplicateFromServer",
+  "18103,79 - 18103,83": "flashbangItem",
+  "18103,85 - 18103,89": "eventName",
+  "18113,38 - 18113,42": "dataEnum",
+  "18115,38 - 18115,42": "charmEnum",
+  "18116,38 - 18116,42": "wrapEnum",
+  "18117,38 - 18117,42": "oldCreateViewModel",
+  "18118,80 - 18118,84": "clientItem",
+  "18118,86 - 18118,90": "itemInfo",
+  "18120,46 - 18120,50": "skinData",
+  "18123,50 - 18123,55": "itemData",
+  "18128,58 - 18128,63": "availableSkins",
+  "18172,38 - 18172,42": "oldGetViewModelImage",
+  "18174,42 - 18174,46": "libraryModule",
+  "18174,48 - 18174,52": "itemName",
+  "18175,42 - 18175,46": "resolvedName",
+  "18176,42 - 18176,46": "skinData",
+  "18181,50 - 18181,54": "availableSkins",
+  "18197,38 - 18197,42": "entity",
+  "18197,44 - 18197,48": "finisherName",
+  "18197,56 - 18197,60": "player",
+  "18198,38 - 18198,42": "chosenFinisher",
+  "18227,74 - 18227,78": "gun",
+  "18227,80 - 18227,84": "shotData",
+  "18248,42 - 18248,46": "infiniteDoubleJump",
+  "18255,46 - 18255,50": "controller",
+  "18263,42 - 18263,46": "jumpHeightIndex",
+  "18266,42 - 18266,46": "updateDoubleJumpHeight",
+  "18278,38 - 18278,42": "slamVelocityIndex",
+  "18281,38 - 18281,42": "updateMaulSlam",
+  "18295,34 - 18295,38": "updateThirdPerson",
+  "18304,34 - 18304,38": "oldSetPOVState",
+  "18305,75 - 18305,79": "camState",
+  "18305,81 - 18305,85": "newPovState",
+  "18354,38 - 18354,42": "rejoinQueue",
+  "18365,46 - 18365,50": "finished",
+  "18402,38 - 18402,42": "voteInterface",
+  "18404,42 - 18404,46": "voteOptions",
+  "18418,34 - 18418,38": "oldRespawnNowAnimation",
+  "18430,34 - 18430,39": "controlsByDevice",
+  "18432,34 - 18432,38": "isSpoofing",
+  "18433,34 - 18433,38": "updateDeviceSpoof",
+  "18435,42 - 18435,46": "controls",
+  "18458,34 - 18458,38": "hurtEffectEnum",
+  "18460,78 - 18460,82": "fighter",
+  "18460,84 - 18460,88": "eventName",
+  "18476,42 - 18476,46": "objectId",
+  "18497,78 - 18497,82": "mouseCrosshair",
+  "18497,84 - 18497,88": "damageData",
+  "18508,84 - 18508,88": "viewModel",
+  "18521,35 - 18521,40": "itemDef",
+  "18527,64 - 18527,68": "t",
+  "18527,70 - 18527,74": "key",
+  "18532,67 - 18532,71": "t",
+  "18532,73 - 18532,77": "key",
+  "18532,79 - 18532,83": "value",
+  "18548,34 - 18548,38": "oldVignetteUpdate",
+  "18559,34 - 18559,38": "modifiedLabels",
+  "18561,38 - 18561,42": "removeStatusClones",
+  "18561,54 - 18561,58": "textLabel",
+  "18568,38 - 18568,42": "refreshItemStatus",
+  "18597,70 - 18597,74": "statusHandler",
+  "18597,76 - 18597,80": "textLabel",
+  "18607,76 - 18607,80": "statusHandler",
+  "18618,34 - 18618,37": "nullProxy",
+  "18635,67 - 18635,71": "t",
+  "18635,73 - 18635,77": "key",
+  "18644,42 - 18644,46": "oldDecodeCameraRotationBulk",
+  "18646,46 - 18646,50": "results",
+  "18652,42 - 18652,46": "antiAimEnabled",
+  "18653,42 - 18653,46": "pitchModes",
+  "18654,42 - 18654,47": "yawModes",
+  "18655,42 - 18655,46": "customPitch",
+  "18656,42 - 18656,46": "customYaw",
+  "18657,62 - 18657,66": "yaw",
+  "18660,60 - 18660,64": "yaw",
+  "18663,60 - 18663,64": "yaw",
+  "18666,63 - 18666,67": "yaw",
+  "18669,60 - 18669,64": "yaw",
+  "18672,61 - 18672,65": "pitch",
+  "18675,59 - 18675,63": "pitch",
+  "18678,63 - 18678,67": "pitch",
+  "18681,65 - 18681,69": "pitch",
+  "18686,46 - 18686,50": "toUtf8Char",
+  "18686,62 - 18686,66": "value",
+  "18687,50 - 18687,54": "codepoint",
+  "18699,63 - 18699,67": "pitch",
+  "18702,63 - 18702,67": "pitch",
+  "18706,42 - 18706,46": "yawMode",
+  "18707,42 - 18707,46": "pitchMode",
+  "18726,77 - 18726,81": "utilityModule",
+  "18726,83 - 18726,87": "rotation",
+  "18729,58 - 18729,62": "pitchResult",
+  "18729,64 - 18729,68": "isEncoded",
+  "18730,58 - 18730,62": "pitch",
+  "18732,62 - 18732,66": "yaw",
+  "18749,34 - 18749,38": "oldFinishThrow",
+  "18750,72 - 18750,76": "throwable",
+  "18752,42 - 18752,46": "fuseTime",
+  "18757,54 - 18757,58": "timeStep",
+  "18760,52 - 18760,55": "segmentIndex",
+  "18771,42 - 18771,46": "results",
+  "18779,34 - 18779,38": "constantPatches",
+  "18784,38 - 18784,42": "trajectoryProto",
+  "18786,42 - 18786,47": "patch",
+  "18790,32 - 18790,35": "targetFunction",
+  "18790,37 - 18790,42": "patch",
+  "18801,36 - 18801,39": "targetFunction",
+  "18801,41 - 18801,46": "patch",
+  "18808,34 - 18808,38": "visibleConstantIndex",
+  "18809,32 - 18809,35": "index",
+  "18809,37 - 18809,41": "constant",
+  "18819,46 - 18819,50": "refreshCrosshairs",
+  "18820,51 - 18820,56": "clientItem",
+  "18832,34 - 18832,38": "visibilityUpdate",
+  "18834,38 - 18834,42": "targetConstants",
+  "18835,38 - 18835,43": "patchedConstants",
+  "18836,36 - 18836,39": "index",
+  "18836,41 - 18836,45": "constant",
+  "18842,40 - 18842,43": "constantName",
+  "18842,45 - 18842,50": "patch",
+  "18851,34 - 18851,38": "originalNames",
+  "18852,34 - 18852,39": "spoofedPlayers",
+  "18854,38 - 18854,42": "cacheOriginalName",
+  "18866,34 - 18866,39": "spoofSettings",
+  "18868,34 - 18868,38": "applyNameSpoof",
+  "18870,38 - 18870,42": "changed",
+  "18871,44 - 18871,48": "fighter",
+  "18872,42 - 18872,46": "spoofConfig",
+  "18877,50 - 18877,55": "original",
+  "18878,50 - 18878,57": "originalName",
+  "18878,59 - 18878,63": "originalDisplayName",
+  "18893,46 - 18893,50": "playerListSlot",
+  "18903,32 - 18903,35": "group",
+  "18903,37 - 18903,41": "optionNames",
+  "18907,38 - 18907,42": "enabledToggle",
+  "18908,38 - 18908,42": "nameOption",
+  "18909,38 - 18909,42": "spoofConfig",
+  "18930,38 - 18930,42": "weaponFrame",
+  "18958,42 - 18958,46": "cosmeticFrame",
+  "18973,42 - 18973,46": "wrapDependencyBox",
+  "18980,36 - 18980,39": "cosmeticName",
+  "18998,38 - 18998,42": "saveSkinData",
+  "19002,38 - 19002,43": "viewportFrames"
+ },
+ "comments": [
+  {
+   "line": 17787,
+   "text": "Collect non-degenerate mesh faces with their positions and normals, then remove them"
+  },
+  {
+   "line": 17806,
+   "text": "Rebuild each unique face edge as a thin two-triangle strip to draw a wireframe"
+  },
+  {
+   "line": 17858,
+   "text": "Re-apply appearance overrides whenever a view model is sent through the event"
+  },
+  {
+   "line": 17876,
+   "text": "Refresh every item's view model when any arm/viewmodel appearance option changes"
+  },
+  {
+   "line": 17897,
+   "text": "Hook SetArmsData and _UpdateWrap to re-fire the appearance event for local view models"
+  },
+  {
+   "line": 17943,
+   "text": "Swap the FramesPerSecond constant in Update to apply the view model frames override"
+  },
+  {
+   "line": 17959,
+   "text": "Redirect GetCameraSway to a wrapper that returns zero sway when sway is disabled"
+  },
+  {
+   "line": 17980,
+   "text": "Hook Gun.StartShooting to patch its returned flags for no-spread and the Revolver"
+  },
+  {
+   "line": 18006,
+   "text": "Hook PlayAnimation: cut shoot cooldown, trigger custom shoot sound, cancel shoot anim"
+  },
+  {
+   "line": 18032,
+   "text": "Skip the animator's next task.defer after a custom shoot sound was triggered"
+  },
+  {
+   "line": 18047,
+   "text": "Replace minigun shooting sounds with repeated on_sound_wanted events while firing"
+  },
+  {
+   "line": 18080,
+   "text": "Scale weapon recoil by the viewmodel_recoil percentage"
+  },
+  {
+   "line": 18088,
+   "text": "Disable muzzle flash by making pairs iterate an empty table inside MuzzleFlash"
+  },
+  {
+   "line": 18100,
+   "text": "Ignore the server BlindEffect from flashbangs when anti-flashbang is on"
+  },
+  {
+   "line": 18113,
+   "text": "Inject the chosen or random skin, charm and wrap when creating local view models"
+  },
+  {
+   "line": 18170,
+   "text": "Show the chosen skin's image in the weapon picker"
+  },
+  {
+   "line": 18194,
+   "text": "Replace the local player's finisher with the chosen or random one"
+  },
+  {
+   "line": 18223,
+   "text": "Route tracers to the custom tracer event when custom tracers are enabled"
+  },
+  {
+   "line": 18239,
+   "text": "Multiply slide walk speed by the slide boost value"
+  },
+  {
+   "line": 18249,
+   "text": "Allow double jumping while airborne when infinite double jump is on"
+  },
+  {
+   "line": 18264,
+   "text": "Patch the double jump height constant with the configured multiplier"
+  },
+  {
+   "line": 18277,
+   "text": "Patch the maul slam downward velocity constant with the configured multiplier"
+  },
+  {
+   "line": 18292,
+   "text": "Force third-person POV while the toggle and keybind are active in first person"
+  },
+  {
+   "line": 18317,
+   "text": "Auto-pick the configured loadout via PickWeapons when GetSetting runs on entity_added"
+  },
+  {
+   "line": 18344,
+   "text": "Auto-queue: leave and rejoin the selected queue mode when a duel finishes"
+  },
+  {
+   "line": 18379,
+   "text": "Auto-ban the configured weapons and a random map during duel voting"
+  },
+  {
+   "line": 18415,
+   "text": "Auto-respawn by firing RespawnNow when the respawn button animation plays"
+  },
+  {
+   "line": 18428,
+   "text": "Spoof the input device type by sending SetControls to the server"
+  },
+  {
+   "line": 18452,
+   "text": "Hook fighter ReplicateFromServer: hit effects, attacker ragebot priority, skin cache"
+  },
+  {
+   "line": 18486,
+   "text": "Optionally hide hit markers and hitmarker sounds"
+  },
+  {
+   "line": 18516,
+   "text": "Full auto: proxy InputSpammingEnabled.StartShooting through a metatable"
+  },
+  {
+   "line": 18546,
+   "text": "Remove the item vignette by skipping ItemInterface.Other.Update"
+  },
+  {
+   "line": 18557,
+   "text": "Override the item status shown on equipped displays and weapon slot backgrounds"
+  },
+  {
+   "line": 18619,
+   "text": "Self-returning proxy swapped in for ReplicatedStorage in the camera replication loop"
+  },
+  {
+   "line": 18653,
+   "text": "Anti-aim yaw and pitch modes; extended modes encode angles as UTF-8 characters"
+  },
+  {
+   "line": 18724,
+   "text": "Replace the encoded camera rotation with anti-aim pitch/yaw unless ragebot is active"
+  },
+  {
+   "line": 18747,
+   "text": "Grenade: shorten the detonation time to explode on throw or at the predicted impact"
+  },
+  {
+   "line": 18780,
+   "text": "Patch fuse delay constants in throw functions according to grenade settings"
+  },
+  {
+   "line": 18808,
+   "text": "Hide the game's crosshair by renaming the _visible constant in Crosshair._Update"
+  },
+  {
+   "line": 18832,
+   "text": "Rename translucency constants in Visibility._Update when ESP appearance override is on"
+  },
+  {
+   "line": 18850,
+   "text": "Name spoofer: rename local/other players and refresh nametags and player list slots"
+  },
+  {
+   "line": 18921,
+   "text": "Build the Cosmetic Changer popout with weapon and cosmetic grids and filters"
+  },
+  {
+   "line": 18980,
+   "text": "Index cosmetic names by type, grouping skins per weapon, for random selection"
+  }
+ ]
+}

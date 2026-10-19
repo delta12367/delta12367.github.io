@@ -1,0 +1,362 @@
+{
+ "renames": {
+  "1178,38 - 1178,46": "propertyValue",
+  "1293,34 - 1293,42": "square",
+  "1330,34 - 1330,42": "propertyValue",
+  "1416,34 - 1416,42": "image",
+  "1461,38 - 1461,46": "propertyValue",
+  "1524,57 - 1524,65": "source",
+  "1524,67 - 1524,75": "isUri",
+  "1528,38 - 1528,46": "fileName",
+  "1561,56 - 1561,64": "drawingType",
+  "1565,34 - 1565,40": "drawing",
+  "1581,14 - 1581,17": "safeFireServer",
+  "1590,14 - 1590,17": "waitForPath",
+  "1591,18 - 1591,22": "root",
+  "1592,18 - 1592,22": "current",
+  "1593,18 - 1593,23": "path",
+  "1594,19 - 1594,23": "childName",
+  "1599,14 - 1599,18": "localFighter",
+  "1628,14 - 1628,18": "worldFolders",
+  "1631,14 - 1631,17": "createInstance",
+  "1631,40 - 1631,44": "properties",
+  "1632,18 - 1632,22": "instance",
+  "1633,16 - 1633,19": "property",
+  "1633,21 - 1633,25": "value",
+  "1636,18 - 1636,23": "containers",
+  "1637,19 - 1637,23": "container",
+  "1642,14 - 1642,17": "createDrawing",
+  "1642,29 - 1642,33": "drawingType",
+  "1642,35 - 1642,39": "properties",
+  "1642,41 - 1642,45": "container",
+  "1642,47 - 1642,51": "constructor",
+  "1643,18 - 1643,23": "drawing",
+  "1644,16 - 1644,19": "property",
+  "1644,21 - 1644,25": "value",
+  "1652,14 - 1652,17": "worldToScreen",
+  "1654,23 - 1654,31": "worldPosition",
+  "1655,18 - 1655,26": "viewportPoint",
+  "1655,28 - 1655,36": "onScreen",
+  "1661,14 - 1661,18": "isPathClear",
+  "1661,30 - 1661,38": "origin",
+  "1661,40 - 1661,48": "target",
+  "1662,18 - 1662,26": "result",
+  "1666,14 - 1666,18": "castRay",
+  "1666,30 - 1666,38": "origin",
+  "1666,40 - 1666,48": "direction",
+  "1666,50 - 1666,58": "rayParams",
+  "1776,14 - 1776,18": "internal",
+  "1788,14 - 1788,17": "crash",
+  "1791,18 - 1791,21": "safeWritefile",
+  "1792,27 - 1792,31": "reason",
+  "1792,33 - 1792,37": "saveHwid",
+  "1803,30 - 1803,34": "bxor",
+  "1803,46 - 1803,51": "a",
+  "1803,53 - 1803,58": "b",
+  "1804,34 - 1804,38": "bitValue",
+  "1805,34 - 1805,39": "result",
+  "1808,42 - 1808,45": "bitA",
+  "1809,42 - 1809,45": "bitB",
+  "1822,38 - 1822,41": "bit",
+  "1831,30 - 1831,34": "extractBits",
+  "1831,46 - 1831,51": "value",
+  "1831,53 - 1831,58": "firstBit",
+  "1831,60 - 1831,64": "lastBit",
+  "1833,38 - 1833,41": "bitValue",
+  "1836,34 - 1836,37": "bits",
+  "1839,30 - 1839,34": "readUint32",
+  "1840,34 - 1840,38": "byte1",
+  "1840,40 - 1840,44": "byte2",
+  "1840,46 - 1840,50": "byte3",
+  "1840,52 - 1840,56": "byte4",
+  "1843,30 - 1843,34": "readDouble",
+  "1844,34 - 1844,38": "low",
+  "1845,34 - 1845,38": "high",
+  "1846,34 - 1846,38": "implicitBit",
+  "1847,34 - 1847,37": "mantissa",
+  "1848,34 - 1848,38": "exponent",
+  "1849,34 - 1849,38": "sign",
+  "1861,30 - 1861,34": "readBlock",
+  "1863,38 - 1863,42": "lookup",
+  "1868,38 - 1868,41": "count",
+  "1869,38 - 1869,42": "index",
+  "1871,42 - 1871,45": "nextIndex",
+  "1884,54 - 1884,58": "key",
+  "1888,54 - 1888,58": "value",
+  "1895,54 - 1895,58": "key",
+  "1896,54 - 1896,58": "value",
+  "1902,50 - 1902,54": "key",
+  "1903,50 - 1903,55": "pair",
+  "1921,18 - 1921,21": "safeWritefile",
+  "1922,18 - 1922,21": "hwidApiMismatch",
+  "1924,22 - 1924,26": "files",
+  "1929,26 - 1929,30": "aIsFolder",
+  "1935,22 - 1935,25": "listingHash",
+  "1938,30 - 1938,33": "hash",
+  "1941,22 - 1941,27": "fileListing",
+  "1942,22 - 1942,23": "fileCount",
+  "1944,26 - 1944,29": "filePath",
+  "1957,14 - 1957,17": "deepCopy",
+  "1958,14 - 1958,17": "deepForEach",
+  "1959,14 - 1959,17": "callWithEnv",
+  "1963,27 - 1963,31": "source",
+  "1964,22 - 1964,26": "copy",
+  "1965,20 - 1965,23": "key",
+  "1965,25 - 1965,29": "value",
+  "1966,26 - 1966,30": "copiedValue",
+  "1974,27 - 1974,31": "source",
+  "1974,33 - 1974,37": "callback",
+  "1974,39 - 1974,43": "seen",
+  "1975,22 - 1975,26": "visited",
+  "1976,23 - 1976,27": "value",
+  "1988,14 - 1988,17": "spawnWithEnv",
+  "1993,27 - 1993,31": "func",
+  "2004,27 - 2004,31": "func",
+  "2011,14 - 2011,17": "encodeAngles",
+  "2012,14 - 2012,17": "serializeCFrame",
+  "2013,14 - 2013,17": "deserializeCFrame",
+  "2017,27 - 2017,31": "cframe",
+  "2021,22 - 2021,26": "rx",
+  "2021,28 - 2021,32": "ry",
+  "2022,22 - 2022,26": "byteX",
+  "2023,22 - 2023,26": "byteY",
+  "2026,27 - 2026,31": "cframe",
+  "2027,22 - 2027,26": "rx",
+  "2027,28 - 2027,32": "ry",
+  "2027,34 - 2027,38": "rz",
+  "2030,27 - 2030,31": "data",
+  "2034,14 - 2034,17": "construct",
+  "2036,18 - 2036,22": "classes",
+  "2037,27 - 2037,31": "className",
+  "2040,18 - 2040,22": "registerClass",
+  "2040,34 - 2040,38": "className",
+  "2040,40 - 2040,44": "class",
+  "2045,22 - 2045,27": "cameraDataClass",
+  "2046,37 - 2046,41": "raw",
+  "2047,26 - 2047,30": "object",
+  "2052,24 - 2052,27": "key",
+  "2052,29 - 2052,33": "value",
+  "2058,37 - 2058,41": "self",
+  "2061,20 - 2061,23": "key",
+  "2062,52 - 2062,56": "self",
+  "2062,58 - 2062,62": "cframe",
+  "2069,52 - 2069,56": "self",
+  "2072,55 - 2072,59": "self",
+  "2072,61 - 2072,65": "rawValue",
+  "2076,20 - 2076,23": "key",
+  "2077,52 - 2077,56": "self",
+  "2077,58 - 2077,62": "hitPart",
+  "2080,52 - 2080,56": "self",
+  "2100,18 - 2100,23": "startShootingClass",
+  "2101,33 - 2101,37": "raw",
+  "2104,16 - 2104,19": "key",
+  "2105,48 - 2105,52": "self",
+  "2105,54 - 2105,58": "value",
+  "2108,48 - 2108,52": "self",
+  "2112,48 - 2112,52": "self",
+  "2117,22 - 2117,27": "encoded",
+  "2118,20 - 2118,23": "key",
+  "2118,25 - 2118,29": "value",
+  "2126,26 - 2126,31": "cleaners",
+  "2127,42 - 2127,46": "thread",
+  "2133,44 - 2133,48": "instance",
+  "2137,26 - 2137,31": "maid",
+  "2138,26 - 2138,31": "tasks",
+  "2139,43 - 2139,47": "self",
+  "2140,28 - 2140,31": "taskType",
+  "2140,33 - 2140,37": "objects",
+  "2141,34 - 2141,38": "cleaner",
+  "2142,35 - 2142,39": "object",
+  "2148,41 - 2148,45": "self",
+  "2149,30 - 2149,35": "objects",
+  "2150,31 - 2150,35": "object",
+  "2160,19 - 2160,23": "circle",
+  "2168,19 - 2168,23": "circle",
+  "2173,47 - 2173,51": "self",
+  "2173,53 - 2173,57": "value",
+  "2173,59 - 2173,63": "boundA",
+  "2173,65 - 2173,69": "boundB",
+  "2176,53 - 2176,57": "self",
+  "2176,59 - 2176,63": "value",
+  "2177,26 - 2177,30": "magnitude",
+  "2180,50 - 2180,54": "self",
+  "2180,56 - 2180,60": "callback",
+  "2197,22 - 2197,26": "keepAlive",
+  "2197,38 - 2197,42": "instance",
+  "2204,48 - 2204,52": "self",
+  "2204,54 - 2204,58": "instance",
+  "2204,60 - 2204,64": "key",
+  "2204,66 - 2204,70": "value",
+  "2204,72 - 2204,76": "shouldKeepAlive",
+  "2208,26 - 2208,30": "newMetatable",
+  "2209,26 - 2209,30": "metatable",
+  "2211,26 - 2211,30": "oldValue",
+  "2218,45 - 2218,49": "self",
+  "2218,51 - 2218,55": "list",
+  "2218,57 - 2218,61": "target",
+  "2219,24 - 2219,27": "key",
+  "2219,29 - 2219,33": "value",
+  "2227,22 - 2227,26": "clampBetween",
+  "2227,38 - 2227,46": "value",
+  "2227,48 - 2227,56": "boundA",
+  "2227,58 - 2227,66": "boundB",
+  "2228,26 - 2228,34": "lower",
+  "2228,36 - 2228,44": "upper",
+  "2232,52 - 2232,56": "self",
+  "2232,58 - 2232,62": "part",
+  "2232,64 - 2232,68": "position",
+  "2232,70 - 2232,74": "cameraCFrame",
+  "2237,26 - 2237,29": "halfSize",
+  "2238,26 - 2238,29": "point",
+  "2239,26 - 2239,29": "minCorner",
+  "2240,26 - 2240,29": "maxCorner",
+  "2244,62 - 2244,66": "callback",
+  "2253,52 - 2253,56": "self",
+  "2253,58 - 2253,62": "fontName",
+  "2253,64 - 2253,68": "weight",
+  "2253,70 - 2253,74": "style",
+  "2253,76 - 2253,80": "fontSource",
+  "2254,26 - 2254,29": "ok",
+  "2254,31 - 2254,35": "result",
+  "2259,30 - 2259,35": "fontFamily",
+  "2268,26 - 2268,30": "assetId",
+  "2277,18 - 2277,22": "registerFont",
+  "2277,34 - 2277,38": "fontName",
+  "2277,40 - 2277,44": "size",
+  "2277,46 - 2277,50": "getFontData",
+  "2278,22 - 2278,27": "fontInfo",
+  "2305,16 - 2305,19": "fontName",
+  "2305,21 - 2305,25": "fontInfo",
+  "2312,55 - 2312,63": "fontName"
+ },
+ "comments": [
+  {
+   "line": 1192,
+   "text": "Text drawing setter: store the property and mirror it onto the backing TextLabel"
+  },
+  {
+   "line": 1269,
+   "text": "Recompute TextBounds through TextService for the current text, size and font"
+  },
+  {
+   "line": 1288,
+   "text": "Square drawing class emulated with a Frame plus a UIStroke outline"
+  },
+  {
+   "line": 1397,
+   "text": "Inset the frame by the stroke thickness so the outline matches the square's bounds"
+  },
+  {
+   "line": 1411,
+   "text": "Image drawing class emulated with an ImageLabel and a UICorner"
+  },
+  {
+   "line": 1525,
+   "text": "Load image data (fetching Uri via HttpGet with rate-limit retry) into a custom asset"
+  },
+  {
+   "line": 1562,
+   "text": "Drawing.new dispatches by type name; Drawing.clear destroys every cached drawing"
+  },
+  {
+   "line": 1582,
+   "text": "Keep a verified clone of RemoteEvent.FireServer for sending remotes"
+  },
+  {
+   "line": 1591,
+   "text": "Resolve a path of child names with WaitForChild, one segment at a time"
+  },
+  {
+   "line": 1600,
+   "text": "Wait for the game's local fighter object exposed by the SideTasks UI module"
+  },
+  {
+   "line": 1632,
+   "text": "Create an Instance or Drawing, apply a property table and optionally store it in lists"
+  },
+  {
+   "line": 1653,
+   "text": "Screen projection and raycast helpers (visibility raycast filters out ViewModels)"
+  },
+  {
+   "line": 1670,
+   "text": "Shared script state: targets, FOV drawings, events, caches, customization, chat spam"
+  },
+  {
+   "line": 1777,
+   "text": "Internal table holding the base64-encoded HWID and the crash flag"
+  },
+  {
+   "line": 1789,
+   "text": "Crash handler: report reason to webhook, optionally save HWID, then stall and error"
+  },
+  {
+   "line": 1801,
+   "text": "Endless junk decoding loop run before raising 'tamper detected'"
+  },
+  {
+   "line": 1920,
+   "text": "If HWID spoofing is detected, report a hashed file listing and persistent id to webhook"
+  },
+  {
+   "line": 1958,
+   "text": "Deep copy and recursive table traversal helpers"
+  },
+  {
+   "line": 1989,
+   "text": "Call or spawn a function in a new coroutine using that function's environment"
+  },
+  {
+   "line": 2012,
+   "text": "Encode CFrame angles to bytes and (de)serialize CFrames into byte-keyed tables"
+  },
+  {
+   "line": 2035,
+   "text": "Small class registry holding CameraData, StartShooting and Maid classes"
+  },
+  {
+   "line": 2062,
+   "text": "Generate Set/Get/SetRaw accessors for the CFrame fields of CameraData"
+  },
+  {
+   "line": 2085,
+   "text": "Sanity-check camera, muzzle and hit fields, returning false plus an error code"
+  },
+  {
+   "line": 2125,
+   "text": "Maid: collect threads, connections and instances by type and clean them up"
+  },
+  {
+   "line": 2160,
+   "text": "Add UIGradients to the aimbot and silent aim FOV circles"
+  },
+  {
+   "line": 2173,
+   "text": "Utility helpers and BindableEvents shared across the script"
+  },
+  {
+   "line": 2198,
+   "text": "Keep an instance referenced from a long-sleeping background thread"
+  },
+  {
+   "line": 2205,
+   "text": "Swap one field on a frozen clone of an object's metatable and return the old value"
+  },
+  {
+   "line": 2228,
+   "text": "Clamp the point at target distance along the camera look vector into the part's box"
+  },
+  {
+   "line": 2254,
+   "text": "Write a font file and family JSON to disk and return its custom asset (Ubuntu fallback)"
+  },
+  {
+   "line": 2276,
+   "text": "Register bundled base64 pixel fonts by name and size"
+  },
+  {
+   "line": 2305,
+   "text": "Build the font name list and pre-warm text bounds for each font"
+  }
+ ]
+}

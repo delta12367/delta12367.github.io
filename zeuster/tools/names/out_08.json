@@ -1,0 +1,360 @@
+{
+ "renames": {
+  "14925,42 - 14925,47": "gradientUpdaters",
+  "14926,42 - 14926,50": "addGradientRotation",
+  "14926,62 - 14926,70": "gradientName",
+  "14940,46 - 14940,54": "gradients",
+  "14942,69 - 14942,77": "now",
+  "14946,57 - 14946,62": "gradient",
+  "14968,46 - 14968,54": "now",
+  "14970,50 - 14970,56": "updater",
+  "14976,38 - 14976,43": "bodyPartNames",
+  "14993,38 - 14993,43": "sequenceOptionCache",
+  "14994,38 - 14994,43": "fontSizeOverrides",
+  "15000,56 - 15000,64": "dueler",
+  "15001,42 - 15001,50": "espObject",
+  "15010,42 - 15010,50": "addConnection",
+  "15010,62 - 15010,70": "connection",
+  "15020,42 - 15020,50": "currentCharacter",
+  "15021,42 - 15021,50": "distantBoxSize",
+  "15022,52 - 15022,57": "bodyParts",
+  "15022,59 - 15022,64": "partCorners",
+  "15023,42 - 15023,50": "getBounds",
+  "15027,46 - 15027,54": "getDynamicBounds",
+  "15027,66 - 15027,74": "rootPosition",
+  "15028,50 - 15028,58": "rootScreenPosition",
+  "15028,60 - 15028,68": "rootOnScreen",
+  "15035,50 - 15035,58": "maxX",
+  "15035,60 - 15035,68": "maxY",
+  "15036,50 - 15036,58": "anyCornerOnScreen",
+  "15038,54 - 15038,60": "corners",
+  "15042,58 - 15042,64": "cornerOffset",
+  "15044,58 - 15044,66": "cornerScreenPosition",
+  "15044,68 - 15044,76": "cornerOnScreen",
+  "15059,50 - 15059,58": "width",
+  "15060,50 - 15060,58": "height",
+  "15061,50 - 15061,58": "boxSize",
+  "15062,50 - 15062,58": "boxPosition",
+  "15067,60 - 15067,68": "rootPosition",
+  "15072,50 - 15072,58": "topPosition",
+  "15073,50 - 15073,58": "topScreenPosition",
+  "15073,60 - 15073,68": "topOnScreen",
+  "15082,50 - 15082,58": "bottomPosition",
+  "15083,50 - 15083,58": "bottomScreenPosition",
+  "15083,60 - 15083,68": "bottomOnScreen",
+  "15089,50 - 15089,58": "boxHeight",
+  "15095,42 - 15095,50": "espEffects",
+  "15096,42 - 15096,50": "appearanceOverride",
+  "15106,42 - 15106,50": "buildSequence",
+  "15106,62 - 15106,70": "optionName",
+  "15106,72 - 15106,80": "isTransparency",
+  "15107,46 - 15107,52": "cached",
+  "15108,46 - 15108,52": "sequenceOptions",
+  "15108,54 - 15108,62": "optionCount",
+  "15115,54 - 15115,62": "option",
+  "15131,46 - 15131,52": "keypoints",
+  "15132,52 - 15132,60": "propertyName",
+  "15134,50 - 15134,56": "option",
+  "15140,42 - 15140,50": "registerGradient",
+  "15140,62 - 15140,70": "gradientName",
+  "15140,72 - 15140,80": "gradient",
+  "15147,42 - 15147,50": "flagTextOffset",
+  "15153,52 - 15153,57": "i",
+  "15155,58 - 15155,66": "isOutline",
+  "15166,58 - 15166,64": "skeletonSequences",
+  "15172,56 - 15172,62": "i",
+  "15175,62 - 15175,70": "sequenceIndex",
+  "15188,48 - 15188,54": "i",
+  "15206,48 - 15206,54": "i",
+  "15213,48 - 15213,54": "i",
+  "15246,50 - 15246,56": "fillImage",
+  "15248,54 - 15248,60": "propertyValue",
+  "15281,50 - 15281,58": "boxGradient",
+  "15288,42 - 15288,50": "updateBox",
+  "15291,46 - 15291,54": "boxOutline",
+  "15291,56 - 15291,64": "box",
+  "15292,46 - 15292,54": "outlineSizeOffset",
+  "15292,56 - 15292,64": "outlinePositionOffset",
+  "15294,60 - 15294,68": "boxSize",
+  "15294,70 - 15294,78": "boxPosition",
+  "15311,42 - 15311,50": "updateFill",
+  "15314,46 - 15314,54": "fillImage",
+  "15315,46 - 15315,54": "fillGradient",
+  "15323,60 - 15323,68": "boxSize",
+  "15323,70 - 15323,78": "boxPosition",
+  "15323,80 - 15323,88": "deltaTime",
+  "15344,42 - 15344,50": "updateName",
+  "15347,46 - 15347,54": "nameText",
+  "15351,46 - 15351,54": "nameOffset",
+  "15358,60 - 15358,68": "boxSize",
+  "15358,70 - 15358,78": "boxPosition",
+  "15368,42 - 15368,50": "updateWeapon",
+  "15371,46 - 15371,54": "weaponText",
+  "15373,60 - 15373,68": "boxSize",
+  "15373,70 - 15373,78": "boxPosition",
+  "15385,42 - 15385,50": "updateDistance",
+  "15388,46 - 15388,54": "distanceText",
+  "15388,56 - 15388,64": "weaponText",
+  "15390,60 - 15390,68": "boxSize",
+  "15390,70 - 15390,78": "boxPosition",
+  "15390,80 - 15390,88": "rootPosition",
+  "15401,42 - 15401,50": "updateSkeleton",
+  "15404,46 - 15404,54": "skeletonBones",
+  "15459,46 - 15459,54": "skeletonHidden",
+  "15460,46 - 15460,54": "hideSkeleton",
+  "15472,46 - 15472,54": "bodyPartCount",
+  "15473,46 - 15473,54": "getPartScreenPositions",
+  "15474,50 - 15474,56": "screenPositions",
+  "15475,50 - 15475,58": "partCount",
+  "15477,55 - 15477,61": "part",
+  "15495,50 - 15495,58": "screenPositions",
+  "15503,55 - 15503,61": "bone",
+  "15506,54 - 15506,62": "fromPoint",
+  "15506,64 - 15506,72": "toPoint",
+  "15512,58 - 15512,66": "outlineInset",
+  "15525,42 - 15525,50": "updateHealthbar",
+  "15526,42 - 15526,50": "health",
+  "15526,52 - 15526,60": "maxHealth",
+  "15529,46 - 15529,54": "healthbarGradient",
+  "15534,46 - 15534,54": "healthbarFill",
+  "15534,56 - 15534,64": "healthbarBackground",
+  "15539,56 - 15539,64": "displayedHealthRatio",
+  "15542,46 - 15542,54": "positionOffset",
+  "15542,56 - 15542,64": "sizePadding",
+  "15544,46 - 15544,54": "healthbarOffset",
+  "15546,46 - 15546,54": "backgroundOffset",
+  "15552,60 - 15552,68": "boxSize",
+  "15552,70 - 15552,78": "boxPosition",
+  "15552,80 - 15552,88": "deltaTime",
+  "15560,58 - 15560,66": "healthRatio",
+  "15589,42 - 15589,50": "updateFlags",
+  "15592,46 - 15592,52": "flagProviders",
+  "15593,46 - 15593,54": "addFlag",
+  "15593,66 - 15593,74": "createFlag",
+  "15596,46 - 15596,54": "flagText",
+  "15598,60 - 15598,68": "boxSize",
+  "15598,70 - 15598,78": "boxPosition",
+  "15598,80 - 15598,88": "rootPosition",
+  "15601,55 - 15601,62": "getFlagText",
+  "15603,54 - 15603,62": "flagString",
+  "15615,50 - 15615,56": "healthPrefixes",
+  "15621,60 - 15621,68": "prefixMode",
+  "15623,58 - 15623,66": "prefix",
+  "15630,50 - 15630,58": "isFacing",
+  "15632,60 - 15632,68": "prefixMode",
+  "15632,70 - 15632,78": "rootPosition",
+  "15638,42 - 15638,50": "allHidden",
+  "15639,42 - 15639,50": "hideAll",
+  "15672,51 - 15672,58": "textDrawing",
+  "15681,50 - 15681,56": "skeletonSequences",
+  "15689,54 - 15689,62": "isOutline",
+  "15695,58 - 15695,66": "sequenceIndex",
+  "15771,46 - 15771,54": "boxSize",
+  "15771,56 - 15771,64": "boxPosition",
+  "15789,42 - 15789,50": "onCharacterAdded",
+  "15803,51 - 15803,58": "partName",
+  "15805,50 - 15805,58": "part",
+  "15806,50 - 15806,58": "halfSize",
+  "15865,85 - 15865,89": "getDueler",
+  "15866,42 - 15866,46": "player",
+  "15866,48 - 15866,52": "dueler",
+  "15869,38 - 15869,42": "removeEsp",
+  "15869,54 - 15869,58": "player",
+  "15870,42 - 15870,46": "espObject",
+  "15879,44 - 15879,47": "gradientName",
+  "15880,50 - 15880,56": "index",
+  "15890,40 - 15890,43": "player",
+  "15895,36 - 15895,39": "player",
+  "15895,41 - 15895,45": "dueler",
+  "15904,42 - 15904,50": "colorCount",
+  "15905,42 - 15905,50": "healthbarColors",
+  "15905,52 - 15905,57": "colorOrder",
+  "15906,42 - 15906,50": "hueOffset",
+  "15907,42 - 15907,50": "shiftTimer",
+  "15907,52 - 15907,60": "shiftInterval",
+  "15911,42 - 15911,50": "buildKeypoints",
+  "15911,62 - 15911,67": "colors",
+  "15911,69 - 15911,77": "moving",
+  "15911,79 - 15911,87": "mode",
+  "15912,46 - 15912,51": "keypoints",
+  "15915,48 - 15915,53": "i",
+  "15917,54 - 15917,62": "keyTime",
+  "15918,54 - 15918,62": "hue",
+  "15931,50 - 15931,58": "lastIndex",
+  "15932,50 - 15932,58": "shiftProgress",
+  "15934,48 - 15934,54": "i",
+  "15936,54 - 15936,62": "slot",
+  "15937,54 - 15937,62": "colorIndex",
+  "15938,54 - 15938,62": "color",
+  "15941,58 - 15941,66": "previousColorIndex",
+  "15954,42 - 15954,50": "refreshHealthbarGradient",
+  "15957,49 - 15957,54": "gradient",
+  "15963,96 - 15963,104": "slices",
+  "15968,50 - 15968,56": "colorOptions",
+  "15977,54 - 15977,60": "option",
+  "15979,52 - 15979,58": "i",
+  "15985,44 - 15985,50": "i",
+  "16022,50 - 16022,56": "previousOrder",
+  "16027,52 - 16027,58": "i",
+  "16032,52 - 16032,58": "i",
+  "16039,46 - 16039,49": "sequence",
+  "16043,50 - 16043,56": "gradient",
+  "16052,38 - 16052,42": "getChamsFillColor",
+  "16052,54 - 16052,62": "color",
+  "16052,64 - 16052,72": "alpha",
+  "16058,38 - 16058,44": "pulseReversed",
+  "16059,38 - 16059,42": "pulseAlpha",
+  "16083,46 - 16083,47": "outlineTransparency",
+  "16100,34 - 16100,38": "showImage",
+  "16102,34 - 16102,38": "showDistance",
+  "16103,34 - 16103,38": "whitelist",
+  "16106,34 - 16106,38": "lerpSpeed",
+  "16107,34 - 16107,38": "fontInfo",
+  "16108,34 - 16108,38": "fadeTime",
+  "16109,34 - 16109,38": "shrinkFade",
+  "16119,34 - 16119,38": "objectSize",
+  "16120,34 - 16120,38": "addWorldEsp",
+  "16120,50 - 16120,54": "itemName",
+  "16123,42 - 16123,47": "transparencyProperties",
+  "16175,42 - 16175,48": "hidden",
+  "16176,42 - 16176,46": "hide"
+ },
+ "comments": [
+  {
+   "line": 14925,
+   "text": "Rotate each ESP gradient group every frame when its 'moving' toggle is on, scaled by its speed"
+  },
+  {
+   "line": 14977,
+   "text": "R15 body parts tracked for the skeleton and the dynamic bounding box"
+  },
+  {
+   "line": 14995,
+   "text": "Text height overrides for small pixel fonts; others use the font's info size"
+  },
+  {
+   "line": 15001,
+   "text": "Per-player ESP constructor: builds drawings, gradients and per-frame updates for a dueler"
+  },
+  {
+   "line": 15026,
+   "text": "Bounding box: dynamic mode projects all body part corners, otherwise uses root height offsets"
+  },
+  {
+   "line": 15068,
+   "text": "Static bounds: box height from points above and below the root; fixed size beyond 600 studs"
+  },
+  {
+   "line": 15107,
+   "text": "Build a Color/NumberSequence from numbered color options (option list cached per name)"
+  },
+  {
+   "line": 15141,
+   "text": "Register a gradient globally (for rotation) and on this player's ESP object"
+  },
+  {
+   "line": 15154,
+   "text": "Create 13 skeleton lines plus 13 thicker black outline lines"
+  },
+  {
+   "line": 15187,
+   "text": "Create name/weapon/distance/flag texts, box and healthbar squares, and the fill image"
+  },
+  {
+   "line": 15223,
+   "text": "Style box outline, healthbar squares and text fonts"
+  },
+  {
+   "line": 15246,
+   "text": "Configure the fill image drawing from the selected fill image preset"
+  },
+  {
+   "line": 15266,
+   "text": "Attach color gradients to the name, weapon and distance texts"
+  },
+  {
+   "line": 15289,
+   "text": "Box: black outline square drawn 1px larger behind the gradient box"
+  },
+  {
+   "line": 15312,
+   "text": "Fill image sized to the box and scaled by the image preset multiplier"
+  },
+  {
+   "line": 15345,
+   "text": "Name text above the box, refreshed when the name type option changes"
+  },
+  {
+   "line": 15369,
+   "text": "Weapon text below the box, fed by the dueler's equipped item"
+  },
+  {
+   "line": 15386,
+   "text": "Distance text below the weapon text showing studs from the camera"
+  },
+  {
+   "line": 15402,
+   "text": "Skeleton: draw bones between projected body part positions, with optional outline"
+  },
+  {
+   "line": 15526,
+   "text": "Healthbar: lerp displayed health toward the current ratio and draw it left of the box"
+  },
+  {
+   "line": 15590,
+   "text": "Flags: health and staring rich-text entries drawn to the right of the box"
+  },
+  {
+   "line": 15639,
+   "text": "Hide every drawing once until the ESP becomes visible again"
+  },
+  {
+   "line": 15653,
+   "text": "Reapply colors, fonts, skeleton gradients and fill image when ESP colors change"
+  },
+  {
+   "line": 15734,
+   "text": "Create or destroy aura/particle effects on the character according to their toggles"
+  },
+  {
+   "line": 15763,
+   "text": "Per frame: compute bounds from the root part and update every ESP component"
+  },
+  {
+   "line": 15790,
+   "text": "On spawn: track health, cache body parts and their bounding corners, parent to chams model"
+  },
+  {
+   "line": 15847,
+   "text": "Clear character references and cached parts when the tracked character is removed"
+  },
+  {
+   "line": 15865,
+   "text": "Create ESP for added duelers and tear it down when they leave or all ESP is removed"
+  },
+  {
+   "line": 15901,
+   "text": "Healthbar color: solid, multi-stop gradient or rainbow, optionally scrolling over time"
+  },
+  {
+   "line": 15964,
+   "text": "Rebuild healthbar colors when slices change, repeating each color once per slice"
+  },
+  {
+   "line": 16008,
+   "text": "Animate moving healthbar: advance rainbow hue and rotate the gradient color order"
+  },
+  {
+   "line": 16052,
+   "text": "Chams highlight: optional pulsing fill, colors and depth mode from chams settings"
+  },
+  {
+   "line": 16100,
+   "text": "World item ESP: image, name and distance labels for whitelisted item models"
+  },
+  {
+   "line": 16121,
+   "text": "Create a screen label for a world item model that follows it and fades out when destroyed"
+  }
+ ]
+}

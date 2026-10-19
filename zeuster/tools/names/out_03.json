@@ -1,0 +1,611 @@
+{
+ "renames": {
+  "5601,43 - 5601,51": "recalculateListSize",
+  "5601,52 - 5601,60": "ySize",
+  "5602,38 - 5602,46": "listHeight",
+  "5652,38 - 5652,43": "displayText",
+  "5671,42 - 5671,47": "activeValues",
+  "5673,46 - 5673,52": "isActive",
+  "5683,38 - 5683,45": "values",
+  "5684,38 - 5684,43": "buttons",
+  "5693,38 - 5693,46": "itemCount",
+  "5695,42 - 5695,48": "optionValue",
+  "5697,42 - 5697,50": "buttonEntry",
+  "5738,42 - 5738,50": "selected",
+  "5759,50 - 5759,58": "newSelected",
+  "5780,62 - 5780,68": "otherEntry",
+  "5805,38 - 5805,46": "listHeight",
+  "5809,56 - 5809,63": "newValues",
+  "5843,42 - 5843,47": "selectedValues",
+  "5845,46 - 5845,52": "isSelected",
+  "5864,42 - 5864,48": "element",
+  "5900,38 - 5900,46": "contextMenu",
+  "5913,34 - 5913,39": "defaultIndexes",
+  "5922,42 - 5922,48": "defaultValue",
+  "5934,36 - 5934,41": "i",
+  "5936,42 - 5936,50": "valueIndex",
+  "5959,55 - 5959,59": "self",
+  "5960,30 - 5960,34": "dependencyBox",
+  "5961,30 - 5961,34": "groupbox",
+  "5964,30 - 5964,34": "contentFrame",
+  "5983,41 - 5983,46": "dependency",
+  "5996,60 - 5996,68": "dependencies",
+  "5997,42 - 5997,47": "dependency",
+  "6022,47 - 6022,51": "object",
+  "6022,53 - 6022,57": "methodName",
+  "6047,26 - 6047,29": "watermarkOuter",
+  "6083,34 - 6083,39": "keypoints",
+  "6101,26 - 6101,29": "keybindOuter",
+  "6120,26 - 6120,29": "keybindAccentBar",
+  "6136,26 - 6136,29": "keybindContainer",
+  "6149,30 - 6149,34": "firstArgument",
+  "6150,30 - 6150,34": "arguments",
+  "6151,30 - 6151,35": "config",
+  "6174,38 - 6174,41": "availableHeight",
+  "6188,30 - 6188,33": "windowOuter",
+  "6310,64 - 6310,69": "title",
+  "6313,56 - 6313,61": "tabName",
+  "6324,34 - 6324,39": "tabHighlight",
+  "6454,63 - 6454,68": "info",
+  "6455,38 - 6455,43": "groupbox",
+  "6490,38 - 6490,43": "container",
+  "6504,46 - 6504,54": "contentHeight",
+  "6506,49 - 6506,54": "element",
+  "6535,61 - 6535,66": "info",
+  "6577,65 - 6577,73": "name",
+  "6577,75 - 6577,83": "selected",
+  "6587,46 - 6587,54": "highlightBar",
+  "6602,46 - 6602,54": "inactiveFrame",
+  "6629,46 - 6629,54": "bottomBlock",
+  "6643,46 - 6643,54": "container",
+  "6659,53 - 6659,58": "otherTab",
+  "6681,50 - 6681,58": "tabCount",
+  "6683,54 - 6683,60": "otherTab",
+  "6687,54 - 6687,60": "tabButton",
+  "6698,50 - 6698,58": "contentHeight",
+  "6700,54 - 6700,60": "element",
+  "6737,42 - 6737,50": "lastScrollTimes",
+  "6770,41 - 6770,46": "column",
+  "6778,46 - 6778,54": "warningHeight",
+  "6780,50 - 6780,56": "element",
+  "6800,63 - 6800,71": "info",
+  "6822,46 - 6822,52": "otherTab",
+  "6854,62 - 6854,70": "name",
+  "6860,63 - 6860,71": "name",
+  "6866,60 - 6866,68": "name",
+  "6872,61 - 6872,69": "name",
+  "6918,34 - 6918,42": "toggled",
+  "6919,34 - 6919,42": "fading",
+  "7041,38 - 7041,43": "gradientProps",
+  "7043,38 - 7043,43": "gradientKeypoints",
+  "7053,46 - 7053,51": "keypoints",
+  "7106,38 - 7106,43": "gradientProps",
+  "7108,38 - 7108,43": "gradientKeypoints",
+  "7118,46 - 7118,51": "keypoints",
+  "7160,27 - 7160,30": "itemPart",
+  "7165,22 - 7165,25": "displayedItem",
+  "7187,22 - 7187,26": "refreshPlayerDropdowns",
+  "7188,26 - 7188,34": "playerNames",
+  "7204,60 - 7204,68": "object",
+  "7313,28 - 7313,33": "i",
+  "7329,33 - 7329,38": "optionId",
+  "7339,60 - 7339,68": "skipWrite",
+  "7349,34 - 7349,40": "toggle",
+  "7357,34 - 7357,40": "option",
+  "7385,38 - 7385,44": "savedObject",
+  "7411,34 - 7411,40": "savedObject",
+  "7469,30 - 7469,34": "files",
+  "7470,30 - 7470,35": "configNames",
+  "7472,28 - 7472,34": "i",
+  "7474,34 - 7474,42": "filePath",
+  "7503,34 - 7503,42": "success",
+  "7503,44 - 7503,52": "err",
+  "7518,22 - 7518,30": "cloneReference",
+  "7518,54 - 7518,62": "object",
+  "7523,22 - 7523,30": "getCustomAsset",
+  "7598,30 - 7598,38": "themeScheme",
+  "7600,33 - 7600,38": "themeValue",
+  "7624,30 - 7624,38": "themeFields",
+  "7645,34 - 7645,40": "field",
+  "7657,30 - 7657,38": "themeName",
+  "7659,30 - 7659,38": "isBuiltIn",
+  "7685,30 - 7685,38": "filePath",
+  "7704,30 - 7704,38": "filePath",
+  "7724,30 - 7724,34": "themeData",
+  "7725,30 - 7725,38": "themeFields",
+  "7746,34 - 7746,40": "field",
+  "7761,30 - 7761,34": "themeNames",
+  "7763,28 - 7763,33": "i",
+  "7765,34 - 7765,42": "filePath",
+  "7789,30 - 7789,34": "paths",
+  "7792,28 - 7792,34": "i",
+  "7799,28 - 7799,34": "i",
+  "7801,34 - 7801,42": "path",
+  "7835,65 - 7835,69": "tabbox",
+  "7844,30 - 7844,36": "themeNames",
+  "7845,28 - 7845,31": "themeName",
+  "7878,34 - 7878,38": "success",
+  "7878,40 - 7878,44": "err",
+  "7879,34 - 7879,38": "errorMessage",
+  "7964,26 - 7964,30": "updateTheme",
+  "7986,66 - 7986,70": "tab",
+  "7996,30 - 7996,34": "success",
+  "7996,36 - 7996,40": "err",
+  "7997,30 - 7997,34": "errorMessage",
+  "8007,30 - 8007,34": "success",
+  "8007,36 - 8007,40": "err",
+  "8008,30 - 8008,34": "errorMessage",
+  "8020,34 - 8020,38": "success",
+  "8020,40 - 8020,44": "err",
+  "8021,34 - 8021,38": "errorMessage",
+  "8032,34 - 8032,38": "success",
+  "8032,40 - 8032,44": "err",
+  "8033,34 - 8033,38": "errorMessage",
+  "8073,44 - 8073,49": "pastedText",
+  "8076,38 - 8076,41": "base64Ok",
+  "8076,43 - 8076,47": "base64Result",
+  "8079,38 - 8079,40": "decodeOk",
+  "8080,38 - 8080,42": "decoded",
+  "8082,42 - 8082,45": "jsonOk",
+  "8082,47 - 8082,51": "jsonResult",
+  "8089,42 - 8089,46": "success",
+  "8089,48 - 8089,52": "err",
+  "8090,42 - 8090,46": "errorMessage",
+  "8103,30 - 8103,34": "success",
+  "8103,36 - 8103,40": "result",
+  "8104,30 - 8104,34": "resultOrError",
+  "8136,18 - 8136,22": "addHiddenInput",
+  "8136,34 - 8136,38": "groupbox",
+  "8136,40 - 8136,44": "inputId",
+  "8136,46 - 8136,50": "defaultText",
+  "8137,22 - 8137,26": "hiddenBox",
+  "8155,26 - 8155,29": "silentDependencyBox",
+  "8158,26 - 8158,29": "silentFovDependencyBox",
+  "8207,26 - 8207,29": "delayPositionDependencyBox",
+  "8222,26 - 8222,29": "aimbotDependencyBox",
+  "8225,26 - 8225,29": "aimbotFovDependencyBox",
+  "8270,22 - 8270,25": "triggerbotDependencyBox",
+  "8366,26 - 8366,29": "ignoreProtectedDependencyBox",
+  "8378,26 - 8378,29": "maxDistanceDependencyBox",
+  "8475,26 - 8475,29": "voidSpamDependencyBox",
+  "8542,26 - 8542,30": "updateColorCorrection",
+  "8567,22 - 8567,26": "updateAtmosphere",
+  "8608,22 - 8608,27": "ambienceSounds",
+  "8618,22 - 8618,28": "ambienceNames",
+  "8619,20 - 8619,21": "ambienceName",
+  "8670,26 - 8670,31": "originalBloom",
+  "8671,26 - 8671,30": "updateBloom",
+  "8680,37 - 8680,42": "originalValue",
+  "8704,22 - 8704,27": "originalSunRays",
+  "8705,22 - 8705,26": "updateSunRays",
+  "8713,33 - 8713,38": "originalValue",
+  "8729,40 - 8729,45": "enabled",
+  "8741,40 - 8741,45": "fov",
+  "8750,163 - 8750,168": "blurSize",
+  "8756,22 - 8756,26": "sliderSettings",
+  "8778,26 - 8778,31": "isApplying",
+  "8779,26 - 8779,31": "overrideEnabled",
+  "8781,26 - 8781,30": "applyOverride",
+  "8792,79 - 8792,84": "enabled",
+  "8796,77 - 8796,82": "color",
+  "8801,30 - 8801,33": "sliderSetting",
+  "8803,30 - 8803,33": "sliderDependencyBox",
+  "8814,79 - 8814,84": "enabled",
+  "8818,79 - 8818,84": "amount",
+  "8824,77 - 8824,82": "enabled",
+  "8852,30 - 8852,34": "addRotationOptions",
+  "8852,46 - 8852,50": "espName",
+  "8852,52 - 8852,56": "hasMovingRotation",
+  "8852,58 - 8852,62": "noCallback",
+  "8853,34 - 8853,38": "dependencyBox",
+  "8887,30 - 8887,34": "addEspToggle",
+  "8887,46 - 8887,50": "espName",
+  "8887,52 - 8887,56": "colorCount",
+  "8887,58 - 8887,62": "transparency",
+  "8887,64 - 8887,68": "tooltip",
+  "8889,34 - 8889,37": "pickerCount",
+  "8905,30 - 8905,33": "skeletonDependencyBox",
+  "8922,38 - 8922,42": "fontList",
+  "8957,30 - 8957,34": "addFlagToggle",
+  "8957,46 - 8957,50": "flagName",
+  "8957,52 - 8957,56": "colorCount",
+  "8960,34 - 8960,37": "pickerCount",
+  "9005,26 - 9005,31": "throwableNames",
+  "9014,26 - 9014,29": "materialDependencyBox",
+  "9110,30 - 9110,34": "particleDependencyBox",
+  "9115,26 - 9115,30": "auraDependencyBox",
+  "9148,26 - 9148,30": "hitEffectsDependencyBox",
+  "9177,22 - 9177,26": "hitSoundsDependencyBox",
+  "9199,22 - 9199,26": "targetHudDependencyBox",
+  "9229,26 - 9229,30": "ragebotIndicatorDependencyBox",
+  "9234,22 - 9234,26": "ammoIndicatorDependencyBox",
+  "9300,30 - 9300,34": "fpsOverrideDependencyBox",
+  "9315,30 - 9315,34": "viewmodelChamsDependencyBox",
+  "9338,26 - 9338,30": "viewmodelOffsetDependencyBox",
+  "9355,30 - 9355,34": "viewmodelAppearanceDependencyBox",
+  "9359,30 - 9359,34": "viewmodelMaterialDependencyBox",
+  "9416,26 - 9416,30": "armAppearanceDependencyBox"
+ },
+ "comments": [
+  {
+   "line": 5602,
+   "text": "Resize the dropdown list frame to fit its items, capped at 8 rows (or a given height)"
+  },
+  {
+   "line": 5651,
+   "text": "Show the selected value(s) as comma-separated text on the dropdown button"
+  },
+  {
+   "line": 5670,
+   "text": "Return selected values for multi-select, or 1/0 for single-select"
+  },
+  {
+   "line": 5683,
+   "text": "Rebuild the dropdown's option buttons from its Values list"
+  },
+  {
+   "line": 5758,
+   "text": "Toggle an option on click (respecting AllowNull), then fire callbacks and autosave"
+  },
+  {
+   "line": 5817,
+   "text": "Open/close the dropdown list and track it in OpenedFrames"
+  },
+  {
+   "line": 5842,
+   "text": "Set the value(s), dropping entries not in Values unless Illegal is set"
+  },
+  {
+   "line": 5875,
+   "text": "Toggle the list when the dropdown button is clicked"
+  },
+  {
+   "line": 5887,
+   "text": "Close the list when a click lands outside its bounds"
+  },
+  {
+   "line": 5900,
+   "text": "Optional context menu that copies the dropdown's flag id"
+  },
+  {
+   "line": 5914,
+   "text": "Resolve Default (string, table or index) into the initial selection"
+  },
+  {
+   "line": 5960,
+   "text": "Dependency box: a container shown only when one of its dependencies matches"
+  },
+  {
+   "line": 5981,
+   "text": "Show the box if any dependency element's value equals its required value"
+  },
+  {
+   "line": 6022,
+   "text": "Route method lookups and namecalls on groupboxes to the shared element functions"
+  },
+  {
+   "line": 6026,
+   "text": "Notification area container near the top-left of the screen"
+  },
+  {
+   "line": 6048,
+   "text": "Draggable watermark frame with a gradient background and text label"
+  },
+  {
+   "line": 6102,
+   "text": "Draggable keybind list frame with an accent bar and title"
+  },
+  {
+   "line": 6149,
+   "text": "CreateWindow: normalise config (title, autoshow, cursor, size, position) and build the window"
+  },
+  {
+   "line": 6174,
+   "text": "On mobile, fit the window height to the viewport (200-600px) or fall back to 350"
+  },
+  {
+   "line": 6189,
+   "text": "Main window frame, made draggable and resizable"
+  },
+  {
+   "line": 6255,
+   "text": "Horizontally scrolling tab button bar"
+  },
+  {
+   "line": 6314,
+   "text": "AddTab: tab button plus left/right groupbox columns and a warning box"
+  },
+  {
+   "line": 6360,
+   "text": "Red warning box shown above the columns (see UpdateWarningBox)"
+  },
+  {
+   "line": 6455,
+   "text": "AddGroupbox: titled box in the left or right column that sizes to its elements"
+  },
+  {
+   "line": 6536,
+   "text": "AddTabbox: box with a row of sub-tab buttons sharing one area"
+  },
+  {
+   "line": 6578,
+   "text": "Tabbox sub-tab: button plus container; showing one hides the others"
+  },
+  {
+   "line": 6681,
+   "text": "Split sub-tab buttons evenly and size the box to the visible tab's content"
+  },
+  {
+   "line": 6737,
+   "text": "On mobile, block window dragging while either column is being scrolled"
+  },
+  {
+   "line": 6771,
+   "text": "Keep each column's canvas size in sync with its list layout"
+  },
+  {
+   "line": 6777,
+   "text": "Push the columns down by the warning box height while it is visible"
+  },
+  {
+   "line": 6801,
+   "text": "Update warning box visibility, title and text, resizing the text to fit"
+  },
+  {
+   "line": 6820,
+   "text": "Activate this tab: hide the others, highlight its button and show its frame"
+  },
+  {
+   "line": 6887,
+   "text": "Clicking the tab button shows it; the first tab created is shown automatically"
+  },
+  {
+   "line": 6909,
+   "text": "Invisible modal button that frees the mouse while the menu is open"
+  },
+  {
+   "line": 6922,
+   "text": "Toggle menu visibility, background effects, input blocking and custom cursor"
+  },
+  {
+   "line": 6940,
+   "text": "Draw an accent-colored custom cursor that follows the mouse while open"
+  },
+  {
+   "line": 6977,
+   "text": "Close open dropdowns, key pickers and color pickers on toggle"
+  },
+  {
+   "line": 6989,
+   "text": "Sink player actions while the menu is open if BlockInput is set"
+  },
+  {
+   "line": 7003,
+   "text": "Toggle the menu with the configured keybind, or RightControl/Insert by default"
+  },
+  {
+   "line": 7013,
+   "text": "Mobile: on-screen draggable 'Toggle UI' and 'Lock UI' buttons"
+  },
+  {
+   "line": 7153,
+   "text": "Bind background blur, color correction and viewport visuals to theme settings"
+  },
+  {
+   "line": 7159,
+   "text": "Register the background viewport items for the item appearance settings"
+  },
+  {
+   "line": 7167,
+   "text": "Spin the selected item in the background viewport while the menu is open"
+  },
+  {
+   "line": 7188,
+   "text": "Refresh player-list dropdowns when players join or leave"
+  },
+  {
+   "line": 7214,
+   "text": "SaveManager: per-type parsers that save and load option values"
+  },
+  {
+   "line": 7307,
+   "text": "Create the root, settings and themes folders if missing"
+  },
+  {
+   "line": 7340,
+   "text": "Serialize non-ignored toggles and options to JSON; write to file unless skipWrite"
+  },
+  {
+   "line": 7381,
+   "text": "Load a config from a decoded table or from a JSON file in the settings folder"
+  },
+  {
+   "line": 7442,
+   "text": "Exclude theme and background options from saved configs"
+  },
+  {
+   "line": 7469,
+   "text": "List config names from the .json files in the settings folder"
+  },
+  {
+   "line": 7499,
+   "text": "Load the config named in autoload.txt and notify the result"
+  },
+  {
+   "line": 7529,
+   "text": "ThemeManager: built-in themes stored as {sort order, settings}"
+  },
+  {
+   "line": 7584,
+   "text": "Apply a custom or built-in theme to the library and matching options"
+  },
+  {
+   "line": 7620,
+   "text": "Copy current theme option values into the library and refresh registry colors"
+  },
+  {
+   "line": 7657,
+   "text": "Load the saved default theme, falling back to the built-in default"
+  },
+  {
+   "line": 7720,
+   "text": "Save current theme option values to a custom theme JSON file"
+  },
+  {
+   "line": 7760,
+   "text": "List custom theme file names in the themes folder"
+  },
+  {
+   "line": 7789,
+   "text": "Create every folder along the theme folder path"
+  },
+  {
+   "line": 7836,
+   "text": "Themes tab: color pickers, built-in theme list and custom theme buttons"
+  },
+  {
+   "line": 7906,
+   "text": "Background tab: preview item, material, blur and color correction settings"
+  },
+  {
+   "line": 7965,
+   "text": "Re-apply the theme whenever any theme option changes"
+  },
+  {
+   "line": 7987,
+   "text": "Config section: create, load, overwrite, delete and autoload configs"
+  },
+  {
+   "line": 8070,
+   "text": "Import a config pasted as base64 or raw JSON"
+  },
+  {
+   "line": 8102,
+   "text": "Copy the current config to the clipboard as base64"
+  },
+  {
+   "line": 8118,
+   "text": "Create the main window and its tabs"
+  },
+  {
+   "line": 8137,
+   "text": "Add a hidden text input (kept hidden by a dummy toggle) used to store data"
+  },
+  {
+   "line": 8145,
+   "text": "Main tab: silent aim settings and FOV circle options"
+  },
+  {
+   "line": 8202,
+   "text": "Aimbot settings with delay smoothing and FOV circle options"
+  },
+  {
+   "line": 8269,
+   "text": "Triggerbot settings"
+  },
+  {
+   "line": 8363,
+   "text": "Targeting settings shared by the aim features"
+  },
+  {
+   "line": 8458,
+   "text": "Weapon exploit toggles"
+  },
+  {
+   "line": 8471,
+   "text": "Ragebot and auto-priority settings"
+  },
+  {
+   "line": 8540,
+   "text": "World tab: color correction effect driven by its options"
+  },
+  {
+   "line": 8566,
+   "text": "Atmosphere parented to Lighting only while enabled"
+  },
+  {
+   "line": 8595,
+   "text": "Skybox and weather selection"
+  },
+  {
+   "line": 8609,
+   "text": "Looping ambience sounds selectable by name"
+  },
+  {
+   "line": 8648,
+   "text": "Bloom override that restores the original properties when disabled"
+  },
+  {
+   "line": 8692,
+   "text": "Sun rays override that restores the original properties when disabled"
+  },
+  {
+   "line": 8725,
+   "text": "Camera settings: anti-flashbang, FOV changer, aspect ratio and blur"
+  },
+  {
+   "line": 8756,
+   "text": "Lighting overrides: per-property toggles that reapply when the game changes them"
+  },
+  {
+   "line": 8842,
+   "text": "Debounced ESP color-changed event"
+  },
+  {
+   "line": 8853,
+   "text": "Add a dependency box with rotation sliders for an ESP element"
+  },
+  {
+   "line": 8888,
+   "text": "Add an ESP element toggle with a number of color pickers"
+  },
+  {
+   "line": 8901,
+   "text": "ESP elements: box, fill, skeleton, name, weapon, distance and healthbar"
+  },
+  {
+   "line": 8958,
+   "text": "Add an ESP flag toggle with color pickers"
+  },
+  {
+   "line": 8980,
+   "text": "World object ESP settings"
+  },
+  {
+   "line": 9011,
+   "text": "ESP body appearance override"
+  },
+  {
+   "line": 9072,
+   "text": "Highlight chams and particle/aura effects"
+  },
+  {
+   "line": 9120,
+   "text": "General ESP customization"
+  },
+  {
+   "line": 9145,
+   "text": "Visuals tab: hit effects"
+  },
+  {
+   "line": 9176,
+   "text": "Hit sounds with a preview button"
+  },
+  {
+   "line": 9198,
+   "text": "Target HUD settings"
+  },
+  {
+   "line": 9226,
+   "text": "On-screen indicators"
+  },
+  {
+   "line": 9276,
+   "text": "Viewmodel settings plus hidden cosmetics changer save data"
+  },
+  {
+   "line": 9353,
+   "text": "Viewmodel and arm appearance overrides"
+  }
+ ]
+}

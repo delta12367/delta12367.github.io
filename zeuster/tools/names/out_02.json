@@ -1,0 +1,543 @@
+{
+ "renames": {
+  "2313,22 - 2313,30": "fontInfo",
+  "2326,22 - 2326,25": "cloneReference",
+  "2326,49 - 2326,53": "instance",
+  "2334,22 - 2334,25": "runService",
+  "2335,22 - 2335,25": "tweenService",
+  "2337,22 - 2337,25": "mouse",
+  "2357,22 - 2357,25": "libraryMainOuterFrame",
+  "2409,22 - 2409,26": "libraryVisible",
+  "2410,22 - 2410,25": "getPlayerNames",
+  "2411,22 - 2411,25": "getTeamNames",
+  "2412,22 - 2412,26": "baseAddons",
+  "2413,22 - 2413,26": "baseGroupbox",
+  "2418,28 - 2418,33": "i",
+  "2423,53 - 2423,61": "a",
+  "2423,63 - 2423,71": "b",
+  "2432,28 - 2432,34": "i",
+  "2437,51 - 2437,59": "a",
+  "2437,61 - 2437,69": "b",
+  "2613,38 - 2613,46": "dragging",
+  "2673,30 - 2673,38": "gripSize",
+  "2674,30 - 2674,38": "gripTransparency",
+  "2716,39 - 2716,47": "finishResize",
+  "2716,48 - 2716,56": "transparency",
+  "2838,30 - 2838,38": "isHovering",
+  "2870,39 - 2870,47": "undoHighlight",
+  "2873,38 - 2873,44": "colorIdx",
+  "2882,39 - 2882,47": "doHighlight",
+  "2891,38 - 2891,44": "colorIdx",
+  "2912,34 - 2912,40": "opened",
+  "2929,34 - 2929,40": "dependencyBox",
+  "2969,32 - 2969,38": "i",
+  "2975,32 - 2975,38": "i",
+  "2986,34 - 2986,40": "registryEntry",
+  "2988,38 - 2988,44": "colorIdx",
+  "3002,28 - 3002,34": "i",
+  "3045,30 - 3045,38": "callbacks",
+  "3048,38 - 3048,44": "callback",
+  "3054,61 - 3054,69": "inputFrame",
+  "3089,39 - 3089,47": "updatePosition",
+  "3092,39 - 3092,47": "updateSize",
+  "3093,34 - 3093,42": "maxWidth",
+  "3095,38 - 3095,44": "child",
+  "3105,30 - 3105,38": "isOpen",
+  "3137,39 - 3137,46": "opened",
+  "3206,26 - 3206,34": "barLayout",
+  "3222,26 - 3222,34": "getNotificationColors",
+  "3231,26 - 3231,34": "notificationTemplate",
+  "3269,30 - 3269,38": "bar",
+  "3301,30 - 3301,38": "holder",
+  "3361,30 - 3361,38": "contentOffsetY",
+  "3362,30 - 3362,38": "contentSizeOffsetY",
+  "3429,39 - 3429,46": "child",
+  "3464,30 - 3464,35": "notification",
+  "3515,26 - 3515,31": "addonFuncs",
+  "3516,57 - 3516,61": "idx",
+  "3526,71 - 3526,76": "color",
+  "3530,65 - 3530,70": "self",
+  "3530,72 - 3530,77": "color",
+  "3537,34 - 3537,37": "displayFrame",
+  "3577,34 - 3577,38": "highlight",
+  "3637,34 - 3637,39": "hueCursor",
+  "3663,38 - 3663,43": "gradientProps",
+  "3665,38 - 3665,43": "keypoints",
+  "3690,34 - 3690,39": "rgbBoxBase",
+  "3691,34 - 3691,39": "rgbBox",
+  "3693,34 - 3693,38": "transparencyCursor",
+  "3738,38 - 3738,46": "contextMenu",
+  "3741,42 - 3741,46": "colorPickers",
+  "3756,42 - 3756,47": "startColor",
+  "3756,49 - 3756,55": "endColor",
+  "3758,40 - 3758,45": "i",
+  "3760,46 - 3760,54": "picker",
+  "3769,42 - 3769,46": "colorPickers",
+  "3777,46 - 3777,52": "picker",
+  "3834,38 - 3834,42": "hueKeypoints",
+  "3836,36 - 3836,42": "hue",
+  "3859,46 - 3859,54": "r",
+  "3859,56 - 3859,64": "g",
+  "3859,66 - 3859,74": "b",
+  "3902,38 - 3902,46": "isOpen",
+  "3907,46 - 3907,52": "opened",
+  "3923,72 - 3923,80": "transparency",
+  "3948,46 - 3948,54": "dragging",
+  "3961,50 - 3961,51": "inputX",
+  "3962,50 - 3962,51": "inputY",
+  "3963,50 - 3963,52": "minX",
+  "3963,54 - 3963,62": "maxX",
+  "3964,50 - 3964,52": "minY",
+  "3964,54 - 3964,62": "maxY",
+  "3965,50 - 3965,51": "clampedX",
+  "3966,50 - 3966,52": "clampedY",
+  "3987,46 - 3987,54": "dragging",
+  "4000,50 - 4000,51": "inputY",
+  "4001,50 - 4001,52": "minY",
+  "4001,54 - 4001,62": "maxY",
+  "4002,50 - 4002,51": "clampedY",
+  "4040,50 - 4040,58": "dragging",
+  "4053,54 - 4053,55": "inputX",
+  "4054,54 - 4054,56": "minX",
+  "4054,58 - 4054,66": "maxX",
+  "4055,54 - 4055,55": "clampedX",
+  "4072,38 - 4072,46": "hideIfClickedOutside",
+  "4084,42 - 4084,48": "inputType",
+  "4109,55 - 4109,59": "idx",
+  "4123,71 - 4123,76": "toggled",
+  "4124,85 - 4124,90": "newKey",
+  "4194,38 - 4194,46": "contextMenu",
+  "4195,38 - 4195,42": "modeButtons",
+  "4199,42 - 4199,50": "modeButton",
+  "4205,50 - 4205,56": "button",
+  "4235,42 - 4235,48": "button",
+  "4240,38 - 4240,46": "updateKeybindLabel",
+  "4240,58 - 4240,66": "active",
+  "4266,42 - 4266,50": "totalHeight",
+  "4267,42 - 4267,50": "maxWidth",
+  "4269,46 - 4269,52": "child",
+  "4329,42 - 4329,50": "keyName",
+  "4334,46 - 4334,52": "button",
+  "4388,38 - 4388,46": "picking",
+  "4389,38 - 4389,46": "clearKeys",
+  "4399,46 - 4399,54": "finished",
+  "4478,47 - 4478,51": "object",
+  "4478,53 - 4478,57": "methodName",
+  "4483,26 - 4483,32": "groupboxFuncs",
+  "4484,50 - 4484,54": "size",
+  "4484,56 - 4484,60": "visible",
+  "4494,44 - 4494,48": "self",
+  "4494,50 - 4494,54": "labelText",
+  "4494,56 - 4494,60": "doesWrap",
+  "4495,34 - 4495,38": "labelObject",
+  "4496,34 - 4496,38": "groupbox",
+  "4535,38 - 4535,43": "blanks",
+  "4538,45 - 4538,50": "blank",
+  "4557,34 - 4557,38": "groupboxArg",
+  "4558,34 - 4558,38": "button",
+  "4568,34 - 4568,38": "groupbox",
+  "4570,34 - 4570,38": "createBaseButton",
+  "4570,50 - 4570,55": "btn",
+  "4588,38 - 4588,43": "gradientProps",
+  "4590,38 - 4590,43": "keypoints",
+  "4603,34 - 4603,38": "initEvents",
+  "4603,50 - 4603,55": "btn",
+  "4604,38 - 4604,42": "waitForEvent",
+  "4604,62 - 4604,66": "timeout",
+  "4604,68 - 4604,72": "validator",
+  "4605,42 - 4605,46": "bindable",
+  "4619,38 - 4619,42": "validateClick",
+  "4636,46 - 4636,50": "clicked",
+  "4654,61 - 4654,65": "tooltip",
+  "4675,62 - 4675,70": "tooltip",
+  "4692,38 - 4692,43": "blanks",
+  "4695,45 - 4695,50": "blank",
+  "4714,34 - 4714,38": "groupbox",
+  "4733,38 - 4733,43": "gradientProps",
+  "4735,38 - 4735,43": "keypoints",
+  "4747,34 - 4747,39": "frameObject",
+  "4749,55 - 4749,63": "height",
+  "4764,38 - 4764,42": "blanks",
+  "4772,34 - 4772,38": "groupbox",
+  "4774,34 - 4774,39": "divider",
+  "4775,34 - 4775,38": "blanks",
+  "4783,34 - 4783,38": "dividerInner",
+  "4795,52 - 4795,57": "self",
+  "4796,39 - 4796,43": "blank",
+  "4804,44 - 4804,48": "self",
+  "4804,50 - 4804,54": "idx",
+  "4806,34 - 4806,38": "blanks",
+  "4812,71 - 4812,76": "text",
+  "4818,34 - 4818,38": "groupbox",
+  "4852,38 - 4852,43": "gradientProps",
+  "4854,38 - 4854,43": "keypoints",
+  "4906,45 - 4906,50": "blank",
+  "4929,47 - 4929,55": "updateTextPosition",
+  "4930,42 - 4930,50": "padding",
+  "4931,42 - 4931,43": "visibleWidth",
+  "4939,50 - 4939,58": "subtext",
+  "4940,50 - 4940,52": "subtextWidth",
+  "4941,50 - 4941,58": "cursorX",
+  "4959,42 - 4959,50": "contextMenu",
+  "4986,45 - 4986,49": "self",
+  "4986,51 - 4986,55": "idx",
+  "4988,34 - 4988,38": "blanks",
+  "4993,71 - 4993,76": "enabled",
+  "5001,34 - 5001,38": "groupbox",
+  "5050,38 - 5050,43": "scrambleState",
+  "5066,50 - 5066,55": "chars",
+  "5067,50 - 5067,53": "textLength",
+  "5068,50 - 5068,51": "revealCount",
+  "5069,50 - 5069,53": "charCount",
+  "5116,45 - 5116,50": "addon",
+  "5146,46 - 5146,52": "blank",
+  "5168,42 - 5168,50": "contextMenu",
+  "5205,48 - 5205,52": "self",
+  "5205,54 - 5205,58": "idx",
+  "5205,68 - 5205,72": "parentSlider",
+  "5211,30 - 5211,34": "elements",
+  "5219,67 - 5219,72": "value",
+  "5225,30 - 5225,34": "groupbox",
+  "5226,30 - 5226,34": "fillTween",
+  "5252,30 - 5252,33": "sliderFrame",
+  "5254,30 - 5254,33": "sliderCount",
+  "5256,34 - 5256,37": "cellPaddingOffset",
+  "5260,30 - 5260,34": "sliderOuter",
+  "5290,30 - 5290,34": "hideBorderRight",
+  "5320,38 - 5320,46": "fillScale",
+  "5339,43 - 5339,51": "roundValue",
+  "5339,52 - 5339,60": "rawValue",
+  "5341,42 - 5341,50": "rounded",
+  "5355,41 - 5355,46": "element",
+  "5366,38 - 5366,41": "numValue",
+  "5382,54 - 5382,62": "childIdx",
+  "5382,64 - 5382,72": "childOption",
+  "5391,42 - 5391,43": "startX",
+  "5393,42 - 5393,50": "grabOffset",
+  "5397,46 - 5397,48": "currentX",
+  "5398,46 - 5398,47": "newOffset",
+  "5420,42 - 5420,43": "startX",
+  "5422,42 - 5422,50": "grabOffset",
+  "5423,42 - 5423,50": "dragging",
+  "5434,46 - 5434,48": "currentX",
+  "5435,46 - 5435,47": "newOffset",
+  "5463,38 - 5463,46": "contextMenu",
+  "5484,50 - 5484,54": "self",
+  "5484,56 - 5484,60": "idx",
+  "5497,30 - 5497,34": "elements",
+  "5505,67 - 5505,72": "value",
+  "5508,30 - 5508,34": "groupbox",
+  "5510,30 - 5510,34": "relativeOffset",
+  "5527,34 - 5527,38": "children",
+  "5528,35 - 5528,39": "element",
+  "5554,34 - 5554,39": "gradientProps",
+  "5556,34 - 5556,39": "keypoints",
+  "5598,43 - 5598,51": "recalculateListPosition"
+ },
+ "comments": [
+  {
+   "line": 2327,
+   "text": "Use cloneref when the executor provides it, otherwise an identity function"
+  },
+  {
+   "line": 2341,
+   "text": "Create the protected top-level ScreenGui that hosts the library UI"
+  },
+  {
+   "line": 2346,
+   "text": "Load the menu GUI asset and add camera blur/color-correction effects (initially disabled)"
+  },
+  {
+   "line": 2356,
+   "text": "Expose the Toggles and Options tables globally"
+  },
+  {
+   "line": 2359,
+   "text": "Library state: theme registries, colors, sword preview settings and UI flags"
+  },
+  {
+   "line": 2403,
+   "text": "Detect the device platform and use a smaller minimum window size on mobile"
+  },
+  {
+   "line": 2416,
+   "text": "Return the sorted names of all players in the server"
+  },
+  {
+   "line": 2430,
+   "text": "Return the sorted names of all teams"
+  },
+  {
+   "line": 2445,
+   "text": "Run a callback; on error, notify the message with its file:line prefix stripped"
+  },
+  {
+   "line": 2470,
+   "text": "Create an instance (or reuse a given one) and apply a property table to it"
+  },
+  {
+   "line": 2519,
+   "text": "Drag a frame with mouse/touch while the cursor starts within its top drag area"
+  },
+  {
+   "line": 2546,
+   "text": "Drag via an accent-outlined ghost frame, moving the real frame on release"
+  },
+  {
+   "line": 2589,
+   "text": "Touch variant: follow the touch position until the touch ends"
+  },
+  {
+   "line": 2643,
+   "text": "Drag a frame by a separate handle; falls back to MakeDraggable on mobile"
+  },
+  {
+   "line": 2671,
+   "text": "Add a corner grip that resizes the frame through an outline preview, clamped to a minimum"
+  },
+  {
+   "line": 2768,
+   "text": "Touch-based resizing for mobile devices"
+  },
+  {
+   "line": 2810,
+   "text": "Tooltip frame that follows the mouse while hovering the target"
+  },
+  {
+   "line": 2861,
+   "text": "Hide the tooltip when the main window is hidden"
+  },
+  {
+   "line": 2870,
+   "text": "Swap registry-tracked colors on hover; restore defaults on leave or when condition fails"
+  },
+  {
+   "line": 2912,
+   "text": "Return true if the mouse is over any currently opened popup frame"
+  },
+  {
+   "line": 2934,
+   "text": "Linearly remap a value from one range to another"
+  },
+  {
+   "line": 2950,
+   "text": "Theme registry: remember which instance properties map to library color names"
+  },
+  {
+   "line": 2986,
+   "text": "Reapply theme colors (by name or via function) to every registered instance"
+  },
+  {
+   "line": 3002,
+   "text": "Disconnect all signals, run the unload callback and destroy the library GUIs"
+  },
+  {
+   "line": 3020,
+   "text": "Named BindableEvent helpers for library-wide events"
+  },
+  {
+   "line": 3033,
+   "text": "Per-input callback lists, dispatched from InputBegan only while the library is visible"
+  },
+  {
+   "line": 3055,
+   "text": "Context menu that opens on right-click beside a frame, sized to its widest option"
+  },
+  {
+   "line": 3191,
+   "text": "Drop registry entries for GUI descendants as they are removed"
+  },
+  {
+   "line": 3197,
+   "text": "Watermark visibility and text helpers"
+  },
+  {
+   "line": 3207,
+   "text": "Notification side-bar position and size for each BarSide setting"
+  },
+  {
+   "line": 3223,
+   "text": "Notification colors, overridable through NotificationStyle.OverrideColor"
+  },
+  {
+   "line": 3234,
+   "text": "Build the notification template: outer, inner, gradient, label and side bar"
+  },
+  {
+   "line": 3280,
+   "text": "Create a standalone draggable popout window with a groupbox-style container"
+  },
+  {
+   "line": 3427,
+   "text": "Resize the popout to fit the height of its visible content"
+  },
+  {
+   "line": 3458,
+   "text": "Show a notification: clone the template, style it, tween in, remove after duration"
+  },
+  {
+   "line": 3516,
+   "text": "Addon methods (color picker, key picker) that attach to toggles and labels"
+  },
+  {
+   "line": 3518,
+   "text": "Color picker: swatch opening a popup with SV map, hue bar, hex/RGB boxes, optional alpha"
+  },
+  {
+   "line": 3695,
+   "text": "Optional transparency bar with a draggable cursor"
+  },
+  {
+   "line": 3738,
+   "text": "Color picker context menu: make gradient, match colors, copy/paste color, copy flag"
+  },
+  {
+   "line": 3847,
+   "text": "Parse hex or RGB text box input into the picker's HSV values"
+  },
+  {
+   "line": 3870,
+   "text": "Refresh swatch, cursors and text boxes from HSV, then fire callbacks"
+  },
+  {
+   "line": 3944,
+   "text": "Drag on the saturation/value map to set Sat and Vib"
+  },
+  {
+   "line": 3983,
+   "text": "Drag on the hue bar to set Hue"
+  },
+  {
+   "line": 4018,
+   "text": "Left-click toggles the picker popup; right-click hides it"
+  },
+  {
+   "line": 4035,
+   "text": "Drag on the transparency bar to set Transparency"
+  },
+  {
+   "line": 4073,
+   "text": "Hide the picker when a click lands outside its popup"
+  },
+  {
+   "line": 4111,
+   "text": "Key picker: keybind box with a mode menu and an entry in the keybind list"
+  },
+  {
+   "line": 4190,
+   "text": "Mode context menu (Always/Toggle/Hold) that highlights the selected mode"
+  },
+  {
+   "line": 4241,
+   "text": "Show this keybind's line in the keybind list, accent-colored when active"
+  },
+  {
+   "line": 4267,
+   "text": "Resize the keybind list frame to fit its visible entries"
+  },
+  {
+   "line": 4299,
+   "text": "Whether the keybind is active for its mode (Always, Hold or Toggle) or overridden"
+  },
+  {
+   "line": 4355,
+   "text": "Clear any override, sync the parent toggle if requested, then fire click callbacks"
+  },
+  {
+   "line": 4389,
+   "text": "Click the box to capture the next key or mouse button; Escape/Backspace unbind"
+  },
+  {
+   "line": 4443,
+   "text": "Toggle-mode keybinds flip their state when the bound key or mouse button is pressed"
+  },
+  {
+   "line": 4478,
+   "text": "Method lookup and namecall dispatch for objects using the addon metatable"
+  },
+  {
+   "line": 4484,
+   "text": "Groupbox element methods (blank, label, button, frame, divider, input, toggle)"
+  },
+  {
+   "line": 4496,
+   "text": "Text label, optionally wrapped; unwrapped labels can host addons"
+  },
+  {
+   "line": 4558,
+   "text": "Button with optional double-click confirmation and side-by-side sub-buttons"
+  },
+  {
+   "line": 4605,
+   "text": "Wait for a signal matching a validator, or return false after the timeout"
+  },
+  {
+   "line": 4626,
+   "text": "Double-click buttons show 'Are you sure?' and need a second click within 1 second"
+  },
+  {
+   "line": 4715,
+   "text": "Plain bordered frame element with size and inner/outer accessors"
+  },
+  {
+   "line": 4773,
+   "text": "Horizontal divider element"
+  },
+  {
+   "line": 4806,
+   "text": "Text input with numeric/max-length filtering and optional apply-on-focus-lost"
+  },
+  {
+   "line": 4930,
+   "text": "Scroll the TextBox horizontally so the text cursor stays visible"
+  },
+  {
+   "line": 4988,
+   "text": "Checkbox toggle with risky coloring, scrambled-text effect and addon support"
+  },
+  {
+   "line": 5050,
+   "text": "Scrambled toggles reveal their text on hover, showing random characters otherwise"
+  },
+  {
+   "line": 5106,
+   "text": "Set the toggle value, sync key pickers, fire callbacks and update dependency boxes"
+  },
+  {
+   "line": 5206,
+   "text": "Slider element; extra sliders can share a parent slider's row"
+  },
+  {
+   "line": 5255,
+   "text": "Split the holder grid evenly between sibling sliders"
+  },
+  {
+   "line": 5310,
+   "text": "Update the value label and tween the fill bar to the new value"
+  },
+  {
+   "line": 5340,
+   "text": "Round a slider value by increment or by decimal places"
+  },
+  {
+   "line": 5387,
+   "text": "Drag to set the slider value with mouse or touch"
+  },
+  {
+   "line": 5485,
+   "text": "Dropdown element; Player/Team special types fill values from the server"
+  },
+  {
+   "line": 5526,
+   "text": "Sum the heights of elements already in the container"
+  },
+  {
+   "line": 5591,
+   "text": "Dropdown list frame, parented to the main ScreenGui"
+  },
+  {
+   "line": 5599,
+   "text": "Keep the list under the dropdown and sized for up to 8 entries"
+  }
+ ]
+}

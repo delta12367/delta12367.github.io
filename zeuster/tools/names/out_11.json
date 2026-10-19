@@ -1,0 +1,281 @@
+{
+ "renames": {
+  "19008,38 - 19008,42": "createCosmeticSlot",
+  "19011,42 - 19011,47": "viewportCache",
+  "19012,52 - 19012,56": "container",
+  "19012,58 - 19012,62": "weapon",
+  "19012,64 - 19012,68": "skin",
+  "19012,70 - 19012,74": "override",
+  "19012,76 - 19012,80": "customImage",
+  "19012,82 - 19012,86": "customScale",
+  "19021,46 - 19021,50": "imageScale",
+  "19027,58 - 19027,64": "skinIndex",
+  "19039,62 - 19039,67": "wrapModel",
+  "19043,62 - 19043,66": "wrapProperties",
+  "19044,63 - 19044,67": "properties",
+  "19049,62 - 19049,68": "charmModel",
+  "19067,46 - 19067,52": "titleLabel",
+  "19081,46 - 19081,50": "hoverTween",
+  "19115,42 - 19115,47": "titleLabel",
+  "19129,42 - 19129,46": "hoverTween",
+  "19154,38 - 19154,42": "updateSkinImage",
+  "19154,54 - 19154,58": "imageLabel",
+  "19154,60 - 19154,64": "weapon",
+  "19154,66 - 19154,70": "skin",
+  "19159,46 - 19159,52": "skinIndex",
+  "19164,38 - 19164,42": "refreshEvent",
+  "19166,38 - 19166,42": "refreshItems",
+  "19168,42 - 19168,46": "dataEnum",
+  "19170,42 - 19170,46": "viewModelEnum",
+  "19173,42 - 19173,46": "replicationChangedEnum",
+  "19174,42 - 19174,46": "replicationChanged",
+  "19175,42 - 19175,46": "fireReplication",
+  "19176,47 - 19176,51": "connection",
+  "19183,42 - 19183,46": "itemRemovedEnum",
+  "19184,42 - 19184,46": "itemAddedEnum",
+  "19186,42 - 19186,47": "ignoredFields",
+  "19192,46 - 19192,51": "itemEntries",
+  "19193,44 - 19193,47": "slot",
+  "19194,50 - 19194,54": "clientItem",
+  "19196,54 - 19196,58": "objectId",
+  "19197,54 - 19197,59": "cachedData",
+  "19200,56 - 19200,59": "field",
+  "19200,61 - 19200,65": "fieldValue",
+  "19201,62 - 19201,66": "fieldEnum",
+  "19206,56 - 19206,59": "field",
+  "19206,61 - 19206,65": "fieldValue",
+  "19207,62 - 19207,66": "fieldEnum",
+  "19213,54 - 19213,59": "itemData",
+  "19214,52 - 19214,55": "field",
+  "19214,57 - 19214,61": "fieldValue",
+  "19215,58 - 19215,62": "fieldEnum",
+  "19226,47 - 19226,52": "entry",
+  "19229,44 - 19229,47": "slot",
+  "19229,49 - 19229,54": "entry",
+  "19247,38 - 19247,42": "selectedWeapon",
+  "19249,38 - 19249,43": "slotCache",
+  "19250,38 - 19250,43": "weaponSlots",
+  "19251,38 - 19251,43": "displayedButtons",
+  "19252,38 - 19252,42": "lastWeapon",
+  "19253,38 - 19253,42": "randomButton",
+  "19256,38 - 19256,42": "updateCosmeticList",
+  "19261,42 - 19261,48": "modeChanged",
+  "19266,42 - 19266,47": "cosmeticNames",
+  "19273,42 - 19273,48": "slots",
+  "19281,47 - 19281,51": "cosmeticName",
+  "19282,50 - 19282,54": "slotButton",
+  "19282,56 - 19282,60": "slotImage",
+  "19282,62 - 19282,66": "slotOverlay",
+  "19284,54 - 19284,58": "cosmeticSetting",
+  "19310,40 - 19310,43": "weaponName",
+  "19310,45 - 19310,51": "weaponSlot",
+  "19311,46 - 19311,53": "weaponButton",
+  "19311,55 - 19311,59": "weaponImage",
+  "19311,61 - 19311,65": "weaponOverlay",
+  "19312,46 - 19312,52": "button",
+  "19319,42 - 19319,48": "matchedButtons",
+  "19321,40 - 19321,43": "cosmeticName",
+  "19321,45 - 19321,51": "cosmeticSlot",
+  "19322,46 - 19322,53": "cosmeticButton",
+  "19322,55 - 19322,59": "cosmeticImage",
+  "19322,61 - 19322,65": "cosmeticOverlay",
+  "19323,46 - 19323,52": "button",
+  "19340,44 - 19340,47": "displayedButton",
+  "19351,38 - 19351,42": "randomSlot",
+  "19351,44 - 19351,48": "randomImage",
+  "19351,50 - 19351,54": "randomOverlay",
+  "19358,46 - 19358,50": "cosmeticSetting",
+  "19371,42 - 19371,47": "addedWeapons",
+  "19372,42 - 19372,46": "selectedWeaponButton",
+  "19373,40 - 19373,43": "weaponIndex",
+  "19376,50 - 19376,54": "slotButton",
+  "19376,56 - 19376,60": "slotImage",
+  "19376,62 - 19376,66": "slotOverlay",
+  "19376,68 - 19376,72": "slotTitle",
+  "19377,50 - 19377,54": "weaponButton",
+  "19378,50 - 19378,54": "weaponImage",
+  "19379,50 - 19379,54": "weaponTitle",
+  "19381,50 - 19381,54": "selectWeapon",
+  "19394,50 - 19394,54": "updateEnabledState",
+  "19427,42 - 19427,47": "originalNames",
+  "19428,42 - 19428,47": "reorderEvent",
+  "19430,44 - 19430,47": "button",
+  "19434,44 - 19434,47": "slot",
+  "19434,49 - 19434,54": "clientItem",
+  "19436,54 - 19436,58": "weaponButton",
+  "19451,50 - 19451,54": "cosmeticSetting",
+  "19456,51 - 19456,57": "weaponData",
+  "19490,42 - 19490,45": "success",
+  "19490,47 - 19490,51": "decoded",
+  "19491,42 - 19491,46": "saveData",
+  "19495,42 - 19495,47": "cosmeticTypes",
+  "19496,40 - 19496,43": "weaponName",
+  "19496,45 - 19496,50": "weaponData",
+  "19499,51 - 19499,55": "cosmeticType",
+  "19511,84 - 19511,88": "value",
+  "19531,86 - 19531,90": "visible",
+  "19552,43 - 19552,47": "gradient",
+  "19559,47 - 19559,51": "gradient",
+  "19564,38 - 19564,41": "colorCount",
+  "19565,38 - 19565,42": "numColors",
+  "19568,46 - 19568,51": "colorKeypoints",
+  "19569,46 - 19569,51": "transparencyKeypoints",
+  "19571,50 - 19571,54": "colorOption",
+  "19574,50 - 19574,54": "keypointList",
+  "19576,50 - 19576,53": "position",
+  "19590,46 - 19590,51": "colorKeypoints",
+  "19591,46 - 19591,51": "transparencyKeypoints",
+  "19593,50 - 19593,54": "colorOption",
+  "19596,50 - 19596,54": "keypointList",
+  "19598,50 - 19598,53": "position",
+  "19612,46 - 19612,51": "colorKeypoints",
+  "19613,46 - 19613,51": "transparencyKeypoints",
+  "19615,50 - 19615,54": "colorOption",
+  "19618,50 - 19618,54": "keypointList",
+  "19620,50 - 19620,53": "position",
+  "19708,38 - 19708,41": "colorCount",
+  "19709,38 - 19709,42": "numColors",
+  "19746,18 - 19746,22": "bxor",
+  "19746,34 - 19746,38": "a",
+  "19746,40 - 19746,44": "b",
+  "19747,22 - 19747,26": "bitValue",
+  "19748,22 - 19748,27": "result",
+  "19750,26 - 19750,29": "bitA",
+  "19751,26 - 19751,29": "bitB",
+  "19763,26 - 19763,29": "bitA",
+  "19772,18 - 19772,22": "extractBits",
+  "19772,34 - 19772,38": "number",
+  "19772,40 - 19772,44": "startBit",
+  "19772,46 - 19772,50": "endBit",
+  "19774,26 - 19774,29": "place",
+  "19777,22 - 19777,25": "bits",
+  "19780,18 - 19780,22": "readInt32",
+  "19781,22 - 19781,26": "b1",
+  "19781,28 - 19781,32": "b2",
+  "19781,34 - 19781,38": "b3",
+  "19781,40 - 19781,44": "b4",
+  "19784,18 - 19784,22": "readDouble",
+  "19785,22 - 19785,26": "low",
+  "19786,22 - 19786,26": "high",
+  "19787,22 - 19787,26": "implicitBit",
+  "19788,22 - 19788,25": "mantissa",
+  "19789,22 - 19789,26": "exponent",
+  "19790,22 - 19790,26": "sign",
+  "19810,30 - 19810,33": "count",
+  "19814,42 - 19814,46": "entryKey",
+  "19818,42 - 19818,46": "entryValue",
+  "19825,42 - 19825,46": "entryKey",
+  "19826,42 - 19826,46": "entryValue",
+  "19832,38 - 19832,42": "entryKey",
+  "19833,38 - 19833,43": "pair",
+  "19873,14 - 19873,17": "integrityModulo",
+  "19874,14 - 19874,17": "integrityOffset",
+  "19875,14 - 19875,17": "integrityProduct"
+ },
+ "comments": [
+  {
+   "line": 19009,
+   "text": "Builds a cosmetic slot button with title and hover tween; wrap/charm previews use cached viewports"
+  },
+  {
+   "line": 19108,
+   "text": "Unused copy of the slot builder that references undefined globals"
+  },
+  {
+   "line": 19155,
+   "text": "Sets an image label to the high-res viewmodel image of a weapon's chosen skin"
+  },
+  {
+   "line": 19167,
+   "text": "Rebuilds item data with chosen cosmetics and replays ItemRemoved/ItemAdded to re-apply them"
+  },
+  {
+   "line": 19176,
+   "text": "Calls every Replicate.OnClientEvent handler directly with a ReplicationChanged payload"
+  },
+  {
+   "line": 19239,
+   "text": "Default cosmetic settings for every ownable weapon"
+  },
+  {
+   "line": 19257,
+   "text": "Refreshes the cosmetic grid for the selected weapon and mode, applying filters and highlights"
+  },
+  {
+   "line": 19280,
+   "text": "Create this weapon/mode's slots once; clicking one toggles it as the selected cosmetic"
+  },
+  {
+   "line": 19339,
+   "text": "Hide buttons left over from the previous mode or weapon"
+  },
+  {
+   "line": 19352,
+   "text": "Random slot: toggles random cosmetic selection for the selected weapon"
+  },
+  {
+   "line": 19371,
+   "text": "One slot per ownable weapon: left click selects it, right click toggles the changer for it"
+  },
+  {
+   "line": 19427,
+   "text": "Rename weapon buttons by inventory slot when items are added so loadout weapons sort first"
+  },
+  {
+   "line": 19448,
+   "text": "Buttons to apply the current selection to all weapons and to reset every weapon to defaults"
+  },
+  {
+   "line": 19490,
+   "text": "Load cosmetic settings from saved JSON, filling in missing cosmetic types"
+  },
+  {
+   "line": 19536,
+   "text": "Show/hide aimbot and silent-aim FOV circles and drive their gradient rotation"
+  },
+  {
+   "line": 19565,
+   "text": "Rebuild FOV circle stroke, outline and fill gradients from their three color pickers"
+  },
+  {
+   "line": 19643,
+   "text": "Refresh the ESP healthbar gradient when its options change"
+  },
+  {
+   "line": 19655,
+   "text": "Fire update events when ESP fill, highlight, tracer, effect, animation or skybox options change"
+  },
+  {
+   "line": 19733,
+   "text": "Mark the script finished and load the autoload config"
+  },
+  {
+   "line": 19744,
+   "text": "Runs only if asset loading failed: obfuscator junk that decodes a dummy buffer in an endless loop"
+  },
+  {
+   "line": 19747,
+   "text": "Bitwise XOR of two non-negative integers"
+  },
+  {
+   "line": 19773,
+   "text": "Extracts a single bit or a bit range from a number"
+  },
+  {
+   "line": 19781,
+   "text": "Reads four XOR-decoded bytes from the dummy buffer as a 32-bit integer"
+  },
+  {
+   "line": 19785,
+   "text": "Decodes an IEEE 754 double from two 32-bit reads"
+  },
+  {
+   "line": 19803,
+   "text": "Fills throwaway tables with decoded values forever"
+  },
+  {
+   "line": 19846,
+   "text": "Drop references to loader internals, then run a constant integrity check before erroring"
+  }
+ ]
+}

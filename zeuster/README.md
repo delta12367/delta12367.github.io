@@ -13,7 +13,8 @@ python prepare.py ZeusterrEnhancements.txt     # writes head.lua + progdata.pkl
 python batch_lift.py noroot                     # lifts all functions except the main chunk -> noroot.pkl
 python runroot.py                               # lifts the main chunk (about 4 minutes) -> root.pkl
 python assemble.py out.lua root.pkl noroot.pkl  # decompiles everything into one Lua file (then rename.py)
-luau-compile --null out.lua                     # syntax and compile check
+python apply_names.py out.lua named.lua names/out_*.json   # hand-chosen names and section comments
+luau-compile --null named.lua                   # syntax and compile check
 ```
 
 Main stages: `interp.py` (Lua interpreter used to boot the VM), `lifter2.py` (abstract
@@ -107,6 +108,20 @@ Luau's 200-local limit), `constfold.py` (encrypted constants),
   `("...%s..."):format(x)` (9 places), as in the original. It previously came out as
   `string.format("...%s...", x)`, which needs the global `string` and breaks inside the hook
   functions whose environment the script replaces. Found by the unit round below.
+
+* Names and comments. The 2,780 locals that still had generated names (`v12`, `tbl3`, `arg1`,
+  `value4`, ...) were named by reading the code they appear in: what each value is assigned,
+  which fields and methods are used on it, what it is passed to and stored as, what a loop
+  iterates, which Roblox callback a parameter belongs to (`tools/names/`, applied with
+  `apply_names.py`, scope-checked like `rename.py`). 2,580 were renamed; 298 keep a generic
+  name, mostly change-callback parameters already called `value` and loop counters. 520 short
+  comments describe what each section does. The original names and comments are not in the
+  file, so these are reconstructions; the comments are additions. `apply_names.py` requires the
+  result to compile to exactly the same instructions and constants as before
+  (`luau-compile --text -g0 --dump-constants`), so the pass cannot change what the program does.
+  Where the script itself reads globals that are never defined (`wanted`, `syntax` and `api`
+  in the notifications of `lua.new`/`lua.unload`, bugs in the original), no local was given
+  those names, so the reads stay global as in the original.
 
 ## Verification (`oracle/`)
 

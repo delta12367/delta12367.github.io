@@ -1,0 +1,362 @@
+{
+ "renames": {
+  "12438,26 - 12438,30": "fighterHasItem",
+  "12438,42 - 12438,47": "fighter",
+  "12438,49 - 12438,53": "itemName",
+  "12443,31 - 12443,36": "fighterItem",
+  "12449,26 - 12449,30": "isBlocking",
+  "12450,26 - 12450,30": "isInvincible",
+  "12452,30 - 12452,34": "isKatanaDeflecting",
+  "12452,46 - 12452,50": "fighter",
+  "12452,52 - 12452,56": "equippedItem",
+  "12460,30 - 12460,34": "isRiotShieldBlocking",
+  "12460,46 - 12460,50": "fighter",
+  "12460,52 - 12460,56": "equippedItem",
+  "12460,58 - 12460,62": "origin",
+  "12460,64 - 12460,68": "targetPosition",
+  "12461,34 - 12461,38": "holdingShield",
+  "12473,40 - 12473,45": "fighter",
+  "12473,47 - 12473,51": "settings",
+  "12473,53 - 12473,57": "origin",
+  "12473,59 - 12473,63": "targetPosition",
+  "12479,40 - 12479,44": "fighter",
+  "12499,27 - 12499,31": "colorEntry",
+  "12514,26 - 12514,30": "colorText",
+  "12515,26 - 12515,30": "updateVisuals",
+  "12518,72 - 12518,77": "textCase",
+  "12521,40 - 12521,48": "colorKey",
+  "12521,50 - 12521,58": "content",
+  "12521,60 - 12521,68": "addNewline",
+  "12522,34 - 12522,42": "fontTag",
+  "12539,30 - 12539,34": "updateTargetUi",
+  "12543,38 - 12543,42": "popoutFrame",
+  "12553,38 - 12553,42": "itemSlots",
+  "12554,38 - 12554,42": "createItemSlot",
+  "12554,54 - 12554,58": "container",
+  "12555,42 - 12555,46": "slotFrame",
+  "12624,38 - 12624,43": "placeholderImages",
+  "12630,60 - 12630,64": "self",
+  "12630,66 - 12630,71": "items",
+  "12632,46 - 12632,50": "slot",
+  "12634,50 - 12634,54": "itemInfo",
+  "12635,50 - 12635,54": "itemImage",
+  "12639,50 - 12639,54": "isEquipped",
+  "12651,50 - 12651,53": "itemScale",
+  "12739,42 - 12739,47": "statLabels",
+  "12740,42 - 12740,46": "createStatLabel",
+  "12740,58 - 12740,62": "container",
+  "12740,64 - 12740,68": "statName",
+  "12786,64 - 12786,68": "self",
+  "12786,70 - 12786,75": "stats",
+  "12787,47 - 12787,51": "valueLabel",
+  "12793,48 - 12793,52": "stat",
+  "12795,50 - 12795,55": "statValue",
+  "12800,63 - 12800,67": "self",
+  "12800,69 - 12800,73": "playerName",
+  "12822,42 - 12822,46": "uiGradient",
+  "12823,42 - 12823,46": "createInstance",
+  "12824,42 - 12824,47": "gradientProps",
+  "12826,42 - 12826,47": "keypoints",
+  "12838,50 - 12838,55": "themeKeypoints",
+  "12848,38 - 12848,42": "nextLayoutOrder",
+  "12849,61 - 12849,65": "self",
+  "12849,67 - 12849,71": "barName",
+  "12902,42 - 12902,46": "barBackground",
+  "12911,42 - 12911,46": "barFill",
+  "12921,55 - 12921,60": "self",
+  "12921,62 - 12921,67": "barData",
+  "12924,50 - 12924,54": "fillRatio",
+  "12932,58 - 12932,63": "self",
+  "12944,34 - 12944,38": "healthBar",
+  "12945,34 - 12945,38": "damageRatioBar",
+  "12949,34 - 12949,38": "targetUiEnabled",
+  "12950,34 - 12950,38": "shownTargets",
+  "12952,34 - 12952,39": "previewShown",
+  "12953,82 - 12953,86": "isVisible",
+  "12961,38 - 12961,42": "updatePosition",
+  "12980,50 - 12980,58": "delta",
+  "12997,34 - 12997,38": "trackedPlayer",
+  "12998,34 - 12998,38": "damageDealt",
+  "12999,34 - 12999,38": "damageTaken",
+  "13000,34 - 13000,38": "lastHealth",
+  "13001,76 - 13001,84": "hitPart",
+  "13001,86 - 13001,94": "damage",
+  "13021,44 - 13021,49": "fighter",
+  "13021,51 - 13021,55": "player",
+  "13021,57 - 13021,61": "source",
+  "13022,38 - 13022,44": "showTarget",
+  "13040,42 - 13040,47": "slotData",
+  "13041,40 - 13041,43": "index",
+  "13041,45 - 13041,50": "fighterItem",
+  "13042,46 - 13042,50": "viewModelInfo",
+  "13054,50 - 13054,55": "stats",
+  "13055,50 - 13055,55": "levelStat",
+  "13056,50 - 13056,55": "rankStat",
+  "13063,58 - 13063,62": "controls",
+  "13064,56 - 13064,59": "deviceName",
+  "13086,50 - 13086,55": "stats",
+  "13087,50 - 13087,55": "levelStat",
+  "13088,50 - 13088,55": "rankStat",
+  "13095,58 - 13095,63": "devices",
+  "13103,42 - 13103,45": "pulse",
+  "13130,30 - 13130,35": "silentGradients",
+  "13135,30 - 13135,35": "aimbotGradients",
+  "13147,66 - 13147,71": "font",
+  "13150,30 - 13150,34": "ammoIndicatorEnabled",
+  "13151,30 - 13151,34": "ammoIndicatorStyle",
+  "13158,30 - 13158,34": "updateCrosshair",
+  "13161,38 - 13161,42": "crosshairLines",
+  "13168,38 - 13168,42": "quarterTurn",
+  "13172,38 - 13172,44": "crosshairEnabled",
+  "13173,38 - 13173,44": "crosshairOutline",
+  "13176,43 - 13176,48": "linePair",
+  "13183,43 - 13183,48": "linePair",
+  "13195,43 - 13195,48": "linePair",
+  "13196,46 - 13196,50": "mainLine",
+  "13197,46 - 13197,50": "outlineLine",
+  "13205,46 - 13205,50": "crosshairLine",
+  "13212,46 - 13212,50": "outlineLine",
+  "13220,48 - 13220,56": "targetPos",
+  "13220,58 - 13220,66": "now",
+  "13228,42 - 13228,50": "bounce",
+  "13229,42 - 13229,50": "rotation",
+  "13239,45 - 13239,50": "linePair",
+  "13242,46 - 13242,54": "angle",
+  "13243,46 - 13243,54": "direction",
+  "13244,46 - 13244,54": "offset",
+  "13263,40 - 13263,48": "screenCenter",
+  "13263,50 - 13263,58": "targetCharacter",
+  "13263,60 - 13263,68": "targetPart",
+  "13263,70 - 13263,78": "targetScreenPos",
+  "13263,80 - 13263,88": "onScreen",
+  "13263,90 - 13263,98": "indicatorText",
+  "13263,100 - 13263,108": "targetFighter",
+  "13263,110 - 13263,118": "targetPlayer",
+  "13263,120 - 13263,128": "targetSource",
+  "13270,34 - 13270,42": "targetAnchor",
+  "13276,42 - 13276,50": "screenPos",
+  "13276,52 - 13276,60": "inView",
+  "13305,70 - 13305,78": "muzzleOnScreen",
+  "13324,42 - 13324,50": "ammoStyle",
+  "13324,52 - 13324,60": "divider",
+  "13362,34 - 13362,42": "now",
+  "13372,41 - 13372,46": "gradient",
+  "13380,42 - 13380,48": "gradient",
+  "13441,34 - 13441,38": "rootPart",
+  "13442,34 - 13442,38": "ragebotRunning",
+  "13443,34 - 13443,38": "resetDesync",
+  "13457,38 - 13457,42": "currentCharacter",
+  "13459,38 - 13459,42": "onCharacterAdded",
+  "13459,54 - 13459,58": "character",
+  "13487,34 - 13487,38": "setClientCFrame",
+  "13487,50 - 13487,54": "cframe",
+  "13493,34 - 13493,38": "setServerCFrame",
+  "13493,50 - 13493,54": "cframe",
+  "13499,34 - 13499,38": "shouldRunRagebot",
+  "13500,34 - 13500,38": "runRagebot",
+  "13514,38 - 13514,42": "getBarrierPoints",
+  "13516,42 - 13516,46": "directions",
+  "13526,52 - 13526,56": "duel",
+  "13532,54 - 13532,59": "spawnCount",
+  "13539,75 - 13539,80": "points",
+  "13539,82 - 13539,86": "direction",
+  "13539,127 - 13539,131": "castVector",
+  "13539,144 - 13539,148": "castOrigin",
+  "13544,59 - 13544,63": "unitDirection",
+  "13578,55 - 13578,59": "unitDirection",
+  "13612,38 - 13612,42": "getVoidCFrame",
+  "13613,38 - 13613,42": "useRandomVoid",
+  "13614,38 - 13614,42": "getMapVoidCFrame",
+  "13616,42 - 13616,46": "pointCache",
+  "13621,54 - 13621,59": "cachedPoints",
+  "13626,50 - 13626,55": "points",
+  "13643,38 - 13643,42": "shouldVoidSpam",
+  "13644,38 - 13644,42": "knifeRagebot",
+  "13645,38 - 13645,42": "voidSpamEnabled",
+  "13647,42 - 13647,46": "voidSpamHideTime",
+  "13648,42 - 13648,46": "voidSpamAttackTime",
+  "13659,42 - 13659,48": "hiding",
+  "13672,38 - 13672,42": "meleeRagebot",
+  "13673,38 - 13673,42": "lastKnifeTarget",
+  "13675,42 - 13675,46": "nextAttackTime",
+  "13676,52 - 13676,57": "weapon",
+  "13676,59 - 13676,63": "hitbox",
+  "13676,65 - 13676,69": "targetCharacter",
+  "13676,71 - 13676,75": "targetFighter",
+  "13676,77 - 13676,81": "deltaTime",
+  "13676,83 - 13676,87": "targetName",
+  "13681,58 - 13681,61": "retargetTime",
+  "13686,54 - 13686,58": "hasShield",
+  "13686,60 - 13686,64": "shieldEquipped",
+  "13687,54 - 13687,58": "shieldHeld",
+  "13688,54 - 13688,58": "facingCFrame",
+  "13689,54 - 13689,58": "approachCFrame",
+  "13696,54 - 13696,57": "backstabCFrame",
+  "13698,58 - 13698,62": "animationName",
+  "13702,58 - 13702,62": "fireServer",
+  "13704,58 - 13704,62": "objectId",
+  "13705,58 - 13705,62": "actionEnum",
+  "13706,58 - 13706,63": "payload",
+  "13707,58 - 13707,63": "aimData",
+  "13732,38 - 13732,42": "gunRagebot",
+  "13736,42 - 13736,46": "goVoid",
+  "13740,52 - 13740,56": "weapon",
+  "13740,58 - 13740,62": "hitbox",
+  "13740,64 - 13740,68": "targetCharacter",
+  "13740,70 - 13740,74": "targetFighter",
+  "13740,76 - 13740,80": "deltaTime",
+  "13740,82 - 13740,86": "targetName",
+  "13749,54 - 13749,58": "hasShield",
+  "13749,60 - 13749,64": "shieldEquipped",
+  "13750,54 - 13750,58": "shieldHeld",
+  "13751,54 - 13751,58": "approachCFrame",
+  "13753,58 - 13753,61": "shieldCFrame",
+  "13755,58 - 13755,62": "shieldOffset",
+  "13763,54 - 13763,58": "facingCFrame",
+  "13767,58 - 13767,63": "animationName",
+  "13769,58 - 13769,62": "fireServer",
+  "13771,58 - 13771,62": "objectId",
+  "13772,58 - 13772,62": "actionEnum",
+  "13773,58 - 13773,63": "payload",
+  "13774,58 - 13774,63": "aimData",
+  "13791,38 - 13791,42": "findRagebotTarget"
+ },
+ "comments": [
+  {
+   "line": 12439,
+   "text": "Checks whether a fighter has an item with the given name; second return is true if it is equipped"
+  },
+  {
+   "line": 12452,
+   "text": "Detects katana deflects, riot shield blocks and invincibility on an enemy fighter"
+  },
+  {
+   "line": 12488,
+   "text": "Drawing text used for the on-screen indicator (ammo counter, ragebot status)"
+  },
+  {
+   "line": 12499,
+   "text": "Cache a rich-text font color tag per indicator color option and refresh it on change"
+  },
+  {
+   "line": 12518,
+   "text": "Indicator text case option and helper that wraps text in its indicator color tag"
+  },
+  {
+   "line": 12528,
+   "text": "Highlight in CoreGui used to outline the current target"
+  },
+  {
+   "line": 12542,
+   "text": "Target info popout: item slots, player name, stats and health/damage bars"
+  },
+  {
+   "line": 12555,
+   "text": "Creates a rounded item slot frame with an outline stroke and an item image"
+  },
+  {
+   "line": 12631,
+   "text": "Updates the four item slots with item images and accents the equipped one"
+  },
+  {
+   "line": 12741,
+   "text": "Creates a key label and an accent-colored value label for one stat"
+  },
+  {
+   "line": 12787,
+   "text": "Replaces the stat labels with the given key/value list"
+  },
+  {
+   "line": 12806,
+   "text": "Divider line with a theme-colored gradient"
+  },
+  {
+   "line": 12850,
+   "text": "Adds a labelled progress bar to the popout and returns set/delete handlers"
+  },
+  {
+   "line": 12954,
+   "text": "Popout is only interactive while the menu is visible"
+  },
+  {
+   "line": 12975,
+   "text": "Drag the popout with the mouse and save the new position to the position options"
+  },
+  {
+   "line": 13002,
+   "text": "Track damage dealt to and taken from the current target for the damage ratio bar"
+  },
+  {
+   "line": 13022,
+   "text": "Shows the target's health, items, stats and damage ratio when a target is selected"
+  },
+  {
+   "line": 13080,
+   "text": "No target: show an animated preview with random stats while the menu is open"
+  },
+  {
+   "line": 13114,
+   "text": "FOV circle drawings, tracer, highlight options and gradients for the visuals updater"
+  },
+  {
+   "line": 13162,
+   "text": "Custom crosshair: four arms, each a line plus an outline line"
+  },
+  {
+   "line": 13221,
+   "text": "Draws the crosshair arms with bounce, rotation and lerp toward the given position"
+  },
+  {
+   "line": 13264,
+   "text": "Per-frame visuals: moves FOV circles, indicator text and crosshair to target, barrel or center"
+  },
+  {
+   "line": 13324,
+   "text": "Append the ammo counter to the indicator text using the selected ammo style"
+  },
+  {
+   "line": 13386,
+   "text": "Target highlight and tracer line from the silent aim circle to the target"
+  },
+  {
+   "line": 13409,
+   "text": "Tamper traps: decoy values call the crash handler when stringified, iterated or measured"
+  },
+  {
+   "line": 13438,
+   "text": "Desync: keeps separate client and server root part CFrames; ragebot sets the server one"
+  },
+  {
+   "line": 13460,
+   "text": "On spawn, restore the client CFrame on the root part every render step"
+  },
+  {
+   "line": 13503,
+   "text": "Ragebot runs while it is enabled and its keybind is active"
+  },
+  {
+   "line": 13518,
+   "text": "Unit directions on a grid used for raycasts toward the map barriers"
+  },
+  {
+   "line": 13527,
+   "text": "Finds points just inside the map barriers by raycasting outward from the spawns' center"
+  },
+  {
+   "line": 13616,
+   "text": "Returns a random cached barrier point for the current duel map, or a far random void CFrame"
+  },
+  {
+   "line": 13650,
+   "text": "Void spam: alternate between hiding and attacking on configurable timers"
+  },
+  {
+   "line": 13677,
+   "text": "Knife ragebot: move behind the target (around riot shields) and backstab with heavy attacks"
+  },
+  {
+   "line": 13741,
+   "text": "Melee ragebot: move next to the target and fire attack remotes, voiding between swings"
+  }
+ ]
+}
